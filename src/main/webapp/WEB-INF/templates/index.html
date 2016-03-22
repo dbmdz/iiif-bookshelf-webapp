@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <body>
-    <center>
-        <img th:src="@{/images/iiif-logo-350x323.jpg}" width="100"/>
-        <h1>IIIF Service of the Bavarian State Library</h1>
-    </center>
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base">
+  <body>
+    <section layout:fragment="content">
 
     <ul>
         <li th:each="manifest : ${manifests}">
         <th:block th:text="${manifest}">Name</th:block>
     </li>
 </ul>
+    </section>
 </body>
 </html>
