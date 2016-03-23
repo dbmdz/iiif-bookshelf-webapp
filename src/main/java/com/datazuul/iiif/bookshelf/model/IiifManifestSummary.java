@@ -1,21 +1,32 @@
-package com.datazuul.iiif.catalog.portal.model;
+package com.datazuul.iiif.bookshelf.model;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author ralf
  */
+@Document(collection="iiif-manifest-summaries")
 public class IiifManifestSummary {
-    private String manifestUri;
+    @Id
+    private URI manifestUri;
     private String previewImageIiifImageServiceUri;
     private String label;
     private String description;
     private String attribution;
 
-    public String getManifestUri() {
+    public URI getManifestUri() {
         return manifestUri;
     }
 
-    public void setManifestUri(String manifestUri) {
+    public void setManifestUri(String manifestUri) throws URISyntaxException {
+        this.manifestUri = new URI(manifestUri);
+    }
+    
+    public void setManifestUri(URI manifestUri) {
         this.manifestUri = manifestUri;
     }
 

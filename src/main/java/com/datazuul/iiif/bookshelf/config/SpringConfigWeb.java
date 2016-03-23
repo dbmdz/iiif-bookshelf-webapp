@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datazuul.iiif.catalog.portal.config;
+package com.datazuul.iiif.bookshelf.config;
 
 import java.util.Locale;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
@@ -38,12 +38,12 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @ComponentScan(basePackages = {
-  "com.datazuul.iiif.catalog.portal.frontend.controller"
+  "com.datazuul.iiif.bookshelf.frontend.controller"
 })
 @EnableAspectJAutoProxy
 @EnableWebMvc
 @PropertySource(value = {
-  "classpath:com/datazuul/iiif/catalog/portal/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
+  "classpath:com/datazuul/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
 })
 public class SpringConfigWeb extends WebMvcConfigurerAdapter {
 

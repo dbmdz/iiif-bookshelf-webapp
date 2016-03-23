@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datazuul.iiif.catalog.portal.config;
+package com.datazuul.iiif.bookshelf.config;
 
 //import javax.servlet.Filter;
 import javax.servlet.ServletContext;
