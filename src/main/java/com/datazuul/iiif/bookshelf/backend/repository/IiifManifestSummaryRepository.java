@@ -9,5 +9,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  *
  * @author ralf
  */
-public interface IiifManifestRepository extends MongoRepository<IiifManifestSummary, URI> {
+public interface IiifManifestSummaryRepository extends MongoRepository<IiifManifestSummary, URI> {
 }

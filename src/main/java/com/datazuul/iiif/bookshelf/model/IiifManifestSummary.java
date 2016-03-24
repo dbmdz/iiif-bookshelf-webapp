@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class IiifManifestSummary {
     @Id
     private URI manifestUri;
-    private String previewImageIiifImageServiceUri;
+    private URI previewImageIiifImageServiceUri;
     private String label;
     private String description;
     private String attribution;
@@ -30,11 +30,11 @@ public class IiifManifestSummary {
         this.manifestUri = manifestUri;
     }
 
-    public String getPreviewImageIiifImageServiceUri() {
+    public URI getPreviewImageIiifImageServiceUri() {
         return previewImageIiifImageServiceUri;
     }
 
-    public void setPreviewImageIiifImageServiceUri(String previewImageIiifImageServiceUri) {
+    public void setPreviewImageIiifImageServiceUri(URI previewImageIiifImageServiceUri) {
         this.previewImageIiifImageServiceUri = previewImageIiifImageServiceUri;
     }
 

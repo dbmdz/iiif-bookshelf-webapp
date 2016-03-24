@@ -7,8 +7,10 @@ import java.util.List;
  *
  * @author ralf
  */
-public interface IiifManifestService {
+public interface IiifManifestSummaryService {
     public List<IiifManifestSummary> getAll();
     
     public IiifManifestSummary add(IiifManifestSummary manifest);
+
+    public void enrichAndSave(IiifManifestSummary manifestSummary);
 }

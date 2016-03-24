@@ -4,19 +4,25 @@
       layout:decorator="base">
     <body>
         <section layout:fragment="content">
-            
+
             <div class="row">
-  <div class="col-md-12" style="text-align: right;">
-      <p><a class="btn btn-primary" th:href="@{/add}" role="button">add <span class="glyphicon glyphicon-book" aria-hidden="true"></span></a></p>
-  </div>
+                <div class="col-md-12" style="text-align: right;">
+                    <p><a class="btn btn-primary" th:href="@{/add}" role="button">add <span class="glyphicon glyphicon-book" aria-hidden="true"></span></a></p>
+                </div>
             </div>
 
             <table class="table table-hover table-condensed">
                 <tr th:each="manifest : ${manifests}">
-                    <td th:text="${manifest}">Name</td>
+                    <td><img th:src="|${manifest.previewImageIiifImageServiceUri}/full/,90/0/default.jpg|"/></td>
+                    <!--                    <td th:text="${manifest.manifestUri}">URI</td>-->
+                    <td>
+                        <b th:text="${manifest.label}">label</b><br/>
+                        <span th:text="${manifest.description}">description</span><br/>
+                        <em th:text="${manifest.attribution}">attribution</em>
+                    </td>
                 </tr>
             </table>
-            
+
         </section>
     </body>
 </html>
