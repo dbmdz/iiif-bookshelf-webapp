@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.UUID;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,13 +16,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "iiif-manifest-summaries")
 public class IiifManifestSummary {
 
-  private Version version;
   @Id
+  private UUID uuid = UUID.randomUUID();
+
+  private Version version;
   private URI manifestUri;
   private URI previewImageIiifImageServiceUri;
   private HashMap<Locale, String> labels = new HashMap<>();
   private HashMap<Locale, String> descriptions = new HashMap<>();
   private HashMap<Locale, String> attributions = new HashMap<>();
+  
+  public UUID getUuid() {
+    return uuid;
+  }
+  public void setUuid(UUID uuid) {
+    this.uuid = uuid;
+  }
 
   public URI getManifestUri() {
     return manifestUri;

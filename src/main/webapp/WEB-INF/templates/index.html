@@ -32,6 +32,11 @@
                     <span th:text="${manifest.descriptions.isEmpty()} ? '' : (${manifest.descriptions.get(__${#locale.language}__) != null? manifest.descriptions.get(__${#locale.language}__) : manifest.descriptions.values().toArray()[0]})">description</span><br/>
                     <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.attributions.get(__${#locale.language}__) != null? manifest.attributions.get(__${#locale.language}__) : manifest.attributions.values().toArray()[0]})">attribution</em>
                 </td>
+                
+                <td>
+                    <span th:text="${manifest.manifestUri}">manifestUri</span><br/>
+                    <span th:text="${manifest.uuid}">uuid</span>
+                </td>
                 </tr>
             </table>
 
