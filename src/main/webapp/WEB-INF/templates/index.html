@@ -6,20 +6,32 @@
         <section layout:fragment="content">
 
             <div class="row">
-                <div class="col-md-12" style="text-align: right;">
+                <div class="col-md-10">
+                    Found <span th:text="${count}">17</span> books. Current language is <em th:text='${#locale.language}'>de</em>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
                     <p><a class="btn btn-primary" th:href="@{/add}" role="button">add <span class="glyphicon glyphicon-book" aria-hidden="true"></span></a></p>
                 </div>
             </div>
 
             <table class="table table-hover table-condensed">
                 <tr th:each="manifest : ${manifests}">
-                    <td><img th:src="|${manifest.previewImageIiifImageServiceUri}/full/,90/0/default.jpg|"/></td>
-                    <!--                    <td th:text="${manifest.manifestUri}">URI</td>-->
                     <td>
-                        <b th:text="${manifest.label}">label</b><br/>
-                        <span th:text="${manifest.description}">description</span><br/>
-                        <em th:text="${manifest.attribution}">attribution</em>
-                    </td>
+                <th:block th:if="${manifest.version} != null">
+                    <img th:if="${manifest.version.toString()} eq 'V1'" th:src="|${manifest.previewImageIiifImageServiceUri}/full/,90/0/native.jpg|"/>
+                    <img th:if="${manifest.version.toString()} eq 'V2'" th:src="|${manifest.previewImageIiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                </th:block>
+                <th:block th:if="${manifest.version} == null">
+                    <img th:src="|${manifest.previewImageIiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                </th:block>
+                </td>
+                <!--                    <td th:text="${manifest.manifestUri}">URI</td>-->
+                <td>
+                    <!-- ${#maps.containsKey(map, key)} -->
+                    <b th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.labels.get(__${#locale.language}__) != null? manifest.labels.get(__${#locale.language}__) : manifest.labels.values().toArray()[0]})">label</b><br/>
+                    <span th:text="${manifest.descriptions.isEmpty()} ? '' : (${manifest.descriptions.get(__${#locale.language}__) != null? manifest.descriptions.get(__${#locale.language}__) : manifest.descriptions.values().toArray()[0]})">description</span><br/>
+                    <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.attributions.get(__${#locale.language}__) != null? manifest.attributions.get(__${#locale.language}__) : manifest.attributions.values().toArray()[0]})">attribution</em>
+                </td>
                 </tr>
             </table>
 

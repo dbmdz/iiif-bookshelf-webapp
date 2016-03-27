@@ -8,9 +8,12 @@ import java.util.List;
  * @author ralf
  */
 public interface IiifManifestSummaryService {
-    public List<IiifManifestSummary> getAll();
-    
-    public IiifManifestSummary add(IiifManifestSummary manifest);
 
-    public void enrichAndSave(IiifManifestSummary manifestSummary);
+  public IiifManifestSummary add(IiifManifestSummary manifest);
+
+  public long countAll();
+
+  public void enrichAndSave(IiifManifestSummary manifestSummary);
+
+  public List<IiifManifestSummary> getAll();
 }

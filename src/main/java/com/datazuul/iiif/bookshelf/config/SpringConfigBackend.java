@@ -71,6 +71,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
   public ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new IiifPresentationApiObjectMapper();
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
     // define which fields schould be ignored with Filter-classes:
 //        objectMapper.addMixIn(User.class, UserJsonFilter.class);
 //        objectMapper.addMixIn(GrantedAuthority.class, GrantedAuthorityJsonFilter.class);

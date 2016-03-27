@@ -21,6 +21,7 @@ public class WebController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("manifests", iiifManifestSummaryService.getAll());
+        model.addAttribute("count", iiifManifestSummaryService.countAll());
 //    model.addAttribute("infoUrl", "/iiif/image/" + identifier + "/info.json");
         return "index";
     }
