@@ -30,11 +30,11 @@
                     <!-- ${#maps.containsKey(map, key)} -->
                     <b th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.labels.get(__${#locale.language}__) != null? manifest.labels.get(__${#locale.language}__) : manifest.labels.values().toArray()[0]})">label</b><br/>
                     <span class="description" th:text="${manifest.descriptions.isEmpty()} ? '' : (${manifest.descriptions.get(__${#locale.language}__) != null? manifest.descriptions.get(__${#locale.language}__) : manifest.descriptions.values().toArray()[0]})">description</span><br/>
-                    <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.attributions.get(__${#locale.language}__) != null? manifest.attributions.get(__${#locale.language}__) : manifest.attributions.values().toArray()[0]})">attribution</em>
+                    <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.attributions.get(__${#locale.language}__) != null? manifest.attributions.get(__${#locale.language}__) : manifest.attributions.values().toArray()[0]})">attribution</em><br/>
+                    <a th:href="${manifest.manifestUri}" target="_blank">IIIF-Manifest</a><br/>
                 </td>
 
                 <td>
-                    <span th:text="${manifest.manifestUri}">manifestUri</span><br/>
                     <a class="btn btn-primary btn-xs" th:href="@{/view/__${manifest.uuid}__}">read <span class="glyphicon glyphicon-chevron-right"></span></a>
                 </td>
                 </tr>
