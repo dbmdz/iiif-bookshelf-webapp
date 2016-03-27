@@ -1,7 +1,7 @@
 IIIF Bookshelf Webapp
 =====================
-This is a webapp for collecting IIIF represenations of books.
-It is based on the functionality of the IIIF Presentation API for modelling books.
+This is a webapp for collecting <a href="http://iiif.io">IIIF</a> representations of books.
+It is based on the functionality of the <a href="http://iiif.io/api/presentation/2.0/">IIIF Presentation API</a> for modelling books.
 You can add books to your bookshelf by loading the manifest.json of the book.
 
 Installation
