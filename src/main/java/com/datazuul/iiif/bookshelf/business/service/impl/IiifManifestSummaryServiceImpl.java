@@ -14,7 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.logging.Level;
+import java.util.UUID;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -48,9 +48,14 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     return iiifManifestSummaryRepository.count();
   }
 
+  public IiifManifestSummary get(UUID uuid) {
+    return iiifManifestSummaryRepository.findOne(uuid);
+  }
+  
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
-    if (iiifManifestSummaryRepository.exists(manifest.getManifestUri())) {
+    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifest.getManifestUri());
+    if (existingManifest != null) {
       throw new IllegalArgumentException("object already exists");
     }
     return iiifManifestSummaryRepository.save(manifest);
@@ -63,7 +68,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       fillFromJsonObject(manifestSummary);
       iiifManifestSummaryRepository.save(manifestSummary);
     } catch (Exception ex) {
-      LOGGER.warn("Can not fill from manifest " + manifestSummary.getManifestUri().toString(), ex);
+      LOGGER.warn("Can not fill from manifest " + manifestSummary.getManifestUri(), ex);
     }
   }
 
@@ -95,18 +100,21 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
       }
     }
-    manifestSummary.setPreviewImageIiifImageServiceUri(thumbnailServiceUri);
+    manifestSummary.setPreviewImageIiifImageServiceUri(thumbnailServiceUri.toString());
   }
 
   /**
-   * Language may be associated with strings that are intended to be displayed to the user with the following pattern of @value plus the RFC 5646 code in @language, instead of a plain string. This
-   * pattern may be used in label, description, attribution and the label and value fields of the metadata construction.
+   * Language may be associated with strings that are intended to be displayed
+   * to the user with the following pattern of @value plus the RFC 5646 code in
+   * @language, instead of a plain string. This pattern may be used in label,
+   * description, attribution and the label and value fields of the metadata
+   * construction.
    *
    * @param manifestSummary
    * @throws NotFoundException
    * @throws ParseException
    */
-  private void fillFromJsonObject(IiifManifestSummary manifestSummary) throws NotFoundException, ParseException {
+  private void fillFromJsonObject(IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, ParseException {
     JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
 
     Version version = Version.getVersion((String) jsonObject.get("@context"));
@@ -125,11 +133,14 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     manifestSummary.setAttributions(localizedAttributions);
 
     URI previewImageIiifImageServiceUri = getThumbnailUri(jsonObject);
-    manifestSummary.setPreviewImageIiifImageServiceUri(previewImageIiifImageServiceUri);
+    manifestSummary.setPreviewImageIiifImageServiceUri(previewImageIiifImageServiceUri.toString());
   }
 
   public HashMap<Locale, String> getLocalizedStrings(Object jsonNode) {
     HashMap<Locale, String> result = new HashMap<>();
+    if (jsonNode == null) {
+      return result;
+    }
     if (JSONArray.class.isAssignableFrom(jsonNode.getClass())) {
       JSONArray descriptions = (JSONArray) jsonNode;
       for (Object descr : descriptions) {
@@ -159,10 +170,10 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       // manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService().getId();
       JSONArray sequencesArray = (JSONArray) manifestObj.get("sequences");
       JSONObject firstSequence = (JSONObject) sequencesArray.get(0);
-      
+
       JSONArray canvasesArray = (JSONArray) firstSequence.get("canvases");
       JSONObject firstCanvas = (JSONObject) canvasesArray.get(0);
-      
+
       JSONArray imagesArray = (JSONArray) firstCanvas.get("images");
       JSONObject firstImage = (JSONObject) imagesArray.get(0);
 

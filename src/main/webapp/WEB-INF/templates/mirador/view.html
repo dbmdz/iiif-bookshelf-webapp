@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base">
+    <head>
+        <link rel="stylesheet" type="text/css" th:href="@{/vendor/mirador/css/mirador-combined.css}" />
+        <style type="text/css">
+            body { padding: 0; margin: 0; overflow: hidden; font-size: 70%; }
+            #viewer { background: #333; width: 100%; height: 100%; position: fixed; }
+        </style>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            <div id="viewer"></div>
+
+            <script th:src="@{/vendor/mirador/mirador.js}"></script>
+            <script type="text/javascript" th:inline="javascript">
+                $(function () {
+                Mirador({
+                "id": "viewer",
+                        "workspaceType": "singleObject",
+                        "mainMenuSettings": {
+                        "show": false
+                        },
+                        "layout": "1x1",
+                        "data": [
+                        {
+                        "manifestUri": [[${manifestId}]]
+                        }
+                        ],
+                        "windowObjects": [
+                        {
+                        "loadedManifest": [[${manifestId}]],
+                                "viewType": "ImageView",
+                                "layoutOptions": {
+                                "close": false,
+                                        "slotRight": false,
+                                        "slotLeft": false,
+                                        "slotAbove": false,
+                                        "slotBelow": false
+                                },
+                                "annotationLayer": false,
+                                "annotationCreation": false,
+                                "saveSession": false,
+                                "displayLayout": false,
+                                "bottomPanel" : true,
+                                "sidePanel" : false
+                        }]
+                });
+                });
+            </script>
+
+        </section>
+    <th:block layout:fragment="basejs"></th:block>
+    </body>
+</html>

@@ -34,3 +34,7 @@ Usage
         > db.getCollection('iiif-manifest-summaries').drop()
         true
 
+TODO
+----
+
+* UUID: use BSON4 instead BSON3

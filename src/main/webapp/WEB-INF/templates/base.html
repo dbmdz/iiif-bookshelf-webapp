@@ -76,6 +76,8 @@
 
         </div>
     </footer>
+
+<th:block layout:fragment="basejs">
     <!--/*  Footer Ende  */-->
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
@@ -85,8 +87,9 @@
 
     <!--/* Own JS */-->
     <script th:src="@{/js/main.js}"></script>
+</th:block>
 
-    <!--/* Add JS in child templates */-->
+<!--/* Add JS in child templates */-->
 <th:block layout:fragment="morejs"> </th:block>
 </body>
 </html>

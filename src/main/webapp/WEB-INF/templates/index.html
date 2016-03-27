@@ -35,7 +35,7 @@
                 
                 <td>
                     <span th:text="${manifest.manifestUri}">manifestUri</span><br/>
-                    <span th:text="${manifest.uuid}">uuid</span>
+                    <a class="btn btn-primary btn-xs" th:href="@{/view/__${manifest.uuid}__}">read <span class="glyphicon glyphicon-chevron-right"></span></a>
                 </td>
                 </tr>
             </table>

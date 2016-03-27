@@ -1,7 +1,7 @@
 package com.datazuul.iiif.bookshelf.backend.repository;
 
 import com.datazuul.iiif.bookshelf.model.IiifManifestSummary;
-import java.net.URI;
+import java.util.UUID;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
@@ -9,5 +9,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  *
  * @author ralf
  */
-public interface IiifManifestSummaryRepository extends MongoRepository<IiifManifestSummary, URI> {
+public interface IiifManifestSummaryRepository extends MongoRepository<IiifManifestSummary, UUID> {
+    public IiifManifestSummary findByManifestUri(String manifestUri);
 }

@@ -4,10 +4,15 @@
       layout:decorator="base">
     <body>
         <section layout:fragment="content">
-
             <form action="#" th:action="@{/add}" th:object="${manifest}" method="post">
-                <input type="text" th:field="*{manifestUri}" size="50"/>
-                <button name="submit" type="submit" class="btn btn-primary">load</button>
+                <div class="row">
+                    <div class="col-md-10">
+                        <input type="text" th:field="*{manifestUri}" class="form-control"/>
+                    </div>
+                    <div class="col-md-2">
+                        <button name="submit" type="submit" class="btn btn-primary">load</button>
+                    </div>
+                </div>
             </form>
 
         </section>
