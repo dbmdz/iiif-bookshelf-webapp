@@ -41,7 +41,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Override
   public List<IiifManifestSummary> getAll() {
-    return iiifManifestSummaryRepository.findAll();
+    return iiifManifestSummaryRepository.findAllByOrderByLastModifiedDesc();
   }
 
   @Override

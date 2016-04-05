@@ -6,15 +6,19 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
+import org.mongeez.MongeezRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
@@ -30,6 +34,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
   "classpath:com/datazuul/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
 })
 @EnableMongoRepositories(basePackages = {"com.datazuul.iiif.bookshelf.backend.repository"})
+@EnableMongoAuditing
 @Import(SpringConfigBackendPresentation.class)
 public class SpringConfigBackend extends AbstractMongoConfiguration {
 
@@ -63,6 +68,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
 
   @Bean
   @Override
+  @DependsOn(value = "mongeezRunner")
   public MongoTemplate mongoTemplate() throws Exception {
     return new MongoTemplate(mongo(), getDatabaseName());
   }
@@ -76,5 +82,24 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
 //        objectMapper.addMixIn(User.class, UserJsonFilter.class);
 //        objectMapper.addMixIn(GrantedAuthority.class, GrantedAuthorityJsonFilter.class);
     return objectMapper;
+  }
+
+  /*
+  see https://github.com/mongeez/mongeez/wiki/How-to-use-mongeez
+  
+  done migration:
+  [2016-04-05 16:46:55,826 INFO ] [...] ChangeSetExecutor         (main    ) > ChangeSet already executed: ChangeSet-1_1
+  
+  Mongeez uses a separate MongoDB collection to record previously run scripts:
+  db.mongeez.find().pretty()
+   */
+  @Bean
+  public MongeezRunner mongeezRunner() throws Exception {
+    MongeezRunner mongeezRunner = new MongeezRunner();
+    mongeezRunner.setMongo(mongo());
+    mongeezRunner.setExecuteEnabled(true);
+    mongeezRunner.setDbName(getDatabaseName());
+    mongeezRunner.setFile(new ClassPathResource("/com/datazuul/iiif/bookshelf/mongeez/mongeez.xml"));
+    return mongeezRunner;
   }
 }

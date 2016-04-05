@@ -1,10 +1,15 @@
 package com.datazuul.iiif.bookshelf.model;
 
 import com.datazuul.iiif.presentation.api.model.Version;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.UUID;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -23,6 +28,30 @@ public class IiifManifestSummary {
   private HashMap<Locale, String> descriptions = new HashMap<>();
   private HashMap<Locale, String> attributions = new HashMap<>();
   private Thumbnail thumbnail;
+  
+  // DOES NOT WORK BECAUSE OF CUSTOM @Id (not being mongo object id):
+//  @Temporal(TemporalType.TIMESTAMP)
+//  @CreatedDate
+//  private Date created;
+  @Temporal(TemporalType.TIMESTAMP)
+  @LastModifiedDate
+  private Date lastModified;
+
+//  public Date getCreated() {
+//    return created;
+//  }
+//
+//  public void setCreated(Date created) {
+//    this.created = created;
+//  }
+
+  public Date getLastModified() {
+    return lastModified;
+  }
+
+  public void setLastModified(Date lastModified) {
+    this.lastModified = lastModified;
+  }
 
   public Thumbnail getThumbnail() {
     return thumbnail;
