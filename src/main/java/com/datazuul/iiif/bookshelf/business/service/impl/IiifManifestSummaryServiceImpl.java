@@ -21,6 +21,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -42,6 +44,11 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   @Override
   public List<IiifManifestSummary> getAll() {
     return iiifManifestSummaryRepository.findAllByOrderByLastModifiedDesc();
+  }
+
+  @Override
+  public Page<IiifManifestSummary> getAll(Pageable pageable) {
+    return iiifManifestSummaryRepository.findAllByOrderByLastModifiedDesc(pageable);
   }
 
   @Override

@@ -3,6 +3,8 @@ package com.datazuul.iiif.bookshelf.business.service;
 import com.datazuul.iiif.bookshelf.model.IiifManifestSummary;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -19,4 +21,6 @@ public interface IiifManifestSummaryService {
   public IiifManifestSummary get(UUID uuid);
 
   public List<IiifManifestSummary> getAll();
+  
+  public Page<IiifManifestSummary> getAll(Pageable pageable);
 }

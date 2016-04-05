@@ -21,6 +21,7 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 /**
  *
@@ -35,6 +36,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 })
 @EnableMongoRepositories(basePackages = {"com.datazuul.iiif.bookshelf.backend.repository"})
 @EnableMongoAuditing
+@EnableSpringDataWebSupport
 @Import(SpringConfigBackendPresentation.class)
 public class SpringConfigBackend extends AbstractMongoConfiguration {
 
