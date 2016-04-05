@@ -17,12 +17,20 @@
             <table class="table table-hover table-condensed">
                 <tr th:each="manifest : ${manifests}">
                     <td>
-                <th:block th:if="${manifest.version} != null">
-                    <img th:if="${manifest.version.toString()} eq 'V1'" th:src="|${manifest.previewImageIiifImageServiceUri}/full/,90/0/native.jpg|"/>
-                    <img th:if="${manifest.version.toString()} eq 'V2'" th:src="|${manifest.previewImageIiifImageServiceUri}/full/,90/0/default.jpg|"/>
-                </th:block>
-                <th:block th:if="${manifest.version} == null">
-                    <img th:src="|${manifest.previewImageIiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                <th:block th:if="${manifest.thumbnail} != null">
+                    <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
+                        <img th:if="${manifest.thumbnail.iiifImageApiVersion.toString()} eq 'V1_1'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/native.jpg|"/>
+                        <img th:if="${manifest.thumbnail.iiifImageApiVersion.toString()} eq 'V2'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                    </th:block>
+                    <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} == null">
+                        <th:block th:if="${manifest.version} != null">
+                            <img th:if="${manifest.version.toString()} eq 'V1'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/native.jpg|"/>
+                            <img th:if="${manifest.version.toString()} eq 'V2'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                        </th:block>
+                        <th:block th:if="${manifest.version} == null">
+                            <img th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                        </th:block>
+                    </th:block>
                 </th:block>
                 </td>
                 <!--                    <td th:text="${manifest.manifestUri}">URI</td>-->

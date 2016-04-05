@@ -14,93 +14,93 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "iiif-manifest-summaries")
 public class IiifManifestSummary {
 
-    @Id
-    private UUID uuid = UUID.randomUUID();
+  @Id
+  private UUID uuid = UUID.randomUUID();
 
-    private Version version;
-    private String manifestUri;
-    private String previewImageIiifImageServiceUri;
-    private HashMap<Locale, String> labels = new HashMap<>();
-    private HashMap<Locale, String> descriptions = new HashMap<>();
-    private HashMap<Locale, String> attributions = new HashMap<>();
+  private Version version;
+  private String manifestUri;
+  private HashMap<Locale, String> labels = new HashMap<>();
+  private HashMap<Locale, String> descriptions = new HashMap<>();
+  private HashMap<Locale, String> attributions = new HashMap<>();
+  private Thumbnail thumbnail;
 
-    public UUID getUuid() {
-        return uuid;
-    }
+  public Thumbnail getThumbnail() {
+    return thumbnail;
+  }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
+  public void setThumbnail(Thumbnail thumbnail) {
+    this.thumbnail = thumbnail;
+  }
 
-    public String getManifestUri() {
-        return manifestUri;
-    }
+  public UUID getUuid() {
+    return uuid;
+  }
 
-    public void setManifestUri(String manifestUri) {
-        this.manifestUri = manifestUri;
-    }
+  public void setUuid(UUID uuid) {
+    this.uuid = uuid;
+  }
 
-    public String getPreviewImageIiifImageServiceUri() {
-        return previewImageIiifImageServiceUri;
-    }
+  public String getManifestUri() {
+    return manifestUri;
+  }
 
-    public void setPreviewImageIiifImageServiceUri(String previewImageIiifImageServiceUri) {
-        this.previewImageIiifImageServiceUri = previewImageIiifImageServiceUri;
-    }
+  public void setManifestUri(String manifestUri) {
+    this.manifestUri = manifestUri;
+  }
 
-    public void addLabel(Locale locale, String label) {
-        labels.put(locale, label);
-    }
+  public void addLabel(Locale locale, String label) {
+    labels.put(locale, label);
+  }
 
-    public String getLabel(Locale locale) {
-        return labels.get(locale);
-    }
+  public String getLabel(Locale locale) {
+    return labels.get(locale);
+  }
 
-    public HashMap<Locale, String> getLabels() {
-        return labels;
-    }
+  public HashMap<Locale, String> getLabels() {
+    return labels;
+  }
 
-    public void setLabels(HashMap<Locale, String> labels) {
-        this.labels = labels;
-    }
+  public void setLabels(HashMap<Locale, String> labels) {
+    this.labels = labels;
+  }
 
-    public void addDescription(Locale locale, String description) {
-        descriptions.put(locale, description);
-    }
+  public void addDescription(Locale locale, String description) {
+    descriptions.put(locale, description);
+  }
 
-    public String getDescription(Locale locale) {
-        return descriptions.get(locale);
-    }
+  public String getDescription(Locale locale) {
+    return descriptions.get(locale);
+  }
 
-    public HashMap<Locale, String> getDescriptions() {
-        return descriptions;
-    }
+  public HashMap<Locale, String> getDescriptions() {
+    return descriptions;
+  }
 
-    public void setDescriptions(HashMap<Locale, String> descriptions) {
-        this.descriptions = descriptions;
-    }
+  public void setDescriptions(HashMap<Locale, String> descriptions) {
+    this.descriptions = descriptions;
+  }
 
-    public void addAttribution(Locale locale, String attribution) {
-        attributions.put(locale, attribution);
-    }
+  public void addAttribution(Locale locale, String attribution) {
+    attributions.put(locale, attribution);
+  }
 
-    public String getAttribution(Locale locale) {
-        return attributions.get(locale);
-    }
+  public String getAttribution(Locale locale) {
+    return attributions.get(locale);
+  }
 
-    public HashMap<Locale, String> getAttributions() {
-        return attributions;
-    }
+  public HashMap<Locale, String> getAttributions() {
+    return attributions;
+  }
 
-    public void setAttributions(HashMap<Locale, String> attributions) {
-        this.attributions = attributions;
-    }
+  public void setAttributions(HashMap<Locale, String> attributions) {
+    this.attributions = attributions;
+  }
 
-    public Version getVersion() {
-        return version;
-    }
+  public Version getVersion() {
+    return version;
+  }
 
-    public void setVersion(Version version) {
-        this.version = version;
-    }
+  public void setVersion(Version version) {
+    this.version = version;
+  }
 }

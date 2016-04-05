@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.datazuul.iiif.bookshelf.backend.repository.IiifManifestSummaryRepository;
 import com.datazuul.iiif.bookshelf.business.service.IiifManifestSummaryService;
+import com.datazuul.iiif.bookshelf.model.Thumbnail;
 import com.datazuul.iiif.presentation.api.model.Version;
 import com.datazuul.iiif.presentation.backend.repository.PresentationRepository;
 import com.datazuul.iiif.presentation.model.NotFoundException;
@@ -51,7 +52,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   public IiifManifestSummary get(UUID uuid) {
     return iiifManifestSummaryRepository.findOne(uuid);
   }
-  
+
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
     final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifest.getManifestUri());
@@ -64,6 +65,11 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   @Override
   public void enrichAndSave(IiifManifestSummary manifestSummary) {
     try {
+      // if exists already: update existing manifest
+      final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestSummary.getManifestUri());
+      if (existingManifest != null) {
+        manifestSummary = existingManifest;
+      }
 //      fillFromManifest(manifestSummary);
       fillFromJsonObject(manifestSummary);
       iiifManifestSummaryRepository.save(manifestSummary);
@@ -87,6 +93,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     manifestSummary.addAttribution(DEFAULT_LOCALE, attribution);
 
     URI thumbnailServiceUri = null;
+    String context = null;
     try {
       thumbnailServiceUri = manifest.getThumbnail().getService().getId();
     } catch (Exception ex) {
@@ -94,18 +101,21 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
     if (thumbnailServiceUri == null) {
       try {
+        final com.datazuul.iiif.presentation.api.model.other.Service service = manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService();
         // first image
-        thumbnailServiceUri = manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService().getId();
+        thumbnailServiceUri = service.getId();
+        context = service.getContext();
       } catch (Exception ex) {
 
       }
     }
-    manifestSummary.setPreviewImageIiifImageServiceUri(thumbnailServiceUri.toString());
+    manifestSummary.setThumbnail(new Thumbnail(thumbnailServiceUri.toString(), context));
   }
 
   /**
    * Language may be associated with strings that are intended to be displayed
    * to the user with the following pattern of @value plus the RFC 5646 code in
+   *
    * @language, instead of a plain string. This pattern may be used in label,
    * description, attribution and the label and value fields of the metadata
    * construction.
@@ -132,8 +142,8 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     HashMap<Locale, String> localizedAttributions = getLocalizedStrings(attribution);
     manifestSummary.setAttributions(localizedAttributions);
 
-    URI previewImageIiifImageServiceUri = getThumbnailUri(jsonObject);
-    manifestSummary.setPreviewImageIiifImageServiceUri(previewImageIiifImageServiceUri.toString());
+    Thumbnail thumbnail = getThumbnail(jsonObject);
+    manifestSummary.setThumbnail(thumbnail);
   }
 
   public HashMap<Locale, String> getLocalizedStrings(Object jsonNode) {
@@ -156,13 +166,14 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     return result;
   }
 
-  private URI getThumbnailUri(JSONObject manifestObj) {
+  private Thumbnail getThumbnail(JSONObject manifestObj) {
     try {
       // manifest.getThumbnail().getService().getId();
       JSONObject thumbnailObj = (JSONObject) manifestObj.get("thumbnail");
       JSONObject serviceObj = (JSONObject) thumbnailObj.get("service");
+      String context = (String) serviceObj.get("@context");
       String id = (String) serviceObj.get("@id");
-      return new URI(id);
+      return new Thumbnail(context, id);
     } catch (Exception ex) {
     }
 
@@ -179,8 +190,9 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
       JSONObject resourceObj = (JSONObject) firstImage.get("resource");
       JSONObject serviceObj = (JSONObject) resourceObj.get("service");
+      String context = (String) serviceObj.get("@context");
       String id = (String) serviceObj.get("@id");
-      return new URI(id);
+      return new Thumbnail(context, id);
     } catch (Exception ex) {
     }
 
