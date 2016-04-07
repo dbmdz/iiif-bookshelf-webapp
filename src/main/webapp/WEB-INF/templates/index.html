@@ -6,7 +6,7 @@
         <section layout:fragment="content">
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="table-pagination">
                         <ul class="pagination pagination-sm">
                             <li th:class="${page.number eq 0} ? 'disabled' : ''">
@@ -26,7 +26,7 @@
                                     <span th:text="${pageNo + 1}"></span>
                                 </a>
                             </li>
-                            
+
                             <li th:class="${page.number + 1 ge page.totalPages} ? 'disabled' : ''">
                                 <a th:if="${not page.last}" aria-label="Next" th:href="@{${'/'}(page=${page.number+1},size=${page.size})}"><span class="glyphicon glyphicon-forward"></span></a>
                                 <a th:if="${page.last}" aria-label="Next" href="javascript:void(0);"><span class="glyphicon glyphicon-forward"></span></a>
@@ -39,9 +39,21 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <form action="#" th:action="@{/find}" th:object="${searchRequest}" method="post">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input type="text" name="searchText" th:field="*{term}" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <button name="submit" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3">
                     Found <span th:text="${page.totalElements}">17</span> books. Current language is <em th:text='${#locale.language}'>de</em>
                 </div>
-                <div class="col-md-2" style="text-align: right;">
+                <div class="col-md-1" style="text-align: right;">
                     <p><a class="btn btn-primary" th:href="@{/add}" role="button">add <span class="glyphicon glyphicon-book" aria-hidden="true"></span></a></p>
                 </div>
             </div>

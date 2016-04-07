@@ -17,6 +17,8 @@ public interface IiifManifestSummaryService {
   public long countAll();
 
   public void enrichAndSave(IiifManifestSummary manifestSummary);
+  
+  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable);
 
   public IiifManifestSummary get(UUID uuid);
 

@@ -7,16 +7,18 @@ import java.util.Locale;
 import java.util.UUID;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.TextScore;
 
 /**
  *
  * @author ralf
  */
 @Document(collection = "iiif-manifest-summaries")
+//@CompoundIndex(name = "labels_descriptions_attributions_idx", def = "{'descriptions.values' : 1, 'labels.values' : 2, 'attributions.values' : 1}")
 public class IiifManifestSummary {
 
   @Id
@@ -24,11 +26,16 @@ public class IiifManifestSummary {
 
   private Version version;
   private String manifestUri;
+  @TextIndexed(weight = 2)
   private HashMap<Locale, String> labels = new HashMap<>();
+  @TextIndexed
   private HashMap<Locale, String> descriptions = new HashMap<>();
+  @TextIndexed
   private HashMap<Locale, String> attributions = new HashMap<>();
   private Thumbnail thumbnail;
-  
+  @TextScore
+  private Float score;
+
   // DOES NOT WORK BECAUSE OF CUSTOM @Id (not being mongo object id):
 //  @Temporal(TemporalType.TIMESTAMP)
 //  @CreatedDate
@@ -44,7 +51,6 @@ public class IiifManifestSummary {
 //  public void setCreated(Date created) {
 //    this.created = created;
 //  }
-
   public Date getLastModified() {
     return lastModified;
   }

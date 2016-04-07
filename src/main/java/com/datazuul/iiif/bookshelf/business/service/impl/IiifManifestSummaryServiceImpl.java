@@ -52,6 +52,11 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
+  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) {
+    return iiifManifestSummaryRepository.findBy(searchText, pageable);
+  }
+
+  @Override
   public long countAll() {
     return iiifManifestSummaryRepository.count();
   }
@@ -134,6 +139,12 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   private void fillFromJsonObject(IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, ParseException {
     JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
 
+    // TODO if this is allowed:
+    /*
+    IiifManifestSummaryServiceImpl (qtp1871259950-20) > Can not fill from manifest http://wellcomelibrary.org/iiif/b24744803/manifest
+    java.lang.ClassCastException: org.json.simple.JSONArray cannot be cast to java.lang.String
+	at com.datazuul.iiif.bookshelf.business.service.impl.IiifManifestSummaryServiceImpl.fillFromJsonObject(IiifManifestSummaryServiceImpl.java:142)
+     */
     Version version = Version.getVersion((String) jsonObject.get("@context"));
     manifestSummary.setVersion(version);
 

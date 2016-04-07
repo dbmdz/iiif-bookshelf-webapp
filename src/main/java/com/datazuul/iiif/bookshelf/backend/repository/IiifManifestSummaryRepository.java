@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
@@ -12,8 +13,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  *
  * @author ralf
  */
-public interface IiifManifestSummaryRepository extends MongoRepository<IiifManifestSummary, UUID> {
-    public IiifManifestSummary findByManifestUri(String manifestUri);
-    public List<IiifManifestSummary> findAllByOrderByLastModifiedDesc();
-    public Page<IiifManifestSummary> findAllByOrderByLastModifiedDesc(Pageable pageRequest);
+public interface IiifManifestSummaryRepository extends MongoRepository<IiifManifestSummary, UUID>, IiifManifestSummaryRepositoryCustom {
+
+  public IiifManifestSummary findByManifestUri(String manifestUri);
+
+  public List<IiifManifestSummary> findAllByOrderByLastModifiedDesc();
+
+  public Page<IiifManifestSummary> findAllByOrderByLastModifiedDesc(Pageable pageRequest);
+
+  public Page<IiifManifestSummary> findBy(TextCriteria criteria, Pageable page); // do not expose mongo TextCriteria to service layer!
 }
