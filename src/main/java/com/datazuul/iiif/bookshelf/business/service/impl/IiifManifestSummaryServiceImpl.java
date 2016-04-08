@@ -83,7 +83,12 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
         manifestSummary = existingManifest;
       }
 //      fillFromManifest(manifestSummary);
-      fillFromJsonObject(manifestSummary);
+
+      JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
+//      @type: "sc:Manifest"
+
+      fillFromJsonObject(jsonObject, manifestSummary);
+
       iiifManifestSummaryRepository.save(manifestSummary);
     } catch (Exception ex) {
       LOGGER.warn("Can not fill from manifest " + manifestSummary.getManifestUri(), ex);
@@ -136,8 +141,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
    * @throws NotFoundException
    * @throws ParseException
    */
-  private void fillFromJsonObject(IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, ParseException {
-    JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
+  private void fillFromJsonObject(JSONObject jsonObject, IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, ParseException {
 
     // TODO if this is allowed:
     /*

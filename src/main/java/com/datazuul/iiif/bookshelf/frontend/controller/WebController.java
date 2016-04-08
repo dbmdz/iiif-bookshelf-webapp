@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.datazuul.iiif.bookshelf.business.service.IiifManifestSummaryService;
+import com.datazuul.iiif.bookshelf.frontend.model.PageWrapper;
 import com.datazuul.iiif.bookshelf.model.SearchRequest;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,7 @@ public class WebController {
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String list(Model model, Pageable pageRequest) {
     final Page<IiifManifestSummary> page = iiifManifestSummaryService.getAll(pageRequest);
-    model.addAttribute("page", page);
+    model.addAttribute("page", new PageWrapper(page, "/"));
     model.addAttribute("searchRequest", new SearchRequest());
     
 //    model.addAttribute("manifests", iiifManifestSummaryService.getAll());
@@ -51,7 +52,7 @@ public class WebController {
   @RequestMapping(value = "/find", method = RequestMethod.POST)
   public String find(SearchRequest searchRequest, Model model, Pageable pageRequest) {
     final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(searchRequest.getTerm(), pageRequest);
-    model.addAttribute("page", page);
+    model.addAttribute("page", new PageWrapper(page, "/"));
     model.addAttribute("searchRequest", searchRequest);
     return "index";
   }
