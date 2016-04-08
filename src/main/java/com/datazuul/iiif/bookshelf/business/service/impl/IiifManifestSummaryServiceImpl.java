@@ -85,11 +85,43 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 //      fillFromManifest(manifestSummary);
 
       JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
-//      @type: "sc:Manifest"
 
-      fillFromJsonObject(jsonObject, manifestSummary);
-
-      iiifManifestSummaryRepository.save(manifestSummary);
+      String type = (String) jsonObject.get("@type");
+      if ("sc:Manifest".equalsIgnoreCase(type)) {
+        fillFromJsonObject(jsonObject, manifestSummary);
+        iiifManifestSummaryRepository.save(manifestSummary);
+      } else if ("sc:Collection".equalsIgnoreCase(type)) {
+        // try to get list of manifests
+        Object manifestsNode = jsonObject.get("manifests");
+        if (manifestsNode != null && JSONArray.class.isAssignableFrom(manifestsNode.getClass())) {
+          JSONArray manifests = (JSONArray) manifestsNode;
+          for (Object manifest : manifests) {
+            JSONObject manifestObj = (JSONObject) manifest;
+            String uri = (String) manifestObj.get("@id");
+            String manifestType = (String) manifestObj.get("@type");
+            if ("sc:Manifest".equalsIgnoreCase(manifestType)) {
+              IiifManifestSummary childManifestSummary = new IiifManifestSummary();
+              childManifestSummary.setManifestUri(uri);
+              enrichAndSave(childManifestSummary);
+            }
+          }
+        }
+        // try to get subcollections
+        Object collectionsNode = jsonObject.get("collections");
+        if (collectionsNode != null && JSONArray.class.isAssignableFrom(collectionsNode.getClass())) {
+          JSONArray collections = (JSONArray) collectionsNode;
+          for (Object collection : collections) {
+            JSONObject collectionObj = (JSONObject) collection;
+            String uri = (String) collectionObj.get("@id");
+            String collectionType = (String) collectionObj.get("@type");
+            if ("sc:Manifest".equalsIgnoreCase(collectionType) || "sc:Collection".equalsIgnoreCase(collectionType)) {
+              IiifManifestSummary childManifestSummary = new IiifManifestSummary();
+              childManifestSummary.setManifestUri(uri);
+              enrichAndSave(childManifestSummary);
+            }
+          }
+        }
+      }
     } catch (Exception ex) {
       LOGGER.warn("Can not fill from manifest " + manifestSummary.getManifestUri(), ex);
     }
@@ -143,14 +175,22 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
    */
   private void fillFromJsonObject(JSONObject jsonObject, IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, ParseException {
 
-    // TODO if this is allowed:
-    /*
-    IiifManifestSummaryServiceImpl (qtp1871259950-20) > Can not fill from manifest http://wellcomelibrary.org/iiif/b24744803/manifest
-    java.lang.ClassCastException: org.json.simple.JSONArray cannot be cast to java.lang.String
-	at com.datazuul.iiif.bookshelf.business.service.impl.IiifManifestSummaryServiceImpl.fillFromJsonObject(IiifManifestSummaryServiceImpl.java:142)
-     */
-    Version version = Version.getVersion((String) jsonObject.get("@context"));
-    manifestSummary.setVersion(version);
+    Version version = null;
+    final Object contextNode = jsonObject.get("@context");
+    if (JSONArray.class.isAssignableFrom(contextNode.getClass())) {
+      JSONArray contexts = (JSONArray) contextNode;
+      for (Object context : contexts) {
+        version = Version.getVersion((String) context);
+        if (version != null) {
+          break;
+        }
+      }
+    } else {
+      version = Version.getVersion((String) contextNode);
+    }
+    if (version != null) {
+      manifestSummary.setVersion(version);
+    }
 
     Object label = jsonObject.get("label");
     HashMap<Locale, String> localizedLabels = getLocalizedStrings(label);

@@ -39,4 +39,3 @@ TODO
 
 * UUID: use BSON4 instead BSON3
 * Fix search (index)
-* Use PageWrapper: https://www.javacodegeeks.com/2013/03/implement-bootstrap-pagination-with-spring-data-and-thymeleaf.html
