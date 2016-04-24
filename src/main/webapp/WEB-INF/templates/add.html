@@ -6,7 +6,10 @@
         <section layout:fragment="content">
             <form action="#" th:action="@{/add}" th:object="${manifest}" method="post">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-2">
+                        URL to manifest:
+                    </div>
+                    <div class="col-md-8">
                         <input type="text" th:field="*{manifestUri}" class="form-control"/>
                     </div>
                     <div class="col-md-2">

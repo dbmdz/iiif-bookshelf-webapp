@@ -38,4 +38,4 @@ TODO
 ----
 
 * UUID: use BSON4 instead BSON3
-* Fix search (index)
+* Fix search (index): mongo can not index Hashmap, just String and String[]...; for now just manifest-URL is searchable

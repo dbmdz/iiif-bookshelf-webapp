@@ -25,6 +25,7 @@ public class IiifManifestSummary {
   private UUID uuid = UUID.randomUUID();
 
   private Version version;
+  @TextIndexed
   private String manifestUri;
   @TextIndexed(weight = 2)
   private HashMap<Locale, String> labels = new HashMap<>();
@@ -35,7 +36,6 @@ public class IiifManifestSummary {
   private Thumbnail thumbnail;
   @TextScore
   private Float score;
-
   // DOES NOT WORK BECAUSE OF CUSTOM @Id (not being mongo object id):
 //  @Temporal(TemporalType.TIMESTAMP)
 //  @CreatedDate
@@ -43,6 +43,14 @@ public class IiifManifestSummary {
   @Temporal(TemporalType.TIMESTAMP)
   @LastModifiedDate
   private Date lastModified;
+
+  public Float getScore() {
+    return score;
+  }
+
+  public void setScore(Float score) {
+    this.score = score;
+  }
 
 //  public Date getCreated() {
 //    return created;
