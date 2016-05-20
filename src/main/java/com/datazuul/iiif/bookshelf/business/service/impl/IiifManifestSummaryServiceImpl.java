@@ -1,19 +1,18 @@
 package com.datazuul.iiif.bookshelf.business.service.impl;
 
-import com.datazuul.iiif.bookshelf.model.IiifManifestSummary;
-import com.datazuul.iiif.presentation.api.model.Manifest;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.datazuul.iiif.bookshelf.backend.repository.IiifManifestSummaryRepository;
+import com.datazuul.iiif.bookshelf.backend.repository.IiifManifestSummarySearchRepository;
 import com.datazuul.iiif.bookshelf.business.service.IiifManifestSummaryService;
+import com.datazuul.iiif.bookshelf.model.IiifManifestSummary;
 import com.datazuul.iiif.bookshelf.model.Thumbnail;
+import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.datazuul.iiif.presentation.api.model.Version;
 import com.datazuul.iiif.presentation.backend.repository.PresentationRepository;
 import com.datazuul.iiif.presentation.model.NotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import org.json.simple.JSONArray;
@@ -21,13 +20,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
-/**
- *
- * @author ralf
- */
 @Service
 public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryService {
 
@@ -37,6 +34,9 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Autowired
   private IiifManifestSummaryRepository iiifManifestSummaryRepository;
+
+  @Autowired
+  private IiifManifestSummarySearchRepository iiifManifestSummarySearchRepository;
 
   @Autowired
   private PresentationRepository presentationRepository;
@@ -53,7 +53,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Override
   public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) {
-    return iiifManifestSummaryRepository.findBy(searchText, pageable);
+    return iiifManifestSummarySearchRepository.findBy(searchText, pageable);
   }
 
   @Override
@@ -82,7 +82,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       if (existingManifest != null) {
         manifestSummary = existingManifest;
       }
-//      fillFromManifest(manifestSummary);
+      // fillFromManifest(manifestSummary);
 
       JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
 
@@ -90,6 +90,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       if ("sc:Manifest".equalsIgnoreCase(type)) {
         fillFromJsonObject(jsonObject, manifestSummary);
         iiifManifestSummaryRepository.save(manifestSummary);
+        iiifManifestSummarySearchRepository.save(manifestSummary);
       } else if ("sc:Collection".equalsIgnoreCase(type)) {
         // try to get list of manifests
         Object manifestsNode = jsonObject.get("manifests");
@@ -162,12 +163,11 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   /**
-   * Language may be associated with strings that are intended to be displayed
-   * to the user with the following pattern of @value plus the RFC 5646 code in
+   * Language may be associated with strings that are intended to be displayed to the user with the following pattern of
+   * 
+   * @value plus the RFC 5646 code in
    *
-   * @language, instead of a plain string. This pattern may be used in label,
-   * description, attribution and the label and value fields of the metadata
-   * construction.
+   *        @language, instead of a plain string. This pattern may be used in label, description, attribution and the label and value fields of the metadata construction.
    *
    * @param manifestSummary
    * @throws NotFoundException

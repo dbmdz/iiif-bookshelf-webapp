@@ -13,12 +13,8 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.TextScore;
 
-/**
- *
- * @author ralf
- */
 @Document(collection = "iiif-manifest-summaries")
-//@CompoundIndex(name = "labels_descriptions_attributions_idx", def = "{'descriptions.values' : 1, 'labels.values' : 2, 'attributions.values' : 1}")
+// @CompoundIndex(name = "labels_descriptions_attributions_idx", def = "{'descriptions.values' : 1, 'labels.values' : 2, 'attributions.values' : 1}")
 public class IiifManifestSummary {
 
   @Id
@@ -37,9 +33,9 @@ public class IiifManifestSummary {
   @TextScore
   private Float score;
   // DOES NOT WORK BECAUSE OF CUSTOM @Id (not being mongo object id):
-//  @Temporal(TemporalType.TIMESTAMP)
-//  @CreatedDate
-//  private Date created;
+  // @Temporal(TemporalType.TIMESTAMP)
+  // @CreatedDate
+  // private Date created;
   @Temporal(TemporalType.TIMESTAMP)
   @LastModifiedDate
   private Date lastModified;
@@ -52,13 +48,13 @@ public class IiifManifestSummary {
     this.score = score;
   }
 
-//  public Date getCreated() {
-//    return created;
-//  }
-//
-//  public void setCreated(Date created) {
-//    this.created = created;
-//  }
+  // public Date getCreated() {
+  // return created;
+  // }
+  //
+  // public void setCreated(Date created) {
+  // this.created = created;
+  // }
   public Date getLastModified() {
     return lastModified;
   }
@@ -125,6 +121,10 @@ public class IiifManifestSummary {
 
   public void addAttribution(Locale locale, String attribution) {
     attributions.put(locale, attribution);
+  }
+
+  public String getAttribution(String language) {
+    return attributions.get(new Locale(language));
   }
 
   public String getAttribution(Locale locale) {

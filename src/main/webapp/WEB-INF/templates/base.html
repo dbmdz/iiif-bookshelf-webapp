@@ -3,90 +3,91 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
       xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--/* The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags */-->
-        <meta name="description" content="" />
-        <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/ico"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--/* The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags */-->
+    <meta name="description" content="" />
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/ico"/>
 
-        <title layout:title-pattern="$DECORATOR_TITLE: $CONTENT_TITLE">IIIF Bookshelf</title>
+    <title layout:title-pattern="$DECORATOR_TITLE: $CONTENT_TITLE">IIIF Bookshelf</title>
 
-        <!--/* Bootstrap CSS */-->
-        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <!--/* Bootstrap CSS */-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 
-        <!--/* Bootstrap material design: Custom primary color: see https://github.com/FezVrasta/bootstrap-material-design */-->
-        <link th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <!--/* Bootstrap material design: Custom primary color: see https://github.com/FezVrasta/bootstrap-material-design */-->
+    <link th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
 
-        <!--/* Font Awesome Icons */-->
-        <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <!--/* Font Awesome Icons */-->
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
 
-        <!--/* Add CSS in child templates */-->
-    <th:block layout:fragment="morecss">
+    <!--/* Add CSS in child templates */-->
+  <th:block layout:fragment="morecss">
 
-    </th:block>
+  </th:block>
 
-    <!--/* General CSS */-->
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
+  <!--/* General CSS */-->
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="@{/js/html5shiv.min.js}"></script>
-    <script src="@{/js/respond.min.js}"></script>
-    <![endif]-->
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="@{/js/html5shiv.min.js}"></script>
+  <script src="@{/js/respond.min.js}"></script>
+  <![endif]-->
 </head>
 
 <body>
 
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/images/iiif-logo-350x323.jpg}" alt="Logo IIIF" height="20" style="float: left"/>&nbsp;<b>Bookshelf</b>
-                </a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse navbar-right">
-                <ul class="nav navbar-nav">
-                    <li th:class="${menu} == 'home' ? 'active'"><a th:href="@{/}">Home</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!--/*  Here comes the content  */-->
+  <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <section layout:fragment="content">
-            ...
-        </section>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" th:href="@{/}">
+          <img th:src="@{/images/iiif-logo-350x323.jpg}" alt="Logo IIIF" height="20" style="float: left"/>&nbsp;<b>Bookshelf</b>
+        </a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li th:class="${menu} == 'home' ? 'active'"><a th:href="@{/}">Home</a></li>
+          <li><p class="navbar-text"><a th:href="@{${#httpServletRequest.requestURI}(language='de')}" th:class="${#locale.language == 'de' ? 'active navbar-link': 'navbar-link'}">de</a> | <a th:href="@{${#httpServletRequest.requestURI}(language='en')}" th:class="${#locale.language == 'en' ? 'active navbar-link': 'navbar-link'}">en</a></p></li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <!--/*  Footer Start  */-->
-    <footer class="footer">
-        <div class="container">
-            <p>
-                <span>2016 iiif.io</span>
-            </p>
+  <!--/*  Here comes the content  */-->
+  <div class="container">
+    <section layout:fragment="content">
+      ...
+    </section>
+  </div>
 
-        </div>
-    </footer>
+  <!--/*  Footer Start  */-->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        <span>2016 iiif.io</span>
+      </p>
+
+    </div>
+  </footer>
 
 <th:block layout:fragment="basejs">
-    <!--/*  Footer Ende  */-->
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
+  <!--/*  Footer Ende  */-->
+  <script th:src="@{/js/jquery.min.js}"></script>
+  <script th:src="@{/js/bootstrap.min.js}"></script>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
 
-    <!--/* Own JS */-->
-    <script th:src="@{/js/main.js}"></script>
+  <!--/* Own JS */-->
+  <script th:src="@{/js/main.js}"></script>
 </th:block>
 
 <!--/* Add JS in child templates */-->

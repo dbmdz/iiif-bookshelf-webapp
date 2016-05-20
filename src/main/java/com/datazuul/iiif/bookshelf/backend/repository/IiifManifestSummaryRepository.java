@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * Repository for IiifManifestSummaries identified by the manifest URI.
- *
- * @author ralf
  */
 public interface IiifManifestSummaryRepository extends MongoRepository<IiifManifestSummary, UUID>, IiifManifestSummaryRepositoryCustom {
 
@@ -22,4 +20,8 @@ public interface IiifManifestSummaryRepository extends MongoRepository<IiifManif
   public Page<IiifManifestSummary> findAllByOrderByLastModifiedDesc(Pageable pageRequest);
 
   public Page<IiifManifestSummary> findBy(TextCriteria criteria, Pageable page); // do not expose mongo TextCriteria to service layer!
+
+  public Page<IiifManifestSummary> findByUuidIn(List<UUID> uuids, Pageable page);
+
+  public List<IiifManifestSummary> findByUuidIn(List<UUID> uuids);
 }
