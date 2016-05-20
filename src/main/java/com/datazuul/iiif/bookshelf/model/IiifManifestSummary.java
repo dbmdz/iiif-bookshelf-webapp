@@ -91,6 +91,10 @@ public class IiifManifestSummary {
     labels.put(locale, label);
   }
 
+  public String getLabel(String language) {
+    return labels.get(new Locale(language));
+  }
+  
   public String getLabel(Locale locale) {
     return labels.get(locale);
   }
@@ -111,6 +115,9 @@ public class IiifManifestSummary {
     return descriptions.get(locale);
   }
 
+   public String getDescription(String language) {
+    return descriptions.get(new Locale(language));
+  }
   public HashMap<Locale, String> getDescriptions() {
     return descriptions;
   }

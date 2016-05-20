@@ -40,11 +40,13 @@ Mongo DB Installation Steps
 
         $ mkdir -p ~/DEV/PROGRAMS
         $ mv mongodb-linux-x86_64-3.2.4/ ~/DEV/PROGRAMS/mongodb
-   
+
    Ensure the location of the binaries is in the PATH variable.
    For example, you can add the following line to your shell's rc file (e.g. ~/.bashrc):
 
-        export PATH=```<mongodb-install-directory>```/bin:$PATH
+```
+        export PATH=<mongodb-install-directory>/bin:$PATH
+```
 
    Installation directory for mongo ```<mongodb-install-directory>``` could be /home/username/DEV/DATA/mongodb/.
    Or in central '/etc/environment':
