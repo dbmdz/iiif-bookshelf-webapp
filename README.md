@@ -26,14 +26,14 @@ Mongo DB Installation Steps
 ------------
 ### Installation on Linux
 1. Download the binary files for the desired release of Mongo DB from [official Mongo DB Downloads Page](https://www.mongodb.org/downloads). 
-   To download the latest release through the shell, tape the following:
+   To download the latest release through the shell, type the following:
 
         $ curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.4.tgz
 
 2. Extract the files from the downloaded archive.
    For example, from a system shell, you can extract through the tar command:
 
-        $ tar -zxvf mongodb-linux-x86_64-3.2.4.tgz
+        $ tar -xvfz mongodb-linux-x86_64-3.2.4.tgz
 
 3. Copy the extracted archive to the target directory.
    To copy the extracted folder to the location from which MongoDB will run:
