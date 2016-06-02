@@ -1,47 +1,65 @@
-IIIF Bookshelf Webapp
-=====================
+# IIIF Bookshelf Webapp
+
 This is a webapp for collecting <a href="http://iiif.io">IIIF</a> representations of books.
 It is based on the functionality of the <a href="http://iiif.io/api/presentation/2.0/">IIIF Presentation API</a> for modelling books.
 You can add books to your bookshelf by loading the manifest.json of the book.
 
-Installation
-------------
--------
+## Requirements
 
-Requirements:
-
-* Java 8: You will need the Java Runtime Environment (JRE) version 1.8 or higher. At a command line, check your Java version like this:
-
-        $ java -version
-
-  On Windows:
-
-        > java.exe -version
-
+* Java 8: You will need the Java Runtime Environment (JRE) version 1.8 or higher. At a command line, check your Java version with "java -version".
 * MongoDB Version: 3.2.4+
 * Apache Solr Version: 5.4.1+
 * Apache Tomcat 8.0
 
-Mongo DB Installation Steps
-------------
-### Installation on Linux
+### Mongo DB
+
+#### Installation
+
 1. Download the binary files for the desired release of Mongo DB from [official Mongo DB Downloads Page](https://www.mongodb.org/downloads). 
    To download the latest release through the shell, type the following:
 
         $ curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.4.tgz
 
 2. Extract the files from the downloaded archive.
-   For example, from a system shell, you can extract through the tar command:
+   For example, from a system shell, you can extract with the tar command:
 
-        $ tar -xvfz mongodb-linux-x86_64-3.2.4.tgz
+        $ tar -zxvf mongodb-linux-x86_64-3.2.4.tgz
 
 3. Copy the extracted archive to the target directory.
    To copy the extracted folder to the location from which MongoDB will run:
 
-        $ mkdir -p ~/DEV/PROGRAMS
-        $ mv mongodb-linux-x86_64-3.2.4/ ~/DEV/PROGRAMS/mongodb
+        $ mkdir -p /opt
+        $ mv mongodb-linux-x86_64-3.2.4/ /opt
 
-   Ensure the location of the binaries is in the PATH variable.
+#### Configuration
+
+Ensure the location of the binaries is in the PATH variable.
+
+* SuSE Linux:
+
+```shell
+        # vi /etc/profile.d/mongodb.sh
+
+        # Add paths for mongo db
+        if [ -d /opt/mongodb-linux-x86_64-3.2.4/bin ]; then
+            COUNT=`ls -1 /opt/mongodb-linux-x86_64-3.2.4/bin/ | wc -l`
+            if [ $COUNT -gt 0 ]; then
+                PATH="$PATH:/opt/mongodb-linux-x86_64-3.2.4/bin"
+            fi
+        fi
+        export PATH=$PATH
+```
+
+        # vi /etc/profile.d/mongodb.csh
+
+        # Add paths for mongo db
+        if ( -d /local/iiif-webapp/mongodb-linux-x86_64-3.2.4/bin ) then
+            set COUNT=`ls -1 /local/iiif-webapp/mongodb-linux-x86_64-3.2.4/bin/ | wc -l`
+            if ( $COUNT > 0 ) then
+                setenv PATH "${PATH}:/local/iiif-webapp/mongodb-linux-x86_64-3.2.4/bin"
+            endif
+        endif
+
    For example, you can add the following line to your shell's rc file (e.g. ~/.bashrc):
 
 ```
@@ -56,9 +74,31 @@ Mongo DB Installation Steps
 
    Replace ```<username>``` with your login username for this PC.  
 
-### Installation on Windows
+#### Running Mongo DB
 
- 1. Follow instructions at [Install MongoDB on Windows Page](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
+To run MongoDB, run the mongod process at the system prompt. If necessary, specify the path of the data directory using the --dbpath option.
+If your system PATH variable includes the location of the mongod binary and if you use the default data directory (i.e., /data/db), enter at the system prompt:
+
+    $ ```<path to binary>```/mongod
+
+```<path to binary>``` could be "/home/username/DEV/PROGRAMS/mongodb/bin/"
+
+If you do not use the default data directory (i.e., /data/db), specify the path to the data directory using the --dbpath option, which could be equal to "/home/username/DEV/DATA/":
+
+    $ mongod --dbpath ```<path to data directory>```
+
+To shutdown:
+
+    $ mongod --dbpath ```<path to data directory>``` --shutdown
+
+Use /home/username/DEV/DATA/mongodb/ for ```<path to data directory>```, for example.
+
+If you specify the logpath option, then logging will direct to that log file instead of showing up on standard console:
+
+    > mongod --dbpath ```<path to data directory>``` --logpath ```<path to logs>```/mongod.log
+
+By default logs are written into /var/log/mongodb/.
+
 
 Apache Solr Installation Steps
 ------------
@@ -97,43 +137,6 @@ Copy iiif-bookshelf.war into webapps subdir in tomcat
 -------
 
 To run iiif-bookshelf run local Mongo DB, Solr and Tomcat.
-
-### Running Mongo DB
-
-#### On Linux:
-To run MongoDB, run the mongod process at the system prompt. If necessary, specify the path of the data directory using the --dbpath option.
-If your system PATH variable includes the location of the mongod binary and if you use the default data directory (i.e., /data/db), enter at the system prompt:
-
-    $ ```<path to binary>```/mongod
-
-```<path to binary>``` could be "/home/username/DEV/PROGRAMS/mongodb/bin/"
-
-If you do not use the default data directory (i.e., /data/db), specify the path to the data directory using the --dbpath option, which could be equal to "/home/username/DEV/DATA/":
-
-    $ mongod --dbpath ```<path to data directory>```
-
-To shutdown:
-
-    $ mongod --dbpath ```<path to data directory>``` --shutdown
-
-#### On Windows
-
-Use the following commands to start the server process
-Change to bin directory:
-
-    > cd ```<path to binary>```
-
-Type following command to start the mongod process:
-
-    > mongod --dbpath ```<path to data directory>```
-
-Use /home/username/DEV/DATA/mongodb/ for ```<path to data directory>```, for example.
-While starting, Windows firewall may block the process.Click "Allow access" to proceed.
-If you specify the logpath option, then logging will direct to that log file instead of showing up on standard console:
-
-    > mongod --dbpath ```<path to data directory>``` --logpath ```<path to logs>```/mongod.log
-
-By default logs are written into /var/log/mongodb/.
 
 ### Running Solr
 
