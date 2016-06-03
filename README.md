@@ -38,60 +38,70 @@ Ensure the location of the binaries is in the PATH variable.
 * SuSE Linux:
 
 ```shell
-        # vi /etc/profile.d/mongodb.sh
+# vi /etc/profile.d/mongodb.sh
 
-        # Add paths for mongo db
-        if [ -d /opt/mongodb-linux-x86_64-3.2.4/bin ]; then
-            COUNT=`ls -1 /opt/mongodb-linux-x86_64-3.2.4/bin/ | wc -l`
-            if [ $COUNT -gt 0 ]; then
-                PATH="$PATH:/opt/mongodb-linux-x86_64-3.2.4/bin"
-            fi
-        fi
-        export PATH=$PATH
+# Add paths for mongo db
+if [ -d /opt/mongodb-linux-x86_64-3.2.4/bin ]; then
+    COUNT=`ls -1 /opt/mongodb-linux-x86_64-3.2.4/bin/ | wc -l`
+    if [ $COUNT -gt 0 ]; then
+        PATH="$PATH:/opt/mongodb-linux-x86_64-3.2.4/bin"
+    fi
+fi
+export PATH=$PATH
 ```
 
-        # vi /etc/profile.d/mongodb.csh
+```shell
+# vi /etc/profile.d/mongodb.csh
 
-        # Add paths for mongo db
-        if ( -d /local/iiif-webapp/mongodb-linux-x86_64-3.2.4/bin ) then
-            set COUNT=`ls -1 /local/iiif-webapp/mongodb-linux-x86_64-3.2.4/bin/ | wc -l`
-            if ( $COUNT > 0 ) then
-                setenv PATH "${PATH}:/local/iiif-webapp/mongodb-linux-x86_64-3.2.4/bin"
-            endif
-        endif
-
-   For example, you can add the following line to your shell's rc file (e.g. ~/.bashrc):
-
-```
-        export PATH=<mongodb-install-directory>/bin:$PATH
+# Add paths for mongo db
+if ( -d /opt/mongodb-linux-x86_64-3.2.4/bin ) then
+    set COUNT=`ls -1 /opt/mongodb-linux-x86_64-3.2.4/bin/ | wc -l`
+    if ( $COUNT > 0 ) then
+        setenv PATH "${PATH}:/opt/mongodb-linux-x86_64-3.2.4/bin"
+    endif
+endif
 ```
 
-   Installation directory for mongo ```<mongodb-install-directory>``` could be /home/username/DEV/DATA/mongodb/.
-   Or in central '/etc/environment':
+* Ubuntu Linux:
 
-    MONGO_HOME="/home/```<username>```/DEV/PROGRAMS/mongodb"
-    PATH="/home/```<username>```/DEV/PROGRAMS/mongodb/bin:...:$PATH"
+```shell
+# vi /etc/environment
+...
+PATH="/opt/mongodb-linux-x86_64-3.2.4/bin:$PATH"
+...
+```
 
-   Replace ```<username>``` with your login username for this PC.  
+Test it (after reboot or sourcing of file):
+
+```shell
+mongod --version
+db version v3.2.4
+git version: e2ee9ffcf9f5a94fad76802e28cc978718bb7a30
+allocator: tcmalloc
+modules: none
+build environment:
+    distarch: x86_64
+    target_arch: x86_64
+
+# vi /etc/environment
+...
+PATH="/opt/mongodb-linux-x86_64-3.2.4/bin:$PATH"
+...
+```
 
 #### Running Mongo DB
 
-To run MongoDB, run the mongod process at the system prompt. If necessary, specify the path of the data directory using the --dbpath option.
-If your system PATH variable includes the location of the mongod binary and if you use the default data directory (i.e., /data/db), enter at the system prompt:
+To run MongoDB, run the mongod process at the system prompt. If you do not use the default data directory (i.e., /data/db), specify the path of the data directory using the --dbpath option.
 
-    $ ```<path to binary>```/mongod
-
-```<path to binary>``` could be "/home/username/DEV/PROGRAMS/mongodb/bin/"
-
-If you do not use the default data directory (i.e., /data/db), specify the path to the data directory using the --dbpath option, which could be equal to "/home/username/DEV/DATA/":
-
-    $ mongod --dbpath ```<path to data directory>```
+```shell
+$ mongod --dbpath <path to data directory>
+```
 
 To shutdown:
 
-    $ mongod --dbpath ```<path to data directory>``` --shutdown
-
-Use /home/username/DEV/DATA/mongodb/ for ```<path to data directory>```, for example.
+```shell
+$ mongod --dbpath <path to data directory> --shutdown
+```
 
 If you specify the logpath option, then logging will direct to that log file instead of showing up on standard console:
 

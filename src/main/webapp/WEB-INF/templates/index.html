@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <form action="#" th:action="@{/find}" th:object="${searchRequest}" method="post">
+                    <form action="#" th:action="@{/find}" th:object="${searchRequest}" method="post" accept-charset="utf-8">
                         <div class="row">
                             <div class="col-md-10">
                                 <input type="text" name="term" th:field="*{term}" class="form-control"/>
