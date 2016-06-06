@@ -88,6 +88,7 @@ modules: none
 build environment:
     distarch: x86_64
     target_arch: x86_64
+```
 
 #### Usage
 
