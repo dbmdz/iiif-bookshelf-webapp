@@ -13,6 +13,9 @@ You can add books to your bookshelf by loading the manifest.json of the book.
 
 ### Mongo DB
 
+* Homepage: https://www.mongodb.com/
+* Version: 3.2.4
+
 #### Installation
 
 1. Download the binary files for the desired release of Mongo DB from [official Mongo DB Downloads Page](https://www.mongodb.org/downloads). 
@@ -200,12 +203,14 @@ Creating a core needs a running solr server. As we want a custom location for da
 
 Usage: solr start [-f] [-c] [-h hostname] [-p port] [-d directory] [-z zkHost] [-m memory] [-e example] [-s solr.solr.home] [-a "additional-options"] [-V]
 
+...
   -s <dir>      Sets the solr.solr.home system property; Solr will create core directories under
                   this directory. This allows you to run multiple Solr instances on the same host
                   while reusing the same server directory set using the -d parameter. If set, the
                   specified directory should contain a solr.xml file, unless solr.xml exists in ZooKeeper.
                   This parameter is ignored when running examples (-e), as the solr.solr.home depends
                   on which example is run. The default value is server/solr.
+...
 ```
 
 Start server with custom home directory "/local/data-solr":
@@ -283,77 +288,100 @@ Solr process 2771 running on port 8983
   "memory":"73.9 MB (%15.1) of 490.7 MB"}
 ```
 
-####Adding/Deleting indexes
+Stopping Solr
 
-Post  to core .json documents from example directory:
+```shell
+$ cd /opt/solr-5.4.1
+$ sudo ./bin/solr stop
+Sending stop command to Solr running on port 8983 ... waiting 5 seconds to allow Jetty process 7763 to stop gracefully.
+```
 
-    $ curl 'http/solr/```<core-name>```/update?commit=true' --data-binary example/exampledocs/books.json -H 'Content-type/application/json'
+## Apache Tomcat
 
-To delete certain document with id 20 use:
+* Homepage: http://tomcat.apache.org/
+* Version: 8.0.35
 
-    $ java -Ddata=args -Dcommit=true -Durl=http://localhost:8983/solr/```<core-name>```/update -jar example/exampledocs/post.jar >```'<delete><id>20</id></delete>'```
+### Installation
 
-#### On Windows
+Download Tomcat 8 and decompress it to target directory.
 
-    > bin\solr.cmd start
+```shell
+$ cd /opt
+$ sudo wget http://mirror.synyx.de/apache/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz
+$ sudo tar -xvfz apache-tomcat-8.0.35.tar.gz
+```
 
-### Stopping Solr
+### Usage
 
-    $ sudo ./bin/solr stop
+Start Tomcat:
 
+```shell
+$ cd /opt/tomcat/apache-tomcat-8.0.35
+$ sudo bin/startup.sh
+```
 
+Stop Tomcat:
+```shell
+$ cd /opt/tomcat/apache-tomcat-8.0.35
+$ sudo bin/shutdown.sh
+```
 
+## Bookshelf webapp
 
+### Installation
 
+Build the webapp locally and copy it to server:
 
-Apache Tomcat Installation Steps
-------------
+```shell
+$ cd <source_directory_bookshelf>
+$ mvn clean install
+$ scp target/iiif-bookshelf.war <user>@<server>:/tmp 
+```
 
-1. Download Tomcat 8 (the tar.gz file) and decompress it. 
-2. Create a new directory /opt/tomcat
-3. Move the files in step 2 to the directory /opt/tomcat
-4. Run in /opt/tomcat/apache-tomcat-8.0.35
+Deploy Bookshelf WAR into Tomcat:
 
-        $ bin/startup.sh   
+```shell
+$ mv /tmp/iiif-bookshelf.war /opt/tomcat/apache-tomcat-8.0.35/webapps 
+```
 
-Deploy Bookshelf WAR
-------------
+### Usage
 
-Copy iiif-bookshelf.war into webapps subdir in tomcat
+* To run iiif-bookshelf run Mongo DB, Solr and Tomcat.
 
-## Usage
--------
+```shell
+# mongod --dbpath /local/mongodb/data --logpath /var/log/mongodb.log &
+# /opt/solr-5.4.1/bin/solr start -s /local/data-solr
+# /opt/apache-tomcat-8.0.35/bin/startup.sh
+```
 
-To run iiif-bookshelf run local Mongo DB, Solr and Tomcat.
+Open webapp in browser: http://localhost:8080/iiif-bookshelf
 
+* To stop iiif-bookshelf stop all servers:
 
-### Running Bookshelf webapp
-
-1. To start Tomcat run start.sh within its bin directory.
-2. Check on http://localhost:8080 whether it has started
-3. Open webapp http://localhost:8080/iiif-bookshelf
- 
-* Running from cloned code:
-
-        $ mvn clean install jetty:run
-        http://localhost:9898
+```shell
+# /opt/apache-tomcat-8.0.35/bin/shutdown.sh
+# /opt/solr-5.4.1/bin/solr stop -s /local/data-solr
+# mongod --dbpath /local/mongodb/data --shutdown
+```
 
 * Accessing data from 'mongo' client:
 
-        $ mongo
-        > use iiif-bookshelf
-        switched to db iiif-bookshelf
+```shell
+$ mongo
+> use iiif-bookshelf
+switched to db iiif-bookshelf
+```
 
-    * Getting all data:
+Getting all data:
 
-        > db.getCollection('iiif-manifest-summaries').find()
+```shell
+> db.getCollection('iiif-manifest-summaries').find()
+```
 
-    * Deleting all data (why do you want to do this?):
+Deleting all data (why do you want to do this?):
 
-        > db.getCollection('iiif-manifest-summaries').drop()
-        true
+```shell
+> db.getCollection('iiif-manifest-summaries').drop()
+true
+```
 
-TODO
-----
-
-* UUID: use BSON4 instead BSON3
