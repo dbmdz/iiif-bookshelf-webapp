@@ -50,37 +50,50 @@
             <script th:src="@{/vendor/mirador/mirador.js}"></script>
             <script type="text/javascript" th:inline="javascript">
                 $(function () {
-                Mirador({
-                "id": "viewer",
-                        "workspaceType": "singleObject",
-                        "mainMenuSettings": {
-                        "show": false
-                        },
-                        "layout": "1x1",
-                        "data": [
-                        {
-                        "manifestUri": [[${manifestId}]]
-                        }
-                        ],
-                        "windowObjects": [
-                        {
-                        "loadedManifest": [[${manifestId}]],
-                                "viewType": "ImageView",
-                                "layoutOptions": {
-                                "close": false,
-                                        "slotRight": false,
-                                        "slotLeft": false,
-                                        "slotAbove": false,
-                                        "slotBelow": false
-                                },
-                                "annotationLayer": false,
-                                "annotationCreation": false,
-                                "saveSession": false,
-                                "displayLayout": false,
-                                "bottomPanel" : true,
-                                "sidePanel" : false
-                        }]
-                });
+                  Mirador({
+                          "id": "viewer",
+                          "workspaceType": 'compare',
+                          "layout": "1x1",
+                          "mainMenuSettings" :
+                           {
+                                  "show": true,
+                                  "buttons" : {"bookmark" : true, "layout" : true},
+                                  "userLogo": {"label": "IIIF", "attributes": {"href": "http://iiif.io"}}
+                            },
+                            'showAddFromURLBox' : false,
+                            "saveSession": true,
+                            "data": [
+                            {
+                            "manifestUri": [[${manifestId}]]
+                            }
+                            ],
+                            "windowObjects": [
+                            {
+                                  "loadedManifest": [[${manifestId}]],
+                                  "viewType": "ImageView",
+                                  "layoutOptions": {
+                                          "close": false,
+                                          "slotRight": false,
+                                          "slotLeft": false,
+                                          "slotAbove": false,
+                                          "slotBelow": false
+                                  },
+                                  "annotationLayer": true,
+                                  "annotationCreation": true,
+                                  "saveSession": true,
+                                  "displayLayout": true,
+                                  "bottomPanel" : true,
+                                  "sidePanel" : false
+                            }],
+                            /** Testing Annotations **/
+                            annotationEndpoint: {
+                                  name: 'Simple Annotation Store Endpoint',
+                                  module: 'SimpleASEndpoint',
+                                  options: {
+                                          url: 'http://localhost:8888/annotation'
+                                  }    
+                            }   
+                  });
                 });
             </script>
 

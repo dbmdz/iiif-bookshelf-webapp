@@ -385,3 +385,18 @@ Deleting all data (why do you want to do this?):
 true
 ```
 
+* To enable annotations install and run SimpleAnnotationServer from https://github.com/glenrobson/SimpleAnnotationServer.
+
+The server requeres Java 1.7 and maven installed. 
+To install SimpleAnnotationServer run the following commands in Linux:
+
+  ```shell
+  $ git clone https://github.com/glenrobson/SimpleAnnotationServer.git
+
+  $ cd SimpleAnnotationServer
+
+  $ mvn jetty:run
+
+  ```
+
+Check at  http://localhost:8888/index.html wheter the server has started. After that one can write annotations from IIIF Bookshelf Webapp.

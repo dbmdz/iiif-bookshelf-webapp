@@ -4917,7 +4917,180 @@ window.Mirador = window.Mirador || function(config) {
   };
 
 }(Mirador));
+(function($){
 
+  $.SimpleASEndpoint = function(options) {
+
+    jQuery.extend(this, {
+      token:     null,
+      // prefix:    'annotation', /**/
+      uri:      null,
+      url:		  options.url,
+      dfd:       null,
+      annotationsList: [],        //OA list for Mirador use
+      idMapper: {} // internal list for module use to map id to URI
+    }, options);
+
+    this.init();
+  };
+
+  $.SimpleASEndpoint.prototype = {
+    //Any set up for this endpoint, and triggers a search of the URI passed to object
+    init: function() {
+      this.catchOptions = {
+        user: {
+          id: this.userid, 
+          name: this.username
+        },
+        permissions: {
+          'read':   [],
+          'update': [this.userid],
+          'delete': [this.userid],
+          'admin':  [this.userid]
+        }
+      };
+      this.search({ uri: this.uri });
+    },
+
+    //Search endpoint for all annotations with a given URI
+    search: function(options, successCallback, errorCallback) {
+      var _this = this;
+
+      this.annotationsList = []; //clear out current list
+      jQuery.ajax({
+        url: _this.url + "/search", // this.prefix+
+        type: 'GET',
+        dataType: 'json',
+        headers: {
+          //"x-annotator-auth-token": this.token
+        },
+        data: {
+          uri: options.uri, //CORRECTED: because in line 7041 passes not an Object {}, but only currentCanvasId
+          media: "image",
+          limit: 10000
+        },
+
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          if (typeof successCallback === "function") {
+            successCallback(data);
+          } else {
+            _this.annotationsList = data; // gmr
+            jQuery.each(_this.annotationsList, function(index, value) {
+              value.fullId = value["@id"];
+              value["@id"] = $.genUUID();
+              _this.idMapper[value["@id"]] = value.fullId;
+              value.endpoint = _this;
+            });
+            _this.dfd.resolve(false);
+          }
+        },
+        error: function() {
+          if (typeof errorCallback === "function") {
+            errorCallback();
+          } else {
+            console.log("The request for annotations has caused an error for endpoint: "+ options.uri);
+          }
+        }
+
+      });
+    },
+
+    deleteAnnotation: function(annotationID, returnSuccess, returnError) {
+      var _this = this;
+      jQuery.ajax({
+        url: _this.url + "/destroy?uri=" + _this.idMapper[annotationID], // this.prefix+
+        type: 'DELETE',
+        dataType: 'json',
+        headers: {
+          //"x-annotator-auth-token": this.token
+        },
+        data: {
+          uri: annotationID,
+        },
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          returnSuccess();
+        },
+        error: function() {
+          returnError();
+        }
+
+      });
+    },
+
+    update: function(oaAnnotation, returnSuccess, returnError) {
+      var annotation = oaAnnotation,
+          _this = this;
+      // slashes don't work in JQuery.find which is used for delete
+      // so need to switch http:// id to full id and back again for delete.
+      shortId = annotation["@id"];
+      annotation["@id"] = annotation.fullId;
+      annotationID = annotation.fullId;//annotation["@id"];
+      delete annotation.fullId;
+      delete annotation.endpoint;
+      jQuery.ajax({
+        url: _this.url + "/update/"+annotationID, //this.prefix+
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+          //"x-annotator-auth-token": this.token
+        },
+        data: JSON.stringify(annotation),
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          /* this returned data doesn't seem to be used anywhere */
+          returnSuccess();
+        },
+        error: function() {
+          returnError();
+        }
+      });
+      // this is what updates the viewer
+      annotation.endpoint = _this;
+      annotation.fullId = annotation["@id"];
+      annotation["@id"] = shortId;
+    },
+
+    create: function(oaAnnotation, returnSuccess, returnError) {
+      var annotation = oaAnnotation,
+          _this = this;
+
+      jQuery.ajax({
+        url: _this.url + "/create", //this.prefix+
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+          //"x-annotator-auth-token": this.token
+        },
+        data: JSON.stringify(annotation),
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          data.fullId = data["@id"];
+          data["@id"] = $.genUUID();
+          data.endpoint = _this;
+          _this.idMapper[data["@id"]] = data.fullId;
+
+          returnSuccess(data);
+        },
+        error: function() {
+          returnError();
+        }
+      });
+    },
+
+    set: function(prop, value, options) {
+      if (options) {
+        this[options.parent][prop] = value;
+      } else {
+        this[prop] = value;
+      }
+    },
+    userAuthorize: function(action, annotation) {
+      return true; // allow all
+    }
+  };
+}(Mirador));
 /*
  * All Endpoints need to have at least the following:
  * annotationsList - current list of OA Annotations
@@ -5134,7 +5307,7 @@ window.Mirador = window.Mirador || function(config) {
       } else {
         motivation.push("oa:commenting");
         on = { "@type" : "oa:SpecificResource",
-          "source" : annotation.uri,
+          "full" : annotation.uri,/*CORRECTED:  WAS   source: annotation.uri*/
           "selector" : {
             "@type" : "oa:FragmentSelector",
             "value" : "xywh="+annotation.rangePosition.x+","+annotation.rangePosition.y+","+annotation.rangePosition.width+","+annotation.rangePosition.height
@@ -5192,7 +5365,7 @@ window.Mirador = window.Mirador || function(config) {
       annotation.tags = tags;
       annotation.text = text;
 
-      annotation.uri = oaAnnotation.on.source;
+      annotation.uri = oaAnnotation.on.full;/*CORRECTED:  WAS   oaAnnotation.on.source*/
       annotation.contextId = this.context_id;
       annotation.collectionId = this.collection_id;
 
@@ -5217,6 +5390,162 @@ window.Mirador = window.Mirador || function(config) {
       annotation.ranges = [];
       annotation.parent = "0";
       return annotation;
+    }
+  };
+
+}(Mirador));
+/*
+ * All Endpoints need to have at least the following:
+ * annotationsList - current list of OA Annotations
+ * dfd - Deferred Object
+ * init()
+ * search(options, successCallback, errorCallback)
+ * create(oaAnnotation, successCallback, errorCallback)
+ * update(oaAnnotation, successCallback, errorCallback)
+ * deleteAnnotation(annotationID, successCallback, errorCallback) (delete is a reserved word)
+ * TODO:
+ * read() //not currently used
+ *
+ * Optional, if endpoint is not OA compliant:
+ * getAnnotationInOA(endpointAnnotation)
+ * getAnnotationInEndpoint(oaAnnotation)
+ */
+(function($){
+
+  $.Endpoint = function(options) {
+
+    jQuery.extend(this, {
+      dfd:             null,
+      annotationsList: [],        //OA list for Mirador use
+      windowID:        null,
+      parent:          null
+    }, options);
+
+    this.init();
+  };
+
+  $.Endpoint.prototype = {
+    init: function() {
+      //whatever initialization your endpoint needs       
+    },
+
+    //Search endpoint for all annotations with a given URI in options
+    search: function(options, successCallback, errorCallback) {
+      var _this = this;
+
+      //use options.uri
+      jQuery.ajax({
+        url: '',
+        type: 'GET',
+        dataType: 'json',
+        headers: { },
+        data: { },
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          //check if a function has been passed in, otherwise, treat it as a normal search
+          if (typeof successCallback === "function") {
+            successCallback(data);
+          } else {
+            jQuery.each(data, function(index, value) {
+              _this.annotationsList.push(_this.getAnnotationInOA(value));
+            });
+            _this.dfd.resolve(true);
+          }
+        },
+        error: function() {
+          if (typeof errorCallback === "function") {
+            errorCallback();
+          }
+        }
+      });
+    },
+    
+    //Delete an annotation by endpoint identifier
+    deleteAnnotation: function(annotationID, successCallback, errorCallback) {
+      var _this = this;        
+      jQuery.ajax({
+        url: '',
+        type: 'DELETE',
+        dataType: 'json',
+        headers: { },
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          if (typeof successCallback === "function") {
+            successCallback();
+          }
+        },
+        error: function() {
+          if (typeof errorCallback === "function") {
+            errorCallback();
+          }
+        }
+      });
+    },
+    
+    //Update an annotation given the OA version
+    update: function(oaAnnotation, successCallback, errorCallback) {
+      var annotation = this.getAnnotationInEndpoint(oaAnnotation),
+      _this = this;
+      
+      jQuery.ajax({
+        url: '',
+        type: 'POST',
+        dataType: 'json',
+        headers: { },
+        data: '',
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          if (typeof successCallback === "function") {
+            successCallback();
+          }
+        },
+        error: function() {
+          if (typeof errorCallback === "function") {
+            errorCallback();
+          }
+        }
+      });
+    },
+
+    //takes OA Annotation, gets Endpoint Annotation, and saves
+    //if successful, MUST return the OA rendering of the annotation
+    create: function(oaAnnotation, successCallback, errorCallback) {
+      var _this = this;
+      
+      jQuery.ajax({
+        url: '',
+        type: 'POST',
+        dataType: 'json',
+        headers: { },
+        data: '',
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+          if (typeof successCallback === "function") {
+            successCallback(_this.getAnnotationInOA(data));
+          }
+        },
+        error: function() {
+          if (typeof errorCallback === "function") {
+            errorCallback();
+          }
+        }
+      });
+    },
+
+    set: function(prop, value, options) {
+      if (options) {
+        this[options.parent][prop] = value;
+      } else {
+        this[prop] = value;
+      }
+    },
+
+    //Convert Endpoint annotation to OA
+    getAnnotationInOA: function(annotation) {
+    },
+
+    // Converts OA Annotation to endpoint format
+    getAnnotationInEndpoint: function(oaAnnotation) {
     }
   };
 
@@ -5898,7 +6227,7 @@ window.Mirador = window.Mirador || function(config) {
                   }
                   motivation.push("oa:commenting");
                   on = { "@type" : "oa:SpecificResource",
-                  "source" : parent.parent.canvasID, 
+                  "full" : parent.parent.canvasID, /*CORRECTED: to suit to SimpleASEndpoint, was source: parent...*/
                   "selector" : {
                     "@type" : "oa:FragmentSelector",
                     "value" : "xywh="+canvasRect.x+","+canvasRect.y+","+canvasRect.width+","+canvasRect.height
@@ -6709,7 +7038,7 @@ window.Mirador = window.Mirador || function(config) {
         // is a property of the instance.
         if ( _this.endpoint && _this.endpoint !== null ) {
           _this.endpoint.set('dfd', dfd);
-          _this.endpoint.search(_this.currentCanvasID);
+          _this.endpoint.search({ "uri" : _this.currentCanvasID});/* CORRECTED : to pass options to SimpleASEndpoint (_this.currentCanvasID) in needed format*/
         } else {
           options.element = _this.element;
           options.uri = _this.currentCanvasID;
