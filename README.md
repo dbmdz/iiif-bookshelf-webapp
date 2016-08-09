@@ -1,4 +1,7 @@
 # IIIF Bookshelf Webapp
+[![Build Status](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp.svg?branch=master)](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 
 This is a webapp for collecting <a href="http://iiif.io">IIIF</a> representations of books.
 It is based on the functionality of the <a href="http://iiif.io/api/presentation/2.0/">IIIF Presentation API</a> for modelling books.
@@ -18,7 +21,7 @@ You can add books to your bookshelf by loading the manifest.json of the book.
 
 #### Installation
 
-1. Download the binary files for the desired release of Mongo DB from [official Mongo DB Downloads Page](https://www.mongodb.org/downloads). 
+1. Download the binary files for the desired release of Mongo DB from [official Mongo DB Downloads Page](https://www.mongodb.org/downloads).
    To download the latest release through the shell, type the following:
 
 ```shell
@@ -277,7 +280,7 @@ If you're not sure if Solr is running locally, you can use the status command:
 ```shell
 $ bin/solr status
 
-Found 1 Solr nodes: 
+Found 1 Solr nodes:
 
 Solr process 2771 running on port 8983
 {
@@ -335,13 +338,13 @@ Build the webapp locally and copy it to server:
 ```shell
 $ cd <source_directory_bookshelf>
 $ mvn clean install
-$ scp target/iiif-bookshelf.war <user>@<server>:/tmp 
+$ scp target/iiif-bookshelf.war <user>@<server>:/tmp
 ```
 
 Deploy Bookshelf WAR into Tomcat:
 
 ```shell
-$ mv /tmp/iiif-bookshelf.war /opt/tomcat/apache-tomcat-8.0.35/webapps 
+$ mv /tmp/iiif-bookshelf.war /opt/tomcat/apache-tomcat-8.0.35/webapps
 ```
 
 ### Usage
@@ -387,7 +390,7 @@ true
 
 * To enable annotations install and run SimpleAnnotationServer from https://github.com/glenrobson/SimpleAnnotationServer.
 
-The server requeres Java 1.7 and maven installed. 
+The server requeres Java 1.7 and maven installed.
 To install SimpleAnnotationServer run the following commands in Linux:
 
   ```shell
