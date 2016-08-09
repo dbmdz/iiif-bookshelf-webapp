@@ -1,14 +1,14 @@
 package de.digitalcollections.iiif.bookshelf.business.service.impl;
 
-import com.datazuul.iiif.presentation.api.model.Manifest;
-import com.datazuul.iiif.presentation.api.model.Version;
-import com.datazuul.iiif.presentation.backend.repository.PresentationRepository;
-import com.datazuul.iiif.presentation.model.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.backend.repository.IiifManifestSummaryRepository;
 import de.digitalcollections.iiif.bookshelf.backend.repository.IiifManifestSummarySearchRepository;
 import de.digitalcollections.iiif.bookshelf.business.service.IiifManifestSummaryService;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
+import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
+import de.digitalcollections.iiif.presentation.backend.api.repository.v2_0_0.PresentationRepository;
+import de.digitalcollections.iiif.presentation.model.api.enums.Version;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -151,7 +151,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
     if (thumbnailServiceUri == null) {
       try {
-        final com.datazuul.iiif.presentation.api.model.other.Service service = manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService();
+        final de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service service = manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService();
         // first image
         thumbnailServiceUri = service.getId();
         context = service.getContext();

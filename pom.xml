@@ -12,6 +12,20 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <version.aspectjweaver>1.8.8</version.aspectjweaver>
+    <version.iiif>2.0.0</version.iiif>
+    <version.jackson>2.5.4</version.jackson>
+    <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
+    <version.json-simple>1.1.1</version.json-simple>
+    <version.mongeez>0.9.6</version.mongeez>
+    <version.mongodb-driver>3.0.4</version.mongodb-driver>
+    <version.persistence-api>1.0.2</version.persistence-api>
+    <version.slf4j>1.7.13</version.slf4j>
+    <version.solr>5.4.1</version.solr>
+    <version.spring>4.2.5.RELEASE</version.spring>
+    <version.spring-data-mongodb>1.8.4.RELEASE</version.spring-data-mongodb>
+    <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
+    <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
   </properties>
     
   <build>
@@ -57,70 +71,90 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>com.datazuul</groupId>
-      <artifactId>iiif-presentation-api</artifactId>
-      <version>2.0.1-SNAPSHOT</version>
+      <groupId>de.digitalcollections</groupId>
+      <artifactId>iiif-presentation-model-api</artifactId>
+      <version>${version.iiif}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.digitalcollections</groupId>
+      <artifactId>iiif-presentation-model-impl</artifactId>
+      <version>${version.iiif}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.digitalcollections</groupId>
+      <artifactId>iiif-presentation-backend-api</artifactId>
+      <version>${version.iiif}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.digitalcollections</groupId>
+      <artifactId>iiif-presentation-backend-impl</artifactId>
+      <version>${version.iiif}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${version.jackson}</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
-      <version>1.1.1</version>
+      <version>${version.json-simple}</version>
     </dependency>
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
-      <version>1.0.2</version>
+      <version>${version.persistence-api}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>${version.javax-servlet-api}</version>
     </dependency>
     <dependency>
       <groupId>nz.net.ultraq.thymeleaf</groupId>
       <artifactId>thymeleaf-layout-dialect</artifactId>
-      <version>1.2.9</version>
+      <version>${version.thymeleaf-layout-dialect}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.solr</groupId>
       <artifactId>solr-solrj</artifactId>
-      <version>5.4.1</version>
+      <version>${version.solr}</version>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
-      <version>1.8.8</version>
+      <version>${version.aspectjweaver}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver</artifactId>
-      <version>3.0.4</version>
+      <version>${version.mongodb-driver}</version>
     </dependency>
     <dependency>
       <groupId>org.mongeez</groupId>
       <artifactId>mongeez</artifactId>
-      <version>0.9.6</version>
+      <version>${version.mongeez}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.13</version>
+      <version>${version.slf4j}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
-      <version>4.2.5.RELEASE</version>
+      <version>${version.spring}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>4.2.5.RELEASE</version>
+      <version>${version.spring}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-mongodb</artifactId>
-      <version>1.8.4.RELEASE</version>
+      <version>${version.spring-data-mongodb}</version>
       <exclusions>
         <exclusion>
           <groupId>org.mongodb</groupId>
@@ -131,7 +165,7 @@
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf-spring4</artifactId>
-      <version>2.1.4.RELEASE</version>
+      <version>${version.thymeleaf-spring4}</version>
     </dependency>
   </dependencies>
 </project>

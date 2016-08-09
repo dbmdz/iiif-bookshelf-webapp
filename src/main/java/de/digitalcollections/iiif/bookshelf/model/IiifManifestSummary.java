@@ -1,6 +1,6 @@
 package de.digitalcollections.iiif.bookshelf.model;
 
-import com.datazuul.iiif.presentation.api.model.Version;
+import de.digitalcollections.iiif.presentation.model.api.enums.Version;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -14,7 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.TextScore;
 
 @Document(collection = "iiif-manifest-summaries")
-// @CompoundIndex(name = "labels_descriptions_attributions_idx", def = "{'descriptions.values' : 1, 'labels.values' : 2, 'attributions.values' : 1}")
+// @CompoundIndex(name = "labels_descriptions_attributions_idx", def = "{'descriptions.values' : 1, 'labels.values' : 2,
+// 'attributions.values' : 1}")
 public class IiifManifestSummary {
 
   @Id
@@ -94,7 +95,7 @@ public class IiifManifestSummary {
   public String getLabel(String language) {
     return labels.get(new Locale(language));
   }
-  
+
   public String getLabel(Locale locale) {
     return labels.get(locale);
   }
@@ -115,9 +116,10 @@ public class IiifManifestSummary {
     return descriptions.get(locale);
   }
 
-   public String getDescription(String language) {
+  public String getDescription(String language) {
     return descriptions.get(new Locale(language));
   }
+
   public HashMap<Locale, String> getDescriptions() {
     return descriptions;
   }

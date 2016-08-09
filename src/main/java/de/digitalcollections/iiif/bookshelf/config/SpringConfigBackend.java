@@ -1,11 +1,11 @@
 package de.digitalcollections.iiif.bookshelf.config;
 
-import com.datazuul.iiif.presentation.api.json.IiifPresentationApiObjectMapper;
-import com.datazuul.iiif.presentation.backend.config.SpringConfigBackendPresentation;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
+import de.digitalcollections.iiif.presentation.config.SpringConfigBackendPresentation;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
 import org.mongeez.MongeezRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +29,10 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
  */
 @Configuration
 @ComponentScan(basePackages = {
-  "com.datazuul.iiif.bookshelf.backend.repository.impl"
+    "com.datazuul.iiif.bookshelf.backend.repository.impl"
 })
 @PropertySource(value = {
-  "classpath:com/datazuul/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
+    "classpath:com/datazuul/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
 })
 @EnableMongoRepositories(basePackages = {"com.datazuul.iiif.bookshelf.backend.repository"})
 @EnableMongoAuditing
@@ -53,7 +53,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
   }
 
   /*
-     * Factory bean that creates the com.mongodb.Mongo instance
+   * Factory bean that creates the com.mongodb.Mongo instance
    */
   @Override
   @Bean
@@ -81,19 +81,18 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
     // define which fields schould be ignored with Filter-classes:
-//        objectMapper.addMixIn(User.class, UserJsonFilter.class);
-//        objectMapper.addMixIn(GrantedAuthority.class, GrantedAuthorityJsonFilter.class);
+    // objectMapper.addMixIn(User.class, UserJsonFilter.class);
+    // objectMapper.addMixIn(GrantedAuthority.class, GrantedAuthorityJsonFilter.class);
     return objectMapper;
   }
 
   /*
-  see https://github.com/mongeez/mongeez/wiki/How-to-use-mongeez
-  
-  done migration:
-  [2016-04-05 16:46:55,826 INFO ] [...] ChangeSetExecutor         (main    ) > ChangeSet already executed: ChangeSet-1_1
-  
-  Mongeez uses a separate MongoDB collection to record previously run scripts:
-  db.mongeez.find().pretty()
+   * see https://github.com/mongeez/mongeez/wiki/How-to-use-mongeez
+   * 
+   * done migration: [2016-04-05 16:46:55,826 INFO ] [...] ChangeSetExecutor (main ) > ChangeSet already executed:
+   * ChangeSet-1_1
+   * 
+   * Mongeez uses a separate MongoDB collection to record previously run scripts: db.mongeez.find().pretty()
    */
   @Bean
   public MongeezRunner mongeezRunner() throws Exception {
