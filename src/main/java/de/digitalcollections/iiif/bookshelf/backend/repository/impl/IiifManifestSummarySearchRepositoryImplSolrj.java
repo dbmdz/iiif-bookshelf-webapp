@@ -13,8 +13,8 @@ import java.util.UUID;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient.RemoteSolrException;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
@@ -134,36 +134,35 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   public void save(IiifManifestSummary manifestSummary) {
     // FIXME first delete doc with this uuid (if exists)
     try {
-      UpdateResponse resp = solr.deleteByQuery("uuid:" + manifestSummary.getUuid().toString());
+      solr.deleteByQuery("uuid:" + manifestSummary.getUuid().toString());
       solr.commit();
-    } catch (SolrServerException | IOException exception) {
-      LOGGER.error("Could not save " + manifestSummary, exception);
+    } catch (RemoteSolrException | SolrServerException | IOException exception) {
+      LOGGER.error("Could not delete existing " + manifestSummary, exception);
     }
 
     SolrInputDocument doc = new SolrInputDocument();
-    String key;
-    String value;
+    // doc.addField("id", manifestSummary.getUuid());
     doc.addField("uuid", manifestSummary.getUuid());
     for (Entry<Locale, String> e : manifestSummary.getLabels().entrySet()) {
-      key = e.getKey().getLanguage();
-      value = e.getValue();
+      String key = e.getKey().getLanguage();
+      String value = e.getValue();
       doc.addField("label." + key, value);
     }
     for (Entry<Locale, String> e : manifestSummary.getAttributions().entrySet()) {
-      key = e.getKey().getLanguage();
-      value = e.getValue();
+      String key = e.getKey().getLanguage();
+      String value = e.getValue();
       doc.addField("attribution." + key, value);
     }
     for (Entry<Locale, String> e : manifestSummary.getDescriptions().entrySet()) {
-      key = e.getKey().getLanguage();
-      value = e.getValue();
+      String key = e.getKey().getLanguage();
+      String value = e.getValue();
       doc.addField("description." + key, value);
     }
     try {
       solr.add(doc);
       solr.commit();
     } catch (SolrServerException | IOException ex) {
-      LOGGER.error(null, ex);
+      LOGGER.error("Could not save ", ex);
     }
   }
 

@@ -1,5 +1,6 @@
 # IIIF Bookshelf Webapp
 [![Build Status](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp.svg?branch=master)](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp)
+[![codecov](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp/branch/master/graph/badge.svg)](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 
@@ -261,6 +262,17 @@ http://localhost:8983/solr/admin/cores?action=CREATE&name=bookshelf&instanceDir=
 
 The new core has been created in directory "/local/data-solr/bookshelf".
 
+##### Using an optimized index
+
+For larger datasets, an optimized index schema can be used instead of the on-demand schema as described above. To do so, one has to create a core using the bookshelf schema:
+
+```shell
+$ cd /opt/solr
+$ cp -R ./server/solr/configsets/basic_configs ./server/solr/configsets/bookshelf_configs
+$ cp ~/git/iiif-bookshelf-webapp/src/main/resources/schema.xml ./server/solr/configsets/bookshelf_configs/conf/schema.xml
+$ bin/solr create_core -c bookshelf -d ./server/solr/configsets/bookshelf_configs
+```
+
 ### Usage
 
 To run the Solr server with the custom home directory:
@@ -298,6 +310,7 @@ $ cd /opt/solr-5.4.1
 $ sudo ./bin/solr stop
 Sending stop command to Solr running on port 8983 ... waiting 5 seconds to allow Jetty process 7763 to stop gracefully.
 ```
+
 
 ## Apache Tomcat
 
