@@ -15,6 +15,7 @@
     <version.aspectjweaver>1.8.8</version.aspectjweaver>
     <version.iiif>2.0.0</version.iiif>
     <version.jackson>2.5.4</version.jackson>
+    <version.jacoco-maven-plugin>0.7.4.201502262128</version.jacoco-maven-plugin>
     <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
     <version.json-simple>1.1.1</version.json-simple>
     <version.mongeez>0.9.6</version.mongeez>
@@ -67,8 +68,28 @@
           <stopPort>9000</stopPort>-->
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${version.jacoco-maven-plugin}</version>
+        <executions>
+          <execution>
+            <id>pre-unit-test</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+  
   <dependencies>
     <dependency>
       <groupId>de.digitalcollections</groupId>
@@ -168,4 +189,14 @@
       <version>${version.thymeleaf-spring4}</version>
     </dependency>
   </dependencies>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${version.jacoco-maven-plugin}</version>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

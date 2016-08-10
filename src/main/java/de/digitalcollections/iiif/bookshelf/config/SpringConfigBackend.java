@@ -23,10 +23,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
-/**
- *
- * @author ralf
- */
 @Configuration
 @ComponentScan(basePackages = {
     "de.digitalcollections.iiif.bookshelf.backend.repository.impl"

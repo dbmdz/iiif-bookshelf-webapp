@@ -1,16 +1,3 @@
-/*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package de.digitalcollections.iiif.bookshelf.config;
 
 import java.util.Locale;
@@ -38,22 +25,22 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @ComponentScan(basePackages = {
-  "de.digitalcollections.iiif.bookshelf.frontend.controller"
+    "de.digitalcollections.iiif.bookshelf.frontend.controller"
 })
 @EnableAspectJAutoProxy
 @EnableWebMvc
 @PropertySource(value = {
-  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
+    "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
 })
 public class SpringConfigWeb extends WebMvcConfigurerAdapter {
+
+  @Value("${cacheTemplates}")
+  private boolean cacheTemplates;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
   }
-
-  @Value("${cacheTemplates}")
-  private boolean cacheTemplates;
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -100,8 +87,8 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
     // Activate Thymeleaf LayoutDialect[1] (for 'layout'-namespace)
     // [1] https://github.com/ultraq/thymeleaf-layout-dialect
     templateEngine.addDialect(new LayoutDialect());
-//        templateEngine.addDialect(new SpringSecurityDialect());
-//    templateEngine.addDialect(new DataAttributeDialect());
+    // templateEngine.addDialect(new SpringSecurityDialect());
+    // templateEngine.addDialect(new DataAttributeDialect());
     return templateEngine;
   }
 
@@ -120,8 +107,9 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
     localeChangeInterceptor.setParamName("language");
     registry.addInterceptor(localeChangeInterceptor);
 
-//        InterceptorRegistration createAdminUserInterceptorRegistration = registry.addInterceptor(createAdminUserInterceptor());
-//        createAdminUserInterceptorRegistration.addPathPatterns("/login");
+    // InterceptorRegistration createAdminUserInterceptorRegistration =
+    // registry.addInterceptor(createAdminUserInterceptor());
+    // createAdminUserInterceptorRegistration.addPathPatterns("/login");
   }
 
   @Bean(name = "localeResolver")
@@ -131,8 +119,8 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
     return localeResolver;
   }
 
-//    @Bean
-//    public CreateAdminUserInterceptor createAdminUserInterceptor() {
-//        return new CreateAdminUserInterceptor();
-//    }
+  // @Bean
+  // public CreateAdminUserInterceptor createAdminUserInterceptor() {
+  // return new CreateAdminUserInterceptor();
+  // }
 }

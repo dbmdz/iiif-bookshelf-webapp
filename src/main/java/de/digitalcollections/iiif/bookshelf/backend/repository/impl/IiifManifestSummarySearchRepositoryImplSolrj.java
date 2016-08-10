@@ -10,9 +10,9 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.UUID;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocument;
@@ -21,46 +21,43 @@ import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class IiifManifestSummarySearchRepositoryImplSolrj<Object> implements IiifManifestSummarySearchRepository {
+public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifestSummarySearchRepository<UUID> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IiifManifestSummarySearchRepositoryImplSolrj.class);
-  @Value("${solr.url}")
-  private String solrUrl;
+
   @Autowired
   private IiifManifestSummaryRepository iiifManifestSummaryRepository;
 
+  @Autowired
+  private SolrClient solr;
+
   public void deleteById(String id) {
-    HttpSolrClient solr = new HttpSolrClient(solrUrl);
     try {
       solr.deleteById(id);
       solr.commit();
-    } catch (SolrServerException | IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    } catch (SolrServerException | IOException exception) {
+      LOGGER.error("Could not delete " + id, exception);
     }
-    // TODO Auto-generated catch block
-
   }
 
   @Override
-  public ArrayList<UUID> findBy(String text) {
-    HttpSolrClient solr = new HttpSolrClient(solrUrl);
+  public List<UUID> findBy(String text) {
     SolrQuery query = new SolrQuery();
     query.setQuery(text);
     query.setFields("uuid", "label.de", "attribution.de", "description.de");
     query.setStart(0);
-    QueryResponse response = null;
+    QueryResponse response;
     try {
       response = solr.query(query);
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
+      return new ArrayList<>();
     }
     SolrDocumentList rs = response.getResults();
     long numFound = rs.getNumFound();
@@ -99,18 +96,18 @@ public class IiifManifestSummarySearchRepositoryImplSolrj<Object> implements Iii
 
   @Override
   public Page<IiifManifestSummary> findBy(String text, Pageable pageable) {
-    HttpSolrClient solr = new HttpSolrClient(solrUrl);
     SolrQuery query = new SolrQuery();
     query.setQuery(text);
     query.setFields("uuid", "label.de", "attribution.de", "description.de");
     query.setStart(pageable.getOffset());
     query.setRows(pageable.getPageSize());
     // query.set("defType", "edismax");
-    QueryResponse response = null;
+    QueryResponse response;
     try {
       response = solr.query(query);
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
+      return new PageImpl<>(new ArrayList<>());
     }
     SolrDocumentList rs = response.getResults();
     long numFound = rs.getNumFound();
@@ -135,17 +132,14 @@ public class IiifManifestSummarySearchRepositoryImplSolrj<Object> implements Iii
 
   @Override
   public void save(IiifManifestSummary manifestSummary) {
-    HttpSolrClient server = new HttpSolrClient(solrUrl);
-
     // FIXME first delete doc with this uuid (if exists)
     try {
-      UpdateResponse resp = server.deleteByQuery("uuid:" + manifestSummary.getUuid().toString());
-      server.commit();
-    } catch (SolrServerException | IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      UpdateResponse resp = solr.deleteByQuery("uuid:" + manifestSummary.getUuid().toString());
+      solr.commit();
+    } catch (SolrServerException | IOException exception) {
+      LOGGER.error("Could not save " + manifestSummary, exception);
     }
-    // TODO Auto-generated catch block
+
     SolrInputDocument doc = new SolrInputDocument();
     String key;
     String value;
@@ -166,33 +160,32 @@ public class IiifManifestSummarySearchRepositoryImplSolrj<Object> implements Iii
       doc.addField("description." + key, value);
     }
     try {
-      server.add(doc);
-      server.commit();
+      solr.add(doc);
+      solr.commit();
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
     }
   }
 
   @Override
-  public ArrayList<UUID> findBy(String text, int start, int rows) {
-    HttpSolrClient solr = new HttpSolrClient(solrUrl);
+  public List<UUID> findBy(String text, int start, int rows) {
     SolrQuery query = new SolrQuery();
     query.setQuery(text); // test also with "Foobar part +500"
     query.setFields("uuid", "label.de", "attribution.de", "description.de");
     query.setStart(start);
     query.setRows(rows);
     // query.set("defType", "edismax");
-    QueryResponse response = null;
+    QueryResponse response;
     try {
       response = solr.query(query);
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
+      return new ArrayList<>();
     }
     SolrDocumentList rs = response.getResults();
     ArrayList<UUID> ids = new ArrayList<>((int) rows);
     LOGGER.info("--------------------------------------------------Results: " + rs.size());
     for (int i = 0; i < rs.size(); ++i) {
-      // LOGGER.info("Solr results size: " + results.get(i).getFieldValues("uuid").size());
       ids.add(UUID.fromString(rs.get(i).getFieldValues("uuid").toArray()[0].toString()));
       LOGGER.info("Solr uuid: " + ids.get(i));
     }
