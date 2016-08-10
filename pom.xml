@@ -21,7 +21,7 @@
     <version.mongeez>0.9.6</version.mongeez>
     <version.mongodb-driver>3.0.4</version.mongodb-driver>
     <version.persistence-api>1.0.2</version.persistence-api>
-    <version.slf4j>1.7.13</version.slf4j>
+    <version.slf4j>1.7.21</version.slf4j>
     <version.solr>5.4.1</version.solr>
     <version.spring>4.2.5.RELEASE</version.spring>
     <version.spring-data-mongodb>1.8.4.RELEASE</version.spring-data-mongodb>
@@ -160,6 +160,11 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <version>${version.slf4j}</version>
+    </dependency>
+       <dependency>
+       <groupId>org.slf4j</groupId>
+       <artifactId>slf4j-log4j12</artifactId>
       <version>${version.slf4j}</version>
     </dependency>
     <dependency>
