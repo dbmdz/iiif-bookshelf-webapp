@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(basePackages = {
-  "com.datazuul.iiif.bookshelf.business.service.impl"
+  "de.digitalcollections.iiif.bookshelf.business.service.impl"
 })
 public class SpringConfigBusiness {
     

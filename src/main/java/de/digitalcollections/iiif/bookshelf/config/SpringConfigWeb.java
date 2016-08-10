@@ -38,12 +38,12 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @ComponentScan(basePackages = {
-  "com.datazuul.iiif.bookshelf.frontend.controller"
+  "de.digitalcollections.iiif.bookshelf.frontend.controller"
 })
 @EnableAspectJAutoProxy
 @EnableWebMvc
 @PropertySource(value = {
-  "classpath:com/datazuul/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
+  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
 })
 public class SpringConfigWeb extends WebMvcConfigurerAdapter {
 

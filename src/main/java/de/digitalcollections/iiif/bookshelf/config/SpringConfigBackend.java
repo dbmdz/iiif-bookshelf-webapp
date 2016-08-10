@@ -29,12 +29,12 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
  */
 @Configuration
 @ComponentScan(basePackages = {
-    "com.datazuul.iiif.bookshelf.backend.repository.impl"
+    "de.digitalcollections.iiif.bookshelf.backend.repository.impl"
 })
 @PropertySource(value = {
-    "classpath:com/datazuul/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
+    "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
 })
-@EnableMongoRepositories(basePackages = {"com.datazuul.iiif.bookshelf.backend.repository"})
+@EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.repository"})
 @EnableMongoAuditing
 @EnableSpringDataWebSupport
 @Import(SpringConfigBackendPresentation.class)
@@ -65,7 +65,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
 
   @Override
   protected String getMappingBasePackage() {
-    return "com.datazuul.iiif.bookshelf.model";
+    return "de.digitalcollections.iiif.bookshelf.model";
   }
 
   @Bean
@@ -100,7 +100,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
     mongeezRunner.setMongo(mongo());
     mongeezRunner.setExecuteEnabled(true);
     mongeezRunner.setDbName(getDatabaseName());
-    mongeezRunner.setFile(new ClassPathResource("/com/datazuul/iiif/bookshelf/mongeez/mongeez.xml"));
+    mongeezRunner.setFile(new ClassPathResource("/de/digitalcollections/iiif/bookshelf/mongeez/mongeez.xml"));
     return mongeezRunner;
   }
 }
