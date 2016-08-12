@@ -262,17 +262,6 @@ http://localhost:8983/solr/admin/cores?action=CREATE&name=bookshelf&instanceDir=
 
 The new core has been created in directory "/local/data-solr/bookshelf".
 
-##### Using an optimized index
-
-For larger datasets, an optimized index schema can be used instead of the on-demand schema as described above. To do so, one has to create a core using the bookshelf schema:
-
-```shell
-$ cd /opt/solr
-$ cp -R ./server/solr/configsets/basic_configs ./server/solr/configsets/bookshelf_configs
-$ cp ~/git/iiif-bookshelf-webapp/src/main/resources/schema.xml ./server/solr/configsets/bookshelf_configs/conf/schema.xml
-$ bin/solr create_core -c bookshelf -d ./server/solr/configsets/bookshelf_configs
-```
-
 ### Usage
 
 To run the Solr server with the custom home directory:
