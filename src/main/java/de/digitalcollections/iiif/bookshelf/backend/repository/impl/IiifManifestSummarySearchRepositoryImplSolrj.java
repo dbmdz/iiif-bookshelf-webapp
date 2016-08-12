@@ -6,7 +6,6 @@ import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -50,7 +49,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   public List<UUID> findBy(String text) {
     SolrQuery query = new SolrQuery();
     query.setQuery(text);
-    query.setFields("uuid", "label.de", "attribution.de", "description.de");
+    query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
     query.setStart(0);
     QueryResponse response;
     try {
@@ -65,15 +64,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     ArrayList<UUID> ids = new ArrayList<>((int) numFound);
     int current = 0;
     while (current < numFound) {
-
-      ListIterator<SolrDocument> iter = rs.listIterator();
-      while (iter.hasNext()) {
-        SolrDocument doc = iter.next();
-        ids.add(UUID.fromString(doc.getFieldValues("uuid").toArray()[0].toString()));
-        LOGGER.info("Solr uuid: " + ids.get(current));
-        current++;
-        LOGGER.info("************************************************************** " + current + "   " + numFound);
-      }
+      current += rs.size();
       query.setStart(current);
       try {
         response = solr.query(query);
@@ -85,23 +76,17 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
     }
     LOGGER.info("--------------------------------------------------Results: " + rs.size());
-
-    for (int i = 0; i < rs.size(); ++i) {
-      ids.add(UUID.fromString(rs.get(i).getFieldValues("uuid").toArray()[0].toString()));
-      LOGGER.info("Solr uuid: " + ids.get(i));
-    }
-    return ids;
-
+    return getUUIDs(rs);
   }
 
   @Override
   public Page<IiifManifestSummary> findBy(String text, Pageable pageable) {
     SolrQuery query = new SolrQuery();
     query.setQuery(text);
-    query.setFields("uuid", "label.de", "attribution.de", "description.de");
+    query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
     query.setStart(pageable.getOffset());
     query.setRows(pageable.getPageSize());
-    // query.set("defType", "edismax");
+
     QueryResponse response;
     try {
       response = solr.query(query);
@@ -109,25 +94,12 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
       LOGGER.error(null, ex);
       return new PageImpl<>(new ArrayList<>());
     }
-    SolrDocumentList rs = response.getResults();
-    long numFound = rs.getNumFound();
-    // this.numFound = numFound;
 
-    ArrayList<UUID> ids = new ArrayList<>((int) query.getRows());
-    LOGGER.info("--------------------------------------------------Results: " + rs.size());
-    for (int i = 0; i < rs.size(); ++i) {
-      if (rs.get(i).size() > 0) {
-        ids.add(UUID.fromString(rs.get(i).getFieldValues("uuid").toArray()[0].toString()));
-      }
-      // LOGGER.info("Solr uuid: " + ids.get(i));
-    }
-
-    List<IiifManifestSummary> manifests = iiifManifestSummaryRepository.findByUuidIn(ids);
-    LOGGER.info("Solr ids: " + ids.size() + " -----------------Mongo manifest list: " + manifests.size());
-    // create Page for result
-    PageImpl<IiifManifestSummary> page = new PageImpl<>(manifests, pageable, numFound);
-    return page;
-
+    SolrDocumentList result = response.getResults();
+    List<UUID> uuids = getUUIDs(result);
+    List<IiifManifestSummary> manifests = iiifManifestSummaryRepository.findByUuidIn(uuids);
+    LOGGER.info("Found " + uuids.size() + " UUIDs and " + manifests.size() + " manifests.");
+    return new PageImpl<>(manifests, pageable, result.getNumFound());
   }
 
   @Override
@@ -146,17 +118,17 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     for (Entry<Locale, String> e : manifestSummary.getLabels().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
-      doc.addField("label." + key, value);
+      doc.addField("label" + key.toUpperCase(), value);
     }
     for (Entry<Locale, String> e : manifestSummary.getAttributions().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
-      doc.addField("attribution." + key, value);
+      doc.addField("attribution" + key.toUpperCase(), value);
     }
     for (Entry<Locale, String> e : manifestSummary.getDescriptions().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
-      doc.addField("description." + key, value);
+      doc.addField("description" + key.toUpperCase(), value);
     }
     try {
       solr.add(doc);
@@ -170,7 +142,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   public List<UUID> findBy(String text, int start, int rows) {
     SolrQuery query = new SolrQuery();
     query.setQuery(text); // test also with "Foobar part +500"
-    query.setFields("uuid", "label.de", "attribution.de", "description.de");
+    query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
     query.setStart(start);
     query.setRows(rows);
     // query.set("defType", "edismax");
@@ -181,14 +153,22 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
       LOGGER.error(null, ex);
       return new ArrayList<>();
     }
-    SolrDocumentList rs = response.getResults();
-    ArrayList<UUID> ids = new ArrayList<>((int) rows);
-    LOGGER.info("--------------------------------------------------Results: " + rs.size());
-    for (int i = 0; i < rs.size(); ++i) {
-      ids.add(UUID.fromString(rs.get(i).getFieldValues("uuid").toArray()[0].toString()));
-      LOGGER.info("Solr uuid: " + ids.get(i));
+    SolrDocumentList results = response.getResults();
+    LOGGER.info("--------------------------------------------------Results: " + results.size());
+    return getUUIDs(results);
+  }
+
+  private List<UUID> getUUIDs(List<SolrDocument> docs) {
+    ArrayList<UUID> ids = new ArrayList<>(docs.size());
+    for (SolrDocument doc : docs) {
+      UUID uuid = createUUID(doc.getFirstValue("uuid"));
+      ids.add(uuid);
+      LOGGER.info("Solr uuid: " + uuid);
     }
     return ids;
+  }
 
+  private UUID createUUID(Object value) {
+    return UUID.fromString(value.toString());
   }
 }
