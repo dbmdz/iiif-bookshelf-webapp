@@ -18,30 +18,30 @@ You can add books to your bookshelf by loading the manifest.json of the book.
 ### Mongo DB
 
 * Homepage: https://www.mongodb.com/
-* Version: 3.2.4
+* Version: 3.2.9
 
 #### Installation
 
 1. Download the binary files for the desired release of Mongo DB from [official Mongo DB Downloads Page](https://www.mongodb.org/downloads).
-   To download the latest release through the shell, type the following:
+   To download the latest "Linux 64-bit legacy x64"-release through the shell:
 
 ```shell
-$ curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.4.tgz
+$ cd ~/Downloads
+$ curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.9.tgz
 ```
 
-2. Extract the files from the downloaded archive.
-   For example, from a system shell, you can extract with the tar command:
+2. Extract the files from the downloaded archive:
 
 ```shell
-$ tar -zxvf mongodb-linux-x86_64-3.2.4.tgz
+$ cd ~/Downloads
+$ tar xvfz mongodb-linux-x86_64-3.2.9.tgz
 ```
 
-3. Copy the extracted archive to the target directory.
-   To copy the extracted folder to the location from which MongoDB will run:
+3. Copy the extracted archive to the target installation directory. Example:
 
 ```shell
-$ mkdir -p /opt
-$ mv mongodb-linux-x86_64-3.2.4/ /opt
+$ sudo mkdir -p /opt
+$ sudo mv mongodb-linux-x86_64-3.2.9/ /opt
 ```
 
 #### Configuration
@@ -51,26 +51,26 @@ Ensure the location of the executables is in the PATH variable.
 * SuSE Linux:
 
 ```shell
-# vi /etc/profile.d/mongodb.sh
+$ sudo vi /etc/profile.d/mongodb.sh
 
 # Add paths for mongo db
-if [ -d /opt/mongodb-linux-x86_64-3.2.4/bin ]; then
-    COUNT=`ls -1 /opt/mongodb-linux-x86_64-3.2.4/bin/ | wc -l`
+if [ -d /opt/mongodb-linux-x86_64-3.2.9/bin ]; then
+    COUNT=`ls -1 /opt/mongodb-linux-x86_64-3.2.9/bin/ | wc -l`
     if [ $COUNT -gt 0 ]; then
-        PATH="$PATH:/opt/mongodb-linux-x86_64-3.2.4/bin"
+        PATH="$PATH:/opt/mongodb-linux-x86_64-3.2.9/bin"
     fi
 fi
 export PATH=$PATH
 ```
 
 ```shell
-# vi /etc/profile.d/mongodb.csh
+$ sudo vi /etc/profile.d/mongodb.csh
 
 # Add paths for mongo db
-if ( -d /opt/mongodb-linux-x86_64-3.2.4/bin ) then
-    set COUNT=`ls -1 /opt/mongodb-linux-x86_64-3.2.4/bin/ | wc -l`
+if ( -d /opt/mongodb-linux-x86_64-3.2.9/bin ) then
+    set COUNT=`ls -1 /opt/mongodb-linux-x86_64-3.2.9/bin/ | wc -l`
     if ( $COUNT > 0 ) then
-        setenv PATH "${PATH}:/opt/mongodb-linux-x86_64-3.2.4/bin"
+        setenv PATH "${PATH}:/opt/mongodb-linux-x86_64-3.2.9/bin"
     endif
 endif
 ```
@@ -78,18 +78,19 @@ endif
 * Ubuntu Linux:
 
 ```shell
-# vi /etc/environment
+$ sudo vi /etc/environment
 ...
-PATH="/opt/mongodb-linux-x86_64-3.2.4/bin:$PATH"
+PATH="/opt/mongodb-linux-x86_64-3.2.9/bin:$PATH"
 ...
 ```
 
 Test it (after reboot or sourcing of file):
 
 ```shell
-mongod --version
-db version v3.2.4
-git version: e2ee9ffcf9f5a94fad76802e28cc978718bb7a30
+($ . /etc/environment)
+$ mongod --version
+db version v3.2.9
+git version: 22ec9e93b40c85fc7cae7d56e7d6a02fd811088c
 allocator: tcmalloc
 modules: none
 build environment:
@@ -102,14 +103,36 @@ build environment:
 To run MongoDB, run the mongod process at the system prompt. If you do not use the default data directory (i.e., /data/db), specify the path of the data directory using the --dbpath option. Example:
 
 ```shell
-$ mkdir -p /local/mongodb/data
+$ sudo mkdir -p /local/mongodb/data
+($ sudo chmod 777 /local/mongodb/data)
 $ mongod --dbpath /local/mongodb/data
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten] MongoDB starting : pid=18076 port=27017 dbpath=/local/mongodb/data 64-bit host=ralf-linux
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten] db version v3.2.9
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten] git version: 22ec9e93b40c85fc7cae7d56e7d6a02fd811088c
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten] allocator: tcmalloc
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten] modules: none
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten] build environment:
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten]     distarch: x86_64
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten]     target_arch: x86_64
+2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten] options: { storage: { dbPath: "/local/mongodb/data" } }
+2016-09-01T12:58:32.573+0200 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=8G,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] 
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] 
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] 
+2016-09-01T12:58:32.724+0200 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/local/mongodb/data/diagnostic.data'
+2016-09-01T12:58:32.724+0200 I NETWORK  [HostnameCanonicalizationWorker] Starting hostname canonicalization worker
+2016-09-01T12:58:32.761+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
 ```
 
 To shutdown mongod you have to specify the data directory, too (if you are not using the default directory):
 
 ```shell
 $ mongod --dbpath /local/mongodb/data --shutdown
+killing process with pid: 18076
 ```
 
 If you specify the logpath option, then logging will direct to that log file instead of showing up on standard console:
@@ -130,7 +153,7 @@ Download and extract a Solr release:
 ```shell
 $ cd /opt
 $ sudo wget http://archive.apache.org/dist/lucene/solr/5.4.1/solr-5.4.1.tgz
-$ sudo tar -xzvf solr-5.4.1.tgz
+$ sudo tar xvfz solr-5.4.1.tgz
 ```
 
 Resulting Solr installation directory is ```/opt/solr-5.4.1```.
@@ -175,6 +198,7 @@ In Solr, the term ```core``` is used to refer to a single index and associated t
 Help information for creating a core:
 
 ```shell
+# cd /opt/solr-5.4.1
 # bin/solr create_core -help
 
 Usage: solr create_core [-c core] [-d confdir] [-p port]
@@ -203,6 +227,7 @@ Note: The configuration directories (source of copy) are located in /opt/solr-5.
 Creating a core needs a running solr server. As we want a custom location for data (e.g. /local/data-solr), we have to start the server with param -s, see help:
 
 ```shell
+# cd /opt/solr-5.4.1
 # bin/solr start -help
 
 Usage: solr start [-f] [-c] [-h hostname] [-p port] [-d directory] [-z zkHost] [-m memory] [-e example] [-s solr.solr.home] [-a "additional-options"] [-V]
@@ -221,6 +246,7 @@ Start server with custom home directory "/local/data-solr":
 
 ```shell
 # mkdir -p /local/data-solr
+(# chmod 777 /local/data-solr)
 $ /opt/solr-5.4.1/bin/solr start -s /local/data-solr
 
 Solr home directory /local/data-solr must contain a solr.xml file!
@@ -392,7 +418,7 @@ true
 
 * To enable annotations install and run SimpleAnnotationServer from https://github.com/glenrobson/SimpleAnnotationServer.
 
-The server requeres Java 1.7 and maven installed.
+The server requires Java 1.7 and Maven installed.
 To install SimpleAnnotationServer run the following commands in Linux:
 
   ```shell
