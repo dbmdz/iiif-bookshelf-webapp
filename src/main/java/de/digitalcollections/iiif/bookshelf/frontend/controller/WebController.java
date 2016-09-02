@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,10 +48,14 @@ public class WebController {
 
   @RequestMapping(value = "/find", method = RequestMethod.POST)
   public String find(SearchRequest searchRequest, Model model, Pageable pageRequest) {
-    final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(searchRequest.getTerm(), pageRequest);
-    model.addAttribute("page", new PageWrapper(page, "/"));
-    model.addAttribute("searchRequest", searchRequest);
-    return "index";
+    final String term = searchRequest.getTerm();
+    if (!StringUtils.isEmpty(term)) {
+      final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(term, pageRequest);
+      model.addAttribute("page", new PageWrapper(page, "/"));
+      model.addAttribute("searchRequest", searchRequest);
+      return "index";
+    }
+    return "redirect:/";
   }
 
   @CrossOrigin(origins = "*")
