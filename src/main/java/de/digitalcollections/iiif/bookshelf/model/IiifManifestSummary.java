@@ -41,6 +41,16 @@ public class IiifManifestSummary {
   @LastModifiedDate
   private Date lastModified;
 
+  private String logoUrl;
+
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
+
   public Float getScore() {
     return score;
   }

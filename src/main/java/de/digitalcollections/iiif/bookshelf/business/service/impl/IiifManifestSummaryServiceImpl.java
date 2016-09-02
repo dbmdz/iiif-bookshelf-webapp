@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryService {
@@ -67,7 +68,8 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
-    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifest.getManifestUri());
+    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifest.
+            getManifestUri());
     if (existingManifest != null) {
       throw new IllegalArgumentException("object already exists");
     }
@@ -78,7 +80,8 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   public void enrichAndSave(IiifManifestSummary manifestSummary) {
     try {
       // if exists already: update existing manifest
-      final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestSummary.getManifestUri());
+      final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestSummary.
+              getManifestUri());
       if (existingManifest != null) {
         manifestSummary = existingManifest;
       }
@@ -151,7 +154,8 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
     if (thumbnailServiceUri == null) {
       try {
-        final de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service service = manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService();
+        final de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service service = manifest.getSequences().get(0).
+                getCanvases().get(0).getImages().get(0).getResource().getService();
         // first image
         thumbnailServiceUri = service.getId();
         context = service.getContext();
@@ -164,7 +168,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   /**
    * Language may be associated with strings that are intended to be displayed to the user with the following pattern of
-   * 
+   *
    * @value plus the RFC 5646 code in
    *
    *        @language, instead of a plain string. This pattern may be used in label, description, attribution and the
@@ -207,6 +211,11 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
     Thumbnail thumbnail = getThumbnail(jsonObject);
     manifestSummary.setThumbnail(thumbnail);
+
+    String logoUrl = (String) jsonObject.get("logo");
+    if (!StringUtils.isEmpty(logoUrl)) {
+      manifestSummary.setLogoUrl(logoUrl);
+    }
   }
 
   public HashMap<Locale, String> getLocalizedStrings(Object jsonNode) {
@@ -231,8 +240,14 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   private Thumbnail getThumbnail(JSONObject manifestObj) {
     try {
-      // manifest.getThumbnail().getService().getId();
+
+      // try to get thumbnail of manifest itself
       JSONObject thumbnailObj = (JSONObject) manifestObj.get("thumbnail");
+      if (thumbnailObj != null) {
+        String url = (String) thumbnailObj.get("@id");
+        return new Thumbnail(url);
+      }
+
       JSONObject serviceObj = (JSONObject) thumbnailObj.get("service");
       String context = (String) serviceObj.get("@context");
       String id = (String) serviceObj.get("@id");
@@ -240,6 +255,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     } catch (Exception ex) {
     }
 
+    // try to get thumbnail of first canvas
     try {
       // manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService().getId();
       JSONArray sequencesArray = (JSONArray) manifestObj.get("sequences");
@@ -247,6 +263,18 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
       JSONArray canvasesArray = (JSONArray) firstSequence.get("canvases");
       JSONObject firstCanvas = (JSONObject) canvasesArray.get(0);
+
+      Object obj = firstCanvas.get("thumbnail");
+      if (obj instanceof JSONObject) {
+        JSONObject firstCanvasThumbnail = (JSONObject) firstCanvas.get("thumbnail");
+        if (firstCanvasThumbnail != null) {
+          String url = (String) firstCanvasThumbnail.get("@id");
+          return new Thumbnail(url);
+        }
+      } else if (obj instanceof String) {
+        String url = (String) obj;
+        return new Thumbnail(url);
+      }
 
       JSONArray imagesArray = (JSONArray) firstCanvas.get("images");
       JSONObject firstImage = (JSONObject) imagesArray.get(0);

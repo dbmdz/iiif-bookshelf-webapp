@@ -8,6 +8,15 @@ public class Thumbnail {
 
   private String iiifImageServiceUri;
   private IiifImageApiVersion iiifImageApiVersion;
+  private String url;
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
   public Thumbnail() {
 
@@ -21,6 +30,10 @@ public class Thumbnail {
   public Thumbnail(String context, String iiifImageServiceUri) {
     this.iiifImageApiVersion = IiifImageApiVersion.getVersion(context);
     setIiifImageServiceUri(iiifImageServiceUri);
+  }
+
+  public Thumbnail(String url) {
+    this.url = url;
   }
 
   public IiifImageApiVersion getIiifImageApiVersion() {
