@@ -431,3 +431,8 @@ To install SimpleAnnotationServer run the following commands in Linux:
   ```
 
 Check at  http://localhost:8888/index.html wheter the server has started. After that one can write annotations from IIIF Bookshelf Webapp.
+
+# FAQ
+
+## What library is used to shorten description text?
+see [https://github.com/viralpatel/jquery.shorten](https://github.com/viralpatel/jquery.shorten)

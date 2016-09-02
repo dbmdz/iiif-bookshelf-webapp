@@ -28,6 +28,10 @@ footer {
     padding: 0px 0px 80px 0px;
 }*/
 
+#navbar a.badge {
+  color: white;
+}
+
 .pagination {
     margin: 0px;
 }

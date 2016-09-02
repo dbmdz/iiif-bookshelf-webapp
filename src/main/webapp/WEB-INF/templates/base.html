@@ -54,8 +54,8 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse navbar-right">
         <ul class="nav navbar-nav">
-          <li th:class="${menu} == 'home' ? 'active'"><a th:href="@{/}">Home</a></li>
-          <li><p class="navbar-text"><a th:href="@{${#httpServletRequest.requestURI}(language='de')}" th:class="${#locale.language == 'de' ? 'active navbar-link': 'navbar-link'}">de</a> | <a th:href="@{${#httpServletRequest.requestURI}(language='en')}" th:class="${#locale.language == 'en' ? 'active navbar-link': 'navbar-link'}">en</a></p></li>
+          <li th:class="${menu} == 'home' ? 'active'"><a th:href="@{/}" th:text="#{homepage}">Home</a></li>
+          <li><p class="navbar-text"><a th:href="@{${#httpServletRequest.requestURI}(language='de')}" th:class="${#locale.language == 'de' ? 'active navbar-link badge': 'navbar-link'}">de</a> | <a th:href="@{${#httpServletRequest.requestURI}(language='en')}" th:class="${#locale.language == 'en' ? 'active navbar-link badge': 'navbar-link'}">en</a></p></li>
         </ul>
       </div>
     </div>

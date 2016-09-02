@@ -2,22 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="base">
-    <body>
-        <section layout:fragment="content">
-            <form action="#" th:action="@{/add}" th:object="${manifest}" method="post">
-                <div class="row">
-                    <div class="col-md-2">
-                        URL to manifest:
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" th:field="*{manifestUri}" class="form-control"/>
-                    </div>
-                    <div class="col-md-2">
-                        <button name="submit" type="submit" class="btn btn-primary">load</button>
-                    </div>
-                </div>
-            </form>
+  <body>
+    <section layout:fragment="content">
 
-        </section>
-    </body>
+      <form action="#" th:action="@{/add}" th:object="${manifest}" method="post">
+        <div class="form-group">
+          <label for="url" th:text="#{url_to_manifest}">URL to manifest</label>
+          <input type="text" th:field="*{manifestUri}" class="form-control" id="url" placeholder="https://digipress2.digitale-sammlungen.de/iiif/presentation/bsb00085565_00683_u001/manifest" />
+        </div>
+        <button name="submit" type="submit" class="btn btn-primary" th:text="#{load}">load</button>
+      </form>
+
+    </section>
+  </body>
 </html>
