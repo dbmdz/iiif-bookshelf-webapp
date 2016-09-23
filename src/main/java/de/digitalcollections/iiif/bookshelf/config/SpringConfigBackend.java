@@ -9,6 +9,7 @@ import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPre
 import org.mongeez.MongeezRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +26,10 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @Configuration
 @ComponentScan(basePackages = {
-    "de.digitalcollections.iiif.bookshelf.backend.repository.impl"
+  "de.digitalcollections.iiif.bookshelf.backend.repository.impl"
 })
 @PropertySource(value = {
-    "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
+  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
 })
 @EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.repository"})
 @EnableMongoAuditing
@@ -37,6 +38,12 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 public class SpringConfigBackend extends AbstractMongoConfiguration {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigBackend.class);
+
+  @Value("${mongo.host}")
+  private String mongoHost;
+
+  @Value("${mongo.port}")
+  private int mongoPort;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -54,7 +61,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
   @Override
   @Bean
   public MongoClient mongo() throws Exception {
-    MongoClient client = new MongoClient("localhost");
+    MongoClient client = new MongoClient(mongoHost, mongoPort);
     client.setWriteConcern(WriteConcern.SAFE);
     return client;
   }
@@ -84,10 +91,10 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
 
   /*
    * see https://github.com/mongeez/mongeez/wiki/How-to-use-mongeez
-   * 
+   *
    * done migration: [2016-04-05 16:46:55,826 INFO ] [...] ChangeSetExecutor (main ) > ChangeSet already executed:
    * ChangeSet-1_1
-   * 
+   *
    * Mongeez uses a separate MongoDB collection to record previously run scripts: db.mongeez.find().pretty()
    */
   @Bean
