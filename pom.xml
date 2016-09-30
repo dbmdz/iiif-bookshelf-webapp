@@ -6,7 +6,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
   
-  <name>IIIF: IIIF Bookshelf Webapp</name>
+  <name>DigitalCollections: IIIF Bookshelf Webapp</name>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
