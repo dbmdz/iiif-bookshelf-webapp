@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.digitalcollections</groupId>
   <artifactId>iiif-bookshelf-webapp</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0-SNAPSHOT</version>
   <packaging>war</packaging>
   
   <name>DigitalCollections: IIIF Bookshelf Webapp</name>
@@ -13,7 +13,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <version.aspectjweaver>1.8.8</version.aspectjweaver>
-    <version.iiif>2.0.0</version.iiif>
+    <version.iiif-presentation-api>3.1.0</version.iiif-presentation-api>
     <version.jackson>2.5.4</version.jackson>
     <version.jacoco-maven-plugin>0.7.4.201502262128</version.jacoco-maven-plugin>
     <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
@@ -94,22 +94,22 @@
     <dependency>
       <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-model-api</artifactId>
-      <version>${version.iiif}</version>
+      <version>${version.iiif-presentation-api}</version>
     </dependency>
     <dependency>
       <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-model-impl</artifactId>
-      <version>${version.iiif}</version>
+      <version>${version.iiif-presentation-api}</version>
     </dependency>
     <dependency>
       <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-backend-api</artifactId>
-      <version>${version.iiif}</version>
+      <version>${version.iiif-presentation-api}</version>
     </dependency>
     <dependency>
       <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-backend-impl</artifactId>
-      <version>${version.iiif}</version>
+      <version>${version.iiif-presentation-api}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

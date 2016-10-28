@@ -1,101 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
-        <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!--/* The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags */-->
-        <meta name="description" content="" />
-        <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/ico"/>
+      layout:decorator="base">
+  <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/mirador/css/mirador-combined.css}" />
+    <style type="text/css">
+      body { font-size: 14px; }
+      #viewer { background: #333; width: 100%; height: 800px; position: relative; }
+      #viewer * { box-sizing: content-box; }
+    </style>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div id="viewer"></div>
+        </div>
+      </div>
+    </section>
 
-        <title layout:title-pattern="$DECORATOR_TITLE: $CONTENT_TITLE">IIIF Bookshelf</title>
-
-        <!--/* Bootstrap CSS */-->
-        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-
-        <!--/* Bootstrap material design: Custom primary color: see https://github.com/FezVrasta/bootstrap-material-design */-->
-        <link th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
-
-        <!--/* Font Awesome Icons */-->
-        <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
-
-        
-        <link rel="stylesheet" type="text/css" th:href="@{/vendor/mirador/css/mirador-combined.css}" />
-        <style type="text/css">
-            body { padding: 0; margin: 0; overflow: hidden; font-size: 70%; }
-            #viewer { background: #333; width: 100%; height: 100%; }
-        </style>
-
-    
-        <!--/* Add CSS in child templates */-->
-    <th:block layout:fragment="morecss">
-
-    </th:block>
-
-    <!--/* General CSS */-->
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="@{/js/html5shiv.min.js}"></script>
-    <script src="@{/js/respond.min.js}"></script>
-    <![endif]-->
-</head>
-    <body>
-        
-            <div id="viewer"></div>
-
-            <script th:src="@{/vendor/mirador/mirador.js}"></script>
-            <script type="text/javascript" th:inline="javascript">
-                $(function () {
-                  Mirador({
-                          "id": "viewer",
-                          "workspaceType": 'compare',
-                          "layout": "1x1",
-                          "mainMenuSettings" :
-                           {
-                                  "show": true,
-                                  "buttons" : {"bookmark" : true, "layout" : true},
-                                  "userLogo": {"label": "IIIF", "attributes": {"href": "http://iiif.io"}}
-                            },
-                            'showAddFromURLBox' : false,
-                            "saveSession": true,
-                            "data": [
-                            {
-                            "manifestUri": [[${manifestId}]]
-                            }
-                            ],
-                            "windowObjects": [
-                            {
-                                  "loadedManifest": [[${manifestId}]],
-                                  "viewType": "ImageView",
-                                  "layoutOptions": {
-                                          "close": false,
-                                          "slotRight": false,
-                                          "slotLeft": false,
-                                          "slotAbove": false,
-                                          "slotBelow": false
-                                  },
-                                  "annotationLayer": true,
-                                  "annotationCreation": true,
-                                  "saveSession": true,
-                                  "displayLayout": true,
-                                  "bottomPanel" : true,
-                                  "sidePanel" : false
-                            }],
-                            /** Testing Annotations **/
-                            annotationEndpoint: {
-                                  name: 'Simple Annotation Store Endpoint',
-                                  module: 'SimpleASEndpoint',
-                                  options: {
-                                          url: 'http://localhost:8888/annotation'
-                                  }    
-                            }   
-                  });
-                });
-            </script>
-
-    </body>
+  <th:block layout:fragment="morejs">
+    <script th:src="@{/vendor/mirador/mirador.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+      $(function () {
+      Mirador({
+      'id': 'viewer',
+              'buildPath': '/vendor/mirador/',
+              'workspaceType': 'bookReading',
+              'layout': '1x1',
+              'mainMenuSettings': {
+              'show': true,
+                      'buttons': {
+                      'bookmark': true,
+                              'layout': true
+                      },
+                      'userLogo': {
+                      'label': 'IIIF',
+                              'attributes': { 'href': 'http://iiif.io' }
+                      }
+              },
+              'showAddFromURLBox': false,
+              'saveSession': false,
+              'data': [
+              {
+              /*<![CDATA[*/
+              'manifestUri': /*[[@{__${manifestId}__}]]*/
+                      /*]]>*/
+              }
+              ],
+              'windowObjects': [
+              {
+              /*<![CDATA[*/
+              'loadedManifest': /*[[@{__${manifestId}__}]]*/,
+                      /*]]>*/
+                      'viewType': 'ImageView',
+                      'layoutOptions': {
+                      'close': false,
+                              'slotRight': false,
+                              'slotLeft': false,
+                              'slotAbove': false,
+                              'slotBelow': false
+                      },
+                      'annotationLayer': false,
+                      'annotationCreation': false,
+                      'saveSession': false,
+                      'displayLayout': true,
+                      'bottomPanel': true,
+                      'sidePanel': false
+              }
+              ]
+              ,
+              'annotationEndpoint': { 'name':'Local Storage', 'module': 'LocalStorageEndpoint' }
+      });
+      });
+    </script>
+  </th:block>
+</body>
 </html>

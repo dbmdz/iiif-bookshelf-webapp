@@ -9,6 +9,7 @@ import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundEx
 import de.digitalcollections.iiif.presentation.backend.api.repository.v2_0_0.PresentationRepository;
 import de.digitalcollections.iiif.presentation.model.api.enums.Version;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -136,14 +137,23 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     Manifest manifest = presentationRepository.getManifest(manifestSummary.getManifestUri());
 
     // enrichment
-    String label = manifest.getLabel();
-    manifestSummary.addLabel(DEFAULT_LOCALE, label);
+    final PropertyValue label1 = manifest.getLabel();
+    if (label1 != null) {
+      String label = label1.getFirstValue();
+      manifestSummary.addLabel(DEFAULT_LOCALE, label);
+    }
 
-    String description = manifest.getDescription();
-    manifestSummary.addDescription(DEFAULT_LOCALE, description);
+    final PropertyValue description1 = manifest.getDescription();
+    if (description1 != null) {
+      String description = description1.getFirstValue();
+      manifestSummary.addDescription(DEFAULT_LOCALE, description);
+    }
 
-    String attribution = manifest.getAttribution();
-    manifestSummary.addAttribution(DEFAULT_LOCALE, attribution);
+    final PropertyValue attribution1 = manifest.getAttribution();
+    if (attribution1 != null) {
+      String attribution = attribution1.getFirstValue();
+      manifestSummary.addAttribution(DEFAULT_LOCALE, attribution);
+    }
 
     URI thumbnailServiceUri = null;
     String context = null;
@@ -159,11 +169,11 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
         // first image
         thumbnailServiceUri = service.getId();
         context = service.getContext();
+        manifestSummary.setThumbnail(new Thumbnail(thumbnailServiceUri.toString(), context));
       } catch (Exception ex) {
 
       }
     }
-    manifestSummary.setThumbnail(new Thumbnail(thumbnailServiceUri.toString(), context));
   }
 
   /**
