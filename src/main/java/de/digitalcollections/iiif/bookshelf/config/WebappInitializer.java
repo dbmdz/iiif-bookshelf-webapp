@@ -2,13 +2,15 @@ package de.digitalcollections.iiif.bookshelf.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+@Order(2)
 public class WebappInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class<?>[] {SpringConfig.class};
+    return new Class<?>[]{SpringConfig.class};
   }
 
   @Override
@@ -18,7 +20,7 @@ public class WebappInitializer extends AbstractAnnotationConfigDispatcherServlet
 
   @Override
   protected String[] getServletMappings() {
-    return new String[] {"/*"};
+    return new String[]{"/*"};
   }
 
   @Override

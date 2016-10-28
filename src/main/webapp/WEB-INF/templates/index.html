@@ -48,7 +48,7 @@
           <p th:text="#{msg.found_n_books(${page.totalItems})}">Found 17 books.</p>
         </div>
         <div class="col-md-2" style="text-align: right;">
-          <p><a class="btn btn-primary" th:href="@{/add}" role="button" th:utext="#{add}">add <span class="glyphicon glyphicon-book" aria-hidden="true"></span></a></p>
+          <p><th:block th:if='${not authentication}'><a class="btn btn-primary" th:href="@{/add}" role="button" th:utext="#{add}">add <span class="glyphicon glyphicon-book" aria-hidden="true"></span></a></th:block></p>
         </div>
       </div>
 

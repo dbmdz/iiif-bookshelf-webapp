@@ -6,6 +6,7 @@ import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -19,12 +20,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class WebController {
 
+  @Value("${authentication}")
+  private boolean authentication;
+
   @Autowired
   private IiifManifestSummaryService iiifManifestSummaryService;
 
   @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
   public String list(Model model, Pageable pageRequest) {
     final Page<IiifManifestSummary> page = iiifManifestSummaryService.getAll(pageRequest);
+    model.addAttribute("authentication", authentication);
     model.addAttribute("page", new PageWrapper(page, "/"));
     model.addAttribute("searchRequest", new SearchRequest());
 
@@ -51,6 +56,7 @@ public class WebController {
     final String term = searchRequest.getTerm();
     if (!StringUtils.isEmpty(term)) {
       final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(term, pageRequest);
+      model.addAttribute("authentication", authentication);
       model.addAttribute("page", new PageWrapper(page, "/"));
       model.addAttribute("searchRequest", searchRequest);
       return "index";
