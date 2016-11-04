@@ -35,7 +35,12 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     if (authentication) {
-      http.authorizeRequests()
+      http
+          // Since we want to make our endpoint as machine-friendly as possible,
+          // we disable CSRF protection. Parsing the form page to get the CSRF token
+          // would be too tedious.
+          .csrf().disable()
+          .authorizeRequests()
               //            .antMatchers("/css/**", "/fonts", "/images", "/js/**", "/vendor/**").permitAll()
               //            .anyRequest().authenticated()
               .antMatchers("/add").authenticated()
