@@ -3,9 +3,13 @@ package de.digitalcollections.iiif.bookshelf.config;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
+import com.mongodb.ReadPreference;
+import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
 import de.digitalcollections.iiif.presentation.config.SpringConfigBackendPresentation;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
+import java.util.ArrayList;
+import java.util.List;
 import org.mongeez.MongeezRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +30,10 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @Configuration
 @ComponentScan(basePackages = {
-  "de.digitalcollections.iiif.bookshelf.backend.repository.impl"
+    "de.digitalcollections.iiif.bookshelf.backend.repository.impl"
 })
 @PropertySource(value = {
-  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
+    "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
 })
 @EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.repository"})
 @EnableMongoAuditing
@@ -61,8 +65,18 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
   @Override
   @Bean
   public MongoClient mongo() throws Exception {
-    MongoClient client = new MongoClient(mongoHost, mongoPort);
-    client.setWriteConcern(WriteConcern.SAFE);
+    MongoClient client;
+    if (mongoHost.contains(",")) {
+      List<ServerAddress> addresses = new ArrayList<>();
+      for (String host : mongoHost.split(",")) {
+        addresses.add(new ServerAddress(host, mongoPort));
+      }
+      client = new MongoClient(addresses);
+      client.setReadPreference(ReadPreference.secondaryPreferred());
+    } else {
+      client = new MongoClient(mongoHost, mongoPort);
+    }
+    client.setWriteConcern(WriteConcern.ACKNOWLEDGED);
     return client;
   }
 
