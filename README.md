@@ -8,6 +8,29 @@ This is a webapp for collecting <a href="http://iiif.io">IIIF</a> representation
 It is based on the functionality of the <a href="http://iiif.io/api/presentation/2.0/">IIIF Presentation API</a> for modelling books.
 You can add books to your bookshelf by loading the manifest.json of the book.
 
+## Development Quickstart using Docker Compose
+
+To get the Bookshelf quickly up running, you can start all backend services using Docker Compose:
+
+```shell
+$ docker-compose up -d
+``` 
+
+Then Solr and MongoDB are running in containers and everything is ready for running a a local instance of IIIF Bookshelf Webapp (see below). 
+
+To stop the containers run
+
+```shell
+$ docker-compose stop
+``` 
+
+To delete the containers and all data:
+
+```shell
+$ docker-compose stop
+$ docker-compose rm
+``` 
+
 ## Requirements
 
 * Java 8: You will need the Java Runtime Environment (JRE) version 1.8 or higher. At a command line, check your Java version with "java -version".
