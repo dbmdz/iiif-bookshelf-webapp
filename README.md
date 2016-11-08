@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp.svg?branch=master)](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp)
 [![codecov](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp/branch/master/graph/badge.svg)](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
+[![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-bookshelf-webapp.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-bookshelf-webapp/releases)
 
 This is a webapp for collecting <a href="http://iiif.io">IIIF</a> representations of books.
 It is based on the functionality of the <a href="http://iiif.io/api/presentation/2.0/">IIIF Presentation API</a> for modelling books.
@@ -14,22 +14,22 @@ To get the Bookshelf quickly up running, you can start all backend services usin
 
 ```shell
 $ docker-compose up -d
-``` 
+```
 
-Then Solr and MongoDB are running in containers and everything is ready for running a a local instance of IIIF Bookshelf Webapp (see below). 
+Then Solr and MongoDB are running in containers and everything is ready for running a a local instance of IIIF Bookshelf Webapp (see below).
 
 To stop the containers run
 
 ```shell
 $ docker-compose stop
-``` 
+```
 
 To delete the containers and all data:
 
 ```shell
 $ docker-compose stop
 $ docker-compose rm
-``` 
+```
 
 ## Requirements
 
@@ -139,13 +139,13 @@ $ mongod --dbpath /local/mongodb/data
 2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten]     target_arch: x86_64
 2016-09-01T12:58:32.531+0200 I CONTROL  [initandlisten] options: { storage: { dbPath: "/local/mongodb/data" } }
 2016-09-01T12:58:32.573+0200 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=8G,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),
-2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] 
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten]
 2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
 2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
-2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] 
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten]
 2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
 2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
-2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten] 
+2016-09-01T12:58:32.723+0200 I CONTROL  [initandlisten]
 2016-09-01T12:58:32.724+0200 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/local/mongodb/data/diagnostic.data'
 2016-09-01T12:58:32.724+0200 I NETWORK  [HostnameCanonicalizationWorker] Starting hostname canonicalization worker
 2016-09-01T12:58:32.761+0200 I NETWORK  [initandlisten] waiting for connections on port 27017
