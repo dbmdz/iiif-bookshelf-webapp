@@ -63,6 +63,7 @@
     <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
     <version.mongeez>0.9.6</version.mongeez>
     <version.mongodb-driver>3.0.4</version.mongodb-driver>
+    <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.slf4j>1.7.21</version.slf4j>
     <version.solr>5.4.1</version.solr>
@@ -168,6 +169,17 @@
           <excludes>
             <exclude>**/SpringConfig*</exclude>
           </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>${version.nexus-staging-maven-plugin}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
     </plugins>
