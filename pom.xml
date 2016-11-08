@@ -30,6 +30,7 @@
     <version.spring-security-web>4.0.1.RELEASE</version.spring-security-web>
     <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
     <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
+    <version.versions-maven-plugin>2.2</version.versions-maven-plugin>
   </properties>
     
   <build>
@@ -215,6 +216,11 @@
   
   <reporting>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${version.versions-maven-plugin}</version>
+      </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
