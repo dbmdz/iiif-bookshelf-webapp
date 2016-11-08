@@ -97,6 +97,11 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <excludes>
+            <exclude>**/SpringConfig*</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
