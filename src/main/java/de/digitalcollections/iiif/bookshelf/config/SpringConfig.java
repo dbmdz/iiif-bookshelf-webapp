@@ -29,7 +29,7 @@ public class SpringConfig implements EnvironmentAware {
   }
 
   /**
-   * Create a resource bundle for your messages ("messages.properties").<br/>
+   * Create a resource bundle for your messages ("messages.properties").<br>
    * This file goes in src/main/resources because you want it to appear at the root of the classpath on deployment.
    *
    * @return message source
