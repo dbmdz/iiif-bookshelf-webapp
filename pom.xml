@@ -19,6 +19,7 @@
     <version.jacoco-maven-plugin>0.7.4.201502262128</version.jacoco-maven-plugin>
     <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
     <version.json-simple>1.1.1</version.json-simple>
+    <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
     <version.mongeez>0.9.6</version.mongeez>
     <version.mongodb-driver>3.0.4</version.mongodb-driver>
     <version.persistence-api>1.0.2</version.persistence-api>
@@ -30,15 +31,16 @@
     <version.spring-security-web>4.0.1.RELEASE</version.spring-security-web>
     <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
     <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
-    <version.versions-maven-plugin>2.2</version.versions-maven-plugin>
+    <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
   </properties>
-    
+
   <build>
     <finalName>iiif-bookshelf</finalName>
+
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
+        <version>${version.maven-compiler-plugin}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
