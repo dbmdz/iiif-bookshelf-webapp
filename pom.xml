@@ -7,6 +7,45 @@
   <packaging>war</packaging>
 
   <name>DigitalCollections: IIIF Bookshelf Webapp</name>
+  <description>The bookshelf is a webapp for collecting IIIF representations of books. It is based on the functionality of the IIIF Presentation API for modelling books. You can add books to your bookshelf by loading the manifest.json of the book.</description>
+  <url>https://github.com/dbmdz/iiif-bookshelf-webapp</url>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://github.com/dbmdz/iiif-bookshelf-webapp/blob/master/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Ralf Eichinger</name>
+      <email>ralf.eichinger@gmail.com</email>
+      <id>datazuul</id>
+    </developer>
+    <developer>
+      <name>Johannes Baiter</name>
+      <email>johannes.baiter@bsb-muenchen.de</email>
+      <id>jbaiter</id>
+    </developer>
+    <developer>
+      <name>Matthias Lindinger</name>
+      <email>matthias.lindinger@bsb-muenchen.de</email>
+      <id>morpheus-87</id>
+    </developer>
+  </developers>
+  <ciManagement>
+      <url>https://travis-ci.org/dbmdz/iiif-bookshelf-webapp</url>
+      <system>Travis CI</system>
+    </ciManagement>
+    <issueManagement>
+      <url>https://github.com/dbmdz/iiif-bookshelf-webapp/issues</url>
+      <system>GitHub Issues</system>
+    </issueManagement>
+    <scm>
+      <connection>https://github.com/dbmdz/iiif-bookshelf-webapp.git</connection>
+      <developerConnection>git@github.com:dbmdz/iiif-bookshelf-webapp.git</developerConnection>
+      <url>https://github.com/dbmdz/iiif-bookshelf-webapp</url>
+    </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
