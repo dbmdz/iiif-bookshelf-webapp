@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 /**
  * "Spring Data Page interface has many nice functions to get current page number, get total pages, etc. But it’s still
  * lack of ways to let me only display partial page range of total pagination. So I created an adapter class to wrap
- * Sprng Data Page interface with additional features."
+ * Spring Data Page interface with additional features."
  *
  * @author ralf
  * @param <T> is the paginated type.
- * @see https://www.javacodegeeks.com/2013/03/implement-bootstrap-pagination-with-spring-data-and-thymeleaf.html
+ * @see <a href="https://www.javacodegeeks.com/2013/03/implement-bootstrap-pagination-with-spring-data-and-thymeleaf.html">Java Code Geeks article</a>
  */
 public class PageWrapper<T> {
 
