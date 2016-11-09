@@ -35,3 +35,7 @@ footer {
 .pagination {
     margin: 0px;
 }
+
+.toc h2 {
+  font-size: initial;
+}
