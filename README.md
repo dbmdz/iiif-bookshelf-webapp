@@ -10,9 +10,22 @@ You can add books to your bookshelf by loading the manifest.json of the book.
 
 ## Development Quickstart using Docker Compose
 
+Install Docker according to the official [Docker documentation](https://www.docker.com/products/overview).
+
+Add your user to docker group to run docker without sudo:
+
+```shell
+$ sudo groupadd docker
+$ sudo gpasswd -a yourusername docker
+$ sudo service docker restart
+```
+
+Install Docker Compose according to the official [documentation](https://docs.docker.com/compose/install/).
+ 
 To get the Bookshelf quickly up running, you can start all backend services using Docker Compose:
 
 ```shell
+$ cd iiif-bookshelf-webapp
 $ docker-compose up -d
 ```
 
