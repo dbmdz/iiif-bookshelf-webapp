@@ -37,7 +37,16 @@
                       'userLogo': {
                       'label': 'IIIF',
                               'attributes': { 'href': 'http://iiif.io' }
+                      },
+                      "userButtons": [
+                      {"label": "IIIF-Manifest",
+                              "iconClass": "fa fa-file-text",
+                              "attributes": {
+                                "class": "file",
+                                "href": /*[[@{__${manifestId}__}]]*/
+                              }
                       }
+                      ]
               },
               'showAddFromURLBox': false,
               'saveSession': false,
@@ -66,7 +75,7 @@
                       'saveSession': false,
                       'displayLayout': true,
                       'bottomPanel': true,
-                      'sidePanel': false
+                      'sidePanel': true
               }
               ]
               ,
