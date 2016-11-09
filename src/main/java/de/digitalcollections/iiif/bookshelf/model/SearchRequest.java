@@ -2,19 +2,20 @@ package de.digitalcollections.iiif.bookshelf.model;
 
 public class SearchRequest {
 
-  private String term;
+  private String query;
 
-  public SearchRequest() {}
-
-  public SearchRequest(String term) {
-    this.term = term;
+  public SearchRequest() {
   }
 
-  public String getTerm() {
-    return term;
+  public SearchRequest(String query) {
+    this.query = query;
   }
 
-  public void setTerm(String term) {
-    this.term = term;
+  public String getQuery() {
+    return query;
+  }
+
+  public void setQuery(String query) {
+    this.query = query;
   }
 }

@@ -51,9 +51,9 @@ public class WebController {
     return "redirect:/";
   }
 
-  @RequestMapping(value = "/find", method = RequestMethod.POST)
+  @RequestMapping(value = "/find", method = RequestMethod.GET)
   public String find(SearchRequest searchRequest, Model model, Pageable pageRequest) {
-    final String term = searchRequest.getTerm();
+    final String term = searchRequest.getQuery();
     if (!StringUtils.isEmpty(term)) {
       final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(term, pageRequest);
       model.addAttribute("authentication", authentication);
