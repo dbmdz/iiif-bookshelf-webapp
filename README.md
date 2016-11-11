@@ -3,6 +3,7 @@
 [![codecov](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp/branch/master/graph/badge.svg)](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-bookshelf-webapp.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-bookshelf-webapp/releases)
+[![Maven Central](https://img.shields.io/maven-central/v/de.digitalcollections/iiif-bookshelf-webapp.svg?maxAge=2592000)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22iiif-bookshelf-webapp%22)
 
 This is a webapp for collecting <a href="http://iiif.io">IIIF</a> representations of books.
 It is based on the functionality of the <a href="http://iiif.io/api/presentation/2.0/">IIIF Presentation API</a> for modelling books.
@@ -21,7 +22,7 @@ $ sudo service docker restart
 ```
 
 Install Docker Compose according to the official [documentation](https://docs.docker.com/compose/install/).
- 
+
 To get the Bookshelf quickly up running, you can start all backend services using Docker Compose:
 
 ```shell
