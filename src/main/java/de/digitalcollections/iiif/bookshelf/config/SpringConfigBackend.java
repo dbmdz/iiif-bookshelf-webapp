@@ -7,7 +7,7 @@ import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
 import de.digitalcollections.iiif.presentation.config.SpringConfigBackendPresentation;
-import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.mongeez.MongeezRunner;
@@ -30,10 +30,10 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @Configuration
 @ComponentScan(basePackages = {
-    "de.digitalcollections.iiif.bookshelf.backend.repository.impl"
+  "de.digitalcollections.iiif.bookshelf.backend.repository.impl"
 })
 @PropertySource(value = {
-    "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
+  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
 })
 @EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.repository"})
 @EnableMongoAuditing
