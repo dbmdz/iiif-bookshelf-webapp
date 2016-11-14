@@ -1,7 +1,7 @@
 package de.digitalcollections.iiif.bookshelf.model;
 
 /**
- * @author ralf
+ * TODO move to Image API library (model api)
  */
 public enum IiifImageApiVersion {
   V1_1, V2;
