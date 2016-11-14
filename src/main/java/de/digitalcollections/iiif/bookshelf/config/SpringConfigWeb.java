@@ -1,7 +1,9 @@
 package de.digitalcollections.iiif.bookshelf.config;
 
+import java.util.Date;
 import java.util.Locale;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
+import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,12 +27,12 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @ComponentScan(basePackages = {
-    "de.digitalcollections.iiif.bookshelf.frontend.controller"
+  "de.digitalcollections.iiif.bookshelf.frontend.controller"
 })
 @EnableAspectJAutoProxy
 @EnableWebMvc
 @PropertySource(value = {
-    "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
+  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
 })
 public class SpringConfigWeb extends WebMvcConfigurerAdapter {
 
@@ -122,4 +124,16 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
   // public CreateAdminUserInterceptor createAdminUserInterceptor() {
   // return new CreateAdminUserInterceptor();
   // }
+  @Bean
+  public PrettyTime prettyTime() {
+    return new MyPrettyTime();
+  }
+
+  private class MyPrettyTime extends PrettyTime {
+
+    public String format(Date then, Locale locale) {
+      PrettyTime prettyTime = new PrettyTime(locale);
+      return prettyTime.format(then);
+    }
+  }
 }
