@@ -34,18 +34,18 @@
     </developer>
   </developers>
   <ciManagement>
-      <url>https://travis-ci.org/dbmdz/iiif-bookshelf-webapp</url>
-      <system>Travis CI</system>
-    </ciManagement>
-    <issueManagement>
-      <url>https://github.com/dbmdz/iiif-bookshelf-webapp/issues</url>
-      <system>GitHub Issues</system>
-    </issueManagement>
-    <scm>
-      <connection>https://github.com/dbmdz/iiif-bookshelf-webapp.git</connection>
-      <developerConnection>git@github.com:dbmdz/iiif-bookshelf-webapp.git</developerConnection>
-      <url>https://github.com/dbmdz/iiif-bookshelf-webapp</url>
-    </scm>
+    <url>https://travis-ci.org/dbmdz/iiif-bookshelf-webapp</url>
+    <system>Travis CI</system>
+  </ciManagement>
+  <issueManagement>
+    <url>https://github.com/dbmdz/iiif-bookshelf-webapp/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+  <scm>
+    <connection>https://github.com/dbmdz/iiif-bookshelf-webapp.git</connection>
+    <developerConnection>git@github.com:dbmdz/iiif-bookshelf-webapp.git</developerConnection>
+    <url>https://github.com/dbmdz/iiif-bookshelf-webapp</url>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -66,6 +66,7 @@
     <version.mongodb-driver>3.0.4</version.mongodb-driver>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.persistence-api>1.0.2</version.persistence-api>
+    <version.prettytime>4.0.1.Final</version.prettytime>
     <version.slf4j>1.7.21</version.slf4j>
     <version.solr>5.4.1</version.solr>
     <version.spring>4.2.5.RELEASE</version.spring>
@@ -252,6 +253,11 @@
       <groupId>org.mongeez</groupId>
       <artifactId>mongeez</artifactId>
       <version>${version.mongeez}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ocpsoft.prettytime</groupId>
+      <artifactId>prettytime</artifactId>
+      <version>${version.prettytime}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
