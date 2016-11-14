@@ -6,10 +6,10 @@ import de.digitalcollections.iiif.bookshelf.business.service.IiifManifestSummary
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
 import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
-import de.digitalcollections.iiif.presentation.backend.api.repository.v2_0_0.PresentationRepository;
+import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
 import de.digitalcollections.iiif.presentation.model.api.enums.Version;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
+import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
+import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -156,7 +156,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
 
     URI thumbnailServiceUri = null;
-    String context = null;
+    String context;
     try {
       thumbnailServiceUri = manifest.getThumbnail().getService().getId();
     } catch (Exception ex) {
@@ -164,7 +164,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
     if (thumbnailServiceUri == null) {
       try {
-        final de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service service = manifest.getSequences().get(0).
+        final de.digitalcollections.iiif.presentation.model.api.v2.Service service = manifest.getSequences().get(0).
                 getCanvases().get(0).getImages().get(0).getResource().getService();
         // first image
         thumbnailServiceUri = service.getId();
@@ -249,20 +249,18 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   private Thumbnail getThumbnail(JSONObject manifestObj) {
-    try {
-
-      // try to get thumbnail of manifest itself
-      JSONObject thumbnailObj = (JSONObject) manifestObj.get("thumbnail");
-      if (thumbnailObj != null) {
+    // try to get thumbnail of manifest itself
+    JSONObject thumbnailObj = (JSONObject) manifestObj.get("thumbnail");
+    if (thumbnailObj != null) {
+      JSONObject serviceObj = (JSONObject) thumbnailObj.get("service");
+      if (serviceObj != null) {
+        String context = (String) serviceObj.get("@context");
+        String id = (String) serviceObj.get("@id");
+        return new Thumbnail(context, id);
+      } else {
         String url = (String) thumbnailObj.get("@id");
         return new Thumbnail(url);
       }
-
-      JSONObject serviceObj = (JSONObject) thumbnailObj.get("service");
-      String context = (String) serviceObj.get("@context");
-      String id = (String) serviceObj.get("@id");
-      return new Thumbnail(context, id);
-    } catch (Exception ex) {
     }
 
     // try to get thumbnail of first canvas
