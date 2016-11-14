@@ -36,6 +36,6 @@ footer {
     margin: 0px;
 }
 
-.toc h2 {
-  font-size: initial;
+.toc .toc-link {
+  font-size: 1em;
 }
