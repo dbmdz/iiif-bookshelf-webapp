@@ -11,4 +11,11 @@
                 <jpda.listen>maven</jpda.listen>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-mvn deploy</actionName>
+            <displayName>mvn deploy</displayName>
+            <goals>
+                <goal>deploy</goal>
+            </goals>
+        </action>
     </actions>
