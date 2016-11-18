@@ -53,7 +53,7 @@ public class WebController {
 
   @RequestMapping(value = "/find", method = RequestMethod.GET)
   public String find(SearchRequest searchRequest, Model model, Pageable pageRequest) {
-    final String term = searchRequest.getQuery();
+    final String term = searchRequest.getQuery().replace(":", "\\:");
     if (!StringUtils.isEmpty(term)) {
       final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(term, pageRequest);
       model.addAttribute("authentication", authentication);
