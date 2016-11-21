@@ -51,9 +51,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    
+
     <version.aspectjweaver>1.8.8</version.aspectjweaver>
-    <version.iiif-mirador>2.1.1</version.iiif-mirador>
+    <version.iiif-mirador>2.1.2</version.iiif-mirador>
     <version.iiif-presentation-api>3.2.4-SNAPSHOT</version.iiif-presentation-api>
     <version.jacoco-maven-plugin>0.7.4.201502262128</version.jacoco-maven-plugin>
     <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
@@ -321,7 +321,7 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-  
+
   <repositories>
     <repository>
       <id>ossrh-snapshots</id>
@@ -335,7 +335,7 @@
       </releases>
     </repository>
   </repositories>
-  
+
   <reporting>
     <plugins>
       <plugin>
