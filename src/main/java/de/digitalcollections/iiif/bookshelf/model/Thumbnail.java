@@ -23,6 +23,10 @@ public class Thumbnail {
     this.url = url;
   }
 
+  public IiifImageApiVersion getIiifImageApiVersion() {
+    return iiifImageApiVersion;
+  }
+
   public void setIiifImageApiVersion(IiifImageApiVersion iiifImageApiVersion) {
     this.iiifImageApiVersion = iiifImageApiVersion;
   }
