@@ -55,49 +55,51 @@
       <table class="table table-hover table-condensed">
         <tr th:each="manifest : ${page.content}">
           <td>
-        <th:block th:if="${manifest.thumbnail} != null">
-          <th:block th:if="${manifest.thumbnail.url} != null">
-            <img th:src="|${manifest.thumbnail.url}|" />
-          </th:block>
-          <th:block th:if="${manifest.thumbnail.url} == null">
-            <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} == null">
-              <th:block th:if="${manifest.version} != null">
-                <img th:if="${manifest.version.toString()} eq 'V1'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/native.jpg|"/>
-                <img th:if="${manifest.version.toString()} eq 'V2'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+            <a th:href="@{/view/__${manifest.uuid}__}">
+              <th:block th:if="${manifest.thumbnail} != null">
+                <th:block th:if="${manifest.thumbnail.url} != null">
+                  <img th:src="|${manifest.thumbnail.url}|" />
+                </th:block>
+                <th:block th:if="${manifest.thumbnail.url} == null">
+                  <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} == null">
+                    <th:block th:if="${manifest.version} != null">
+                      <img th:if="${manifest.version.toString()} eq 'V1'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/native.jpg|"/>
+                      <img th:if="${manifest.version.toString()} eq 'V2'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                    </th:block>
+                    <th:block th:if="${manifest.version} == null">
+                      <img th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                    </th:block>
+                  </th:block>
+                </th:block>
               </th:block>
-              <th:block th:if="${manifest.version} == null">
-                <img th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+            </a>
+          </td>
+          <!--                    <td th:text="${manifest.manifestUri}">URI</td>-->
+          <td>
+            <!-- ${#maps.containsKey(map, key)} -->
+            <a th:href="@{/view/__${manifest.uuid}__}"><b th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.getLabel('__${#locale.language}__') != null? manifest.getLabel('__${#locale.language}__') : manifest.labels.values().toArray()[0]})">label</b></a><br/>
+            <span class="description" th:utext="${manifest.descriptions.isEmpty()} ? '' : (${manifest.getDescription('__${#locale.language}__') != null? manifest.getDescription('__${#locale.language}__') : manifest.descriptions.values().toArray()[0]})">description</span>
+
+            <br/>
+            <small>
+              <th:block th:if="${manifest.logoUrl} != null">
+                <img th:src="${manifest.logoUrl}" height="15"/>
               </th:block>
-            </th:block>
-          </th:block>
-        </th:block>
-        </td>
-        <!--                    <td th:text="${manifest.manifestUri}">URI</td>-->
-        <td>
-          <!-- ${#maps.containsKey(map, key)} -->
-          <b th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.getLabel('__${#locale.language}__') != null? manifest.getLabel('__${#locale.language}__') : manifest.labels.values().toArray()[0]})">label</b><br/>
-          <span class="description" th:utext="${manifest.descriptions.isEmpty()} ? '' : (${manifest.getDescription('__${#locale.language}__') != null? manifest.getDescription('__${#locale.language}__') : manifest.descriptions.values().toArray()[0]})">description</span>
+              <th:block th:unless="${manifest.attributions.isEmpty()}">
+                <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.getAttribution('__${#locale.language}__') != null? manifest.getAttribution('__${#locale.language}__') : manifest.attributions.values().toArray()[0]})">attribution</em>
+              </th:block>
 
-          <br/>
-          <small>
-            <th:block th:if="${manifest.logoUrl} != null">
-              <img th:src="${manifest.logoUrl}" height="15"/>
-            </th:block>
-            <th:block th:unless="${manifest.attributions.isEmpty()}">
-              <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.getAttribution('__${#locale.language}__') != null? manifest.getAttribution('__${#locale.language}__') : manifest.attributions.values().toArray()[0]})">attribution</em>
-            </th:block>
+              <br/><a th:href="${manifest.manifestUri}" target="_blank">&raquo; IIIF-Manifest</a>
 
-            <br/><a th:href="${manifest.manifestUri}" target="_blank">&raquo; IIIF-Manifest</a>
+              <span class="pull-right text-muted">
+                <span th:title="${#dates.format(manifest.lastModified)}" th:text="${@prettyTime.format(manifest.lastModified, #locale)}">5 minutes ago</span>
+              </span>
+            </small>
+          </td>
 
-            <span class="pull-right text-muted">
-              <span th:title="${#dates.format(manifest.lastModified)}" th:text="${@prettyTime.format(manifest.lastModified, #locale)}">5 minutes ago</span>
-            </span>
-          </small>
-        </td>
-
-        <td>
-          <a class="btn btn-primary btn-xs" th:href="@{/view/__${manifest.uuid}__}"><span class="glyphicon glyphicon-chevron-right"></span> <span th:text="#{read}">read</span></a><br/>
-        </td>
+          <td>
+            <a class="btn btn-primary btn-xs" th:href="@{/view/__${manifest.uuid}__}"><span class="glyphicon glyphicon-chevron-right"></span> <span th:text="#{read}">read</span></a><br/>
+          </td>
         </tr>
       </table>
 
