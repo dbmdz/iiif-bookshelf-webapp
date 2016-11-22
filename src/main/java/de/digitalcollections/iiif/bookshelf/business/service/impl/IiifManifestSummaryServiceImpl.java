@@ -12,6 +12,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -69,66 +70,78 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
-    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifest.
-            getManifestUri());
+    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
+        .findByManifestUri(manifest.getManifestUri());
     if (existingManifest != null) {
       throw new IllegalArgumentException("object already exists");
     }
     return iiifManifestSummaryRepository.save(manifest);
   }
 
+  private void saveManifestsFromCollection(JSONObject collection) {
+    // try to get list of manifests
+    Object manifestsNode = collection.get("manifests");
+    if (manifestsNode != null && JSONArray.class.isAssignableFrom(manifestsNode.getClass())) {
+      JSONArray manifests = (JSONArray) manifestsNode;
+      for (Object manifest : manifests) {
+        JSONObject manifestObj = (JSONObject) manifest;
+        String uri = (String) manifestObj.get("@id");
+        String manifestType = (String) manifestObj.get("@type");
+        if ("sc:Manifest".equalsIgnoreCase(manifestType)) {
+          IiifManifestSummary childManifestSummary = new IiifManifestSummary();
+          childManifestSummary.setManifestUri(uri);
+          try {
+            enrichAndSave(childManifestSummary);
+          } catch (Exception e) {
+            LOGGER.warn("Could not read manifest from {}", uri, e);
+          }
+        }
+      }
+    }
+    // try to get subcollections
+    Object collectionsNode = collection.get("collections");
+    if (collectionsNode != null && JSONArray.class.isAssignableFrom(collectionsNode.getClass())) {
+      JSONArray collections = (JSONArray) collectionsNode;
+      collections.sort(Comparator.comparing(JSONObject::hashCode));
+      for (Object subcollection : collections) {
+        JSONObject collectionObj = (JSONObject) collection;
+        String uri = (String) collectionObj.get("@id");
+        String collectionType = (String) collectionObj.get("@type");
+        if ("sc:Manifest".equalsIgnoreCase(collectionType) || "sc:Collection".equalsIgnoreCase(collectionType)) {
+          IiifManifestSummary childManifestSummary = new IiifManifestSummary();
+          childManifestSummary.setManifestUri(uri);
+          try {
+            JSONObject subcollObject = presentationRepository.getManifestAsJsonObject(uri);
+            saveManifestsFromCollection(subcollObject);
+          } catch (Exception e) {
+            LOGGER.warn("Could not read collection from {}", uri, e);
+          }
+        }
+      }
+    }
+
+  }
+
   @Override
-  public void enrichAndSave(IiifManifestSummary manifestSummary) {
-    try {
-      // if exists already: update existing manifest
-      final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestSummary.
-              getManifestUri());
-      if (existingManifest != null) {
-        manifestSummary = existingManifest;
-      }
-      // fillFromManifest(manifestSummary);
+  public void enrichAndSave(IiifManifestSummary manifestSummary) throws ParseException, NotFoundException, URISyntaxException {
+    // if exists already: update existing manifest
+    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
+            .findByManifestUri(manifestSummary.getManifestUri());
+    if (existingManifest != null) {
+      manifestSummary.setUuid(existingManifest.getUuid());
+    }
 
-      JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
+    JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
 
-      String type = (String) jsonObject.get("@type");
-      if ("sc:Manifest".equalsIgnoreCase(type)) {
-        fillFromJsonObject(jsonObject, manifestSummary);
-        iiifManifestSummaryRepository.save(manifestSummary);
-        iiifManifestSummarySearchRepository.save(manifestSummary);
-      } else if ("sc:Collection".equalsIgnoreCase(type)) {
-        // try to get list of manifests
-        Object manifestsNode = jsonObject.get("manifests");
-        if (manifestsNode != null && JSONArray.class.isAssignableFrom(manifestsNode.getClass())) {
-          JSONArray manifests = (JSONArray) manifestsNode;
-          for (Object manifest : manifests) {
-            JSONObject manifestObj = (JSONObject) manifest;
-            String uri = (String) manifestObj.get("@id");
-            String manifestType = (String) manifestObj.get("@type");
-            if ("sc:Manifest".equalsIgnoreCase(manifestType)) {
-              IiifManifestSummary childManifestSummary = new IiifManifestSummary();
-              childManifestSummary.setManifestUri(uri);
-              enrichAndSave(childManifestSummary);
-            }
-          }
-        }
-        // try to get subcollections
-        Object collectionsNode = jsonObject.get("collections");
-        if (collectionsNode != null && JSONArray.class.isAssignableFrom(collectionsNode.getClass())) {
-          JSONArray collections = (JSONArray) collectionsNode;
-          for (Object collection : collections) {
-            JSONObject collectionObj = (JSONObject) collection;
-            String uri = (String) collectionObj.get("@id");
-            String collectionType = (String) collectionObj.get("@type");
-            if ("sc:Manifest".equalsIgnoreCase(collectionType) || "sc:Collection".equalsIgnoreCase(collectionType)) {
-              IiifManifestSummary childManifestSummary = new IiifManifestSummary();
-              childManifestSummary.setManifestUri(uri);
-              enrichAndSave(childManifestSummary);
-            }
-          }
-        }
-      }
-    } catch (Exception ex) {
-      LOGGER.warn("Can not fill from manifest " + manifestSummary.getManifestUri(), ex);
+    String type = (String) jsonObject.get("@type");
+    if ("sc:Manifest".equalsIgnoreCase(type)) {
+      fillFromJsonObject(jsonObject, manifestSummary);
+      iiifManifestSummaryRepository.save(manifestSummary);
+      iiifManifestSummarySearchRepository.save(manifestSummary);
+    } else if ("sc:Collection".equalsIgnoreCase(type)) {
+      // FIXME: This breaks the "enrich" contract, since we're adding potentially thousands of manifests that
+      // the user of this method won't know about, the API should probably be reworked
+      saveManifestsFromCollection(jsonObject);
     }
   }
 
