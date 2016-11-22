@@ -59,6 +59,7 @@
     <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
     <version.jetty-maven-plugin>9.3.3.v20150827</version.jetty-maven-plugin>
     <version.json-simple>1.1.1</version.json-simple>
+    <version.logback>1.1.7</version.logback>
     <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
@@ -267,9 +268,14 @@
       <version>${version.slf4j}</version>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${version.slf4j}</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${version.logback}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${version.logback}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
