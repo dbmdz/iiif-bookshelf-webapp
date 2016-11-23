@@ -3,7 +3,7 @@
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
       <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-        <customFields>{"service":"iiifGeneratePageManifest", "group":"ingest", "instance":"${instance.name:-default}"}</customFields>
+        <customFields>{"service":"iiifBookshelf", "group":"ingest", "instance":"${instance.name:-default}"}</customFields>
       </encoder>
     </appender>
 
@@ -14,8 +14,7 @@
       </encoder>
     </appender>
 
-    <!-- Uncomment the following to activate file-logging -->
-    <!--appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/iiifBookshelf.log</file>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         <fileNamePattern>iiifBookshelf.%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -23,7 +22,7 @@
       <encoder class="net.logstash.logback.encoder.LogstashEncoder">
         <customFields>{"service":"iiifBookshelf", "instance":"${instance.name:-default}"}</customFields>
       </encoder>
-    </appender-->
+    </appender>
 
     <logger name="de.digitalcollections.core" level="warn" />
 
