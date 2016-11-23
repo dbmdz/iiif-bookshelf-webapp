@@ -14,15 +14,15 @@
       </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/var/log/iiifBookshelf.log</file>
+    <!--appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/tmp/iiifBookshelf.log</file>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         <fileNamePattern>iiifBookshelf.%d{yyyy-MM-dd}.log</fileNamePattern>
       </rollingPolicy>
       <encoder class="net.logstash.logback.encoder.LogstashEncoder">
         <customFields>{"service":"iiifBookshelf", "instance":"${instance.name:-default}"}</customFields>
       </encoder>
-    </appender>
+    </appender-->
 
     <logger name="de.digitalcollections.core" level="warn" />
 

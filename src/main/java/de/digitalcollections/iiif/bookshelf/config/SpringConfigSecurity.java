@@ -3,6 +3,7 @@ package de.digitalcollections.iiif.bookshelf.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,22 +33,39 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
     }
   }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    // Since we want to make our endpoint as machine-friendly as possible,
-    // we disable CSRF protection. Parsing the form page to get the CSRF token
-    // would be too tedious.
-    http.csrf().disable();
-    if (authentication) {
+  @Configuration
+  @Order(1)
+  public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+    @Value("${authentication}")
+    private boolean authentication;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+      if (!authentication) return;
       http
-          .authorizeRequests()
-              //            .antMatchers("/css/**", "/fonts", "/images", "/js/**", "/vendor/**").permitAll()
-              //            .anyRequest().authenticated()
-              .antMatchers("/add", "/api/add").authenticated()
-              .and()
-              .formLogin()
-              .and()
-              .httpBasic();
+          .antMatcher("/api/**").authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .httpBasic()
+            .and()
+            .csrf().disable();
+    }
+  }
+
+  @Configuration
+  @Order(2)
+  public static class FormLoginWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+    @Value("${authentication}")
+    private boolean authentication;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+      if (!authentication) return;
+      http
+          .antMatcher("/add").authorizeRequests()
+          .anyRequest().authenticated()
+          .and()
+          .formLogin();
     }
   }
 }
