@@ -43,8 +43,8 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
       if (!authentication) return;
       http
-          .antMatcher("/api/**").authorizeRequests()
-            .anyRequest().authenticated()
+          .antMatcher("/api/add").authorizeRequests()
+            .antMatchers("/api/add").authenticated()
             .and()
             .httpBasic()
             .and()
@@ -63,9 +63,14 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
       if (!authentication) return;
       http
           .antMatcher("/add").authorizeRequests()
-          .anyRequest().authenticated()
-          .and()
-          .formLogin();
+            .antMatchers("/add").authenticated()
+            .and()
+            .formLogin();
     }
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().anyRequest().permitAll().and().formLogin().and().httpBasic();
   }
 }
