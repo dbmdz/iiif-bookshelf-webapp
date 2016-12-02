@@ -77,6 +77,10 @@
     <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
     <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
+    <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
+    <version.webjar-html5shiv>3.7.3</version.webjar-html5shiv>
+    <version.webjar-jquery>2.1.4</version.webjar-jquery>
+    <version.webjar-respond>1.4.2</version.webjar-respond>
   </properties>
 
   <build>
@@ -309,8 +313,34 @@
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>${version.webjar-bootstrap}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.webjars</groupId>
+          <artifactId>jquery</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>html5shiv</artifactId>
+      <version>${version.webjar-html5shiv}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>${version.webjar-jquery}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
       <artifactId>mirador</artifactId>
       <version>${version.iiif-mirador}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>respond</artifactId>
+      <version>${version.webjar-respond}</version>
     </dependency>
   </dependencies>
 
