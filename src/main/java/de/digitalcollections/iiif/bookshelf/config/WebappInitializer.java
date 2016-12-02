@@ -1,5 +1,6 @@
 package de.digitalcollections.iiif.bookshelf.config;
 
+import ch.qos.logback.ext.spring.web.LogbackConfigListener;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import org.springframework.core.annotation.Order;
@@ -26,5 +27,6 @@ public class WebappInitializer extends AbstractAnnotationConfigDispatcherServlet
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
     super.onStartup(servletContext);
+    servletContext.addListener(new LogbackConfigListener());
   }
 }

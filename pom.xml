@@ -56,9 +56,11 @@
     <version.iiif-mirador>2.1.2</version.iiif-mirador>
     <version.iiif-presentation-api>3.2.4-SNAPSHOT</version.iiif-presentation-api>
     <version.jacoco-maven-plugin>0.7.4.201502262128</version.jacoco-maven-plugin>
+    <version.jackson>2.8.1</version.jackson>
     <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
     <version.jetty-maven-plugin>9.3.3.v20150827</version.jetty-maven-plugin>
     <version.json-simple>1.1.1</version.json-simple>
+    <version.logback>1.1.7</version.logback>
     <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
@@ -219,6 +221,16 @@
       <version>${version.json-simple}</version>
     </dependency>
     <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>${version.persistence-api}</version>
@@ -234,6 +246,11 @@
       <version>${version.thymeleaf-layout-dialect}</version>
     </dependency>
     <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+      <version>4.8</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.solr</groupId>
       <artifactId>solr-solrj</artifactId>
       <version>${version.solr}</version>
@@ -243,6 +260,11 @@
       <artifactId>aspectjweaver</artifactId>
       <version>${version.aspectjweaver}</version>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.logback-extensions</groupId>
+      <artifactId>logback-ext-spring</artifactId>
+      <version>0.1.4</version>
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
@@ -271,9 +293,14 @@
       <version>${version.slf4j}</version>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${version.slf4j}</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${version.logback}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${version.logback}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
