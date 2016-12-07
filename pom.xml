@@ -131,6 +131,7 @@
           <classesDirectory>${project.build.directory}/classes</classesDirectory>
           <scanIntervalSeconds>2</scanIntervalSeconds>
           <webApp>
+            <contextPath>/bookshelf</contextPath>
             <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
             <resourceBases>
               <resourceBase>src/main/webapp</resourceBase>
