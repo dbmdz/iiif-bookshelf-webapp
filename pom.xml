@@ -76,6 +76,7 @@
     <version.spring-data-mongodb>1.8.4.RELEASE</version.spring-data-mongodb>
     <version.spring-security-config>4.0.1.RELEASE</version.spring-security-config>
     <version.spring-security-web>4.0.1.RELEASE</version.spring-security-web>
+    <version.thymeleaf-extras-conditionalcomments>2.1.2.RELEASE</version.thymeleaf-extras-conditionalcomments>
     <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
     <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
@@ -338,6 +339,11 @@
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf-spring4</artifactId>
       <version>${version.thymeleaf-spring4}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-conditionalcomments</artifactId>
+      <version>${version.thymeleaf-extras-conditionalcomments}</version>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
