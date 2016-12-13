@@ -11,7 +11,6 @@ import de.digitalcollections.iiif.presentation.model.api.enums.Version;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -123,7 +122,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
-  public void enrichAndSave(IiifManifestSummary manifestSummary) throws ParseException, NotFoundException, URISyntaxException {
+  public void enrichAndSave(IiifManifestSummary manifestSummary) throws ParseException, NotFoundException {
     // if exists already: update existing manifest
     final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
             .findByManifestUri(manifestSummary.getManifestUri());
@@ -201,7 +200,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
    * @throws NotFoundException
    * @throws ParseException
    */
-  private void fillFromJsonObject(JSONObject jsonObject, IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, ParseException {
+  private void fillFromJsonObject(JSONObject jsonObject, IiifManifestSummary manifestSummary) throws NotFoundException, ParseException {
 
     Version version = null;
     final Object contextNode = jsonObject.get("@context");

@@ -6,10 +6,11 @@ import de.digitalcollections.iiif.bookshelf.frontend.model.PageWrapper;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
-import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.UUID;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WebController {
+  private final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
 
   @Value("${authentication}")
   private boolean authentication;
@@ -60,16 +62,14 @@ public class WebController {
     try {
       iiifManifestSummaryService.enrichAndSave(manifestSummary);
     } catch (ParseException e) {
+      LOGGER.error("Could not load manifest from {} because of malformed JSON", manifestSummary.getManifestUri(), e);
       model.addAttribute("manifest", manifestSummary);
       model.addAttribute("errorMessage", "Manifest at URL contains malformed JSON.");
       return "add";
     } catch (NotFoundException e) {
+      LOGGER.error("Could not find manifest at {}", manifestSummary.getManifestUri(), e);
       model.addAttribute("manifest", manifestSummary);
       model.addAttribute("errorMessage", "No Manifest was found at URL.");
-      return "add";
-    } catch (URISyntaxException e) {
-      model.addAttribute("manifest", manifestSummary);
-      model.addAttribute("errorMessage", "The value entered is not a valid URL.");
       return "add";
     }
     return "redirect:/";
@@ -87,8 +87,6 @@ public class WebController {
       throw new ApiException("Invalid JSON at URL.", HttpStatus.BAD_REQUEST);
     } catch (NotFoundException e) {
       throw new ApiException("No manifest at URL.", HttpStatus.BAD_REQUEST);
-    } catch (URISyntaxException e) {
-      throw new ApiException("Malformed URL.", HttpStatus.BAD_REQUEST);
     }
   }
 
