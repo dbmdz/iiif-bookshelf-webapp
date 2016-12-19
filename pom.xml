@@ -179,6 +179,7 @@
         <configuration>
           <excludes>
             <exclude>**/SpringConfig*</exclude>
+            <exclude>**/WebappInitializer*</exclude>
           </excludes>
         </configuration>
       </plugin>
