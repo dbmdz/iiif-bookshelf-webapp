@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WebController {
+
   private final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
 
   @Value("${authentication}")

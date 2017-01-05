@@ -37,7 +37,7 @@ public class SpringConfig implements EnvironmentAware {
   @Bean(name = "messageSource")
   public MessageSource configureMessageSource() {
     ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-    messageSource.setBasenames("classpath:messages", "classpath:messages-overlay");
+    messageSource.setBasenames("classpath:messages", "classpath:messages-overlay", "classpath:messages-commons");
     messageSource.setCacheSeconds(5);
     messageSource.setDefaultEncoding("UTF-8");
     return messageSource;

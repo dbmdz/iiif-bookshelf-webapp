@@ -53,6 +53,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <version.aspectjweaver>1.8.8</version.aspectjweaver>
+    <version.digitalcollections-commons-springmvc>1.1.0-SNAPSHOT</version.digitalcollections-commons-springmvc>
     <version.iiif-mirador>2.1.2</version.iiif-mirador>
     <version.iiif-presentation-api>3.2.4-SNAPSHOT</version.iiif-presentation-api>
     <version.jacoco-maven-plugin>0.7.8</version.jacoco-maven-plugin>
@@ -198,6 +199,11 @@
   </build>
 
   <dependencies>
+    <dependency>
+      <groupId>de.digitalcollections.commons</groupId>
+      <artifactId>digitalcollections-commons-springmvc</artifactId>
+      <version>${version.digitalcollections-commons-springmvc}</version>
+    </dependency>
     <dependency>
       <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-model-api</artifactId>
