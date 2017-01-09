@@ -58,16 +58,16 @@
             <a th:href="@{/view/__${manifest.uuid}__}">
               <th:block th:if="${manifest.thumbnail} != null">
                 <th:block th:if="${manifest.thumbnail.url} != null">
-                  <img th:src="|${manifest.thumbnail.url}|" />
+                  <img class="preview-thumbnail" th:src="|${manifest.thumbnail.url}|" />
                 </th:block>
                 <th:block th:if="${manifest.thumbnail.url} == null">
                   <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} == null">
                     <th:block th:if="${manifest.version} != null">
-                      <img th:if="${manifest.version.toString()} eq 'V1'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/native.jpg|"/>
-                      <img th:if="${manifest.version.toString()} eq 'V2'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                      <img class="preview-thumbnail" th:if="${manifest.version.toString()} eq 'V1'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/native.jpg|"/>
+                      <img class="preview-thumbnail" th:if="${manifest.version.toString()} eq 'V2'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
                     </th:block>
                     <th:block th:if="${manifest.version} == null">
-                      <img th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                      <img class="preview-thumbnail" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
                     </th:block>
                   </th:block>
                 </th:block>

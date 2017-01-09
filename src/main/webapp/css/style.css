@@ -23,6 +23,10 @@ footer {
   text-align: center;
 }
 
+img.preview-thumbnail {
+  max-width: 100px;
+}
+
 #navbar a.badge {
   color: white;
 }
