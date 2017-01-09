@@ -39,10 +39,28 @@ public class WebController {
   @Autowired
   private IiifManifestSummaryService iiifManifestSummaryService;
 
+  /**
+   * List with or without search query.
+   *
+   * @param searchRequest contains search term if any
+   * @param model view model
+   * @param pageRequest paging params
+   * @return view of list of objects
+   */
   @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-  public String list(Model model, Pageable pageRequest) {
-    final Page<IiifManifestSummary> page = iiifManifestSummaryService.getAll(pageRequest);
+  public String list(SearchRequest searchRequest, Model model, Pageable pageRequest) {
     model.addAttribute("authentication", authentication);
+
+    if (searchRequest != null && !StringUtils.isEmpty(searchRequest.getQuery())) {
+      final String term = searchRequest.getQuery().replace(":", "\\:");
+      if (!StringUtils.isEmpty(term)) {
+        final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(term, pageRequest);
+        model.addAttribute("page", new PageWrapper(page, "/"));
+        model.addAttribute("searchRequest", searchRequest);
+        return "index";
+      }
+    }
+    final Page<IiifManifestSummary> page = iiifManifestSummaryService.getAll(pageRequest);
     model.addAttribute("page", new PageWrapper(page, "/"));
     model.addAttribute("searchRequest", new SearchRequest());
 
@@ -89,19 +107,6 @@ public class WebController {
     } catch (NotFoundException e) {
       throw new ApiException("No manifest at URL.", HttpStatus.BAD_REQUEST);
     }
-  }
-
-  @RequestMapping(value = "/find", method = RequestMethod.GET)
-  public String find(SearchRequest searchRequest, Model model, Pageable pageRequest) {
-    final String term = searchRequest.getQuery().replace(":", "\\:");
-    if (!StringUtils.isEmpty(term)) {
-      final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(term, pageRequest);
-      model.addAttribute("authentication", authentication);
-      model.addAttribute("page", new PageWrapper(page, "/"));
-      model.addAttribute("searchRequest", searchRequest);
-      return "index";
-    }
-    return "redirect:/";
   }
 
   @CrossOrigin(origins = "*")
