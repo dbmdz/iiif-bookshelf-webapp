@@ -22,14 +22,20 @@ footer {
   padding-top: 6px;
   text-align: center;
 }
-/*
-#viewer {
-    margin-top: 50px;
-    padding: 0px 0px 80px 0px;
-}*/
 
 #navbar a.badge {
   color: white;
+}
+
+#viewer {
+  background: #333;
+  width: 100%;
+  height: calc(100vh - 120px);
+  position: relative;
+}
+
+.window-manifest-title {
+  height: 1.25em;
 }
 
 .pagination {
