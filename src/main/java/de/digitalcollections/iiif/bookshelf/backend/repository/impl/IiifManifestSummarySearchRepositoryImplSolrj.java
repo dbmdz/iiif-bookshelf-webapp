@@ -14,6 +14,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient.RemoteSolrException;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
@@ -48,9 +49,10 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   @Override
   public List<UUID> findBy(String text) {
     SolrQuery query = new SolrQuery();
-    query.setQuery(text);
+    query.setQuery(escapeUnwantedSpecialChars(text));
     query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
     query.setStart(0);
+    query.set("q.op", "AND");
     QueryResponse response;
     try {
       response = solr.query(query);
@@ -82,14 +84,18 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   @Override
   public Page<IiifManifestSummary> findBy(String text, Pageable pageable) {
     SolrQuery query = new SolrQuery();
-    query.setQuery(text);
+    query.setQuery(escapeUnwantedSpecialChars(text));
     query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
     query.setStart(pageable.getOffset());
     query.setRows(pageable.getPageSize());
+    query.set("q.op", "AND");
+    
 
     QueryResponse response;
     try {
       response = solr.query(query);
+      
+      
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
       return new PageImpl<>(new ArrayList<>());
@@ -141,10 +147,11 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   @Override
   public List<UUID> findBy(String text, int start, int rows) {
     SolrQuery query = new SolrQuery();
-    query.setQuery(text); // test also with "Foobar part +500"
+    query.setQuery(escapeUnwantedSpecialChars(text)); // test also with "Foobar part +500"
     query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
     query.setStart(start);
     query.setRows(rows);
+    query.set("q.op", "AND");
     // query.set("defType", "edismax");
     QueryResponse response;
     try {
@@ -170,5 +177,12 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
   private UUID createUUID(Object value) {
     return UUID.fromString(value.toString());
+  }
+
+  protected String escapeUnwantedSpecialChars(String text) {    
+    // We don't want to escape whitespaces, * and "
+    // But we want to escape all the ohter special characters
+    
+    return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\s", " ").replaceAll("\\\\\\\"", "\"");
   }
 }
