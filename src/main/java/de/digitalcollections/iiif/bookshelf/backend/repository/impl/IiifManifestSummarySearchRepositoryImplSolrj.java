@@ -107,7 +107,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
   @Override
   public void save(IiifManifestSummary manifestSummary) {
-    // FIXME first delete doc with this uuid (if exists)
+    // first delete doc with this uuid (if exists) otherwise we get duplicates
     try {
       solr.deleteByQuery("uuid:" + manifestSummary.getUuid().toString());
       solr.commit();
@@ -116,8 +116,8 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     }
 
     SolrInputDocument doc = new SolrInputDocument();
-    // doc.addField("id", manifestSummary.getUuid());
     doc.addField("uuid", manifestSummary.getUuid());
+    doc.addField("manifesturi", manifestSummary.getManifestUri());
     for (Entry<Locale, String> e : manifestSummary.getLabels().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
@@ -179,7 +179,6 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   protected String escapeUnwantedSpecialChars(String text) {
     // We don't want to escape whitespaces, * and "
     // But we want to escape all the ohter special characters
-
     return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\s", " ").replaceAll("\\\\\\\"", "\"");
   }
 }
