@@ -49,3 +49,9 @@ img.preview-thumbnail {
 .toc .toc-link {
   font-size: 0.6em;
 }
+
+.navbar-brand > img {
+  display: inline;
+  height: 25px;
+  margin-right: 5px;
+}
