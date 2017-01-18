@@ -34,13 +34,9 @@
         </div>
         <div class="col-md-4">
           <form action="#" th:action="@{/}" th:object="${searchRequest}" method="get" accept-charset="utf-8">
-            <div class="row">
-              <div class="col-md-10">
-                <input type="text" name="query" th:field="*{query}" class="form-control"/>
-              </div>
-              <div class="col-md-2">
-                <button name="submit" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
-              </div>
+            <div class="input-group">
+              <input type="text" name="query" th:field="*{query}" class="form-control"/>
+              <span class="input-group-btn"><button name="submit" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button></span>
             </div>
           </form>
         </div>
