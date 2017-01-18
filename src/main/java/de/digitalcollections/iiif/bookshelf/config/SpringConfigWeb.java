@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.bookshelf.config;
 
 import de.digitalcollections.commons.springmvc.config.SpringConfigCommonsMvc;
+import de.digitalcollections.commons.springmvc.interceptors.CurrentUrlAsModelAttributeHandlerInterceptor;
 import java.util.Date;
 import java.util.Locale;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
@@ -120,6 +121,10 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
     LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
     localeChangeInterceptor.setParamName("language");
     registry.addInterceptor(localeChangeInterceptor);
+
+    CurrentUrlAsModelAttributeHandlerInterceptor currentUrlAsModelAttributeHandlerInterceptor = new CurrentUrlAsModelAttributeHandlerInterceptor();
+    currentUrlAsModelAttributeHandlerInterceptor.deleteParams("language");
+    registry.addInterceptor(currentUrlAsModelAttributeHandlerInterceptor);
 
     // InterceptorRegistration createAdminUserInterceptorRegistration =
     // registry.addInterceptor(createAdminUserInterceptor());

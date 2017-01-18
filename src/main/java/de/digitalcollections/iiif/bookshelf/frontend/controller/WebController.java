@@ -50,7 +50,6 @@ public class WebController {
   @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
   public String list(SearchRequest searchRequest, Model model, Pageable pageRequest) {
     model.addAttribute("authentication", authentication);
-
     if (searchRequest != null && !StringUtils.isEmpty(searchRequest.getQuery())) {
       final String term = searchRequest.getQuery().replace(":", "\\:");
       if (!StringUtils.isEmpty(term)) {
