@@ -50,9 +50,8 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   public List<UUID> findBy(String text) {
     SolrQuery query = new SolrQuery();
     query.setQuery(escapeUnwantedSpecialChars(text));
-    query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
+    query.setFields("id", "labelDE_txt", "attributionDE_txt", "descriptionDE_txt");
     query.setStart(0);
-    query.set("q.op", "AND");
     QueryResponse response;
     try {
       response = solr.query(query);
@@ -85,14 +84,15 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   public Page<IiifManifestSummary> findBy(String text, Pageable pageable) {
     SolrQuery query = new SolrQuery();
     query.setQuery(escapeUnwantedSpecialChars(text));
-    query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
+    query.setFields("id", "labelDE_txt", "attributionDE_txt", "descriptionDE_txt");
     query.setStart(pageable.getOffset());
     query.setRows(pageable.getPageSize());
-    query.set("q.op", "AND");
 
     QueryResponse response;
     try {
+      LOGGER.info("query = " +query);
       response = solr.query(query);
+      
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
       return new PageImpl<>(new ArrayList<>());
@@ -109,29 +109,29 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   public void save(IiifManifestSummary manifestSummary) {
     // first delete doc with this uuid (if exists) otherwise we get duplicates
     try {
-      solr.deleteByQuery("uuid:" + manifestSummary.getUuid().toString());
+      solr.deleteByQuery("id:" + manifestSummary.getUuid().toString());
       solr.commit();
     } catch (RemoteSolrException | SolrServerException | IOException exception) {
       LOGGER.error("Could not delete existing " + manifestSummary, exception);
     }
 
     SolrInputDocument doc = new SolrInputDocument();
-    doc.addField("uuid", manifestSummary.getUuid());
-    doc.addField("manifesturi", manifestSummary.getManifestUri());
+    doc.addField("id", manifestSummary.getUuid());
+    doc.addField("manifesturi_txt", manifestSummary.getManifestUri());
     for (Entry<Locale, String> e : manifestSummary.getLabels().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
-      doc.addField("label" + key.toUpperCase(), value);
-    }
+      doc.addField("label" + key.toUpperCase() + "_txt", value);
+     }
     for (Entry<Locale, String> e : manifestSummary.getAttributions().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
-      doc.addField("attribution" + key.toUpperCase(), value);
+      doc.addField("attribution" + key.toUpperCase() + "_txt", value);
     }
     for (Entry<Locale, String> e : manifestSummary.getDescriptions().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
-      doc.addField("description" + key.toUpperCase(), value);
+      doc.addField("description" + key.toUpperCase() + "_txt", value); 
     }
     try {
       solr.add(doc);
@@ -145,11 +145,9 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   public List<UUID> findBy(String text, int start, int rows) {
     SolrQuery query = new SolrQuery();
     query.setQuery(escapeUnwantedSpecialChars(text)); // test also with "Foobar part +500"
-    query.setFields("uuid", "labelDE", "attributionDE", "descriptionDE");
+    query.setFields("id", "labelDE_txt", "attributionDE_txt", "descriptionDE_txt", "manifesturi_txt");
     query.setStart(start);
     query.setRows(rows);
-    query.set("q.op", "AND");
-    // query.set("defType", "edismax");
     QueryResponse response;
     try {
       response = solr.query(query);
@@ -165,9 +163,9 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   private List<UUID> getUUIDs(List<SolrDocument> docs) {
     ArrayList<UUID> ids = new ArrayList<>(docs.size());
     for (SolrDocument doc : docs) {
-      UUID uuid = createUUID(doc.getFirstValue("uuid"));
+      UUID uuid = createUUID(doc.getFirstValue("id"));
       ids.add(uuid);
-      LOGGER.info("Solr uuid: " + uuid);
+      LOGGER.info("Solr id: " + uuid);
     }
     return ids;
   }
