@@ -75,8 +75,8 @@
     <version.solr>5.4.1</version.solr>
     <version.spring>4.2.5.RELEASE</version.spring>
     <version.spring-data-mongodb>1.8.4.RELEASE</version.spring-data-mongodb>
-    <version.spring-security-config>4.0.1.RELEASE</version.spring-security-config>
-    <version.spring-security-web>4.0.1.RELEASE</version.spring-security-web>
+    <version.spring-security-config>4.0.4.RELEASE</version.spring-security-config>
+    <version.spring-security-web>4.0.4.RELEASE</version.spring-security-web>
     <version.thymeleaf-extras-conditionalcomments>2.1.2.RELEASE</version.thymeleaf-extras-conditionalcomments>
     <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
     <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
