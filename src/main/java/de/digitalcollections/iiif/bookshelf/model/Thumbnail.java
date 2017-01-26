@@ -2,8 +2,8 @@ package de.digitalcollections.iiif.bookshelf.model;
 
 public class Thumbnail {
 
-  private String iiifImageServiceUri;
   private IiifImageApiVersion iiifImageApiVersion;
+  private String iiifImageServiceUri;
   private String url;
 
   public Thumbnail() {
@@ -31,6 +31,10 @@ public class Thumbnail {
     this.iiifImageApiVersion = iiifImageApiVersion;
   }
 
+  public String getIiifImageServiceUri() {
+    return iiifImageServiceUri;
+  }
+
   public void setIiifImageServiceUri(String iiifImageServiceUri) {
     if (iiifImageServiceUri != null) {
       iiifImageServiceUri = iiifImageServiceUri.trim();
@@ -42,13 +46,13 @@ public class Thumbnail {
   }
 
   public String getUrl() {
-    if (iiifImageServiceUri != null && iiifImageApiVersion != null) {
-      if (IiifImageApiVersion.V1_1 == iiifImageApiVersion) {
-        setUrl(iiifImageServiceUri + "/full/,90/0/native.jpg");
-      } else if (IiifImageApiVersion.V2 == iiifImageApiVersion) {
-        setUrl(iiifImageServiceUri + "/full/,90/0/default.jpg");
-      }
-    }
+//    if (iiifImageServiceUri != null && iiifImageApiVersion != null) {
+//      if (IiifImageApiVersion.V1_1 == iiifImageApiVersion) {
+//        setUrl(iiifImageServiceUri + "/full/,90/0/native.jpg");
+//      } else if (IiifImageApiVersion.V2 == iiifImageApiVersion) {
+//        setUrl(iiifImageServiceUri + "/full/,90/0/default.jpg");
+//      }
+//    }
     return url;
   }
 

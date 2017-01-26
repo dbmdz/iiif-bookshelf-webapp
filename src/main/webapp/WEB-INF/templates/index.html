@@ -51,24 +51,23 @@
       <table class="table table-hover table-condensed">
         <tr th:each="manifest : ${page.content}">
           <td>
-            <a th:href="@{/view/__${manifest.uuid}__}">
-              <th:block th:if="${manifest.thumbnail} != null">
+            <th:block th:if="${manifest.thumbnail} != null">
+              <a th:href="@{/view/__${manifest.uuid}__}">
                 <th:block th:if="${manifest.thumbnail.url} != null">
                   <img class="preview-thumbnail" th:src="|${manifest.thumbnail.url}|" />
                 </th:block>
                 <th:block th:if="${manifest.thumbnail.url} == null">
-                  <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} == null">
-                    <th:block th:if="${manifest.version} != null">
-                      <img class="preview-thumbnail" th:if="${manifest.version.toString()} eq 'V1'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/native.jpg|"/>
-                      <img class="preview-thumbnail" th:if="${manifest.version.toString()} eq 'V2'" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
+                  <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
+                    <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} eq 'V1_1'">
+                      <img class="preview-thumbnail" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/native.jpg|"/>
                     </th:block>
-                    <th:block th:if="${manifest.version} == null">
+                    <th:block th:if="${manifest.thumbnail.iiifImageApiVersion.name()} eq 'V2'">
                       <img class="preview-thumbnail" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/,90/0/default.jpg|"/>
                     </th:block>
                   </th:block>
                 </th:block>
-              </th:block>
-            </a>
+              </a>
+            </th:block>
           </td>
           <!--                    <td th:text="${manifest.manifestUri}">URI</td>-->
           <td>
