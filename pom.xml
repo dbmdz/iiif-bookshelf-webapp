@@ -82,6 +82,7 @@
     <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
+    <version.webjar-bootswatch-paper>3.3.5+4</version.webjar-bootswatch-paper>
     <version.webjar-html5shiv>3.7.3</version.webjar-html5shiv>
     <version.webjar-jquery>2.1.4</version.webjar-jquery>
     <version.webjar-respond>1.4.2</version.webjar-respond>
@@ -362,6 +363,11 @@
           <artifactId>jquery</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootswatch-paper</artifactId>
+      <version>3.3.5+4</version>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
