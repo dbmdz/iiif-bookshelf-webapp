@@ -81,7 +81,7 @@ img.preview-thumbnail {
 }
 
 .search-result-item .attribution {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .search-result-item.grid-group-item .thumbnailImage {
@@ -249,6 +249,14 @@ img.preview-thumbnail {
   max-width: 90%;
   display: block;
   margin-left: 10%;
+}
+.search-result-item.list-group-item .caption h4
+{
+  font-size: 20px;
+}
+.search-result-item.grid-group-item .caption h4
+{
+  font-size: 18px;
 }
 .search-result-item.list-group-item:nth-of-type(odd)
 {
