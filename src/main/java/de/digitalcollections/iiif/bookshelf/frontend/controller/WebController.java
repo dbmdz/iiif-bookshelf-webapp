@@ -48,7 +48,7 @@ public class WebController {
    * @return view of list of objects
    */
   @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-  public String list(SearchRequest searchRequest, Model model, Pageable pageRequest) {
+  public String list(SearchRequest searchRequest, Model model, Pageable pageRequest, @RequestParam(required = false, defaultValue = "grid") String style) {
     model.addAttribute("authentication", authentication);
     if (searchRequest != null && !StringUtils.isEmpty(searchRequest.getQuery())) {
       final String term = searchRequest.getQuery().replace(":", "\\:");
@@ -56,12 +56,14 @@ public class WebController {
         final Page<IiifManifestSummary> page = iiifManifestSummaryService.findAll(term, pageRequest);
         model.addAttribute("page", new PageWrapper(page, "/"));
         model.addAttribute("searchRequest", searchRequest);
+        model.addAttribute("style", style);
         return "index";
       }
     }
     final Page<IiifManifestSummary> page = iiifManifestSummaryService.getAll(pageRequest);
     model.addAttribute("page", new PageWrapper(page, "/"));
     model.addAttribute("searchRequest", new SearchRequest());
+    model.addAttribute("style", style);
 
     // model.addAttribute("manifests", iiifManifestSummaryService.getAll());
     // model.addAttribute("count", iiifManifestSummaryService.countAll());

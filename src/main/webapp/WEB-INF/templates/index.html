@@ -32,9 +32,11 @@
 
     <div class="col-sm-6">
       <div id="btnStyleSwitcher" class="btn-group pull-right">
-        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm active"><span
-          class="glyphicon glyphicon-th"></span>Grid</a>
+        <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='list')}" id="list" class="btn btn-default btn-sm"
+           th:classappend="${style} == 'list' ? 'active' : ''"><span class="glyphicon glyphicon-th-list">
+            </span>List</a>
+        <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='grid')}" id="grid" class="btn btn-default btn-sm"
+           th:classappend="${style} == 'grid' ? 'active' : ''"><span class="glyphicon glyphicon-th"></span>Grid</a>
       </div>
     </div>
   </div>
@@ -50,7 +52,8 @@
   <!--/* Search result list */-->
   <div id="search-results" class="row list-group">
     <div class="col-xs-12">
-      <div th:each="manifest : ${page.content}" class="search-result-item grid-group-item">
+      <div th:each="manifest : ${page.content}" class="search-result-item"
+           th:classappend="${style} == 'grid' ? 'grid-group-item' : 'list-group-item'">
 
         <!--/* The image */-->
         <div class="thumbnail">
@@ -137,31 +140,31 @@
       <li th:class="${page.firstPage}? 'disabled' : ''">
         <span th:if='${page.firstPage}'><span class="glyphicon glyphicon-fast-backward"></span></span>
         <a th:if='${not page.firstPage}'
-           th:href='@{${page.url}(page=0,size=${page.size},query=${searchRequest.query})}'><span
+           th:href='@{${page.url}(page=0,size=${page.size},query=${searchRequest.query},style=${style})}'><span
             class="glyphicon glyphicon-fast-backward"></span></a>
       </li>
       <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
         <span th:if='${not page.hasPreviousPage}'><span class="glyphicon glyphicon-backward"></span></span>
         <a th:if='${page.hasPreviousPage}'
-           th:href='@{${page.url}(page=${page.number - 2},size=${page.size},query=${searchRequest.query})}'
+           th:href='@{${page.url}(page=${page.number - 2},size=${page.size},query=${searchRequest.query},style=${style})}'
            title='Go to previous page'><span class="glyphicon glyphicon-backward"></span></a>
       </li>
       <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
         <span th:if='${item.current}' th:text='${item.number}'>1</span>
         <a th:if='${not item.current}'
-           th:href='@{${page.url}(page=${item.number - 1},size=${page.size},query=${searchRequest.query})}'><span
+           th:href='@{${page.url}(page=${item.number - 1},size=${page.size},query=${searchRequest.query},style=${style})}'><span
             th:text='${item.number}'>1</span></a>
       </li>
       <li th:class="${page.hasNextPage}? '' : 'disabled'">
         <span th:if='${not page.hasNextPage}'><span class="glyphicon glyphicon-forward"></span></span>
         <a th:if='${page.hasNextPage}'
-           th:href='@{${page.url}(page=${page.number},size=${page.size},query=${searchRequest.query})}'
+           th:href='@{${page.url}(page=${page.number},size=${page.size},query=${searchRequest.query},style=${style})}'
            title='Go to next page'><span class="glyphicon glyphicon-forward"></span></a>
       </li>
       <li th:class="${page.lastPage}? 'disabled' : ''">
         <span th:if='${page.lastPage}'><span class="glyphicon glyphicon-fast-forward"></span></span>
         <a th:if='${not page.lastPage}'
-           th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},query=${searchRequest.query})}'><span
+           th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},query=${searchRequest.query},style=${style})}'><span
             class="glyphicon glyphicon-fast-forward"></span></a>
       </li>
     </ul>
