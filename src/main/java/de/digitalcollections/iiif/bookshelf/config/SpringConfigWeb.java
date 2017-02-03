@@ -4,6 +4,7 @@ import de.digitalcollections.commons.springmvc.config.SpringConfigCommonsMvc;
 import de.digitalcollections.commons.springmvc.interceptors.CurrentUrlAsModelAttributeHandlerInterceptor;
 import java.util.Date;
 import java.util.Locale;
+import javax.servlet.ServletContext;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,20 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @ComponentScan(basePackages = {
-  "de.digitalcollections.iiif.bookshelf.frontend.controller",
-  "de.digitalcollections.commons.springmvc.controller"
+    "de.digitalcollections.iiif.bookshelf.frontend.controller",
+    "de.digitalcollections.commons.springmvc.controller"
 })
 @EnableAspectJAutoProxy
 @EnableWebMvc
 @PropertySource(value = {
-  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
+    "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigWeb-${spring.profiles.active:PROD}.properties"
 })
 @Import(SpringConfigCommonsMvc.class)
 public class SpringConfigWeb extends WebMvcConfigurerAdapter {
@@ -81,8 +80,8 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public TemplateResolver servletContextTemplateResolver() {
-    ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+  public ServletContextTemplateResolver servletContextTemplateResolver(ServletContext context) {
+    ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(context);
     templateResolver.setPrefix("/WEB-INF/templates/");
     templateResolver.setSuffix(".html");
     templateResolver.setCharacterEncoding("UTF-8");
@@ -93,24 +92,23 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public SpringTemplateEngine templateEngine() {
+  public SpringTemplateEngine templateEngine(ServletContextTemplateResolver servletContextTemplateResolver) {
     SpringTemplateEngine templateEngine = new SpringTemplateEngine();
     templateEngine.addTemplateResolver(classLoaderTemplateResolver());
-    templateEngine.addTemplateResolver(servletContextTemplateResolver());
+    templateEngine.addTemplateResolver(servletContextTemplateResolver);
     templateEngine.addTemplateResolver(commonsClasspathThymeleafResolver);
     // Activate Thymeleaf LayoutDialect[1] (for 'layout'-namespace)
     // [1] https://github.com/ultraq/thymeleaf-layout-dialect
     templateEngine.addDialect(new LayoutDialect());
     // templateEngine.addDialect(new SpringSecurityDialect());
     // templateEngine.addDialect(new DataAttributeDialect());
-    templateEngine.addDialect(new ConditionalCommentsDialect());
     return templateEngine;
   }
 
   @Bean
-  public ViewResolver viewResolver() {
+  public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
     ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-    viewResolver.setTemplateEngine(templateEngine());
+    viewResolver.setTemplateEngine(templateEngine);
     viewResolver.setOrder(1);
     viewResolver.setCharacterEncoding("UTF-8");
     return viewResolver;

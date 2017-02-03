@@ -32,6 +32,11 @@
       <email>matthias.lindinger@bsb-muenchen.de</email>
       <id>morpheus-87</id>
     </developer>
+    <developer>
+      <name>Marcus Bitzl</name>
+      <email>marcus.bitzl@bsb-muenchen.de</email>
+      <id>bitzl</id>
+    </developer>
   </developers>
   <ciManagement>
     <url>https://travis-ci.org/dbmdz/iiif-bookshelf-webapp</url>
@@ -72,13 +77,11 @@
     <version.prettytime>4.0.1.Final</version.prettytime>
     <version.slf4j>1.7.21</version.slf4j>
     <version.solr>5.4.1</version.solr>
-    <version.spring>4.2.5.RELEASE</version.spring>
-    <version.spring-data-mongodb>1.8.4.RELEASE</version.spring-data-mongodb>
-    <version.spring-security-config>4.0.4.RELEASE</version.spring-security-config>
-    <version.spring-security-web>4.0.4.RELEASE</version.spring-security-web>
-    <version.thymeleaf-extras-conditionalcomments>2.1.2.RELEASE</version.thymeleaf-extras-conditionalcomments>
-    <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
-    <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
+    <version.spring>4.3.6.RELEASE</version.spring>
+    <version.spring-data-mongodb>1.10.0.RELEASE</version.spring-data-mongodb>
+    <version.spring-security>4.2.1.RELEASE</version.spring-security>
+    <version.thymeleaf-layout-dialect>2.1.2</version.thymeleaf-layout-dialect>
+    <version.thymeleaf-spring4>3.0.3.RELEASE</version.thymeleaf-spring4>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
     <version.webjar-bootswatch-paper>3.3.5+4</version.webjar-bootswatch-paper>
@@ -324,22 +327,22 @@
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
-      <version>${version.spring-security-config}</version>
+      <version>${version.spring-security}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
-      <version>${version.spring-security-web}</version>
+      <version>${version.spring-security}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf</artifactId>
+      <version>3.0.3.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf-spring4</artifactId>
       <version>${version.thymeleaf-spring4}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.thymeleaf.extras</groupId>
-      <artifactId>thymeleaf-extras-conditionalcomments</artifactId>
-      <version>${version.thymeleaf-extras-conditionalcomments}</version>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
