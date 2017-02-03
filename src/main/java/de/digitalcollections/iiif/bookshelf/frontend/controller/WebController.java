@@ -110,6 +110,7 @@ public class WebController {
     }
   }
 
+
   @CrossOrigin(origins = "*")
   @RequestMapping(value = {"/view/{uuid}"}, method = RequestMethod.GET)
   public String viewBook(@PathVariable UUID uuid, Model model) {

@@ -27,4 +27,6 @@ public interface IiifManifestSummaryService {
   public List<IiifManifestSummary> getAll();
 
   public Page<IiifManifestSummary> getAll(Pageable pageable);
+
+  public void reindexSearch();
 }

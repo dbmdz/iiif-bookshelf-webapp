@@ -66,7 +66,6 @@
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
     <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
-    <version.mongeez>0.9.6</version.mongeez>
     <version.mongodb-driver>3.0.4</version.mongodb-driver>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.persistence-api>1.0.2</version.persistence-api>
@@ -280,17 +279,6 @@
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver</artifactId>
       <version>${version.mongodb-driver}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mongeez</groupId>
-      <artifactId>mongeez</artifactId>
-      <version>${version.mongeez}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>asm</groupId>
-          <artifactId>asm</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.ocpsoft.prettytime</groupId>

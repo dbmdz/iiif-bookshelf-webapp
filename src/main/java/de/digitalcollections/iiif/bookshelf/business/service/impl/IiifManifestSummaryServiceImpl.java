@@ -122,6 +122,15 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
+  public void reindexSearch() {
+    for (IiifManifestSummary summary : iiifManifestSummaryRepository.findAll()) {
+      // TODO: Could probably benefit from batched ingest
+      iiifManifestSummarySearchRepository.save(summary);
+    }
+
+  }
+
+  @Override
   public void enrichAndSave(IiifManifestSummary manifestSummary) throws ParseException, NotFoundException {
     // if exists already: update existing manifest
     final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
