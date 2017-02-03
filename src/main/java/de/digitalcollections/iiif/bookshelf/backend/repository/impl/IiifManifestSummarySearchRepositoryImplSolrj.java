@@ -48,10 +48,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
   @Override
   public List<UUID> findBy(String text) {
-    SolrQuery query = new SolrQuery();
-    query.setQuery(escapeUnwantedSpecialChars(text));
-    query.setFields("id", "labelDE_txt", "attributionDE_txt", "descriptionDE_txt");
-    query.setStart(0);
+    SolrQuery query = buildSolrQuery(text, 0);
     QueryResponse response;
     try {
       response = solr.query(query);
@@ -82,12 +79,8 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
   @Override
   public Page<IiifManifestSummary> findBy(String text, Pageable pageable) {
-    SolrQuery query = new SolrQuery();
-    query.setQuery(escapeUnwantedSpecialChars(text));
-    query.setFields("id", "labelDE_txt", "attributionDE_txt", "descriptionDE_txt");
-    query.setStart(pageable.getOffset());
+    SolrQuery query = buildSolrQuery(text, pageable.getOffset());
     query.setRows(pageable.getPageSize());
-
     QueryResponse response;
     try {
       LOGGER.info("query = " +query);
@@ -117,7 +110,11 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
     SolrInputDocument doc = new SolrInputDocument();
     doc.addField("id", manifestSummary.getUuid());
-    doc.addField("manifesturi_txt", manifestSummary.getManifestUri());
+    //doc.addField("manifesturi_key", manifestSummary.getManifestUri());
+    String[] uri = manifestSummary.getManifestUri().split("/");
+    doc.addField("identifier_txt", uri[uri.length-2]);
+    
+    
     for (Entry<Locale, String> e : manifestSummary.getLabels().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
@@ -143,10 +140,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
   @Override
   public List<UUID> findBy(String text, int start, int rows) {
-    SolrQuery query = new SolrQuery();
-    query.setQuery(escapeUnwantedSpecialChars(text)); // test also with "Foobar part +500"
-    query.setFields("id", "labelDE_txt", "attributionDE_txt", "descriptionDE_txt", "manifesturi_txt");
-    query.setStart(start);
+    SolrQuery query = buildSolrQuery(text, start); 
     query.setRows(rows);
     QueryResponse response;
     try {
@@ -178,5 +172,14 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     // We don't want to escape whitespaces, * and "
     // But we want to escape all the ohter special characters
     return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\s", " ").replaceAll("\\\\\\\"", "\"");
+  }
+
+  private SolrQuery buildSolrQuery(String text, int start) {
+      SolrQuery query = new SolrQuery();
+    String trimmedQuery = escapeUnwantedSpecialChars(text);
+    query.setQuery("labelDE_txt:" + trimmedQuery + " OR descriptionDE_txt:" +trimmedQuery + " OR identifier_txt:" + trimmedQuery);
+    query.setFields("id");
+    query.setStart(start);    
+    return query;
   }
 }
