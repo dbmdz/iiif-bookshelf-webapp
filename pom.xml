@@ -58,15 +58,16 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <version.aspectjweaver>1.8.8</version.aspectjweaver>
+    <version.assertj>3.5.2</version.assertj>
     <version.digitalcollections-commons-springmvc>1.1.0-SNAPSHOT</version.digitalcollections-commons-springmvc>
     <version.iiif-mirador>2.1.2</version.iiif-mirador>
     <version.iiif-presentation-api>3.2.4-SNAPSHOT</version.iiif-presentation-api>
     <version.jacoco-maven-plugin>0.7.8</version.jacoco-maven-plugin>
-    <version.jackson>2.8.1</version.jackson>
+    <version.jackson>2.8.6</version.jackson>
     <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
     <version.jetty-maven-plugin>9.3.3.v20150827</version.jetty-maven-plugin>
     <version.json-simple>1.1.1</version.json-simple>
-    <version.logback>1.1.7</version.logback>
+    <version.logback>1.1.9</version.logback>
     <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
@@ -75,7 +76,7 @@
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.1.Final</version.prettytime>
-    <version.slf4j>1.7.21</version.slf4j>
+    <version.slf4j>1.7.22</version.slf4j>
     <version.solr>5.4.1</version.solr>
     <version.spring>4.3.6.RELEASE</version.spring>
     <version.spring-data-mongodb>1.10.0.RELEASE</version.spring-data-mongodb>
@@ -272,6 +273,11 @@
       <artifactId>aspectjweaver</artifactId>
       <version>${version.aspectjweaver}</version>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${version.assertj}</version>
     </dependency>
     <dependency>
       <groupId>org.logback-extensions</groupId>
