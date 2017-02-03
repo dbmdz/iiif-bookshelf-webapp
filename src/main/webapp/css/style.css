@@ -55,3 +55,233 @@ img.preview-thumbnail {
   height: 25px;
   margin-right: 5px;
 }
+
+.table-pagination {
+  display: inline-block;
+}
+
+
+/* Thumbnail- and listview */
+
+#rowSearchForm {
+  margin: 40px 0 20px;
+}
+
+#btnStyleSwitcher {
+  vertical-align: inherit;
+}
+
+#search-results {
+  margin-top: 10px;
+}
+
+.search-result-item {
+  width: 100%;
+  float: left;
+}
+
+.search-result-item .attribution {
+  font-size: 1em;
+}
+
+.search-result-item.grid-group-item .thumbnailImage {
+  position: relative;
+}
+
+.search-result-item.grid-group-item .thumbnailImage .attributorLogo {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255,255,255,0.75);
+  padding: 5px;
+  text-align: center;
+}
+
+.search-result-item.list-group-item .thumbnailImage .attributorLogo {
+  display: none;
+}
+
+.search-result-item.grid-group-item .caption .attributorLogo {
+  display: none;
+}
+
+.search-result-item .attributorLogo img {
+  max-width: 40%;
+  max-height: 16px;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width : 767px) {
+  .search-result-item.list-group-item .thumbnailImage {
+    display: none;
+  }
+
+  .search-result-item.list-group-item .caption {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
+
+/*@media only screen and (min-width : 321px) and (max-width : 767px) {
+
+  .search-result-item.list-group-item .imageLink {
+    max-width: 16% !important;
+  }
+
+  .search-result-item.list-group-item .caption {
+    max-width: 80% !important;
+    margin-left: 20% !important;
+  }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 321px) and (max-width : 767px) {
+
+  .search-result-item.grid-group-item {
+    width: 50%;
+  }
+
+  .search-result-item.grid-group-item:nth-child(2n+3) {
+    clear: left;
+  }
+
+  .search-result-item.grid-group-item:nth-child(odd) {
+    padding: 0 5px 0 0;
+  }
+
+  .search-result-item.grid-group-item:nth-child(even) {
+    padding: 0 0 0 5px;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) and (max-width : 991px){
+
+  .search-result-item.grid-group-item {
+    width: 33%;
+  }
+
+  .search-result-item.grid-group-item {
+    padding: 0 5px;
+  }
+
+  .search-result-item.grid-group-item:nth-child(3n+4) {
+    clear: left;
+    padding: 0 5px 0 0;
+  }
+
+  .search-result-item.grid-group-item:first-child {
+    padding: 0 5px 0 0;
+  }
+
+  .search-result-item.grid-group-item:nth-child(3n) {
+    padding: 0 0 0 5px;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px){
+
+  #search-results {
+    margin-top: 20px;
+  }
+  .search-result-item.grid-group-item {
+    width: 25%;
+  }
+
+  .search-result-item.grid-group-item {
+    padding: 0 5px;
+  }
+
+  .search-result-item.grid-group-item:nth-child(4n+5) {
+    clear: left;
+    padding: 0 5px 0 0;
+  }
+
+  .search-result-item.grid-group-item:first-child {
+    padding: 0 5px 0 0;
+  }
+
+  .search-result-item.grid-group-item:nth-child(4n) {
+    padding: 0 0 0 5px;
+  }
+}
+
+.glyphicon { margin-right:5px; }
+
+.thumbnail
+{
+  margin-bottom: 20px;
+  padding: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+.search-result-item.list-group-item .imageLink {
+  max-width: 8%;
+  display: block;
+}
+
+.search-result-item.list-group-item
+{
+  float: none;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.search-result-item.list-group-item:nth-of-type(odd):hover,.search-result-item.list-group-item:hover
+{
+  background: #428bca;
+}
+.search-result-item.list-group-item .list-group-image
+{
+  margin-right: 10px;
+}
+.search-result-item.list-group-item .thumbnail
+{
+  margin-bottom: 0px;
+}
+.search-result-item.list-group-item .caption
+{
+  padding: 9px;
+  max-width: 90%;
+  display: block;
+  margin-left: 10%;
+}
+.search-result-item.list-group-item .caption h4
+{
+  font-size: 20px;
+}
+.search-result-item.grid-group-item .caption h4
+{
+  font-size: 18px;
+}
+.search-result-item.list-group-item:nth-of-type(odd)
+{
+  background: #eeeeee;
+}
+.search-result-item.list-group-item:before, .search-result-item.list-group-item:after
+{
+  display: table;
+  content: " ";
+}
+.search-result-item.list-group-item img
+{
+  float: left;
+}
+.search-result-item.list-group-item:after
+{
+  clear: both;
+}
+
+.list-group-item-text
+{
+  margin: 0 0 11px;
+  color: #777;
+}
+
+.search-result-item .itemAge {
+  font-size: 0.9em;
+}

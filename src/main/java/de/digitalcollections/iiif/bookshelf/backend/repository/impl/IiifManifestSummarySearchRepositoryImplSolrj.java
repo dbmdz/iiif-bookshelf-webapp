@@ -85,7 +85,6 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     try {
       LOGGER.info("query = " +query);
       response = solr.query(query);
-      
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
       return new PageImpl<>(new ArrayList<>());
@@ -128,7 +127,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     for (Entry<Locale, String> e : manifestSummary.getDescriptions().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
-      doc.addField("description" + key.toUpperCase() + "_txt", value); 
+      doc.addField("description" + key.toUpperCase() + "_txt", value);
     }
     try {
       solr.add(doc);
