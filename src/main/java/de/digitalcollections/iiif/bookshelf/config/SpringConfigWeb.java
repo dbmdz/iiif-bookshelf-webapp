@@ -81,6 +81,8 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
   @Bean
   public SpringTemplateEngine templateEngine(ServletContextTemplateResolver servletContextTemplateResolver) {
     SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+    commonsClasspathThymeleafResolver.setOrder(1);
+    servletContextTemplateResolver.setOrder(2);
     templateEngine.addTemplateResolver(commonsClasspathThymeleafResolver);
     templateEngine.addTemplateResolver(servletContextTemplateResolver);
     // Activate Thymeleaf LayoutDialect[1] (for 'layout'-namespace)
