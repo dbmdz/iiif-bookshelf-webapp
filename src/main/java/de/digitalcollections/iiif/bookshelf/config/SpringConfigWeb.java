@@ -10,6 +10,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
@@ -68,8 +69,9 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public ServletContextTemplateResolver servletContextTemplateResolver(ServletContext context) {
-    ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(context);
+  public SpringResourceTemplateResolver springResourceTemplateResolver(ApplicationContext context) {
+    SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+    templateResolver.setApplicationContext(context);
     templateResolver.setPrefix("/WEB-INF/templates/");
     templateResolver.setSuffix(".html");
     templateResolver.setCharacterEncoding("UTF-8");
@@ -79,12 +81,12 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public SpringTemplateEngine templateEngine(ServletContextTemplateResolver servletContextTemplateResolver) {
+  public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver springResourceTemplateResolver) {
     SpringTemplateEngine templateEngine = new SpringTemplateEngine();
     commonsClasspathThymeleafResolver.setOrder(1);
-    servletContextTemplateResolver.setOrder(2);
+    springResourceTemplateResolver.setOrder(2);
     templateEngine.addTemplateResolver(commonsClasspathThymeleafResolver);
-    templateEngine.addTemplateResolver(servletContextTemplateResolver);
+    templateEngine.addTemplateResolver(springResourceTemplateResolver);
     // Activate Thymeleaf LayoutDialect[1] (for 'layout'-namespace)
     // [1] https://github.com/ultraq/thymeleaf-layout-dialect
     templateEngine.addDialect(new LayoutDialect());
