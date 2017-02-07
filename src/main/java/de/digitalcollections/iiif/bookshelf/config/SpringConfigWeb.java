@@ -68,18 +68,6 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public ClassLoaderTemplateResolver classLoaderTemplateResolver() {
-    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-    templateResolver.setPrefix("/de/digitalcollections/commons/springmvc/thymeleaf/templates/");
-    templateResolver.setSuffix(".html");
-    templateResolver.setCharacterEncoding("UTF-8");
-    templateResolver.setTemplateMode("HTML5");
-    templateResolver.setCacheable(cacheTemplates);
-    templateResolver.setOrder(1);
-    return templateResolver;
-  }
-
-  @Bean
   public ServletContextTemplateResolver servletContextTemplateResolver(ServletContext context) {
     ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(context);
     templateResolver.setPrefix("/WEB-INF/templates/");
@@ -87,14 +75,12 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
     templateResolver.setCharacterEncoding("UTF-8");
     templateResolver.setTemplateMode("HTML5");
     templateResolver.setCacheable(cacheTemplates);
-    templateResolver.setOrder(2);
     return templateResolver;
   }
 
   @Bean
   public SpringTemplateEngine templateEngine(ServletContextTemplateResolver servletContextTemplateResolver) {
     SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-    templateEngine.addTemplateResolver(classLoaderTemplateResolver());
     templateEngine.addTemplateResolver(servletContextTemplateResolver);
     templateEngine.addTemplateResolver(commonsClasspathThymeleafResolver);
     // Activate Thymeleaf LayoutDialect[1] (for 'layout'-namespace)
