@@ -46,8 +46,8 @@ img.preview-thumbnail {
   margin: 0px;
 }
 
-.toc .toc-link {
-  font-size: 0.6em;
+.toc h2 {
+  font-size: 1.5em;
 }
 
 .navbar-brand > img {
