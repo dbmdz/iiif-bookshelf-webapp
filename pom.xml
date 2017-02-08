@@ -81,8 +81,8 @@
     <version.spring>4.3.6.RELEASE</version.spring>
     <version.spring-data-mongodb>1.10.0.RELEASE</version.spring-data-mongodb>
     <version.spring-security>4.2.1.RELEASE</version.spring-security>
-    <version.thymeleaf-layout-dialect>2.1.2</version.thymeleaf-layout-dialect>
-    <version.thymeleaf-spring4>3.0.3.RELEASE</version.thymeleaf-spring4>
+    <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
+    <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
     <version.webjar-bootswatch-paper>3.3.5+4</version.webjar-bootswatch-paper>
@@ -353,7 +353,8 @@
     <dependency>
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf</artifactId>
-      <version>3.0.3.RELEASE</version>
+      <version>2.1.4.RELEASE</version>
+      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>org.thymeleaf</groupId>
