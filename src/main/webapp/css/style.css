@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  padding-top: 70px;
+  padding-top: 50px;
   /* Margin bottom by footer height */
   margin-bottom: 40px;
 }
@@ -25,6 +25,28 @@ footer {
 
 img.preview-thumbnail {
   max-width: 100px;
+}
+
+.navbar {
+  min-height: 40px;
+  height: 40px;
+}
+
+.navbar .navbar-brand{
+  padding: 10px 15px;
+  line-height: 20px;
+}
+
+.navbar .navbar-nav > li > a {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  line-height: 40px;
+}
+
+.navbar .navbar-nav > li > p.navbar-text {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 40px;
 }
 
 #navbar a.badge {
@@ -54,6 +76,12 @@ img.preview-thumbnail {
   display: inline;
   height: 25px;
   margin-right: 5px;
+  vertical-align: top;
+}
+
+.iiif-logo > img {
+  height: 20px;
+  margin-right: 0;
 }
 
 .table-pagination {
