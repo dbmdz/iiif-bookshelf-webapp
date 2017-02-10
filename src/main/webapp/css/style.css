@@ -29,10 +29,15 @@ img.preview-thumbnail {
 
 .navbar {
   min-height: 40px;
-  height: 40px;
 }
 
-.navbar .navbar-brand{
+@media (min-width : 768px) {
+  .navbar {
+    height: 40px;
+  }
+}
+
+.navbar .navbar-brand {
   padding: 10px 15px;
   line-height: 20px;
 }
