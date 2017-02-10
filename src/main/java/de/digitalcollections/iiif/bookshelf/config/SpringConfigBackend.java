@@ -27,12 +27,13 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @Configuration
 @ComponentScan(basePackages = {
-  "de.digitalcollections.iiif.bookshelf.backend.repository.impl"
+  "de.digitalcollections.iiif.bookshelf.backend.api.repository",
+  "de.digitalcollections.iiif.bookshelf.backend.impl.repository"
 })
 @PropertySource(value = {
   "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
 })
-@EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.repository"})
+@EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.api.repository"})
 @EnableMongoAuditing
 @EnableSpringDataWebSupport
 @Import(SpringConfigBackendPresentation.class)

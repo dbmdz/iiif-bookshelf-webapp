@@ -1,10 +1,11 @@
-package de.digitalcollections.iiif.bookshelf.business.service.impl;
+package de.digitalcollections.iiif.bookshelf.business.impl.service;
 
-import de.digitalcollections.iiif.bookshelf.backend.repository.IiifManifestSummaryRepository;
-import de.digitalcollections.iiif.bookshelf.backend.repository.IiifManifestSummarySearchRepository;
-import de.digitalcollections.iiif.bookshelf.business.service.IiifManifestSummaryService;
+import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummaryRepository;
+import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummarySearchRepository;
+import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSummaryService;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
+import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
 import de.digitalcollections.iiif.presentation.model.api.enums.Version;
@@ -54,7 +55,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
-  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) {
+  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) throws SearchSyntaxException {
     return iiifManifestSummarySearchRepository.findBy(searchText, pageable);
   }
 
@@ -70,7 +71,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
     final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
-        .findByManifestUri(manifest.getManifestUri());
+            .findByManifestUri(manifest.getManifestUri());
     if (existingManifest != null) {
       throw new IllegalArgumentException("object already exists");
     }

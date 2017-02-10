@@ -1,20 +1,16 @@
-package de.digitalcollections.iiif.bookshelf.backend.repository.impl;
+package de.digitalcollections.iiif.bookshelf.backend.impl.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
-/**
- *
- * @author doris
- */
 public class IiiifManifestSummarySearchRepositoryImplSolrjTest {
 
   private String text;
   private String result;
-  IiifManifestSummarySearchRepositoryImplSolrj manifestSummarySearch ;
-  
+  IiifManifestSummarySearchRepositoryImplSolrj manifestSummarySearch;
+
   @Test
-  public void textWithoutSpecialCharactersShallRemainUnchanged(){
+  public void textWithoutSpecialCharactersShallRemainUnchanged() {
     manifestSummarySearch = new IiifManifestSummarySearchRepositoryImplSolrj();
     text = "Das ist ein Text";
     result = manifestSummarySearch.escapeUnwantedSpecialChars(text);
@@ -22,15 +18,15 @@ public class IiiifManifestSummarySearchRepositoryImplSolrjTest {
   }
 
   @Test
-  public void unwantedSpecialCharactersShallBeEscaped(){
+  public void unwantedSpecialCharactersShallBeEscaped() {
     manifestSummarySearch = new IiifManifestSummarySearchRepositoryImplSolrj();
     text = "+-&&||!(){}[]^~?:\\";
     result = manifestSummarySearch.escapeUnwantedSpecialChars(text);
     assertThat(result).isEqualTo("\\+\\-\\&\\&\\|\\|\\!\\(\\)\\{\\}\\[\\]\\^\\~\\?\\:\\\\");
   }
-  
+
   @Test
-  public void asteriskAndQuotationMarkShallRemainUnchanged(){
+  public void asteriskAndQuotationMarkShallRemainUnchanged() {
     manifestSummarySearch = new IiifManifestSummarySearchRepositoryImplSolrj();
     text = "* \"";
     result = manifestSummarySearch.escapeUnwantedSpecialChars(text);

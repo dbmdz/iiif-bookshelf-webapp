@@ -1,7 +1,7 @@
-package de.digitalcollections.iiif.bookshelf.backend.repository.impl;
+package de.digitalcollections.iiif.bookshelf.backend.impl.repository;
 
-import de.digitalcollections.iiif.bookshelf.backend.repository.IiifManifestSummaryRepository;
-import de.digitalcollections.iiif.bookshelf.backend.repository.IiifManifestSummaryRepositoryCustom;
+import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummaryRepository;
+import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummaryRepositoryCustom;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,7 @@
-package de.digitalcollections.iiif.bookshelf.business.service;
+package de.digitalcollections.iiif.bookshelf.business.api.service;
 
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
+import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +21,7 @@ public interface IiifManifestSummaryService {
 
   public void enrichAndSave(IiifManifestSummary manifestSummary) throws ParseException, NotFoundException;
 
-  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable);
+  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) throws SearchSyntaxException;
 
   public IiifManifestSummary get(UUID uuid);
 

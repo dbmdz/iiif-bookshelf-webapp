@@ -1,4 +1,4 @@
-package de.digitalcollections.iiif.bookshelf.backend.repository;
+package de.digitalcollections.iiif.bookshelf.backend.api.repository;
 
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import java.util.List;

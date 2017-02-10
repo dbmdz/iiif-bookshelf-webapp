@@ -5,18 +5,20 @@
 <body>
 <section layout:fragment="content">
 
+          
   <!--/* Search input */-->
   <div id="rowSearchForm" class="row">
+    <form action="#" th:action="@{/}" th:object="${searchRequest}" method="get" accept-charset="utf-8">
+    <div th:replace="fragments/feedback-messages :: form"></div>
     <div class="col-sm-6 col-sm-offset-3">
-      <form action="#" th:action="@{/}" th:object="${searchRequest}" method="get" accept-charset="utf-8">
         <div class="input-group">
           <input type="text" name="query" th:field="*{query}" class="form-control"
                  th:placeholder="| #{searchterm}|"/>
           <span class="input-group-btn"><button name="submit" type="submit" class="btn btn-primary"><span
               class="glyphicon glyphicon-search"></span></button></span>
         </div>
-      </form>
     </div>
+    </form>
     <div class="col-md-1" style="text-align: right;">
       <p>
         <th:block th:if='${not authentication}'><a class="btn btn-primary" th:href="@{/add}" role="button"
