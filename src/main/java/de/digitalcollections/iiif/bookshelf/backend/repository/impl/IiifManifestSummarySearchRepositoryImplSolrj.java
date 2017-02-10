@@ -49,6 +49,8 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   @Override
   public List<UUID> findBy(String text) {
     SolrQuery query = buildSolrQuery(text, 0);
+    
+    
     QueryResponse response;
     try {
       response = solr.query(query);
@@ -56,6 +58,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
       LOGGER.error(null, ex);
       return new ArrayList<>();
     }
+    
     SolrDocumentList rs = response.getResults();
     long numFound = rs.getNumFound();
     // this.numFound = numFound;
@@ -79,8 +82,10 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
   @Override
   public Page<IiifManifestSummary> findBy(String text, Pageable pageable) {
+    // läuft hier rein!!
     SolrQuery query = buildSolrQuery(text, pageable.getOffset());
     query.setRows(pageable.getPageSize());
+    
     QueryResponse response;
     try {
       LOGGER.info("query = " +query);
@@ -89,12 +94,33 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
       LOGGER.error(null, ex);
       return new PageImpl<>(new ArrayList<>());
     }
-
+    
+    // Facets
+    //List<Count> facetFields =  response.getFacetField("attributionDE_fct").getValues();
+    
     SolrDocumentList result = response.getResults();
     List<UUID> uuids = getUUIDs(result);
     List<IiifManifestSummary> manifests = iiifManifestSummaryRepository.findByUuidIn(uuids);
     LOGGER.info("Found " + uuids.size() + " UUIDs and " + manifests.size() + " manifests.");
     return new PageImpl<>(manifests, pageable, result.getNumFound());
+  }
+  
+    @Override
+  public List<UUID> findBy(String text, int start, int rows) {
+    SolrQuery query = buildSolrQuery(text, start); 
+    query.setRows(rows);
+    
+    QueryResponse response;
+    try {
+      response = solr.query(query);
+    } catch (SolrServerException | IOException ex) {
+      LOGGER.error(null, ex);
+      return new ArrayList<>();
+    }
+    
+    SolrDocumentList results = response.getResults();
+    LOGGER.info("--------------------------------------------------Results: " + results.size());
+    return getUUIDs(results);
   }
 
   @Override
@@ -122,7 +148,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     for (Entry<Locale, String> e : manifestSummary.getAttributions().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
-      doc.addField("attribution" + key.toUpperCase() + "_txt", value);
+      doc.addField("attribution" + key.toUpperCase() + "_fct", value);
     }
     for (Entry<Locale, String> e : manifestSummary.getDescriptions().entrySet()) {
       String key = e.getKey().getLanguage();
@@ -137,21 +163,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     }
   }
 
-  @Override
-  public List<UUID> findBy(String text, int start, int rows) {
-    SolrQuery query = buildSolrQuery(text, start); 
-    query.setRows(rows);
-    QueryResponse response;
-    try {
-      response = solr.query(query);
-    } catch (SolrServerException | IOException ex) {
-      LOGGER.error(null, ex);
-      return new ArrayList<>();
-    }
-    SolrDocumentList results = response.getResults();
-    LOGGER.info("--------------------------------------------------Results: " + results.size());
-    return getUUIDs(results);
-  }
+
 
   private List<UUID> getUUIDs(List<SolrDocument> docs) {
     ArrayList<UUID> ids = new ArrayList<>(docs.size());
@@ -169,15 +181,24 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
   protected String escapeUnwantedSpecialChars(String text) {
     // We don't want to escape whitespaces, * and "
-    // But we want to escape all the ohter special characters
+    // But we want to escape all the ohter special characters     
+    //   return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\\"", "\"");
     return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\s", " ").replaceAll("\\\\\\\"", "\"");
   }
 
   private SolrQuery buildSolrQuery(String text, int start) {
       SolrQuery query = new SolrQuery();
     String trimmedQuery = escapeUnwantedSpecialChars(text);
-    query.setQuery("labelDE_txt:" + trimmedQuery + " OR descriptionDE_txt:" +trimmedQuery + " OR identifier_txt:" + trimmedQuery);
+    // further trimming is necessary:
+    
+    
+    //query.setQuery("labelDE_txt:" + trimmedQuery + " OR descriptionDE_txt:" +trimmedQuery + " OR identifier_txt:" + trimmedQuery);
+    query.setQuery(trimmedQuery);
     query.setFields("id");
+    // Create facets
+    //query.setFacet(true);
+    //query.set("facet.field", "attributionDE_fct");
+    
     query.setStart(start);    
     return query;
   }
