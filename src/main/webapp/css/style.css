@@ -27,31 +27,33 @@ img.preview-thumbnail {
   max-width: 100px;
 }
 
-.navbar {
-  min-height: 40px;
-}
-
 @media (min-width : 768px) {
   .navbar {
     height: 40px;
+    min-height: 40px;
+  }
+  .navbar .navbar-brand {
+    padding: 10px 15px;
+    line-height: 20px;
+  }
+
+  .navbar .navbar-nav > li > a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: 40px;
+  }
+
+  .navbar .navbar-nav > li > p.navbar-text {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 40px;
   }
 }
 
-.navbar .navbar-brand {
-  padding: 10px 15px;
-  line-height: 20px;
-}
-
-.navbar .navbar-nav > li > a {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  line-height: 40px;
-}
-
-.navbar .navbar-nav > li > p.navbar-text {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  line-height: 40px;
+@media (max-width : 767px) {
+  .navbar .navbar-nav > li > p.navbar-text {
+    margin: 10px 15px;
+  }
 }
 
 #navbar a.badge {
