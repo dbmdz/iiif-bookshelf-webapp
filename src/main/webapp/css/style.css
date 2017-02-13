@@ -320,3 +320,7 @@ img.preview-thumbnail {
 .search-result-item .itemAge {
   font-size: 0.9em;
 }
+
+#viewer * {
+  box-sizing: content-box;
+}
