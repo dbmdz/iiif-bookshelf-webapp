@@ -70,6 +70,7 @@ public class WebController extends AbstractController {
           page = new PageImpl(new ArrayList<>());
           results.reject("error.search_syntax");
         }
+        model.addAttribute("menu", "home");
         model.addAttribute("page", new PageWrapper(page, "/"));
         model.addAttribute("searchRequest", searchRequest);
         model.addAttribute("style", style);
@@ -77,6 +78,7 @@ public class WebController extends AbstractController {
       }
     }
     final Page<IiifManifestSummary> page = iiifManifestSummaryService.getAll(pageRequest);
+    model.addAttribute("menu", "home");
     model.addAttribute("page", new PageWrapper(page, "/"));
     model.addAttribute("searchRequest", new SearchRequest());
     model.addAttribute("style", style);
