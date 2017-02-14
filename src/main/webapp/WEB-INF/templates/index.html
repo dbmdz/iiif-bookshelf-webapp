@@ -35,10 +35,15 @@
     <div class="col-sm-6">
       <div id="btnStyleSwitcher" class="btn-group pull-right">
         <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='list')}" id="list" class="btn btn-default btn-sm"
-           th:classappend="${style} == 'list' ? 'active' : ''"><span class="glyphicon glyphicon-th-list">
-            </span>List</a>
+           th:classappend="${style} == 'list' ? 'active' : ''">
+          <span class="glyphicon glyphicon-th-list"></span>
+          <span th:text="#{list}">List</span>
+        </a>
         <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='grid')}" id="grid" class="btn btn-default btn-sm"
-           th:classappend="${style} == 'grid' ? 'active' : ''"><span class="glyphicon glyphicon-th"></span>Grid</a>
+           th:classappend="${style} == 'grid' ? 'active' : ''">
+          <span class="glyphicon glyphicon-th"></span>
+          <span th:text="#{grid}">Grid</span>
+        </a>
       </div>
     </div>
   </div>
