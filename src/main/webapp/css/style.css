@@ -332,3 +332,7 @@ a.manifest-link > img {
   padding-left: 3px;
   vertical-align: top;
 }
+
+.objectCounter {
+  text-align: center;
+}
