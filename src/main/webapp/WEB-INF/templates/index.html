@@ -108,7 +108,9 @@
                     <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.getAttribution('__${#locale.language}__') != null? manifest.getAttribution('__${#locale.language}__') : manifest.attributions.values().toArray()[0]})">attribution</em>
                   </th:block>
 
-                  <a th:href="${manifest.manifestUri}" target="_blank">&raquo; IIIF-Manifest</a>
+                  <a class="manifest-link" th:href="${manifest.manifestUri}" target="_blank">
+                    <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
+                  </a>
                 </p>
               </div>
             </div>

@@ -324,3 +324,11 @@ img.preview-thumbnail {
 #viewer * {
   box-sizing: content-box;
 }
+
+a.manifest-link > img {
+  display: inline;
+  float: none !important;
+  height: 20px;
+  padding-left: 3px;
+  vertical-align: top;
+}
