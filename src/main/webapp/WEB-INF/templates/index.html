@@ -32,12 +32,12 @@
   </div>
 
   <!--/* Pagination and thumbnail-/listview switcher*/-->
-  <div class="row">
+  <div class="row rowSearchMenu">
     <div th:replace="this :: pagination"></div>
 
     <div class="col-sm-2">
       <div class="objectCounter">
-        <span class="label label-primary" th:text="#{msg.found_n_books(${page.totalItems})}">Found 17 books.</span>
+        <span class="message" th:text="#{msg.found_n_books(${page.totalItems})}">Found 17 books.</span>
       </div>
     </div>
 

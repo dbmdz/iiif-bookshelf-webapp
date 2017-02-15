@@ -95,15 +95,24 @@ img.preview-thumbnail {
   display: inline-block;
 }
 
-.table-pagination:last-of-type {
-  margin-bottom: 15px;
-}
-
-
 /* Thumbnail- and listview */
 
 #rowSearchForm {
   margin: 40px 0 20px;
+}
+
+.objectCounter {
+  margin-top: 4px;
+}
+
+.objectCounter .message {
+  color: #AAA;
+}
+
+.rowSearchMenu {
+  border: solid 1px #EEE;
+  border-radius: 5px;
+  padding-top: 5px;
 }
 
 #btnStyleSwitcher {
@@ -111,7 +120,7 @@ img.preview-thumbnail {
 }
 
 #search-results {
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .search-result-item {
@@ -135,6 +144,10 @@ img.preview-thumbnail {
   background: rgba(255,255,255,0.75);
   padding: 5px;
   text-align: center;
+}
+
+.search-result-item.list-group-item .thumbnailImage {
+  margin: 5px 0px 0px 5px;
 }
 
 .search-result-item.list-group-item .thumbnailImage .attributorLogo {
@@ -267,8 +280,9 @@ img.preview-thumbnail {
   float: none;
   width: 100%;
   background-color: #fff;
-  margin-bottom: 10px;
-  padding: 5px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+  border: none !important;
 }
 .search-result-item.list-group-item:nth-of-type(odd):hover,.search-result-item.list-group-item:hover
 {
@@ -299,7 +313,7 @@ img.preview-thumbnail {
 }
 .search-result-item.list-group-item:nth-of-type(odd)
 {
-  background: #eeeeee;
+/*  background: #eeeeee;*/
 }
 .search-result-item.list-group-item:before, .search-result-item.list-group-item:after
 {
