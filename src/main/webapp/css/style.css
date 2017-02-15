@@ -93,6 +93,7 @@ img.preview-thumbnail {
 
 .table-pagination {
   display: inline-block;
+  float: left;
 }
 
 /* Thumbnail- and listview */
@@ -103,10 +104,12 @@ img.preview-thumbnail {
 
 .objectCounter {
   margin-top: 4px;
+  text-align: left;
 }
 
 .objectCounter .message {
   color: #AAA;
+  padding-left: 8px;
 }
 
 .rowSearchMenu {
@@ -349,8 +352,4 @@ a.manifest-link > img {
   height: 20px;
   padding-left: 12px;
   vertical-align: middle;
-}
-
-.objectCounter {
-  text-align: center;
 }
