@@ -38,14 +38,14 @@ img.preview-thumbnail {
   }
 
   .navbar .navbar-nav > li > a {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
     line-height: 40px;
   }
 
   .navbar .navbar-nav > li > p.navbar-text {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     line-height: 40px;
   }
 }
@@ -72,7 +72,7 @@ img.preview-thumbnail {
 }
 
 .pagination {
-  margin: 0px;
+  margin: 0;
 }
 
 .toc h2 {
@@ -126,7 +126,7 @@ img.preview-thumbnail {
 }
 
 #search-results {
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .search-result-item {
@@ -153,7 +153,7 @@ img.preview-thumbnail {
 }
 
 .search-result-item.list-group-item .thumbnailImage {
-  margin: 5px 0px 0px 5px;
+  margin: 5px 0 0 5px;
 }
 
 .search-result-item.list-group-item .thumbnailImage .attributorLogo {
@@ -271,10 +271,10 @@ img.preview-thumbnail {
 .thumbnail
 {
   margin-bottom: 20px;
-  padding: 0px;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
+  padding: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
   min-height: 132px;
 }
 .search-result-item.list-group-item .imageLink {
@@ -287,8 +287,8 @@ img.preview-thumbnail {
   float: none;
   width: 100%;
   background-color: #fff;
-  margin: 0px 0px 10px 0px;
-  padding: 0px;
+  margin: 0 0 10px 0;
+  padding: 0;
   border: none !important;
 }
 .search-result-item.list-group-item:nth-of-type(odd):hover,.search-result-item.list-group-item:hover
@@ -303,7 +303,7 @@ img.preview-thumbnail {
 }
 .search-result-item.list-group-item .thumbnail
 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 .search-result-item.list-group-item .caption
 {
@@ -322,7 +322,7 @@ img.preview-thumbnail {
 }
 .search-result-item.list-group-item:nth-of-type(odd)
 {
-/*  background: #eeeeee;*/
+  /*  background: #eeeeee;*/
 }
 .search-result-item.list-group-item:before, .search-result-item.list-group-item:after
 {
@@ -363,9 +363,17 @@ div.tablerow {
 }
 
 div.tablerow > div[class*="col-"] {
-    float: none;
-    display: table-cell;
-    vertical-align: middle;
+  float: none;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+div.tablerow .iiif-logo {
+  padding-top: 6px;
+}
+
+div.tablerow .lastModified {
+  padding: 0;
 }
 
 .lighter {
