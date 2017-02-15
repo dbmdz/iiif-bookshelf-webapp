@@ -333,8 +333,8 @@ a.manifest-link > img {
   display: inline;
   float: none !important;
   height: 20px;
-  padding-left: 3px;
-  vertical-align: top;
+  padding-left: 12px;
+  vertical-align: middle;
 }
 
 .objectCounter {

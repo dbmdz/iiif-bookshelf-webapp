@@ -21,9 +21,12 @@
     </form>
     <div class="col-md-1" style="text-align: right;">
       <p>
-        <th:block th:if='${not authentication}'><a class="btn btn-primary" th:href="@{/add}" role="button"
-                                                   th:utext="#{add}">add <span class="glyphicon glyphicon-book"
-                                                                               aria-hidden="true"></span></a></th:block>
+        <th:block th:if='${not authentication}'>
+          <a class="btn btn-primary" th:href="@{/add}" role="button" th:utext="#{add}">
+            add
+            <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+          </a>
+        </th:block>
       </p>
     </div>
   </div>
@@ -110,18 +113,17 @@
                   <th:block th:unless="${manifest.attributions.isEmpty()}">
                     <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.getAttribution('__${#locale.language}__') != null? manifest.getAttribution('__${#locale.language}__') : manifest.attributions.values().toArray()[0]})">attribution</em>
                   </th:block>
-
-                  <a class="manifest-link" th:href="${manifest.manifestUri}" target="_blank">
-                    <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
-                  </a>
                 </p>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-6 col-sm-6">
-                <a class="btn btn-success"
-                   th:href="@{/view/__${manifest.uuid}__}"
-                   th:text="#{read}">Read</a>
+                <a class="btn btn-success" th:href="@{/view/__${manifest.uuid}__}" th:text="#{read}">
+                  Read
+                </a>
+                <a class="manifest-link" th:href="${manifest.manifestUri}" target="_blank">
+                  <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
+                </a>
               </div>
               <div class="col-xs-6 col-sm-6">
                 <span class="pull-right"
