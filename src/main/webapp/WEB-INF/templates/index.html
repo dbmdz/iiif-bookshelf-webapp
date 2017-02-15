@@ -5,7 +5,7 @@
 <body>
 <section layout:fragment="content">
 
-          
+
   <!--/* Search input */-->
   <div id="rowSearchForm" class="row">
     <form action="#" th:action="@{/}" th:object="${searchRequest}" method="get" accept-charset="utf-8">
@@ -118,7 +118,7 @@
             </div>
             <div class="row">
               <div class="col-xs-6 col-sm-6">
-                <a class="btn btn-success" th:href="@{/view/__${manifest.uuid}__}" th:text="#{read}">
+                <a class="btn btn-primary" th:href="@{/view/__${manifest.uuid}__}" th:text="#{read}">
                   Read
                 </a>
                 <a class="manifest-link" th:href="${manifest.manifestUri}" target="_blank">
