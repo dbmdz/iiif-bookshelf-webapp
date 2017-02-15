@@ -96,6 +96,10 @@ img.preview-thumbnail {
   float: left;
 }
 
+.table-pagination:last-of-type {
+  margin-bottom: 15px;
+}
+
 /* Thumbnail- and listview */
 
 #rowSearchForm {
