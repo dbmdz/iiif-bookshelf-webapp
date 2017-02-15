@@ -95,6 +95,10 @@ img.preview-thumbnail {
   display: inline-block;
 }
 
+.table-pagination:last-of-type {
+  margin-bottom: 15px;
+}
+
 
 /* Thumbnail- and listview */
 
