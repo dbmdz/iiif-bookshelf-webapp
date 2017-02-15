@@ -108,7 +108,6 @@ img.preview-thumbnail {
 }
 
 .objectCounter .message {
-  color: #AAA;
   padding-left: 8px;
 }
 
@@ -272,6 +271,7 @@ img.preview-thumbnail {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+  min-height: 132px;
 }
 .search-result-item.list-group-item .imageLink {
   max-width: 8%;
@@ -293,7 +293,9 @@ img.preview-thumbnail {
 }
 .search-result-item.list-group-item .list-group-image
 {
+  max-height: 120px;
   margin-right: 10px;
+  float: left;
 }
 .search-result-item.list-group-item .thumbnail
 {
@@ -323,10 +325,7 @@ img.preview-thumbnail {
   display: table;
   content: " ";
 }
-.search-result-item.list-group-item img
-{
-  float: left;
-}
+
 .search-result-item.list-group-item:after
 {
   clear: both;
@@ -352,4 +351,23 @@ a.manifest-link > img {
   height: 20px;
   padding-left: 12px;
   vertical-align: middle;
+}
+
+div.tablerow {
+  display: table;
+  width: 100%;
+}
+
+div.tablerow > div[class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.lighter {
+  color: #AAA;
+}
+
+.smaller {
+  font-size: 0.9em;
 }

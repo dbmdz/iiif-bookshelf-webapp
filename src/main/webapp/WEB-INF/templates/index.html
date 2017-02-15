@@ -2,109 +2,108 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="base">
-<body>
-  <section layout:fragment="content">
-    <div th:replace="fragments/content-header :: header"></div>
+  <body>
+    <section layout:fragment="content">
+      <div th:replace="fragments/content-header :: header"></div>
 
-    <!--/* Search input */-->
-    <div id="rowSearchForm" class="row">
-      <form action="#" th:action="@{/}" th:object="${searchRequest}" method="get" accept-charset="utf-8">
-        <div th:replace="fragments/feedback-messages :: form"></div>
-        <div class="col-sm-6 col-sm-offset-3">
-          <div class="input-group">
-            <input type="text" name="query" th:field="*{query}" class="form-control"
-                   th:placeholder="| #{searchterm}|"/>
-            <span class="input-group-btn"><button name="submit" type="submit" class="btn btn-primary"><span
-                  class="glyphicon glyphicon-search"></span></button></span>
+      <!--/* Search input */-->
+      <div id="rowSearchForm" class="row">
+        <form action="#" th:action="@{/}" th:object="${searchRequest}" method="get" accept-charset="utf-8">
+          <div th:replace="fragments/feedback-messages :: form"></div>
+          <div class="col-sm-6 col-sm-offset-3">
+            <div class="input-group">
+              <input type="text" name="query" th:field="*{query}" class="form-control"
+                     th:placeholder="| #{searchterm}|"/>
+              <span class="input-group-btn"><button name="submit" type="submit" class="btn btn-primary"><span
+                    class="glyphicon glyphicon-search"></span></button></span>
+            </div>
+          </div>
+        </form>
+        <div class="col-md-1" style="text-align: right;">
+          <p>
+          <th:block th:if='${not authentication}'>
+            <a class="btn btn-primary" th:href="@{/add}" role="button" th:utext="#{add}">
+              add
+              <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+            </a>
+          </th:block>
+          </p>
+        </div>
+      </div>
+
+      <!--/* Pagination and thumbnail-/listview switcher*/-->
+      <div class="row rowSearchMenu">
+        <div class="col-sm-6" >
+          <div th:replace="this :: pagination">
+            ...
+          </div>
+          <div class="objectCounter lighter">
+            <span class="message" th:text="#{msg.found_n_books(${page.totalItems})}">Found 17 books.</span>
           </div>
         </div>
-      </form>
-      <div class="col-md-1" style="text-align: right;">
-        <p>
-        <th:block th:if='${not authentication}'>
-          <a class="btn btn-primary" th:href="@{/add}" role="button" th:utext="#{add}">
-            add
-            <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-          </a>
-        </th:block>
-        </p>
-      </div>
-    </div>
 
-    <!--/* Pagination and thumbnail-/listview switcher*/-->
-    <div class="row rowSearchMenu">
-      <div class="col-sm-6" >
-        <div th:replace="this :: pagination">
-          ...
-        </div>
-        <div class="objectCounter">
-          <span class="message" th:text="#{msg.found_n_books(${page.totalItems})}">Found 17 books.</span>
+        <div class="col-sm-6">
+          <div id="btnStyleSwitcher" class="btn-group pull-right">
+            <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='list')}" id="list" class="btn btn-default btn-sm"
+               th:classappend="${style} == 'list' ? 'active' : ''">
+              <span class="glyphicon glyphicon-th-list"></span>
+              <span th:text="#{list}">List</span>
+            </a>
+            <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='grid')}" id="grid" class="btn btn-default btn-sm"
+               th:classappend="${style} == 'grid' ? 'active' : ''">
+              <span class="glyphicon glyphicon-th"></span>
+              <span th:text="#{grid}">Grid</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <div class="col-sm-6">
-        <div id="btnStyleSwitcher" class="btn-group pull-right">
-          <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='list')}" id="list" class="btn btn-default btn-sm"
-             th:classappend="${style} == 'list' ? 'active' : ''">
-            <span class="glyphicon glyphicon-th-list"></span>
-            <span th:text="#{list}">List</span>
-          </a>
-          <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='grid')}" id="grid" class="btn btn-default btn-sm"
-             th:classappend="${style} == 'grid' ? 'active' : ''">
-            <span class="glyphicon glyphicon-th"></span>
-            <span th:text="#{grid}">Grid</span>
-          </a>
-        </div>
-      </div>
-    </div>
+      <!--/* Search result list */-->
+      <div id="search-results" class="row list-group">
+        <div class="col-xs-12">
+          <div th:each="manifest : ${page.content}" class="search-result-item"
+               th:classappend="${style} == 'grid' ? 'grid-group-item' : 'list-group-item'">
 
-    <!--/* Search result list */-->
-    <div id="search-results" class="row list-group">
-      <div class="col-xs-12">
-        <div th:each="manifest : ${page.content}" class="search-result-item"
-             th:classappend="${style} == 'grid' ? 'grid-group-item' : 'list-group-item'">
-
-          <!--/* The image */-->
-          <div class="thumbnail">
-            <div class="thumbnailImage">
-              <th:block th:if="${manifest.thumbnail} != null">
-                <a class="imageLink" th:href="@{/view/__${manifest.uuid}__}">
-                  <th:block th:if="${manifest.thumbnail.url} != null">
-                    <img class="list-group-image" th:src="|${manifest.thumbnail.url}|"/>
-                  </th:block>
-                  <th:block th:if="${manifest.thumbnail.url} == null">
-                    <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
-                      <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} eq 'V1_1'">
-                        <img class="list-group-image"
-                             th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/native.jpg|"/>
-                      </th:block>
-                      <th:block th:if="${manifest.thumbnail.iiifImageApiVersion.name()} eq 'V2'">
-                        <img class="list-group-image"
-                             th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/default.jpg|"/>
+            <!--/* The image */-->
+            <div class="thumbnail">
+              <div class="thumbnailImage">
+                <th:block th:if="${manifest.thumbnail} != null">
+                  <a class="imageLink" th:href="@{/view/__${manifest.uuid}__}">
+                    <th:block th:if="${manifest.thumbnail.url} != null">
+                      <img class="list-group-image" th:src="|${manifest.thumbnail.url}|"/>
+                    </th:block>
+                    <th:block th:if="${manifest.thumbnail.url} == null">
+                      <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
+                        <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} eq 'V1_1'">
+                          <img class="list-group-image"
+                               th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/native.jpg|"/>
+                        </th:block>
+                        <th:block th:if="${manifest.thumbnail.iiifImageApiVersion.name()} eq 'V2'">
+                          <img class="list-group-image"
+                               th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/default.jpg|"/>
+                        </th:block>
                       </th:block>
                     </th:block>
-                  </th:block>
-                </a>
-              </th:block>
-              <th:block th:if="${manifest.logoUrl} != null">
-                <span class="attributorLogo">
-                  <img th:src="${manifest.logoUrl}" />
-                </span>
-              </th:block>
-            </div>
+                  </a>
+                </th:block>
+                <th:block th:if="${manifest.logoUrl} != null">
+                  <span class="attributorLogo">
+                    <img th:src="${manifest.logoUrl}" />
+                  </span>
+                </th:block>
+              </div>
 
-            <!--/* The caption */-->
-            <div class="caption">
-              <h4 class="group inner list-group-item-heading">
-                <a th:href="@{/view/__${manifest.uuid}__}"
-                   th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.getLabel('__${#locale.language}__') != null? manifest.getLabel('__${#locale.language}__') : manifest.labels.values().toArray()[0]})">Title</a>
-              </h4>
-              <p class="group inner list-group-item-text"
-                 th:utext="${manifest.descriptions.isEmpty()} ? '' : (${manifest.getDescription('__${#locale.language}__') != null? manifest.getDescription('__${#locale.language}__') : manifest.descriptions.values().toArray()[0]})">
-                Description</p>
-              <div class="row">
+              <!--/* The caption */-->
+              <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                  <a th:href="@{/view/__${manifest.uuid}__}"
+                     th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.getLabel('__${#locale.language}__') != null? manifest.getLabel('__${#locale.language}__') : manifest.labels.values().toArray()[0]})">Title</a>
+                </h4>
+                <p class="group inner list-group-item-text"
+                   th:utext="${manifest.descriptions.isEmpty()} ? '' : (${manifest.getDescription('__${#locale.language}__') != null? manifest.getDescription('__${#locale.language}__') : manifest.descriptions.values().toArray()[0]})">
+                  Description</p>
 
-                <div class="col-xs-12">
+                <div>
                   <p class="attribution">
                   <th:block th:if="${manifest.logoUrl} != null">
                     <span class="attributorLogo">
@@ -116,70 +115,70 @@
                   </th:block>
                   </p>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6 col-sm-6">
-                  <a class="btn btn-primary" th:href="@{/view/__${manifest.uuid}__}" th:text="#{read}">
-                    Read
-                  </a>
-                  <a class="manifest-link" th:href="${manifest.manifestUri}" target="_blank">
-                    <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
-                  </a>
-                </div>
-                <div class="col-xs-6 col-sm-6">
-                  <span class="pull-right"
-                        th:title="${#dates.format(manifest.lastModified)}"
-                        th:text="${@prettyTime.format(manifest.lastModified, #locale)}">5 minutes ago</span>
+
+                <div class="row tablerow" style="display:table;">
+                  <div class="col-xs-6 col-sm-6" style="vertical-align:middle;">
+                    <div>
+                      <a class="btn btn-primary" th:href="@{/view/__${manifest.uuid}__}" th:text="#{read}" style="float:left;">Read</a>
+                    </div>
+                    <div style="padding-top: 5px;">
+                      <a class="manifest-link" th:href="${manifest.manifestUri}" target="_blank" style="float:left;"><img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" /></a>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6" style="padding:0px;">
+                    <span class="pull-right lighter smaller"
+                          th:title="${#dates.format(manifest.lastModified)}"
+                          th:text="${@prettyTime.format(manifest.lastModified, #locale)}">5 minutes ago</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!--/* Aaaand another pagination */-->
-    <div class="row">
-      <div class="col-sm-6" >
-        <div th:replace="this :: pagination"></div>
+      <!--/* Aaaand another pagination */-->
+      <div class="row">
+        <div class="col-sm-6" >
+          <div th:replace="this :: pagination"></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="table-pagination" th:fragment="pagination">
-    <ul class="pagination pagination-sm">
-      <li th:class="${page.firstPage}? 'disabled' : ''">
-        <span th:if='${page.firstPage}'><span class="glyphicon glyphicon-fast-backward"></span></span>
-        <a th:if='${not page.firstPage}'
-           th:href='@{${page.url}(page=0,size=${page.size},query=${searchRequest.query},style=${style})}'><span
-            class="glyphicon glyphicon-fast-backward"></span></a>
-      </li>
-      <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
-        <span th:if='${not page.hasPreviousPage}'><span class="glyphicon glyphicon-backward"></span></span>
-        <a th:if='${page.hasPreviousPage}'
-           th:href='@{${page.url}(page=${page.number - 2},size=${page.size},query=${searchRequest.query},style=${style})}'
-           title='Go to previous page'><span class="glyphicon glyphicon-backward"></span></a>
-      </li>
-      <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
-        <span th:if='${item.current}' th:text='${item.number}'>1</span>
-        <a th:if='${not item.current}'
-           th:href='@{${page.url}(page=${item.number - 1},size=${page.size},query=${searchRequest.query},style=${style})}'><span
-            th:text='${item.number}'>1</span></a>
-      </li>
-      <li th:class="${page.hasNextPage}? '' : 'disabled'">
-        <span th:if='${not page.hasNextPage}'><span class="glyphicon glyphicon-forward"></span></span>
-        <a th:if='${page.hasNextPage}'
-           th:href='@{${page.url}(page=${page.number},size=${page.size},query=${searchRequest.query},style=${style})}'
-           title='Go to next page'><span class="glyphicon glyphicon-forward"></span></a>
-      </li>
-      <li th:class="${page.lastPage}? 'disabled' : ''">
-        <span th:if='${page.lastPage}'><span class="glyphicon glyphicon-fast-forward"></span></span>
-        <a th:if='${not page.lastPage}'
-           th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},query=${searchRequest.query},style=${style})}'><span
-            class="glyphicon glyphicon-fast-forward"></span></a>
-      </li>
-    </ul>
-  </div>
+    <div class="table-pagination" th:fragment="pagination">
+      <ul class="pagination pagination-sm">
+        <li th:class="${page.firstPage}? 'disabled' : ''">
+          <span th:if='${page.firstPage}'><span class="glyphicon glyphicon-fast-backward"></span></span>
+          <a th:if='${not page.firstPage}'
+             th:href='@{${page.url}(page=0,size=${page.size},query=${searchRequest.query},style=${style})}'><span
+              class="glyphicon glyphicon-fast-backward"></span></a>
+        </li>
+        <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+          <span th:if='${not page.hasPreviousPage}'><span class="glyphicon glyphicon-backward"></span></span>
+          <a th:if='${page.hasPreviousPage}'
+             th:href='@{${page.url}(page=${page.number - 2},size=${page.size},query=${searchRequest.query},style=${style})}'
+             title='Go to previous page'><span class="glyphicon glyphicon-backward"></span></a>
+        </li>
+        <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+          <span th:if='${item.current}' th:text='${item.number}'>1</span>
+          <a th:if='${not item.current}'
+             th:href='@{${page.url}(page=${item.number - 1},size=${page.size},query=${searchRequest.query},style=${style})}'><span
+              th:text='${item.number}'>1</span></a>
+        </li>
+        <li th:class="${page.hasNextPage}? '' : 'disabled'">
+          <span th:if='${not page.hasNextPage}'><span class="glyphicon glyphicon-forward"></span></span>
+          <a th:if='${page.hasNextPage}'
+             th:href='@{${page.url}(page=${page.number},size=${page.size},query=${searchRequest.query},style=${style})}'
+             title='Go to next page'><span class="glyphicon glyphicon-forward"></span></a>
+        </li>
+        <li th:class="${page.lastPage}? 'disabled' : ''">
+          <span th:if='${page.lastPage}'><span class="glyphicon glyphicon-fast-forward"></span></span>
+          <a th:if='${not page.lastPage}'
+             th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},query=${searchRequest.query},style=${style})}'><span
+              class="glyphicon glyphicon-fast-forward"></span></a>
+        </li>
+      </ul>
+    </div>
 
   <th:block layout:fragment="morejs">
     <script type="text/javascript" th:src="@{/js/thirdparty/jquery.shorten.js}"></script>
