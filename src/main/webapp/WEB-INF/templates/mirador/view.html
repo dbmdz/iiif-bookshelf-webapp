@@ -23,64 +23,59 @@
     <script th:src="@{/js/viewFromUrl.js}"></script>
     <script type="text/javascript" th:inline="javascript">
       $(function () {
-      Mirador({
-      'id': 'viewer',
-              'buildPath': /*[[@{/webjars/mirador/2.1.2/}]]*/,
-              'workspaceType': 'bookReading',
-              'layout': '1x1',
-              'mainMenuSettings': {
-              'show': true,
-                      'buttons': {
-                      'bookmark': true,
-                              'layout': true
-                      },
-                      'userLogo': {
-                      'label': 'IIIF',
-                              'attributes': { 'href': 'http://iiif.io' }
-                      },
-                      "userButtons": [
-                      {"label": "IIIF-Manifest",
-                              "iconClass": "fa fa-file-text",
-                              "attributes": {
-                                "class": "file",
-                                "href": /*[[@{__${manifestId}__}]]*/
-                              }
-                      }
-                      ]
-              },
-              'showAddFromURLBox': false,
-              'saveSession': false,
-              'data': [
-              {
-              /*<![CDATA[*/
-              'manifestUri': /*[[@{__${manifestId}__}]]*/
-                      /*]]>*/
+        Mirador({
+          'id': 'viewer',
+          'buildPath': /*[[@{/webjars/mirador/2.1.2/}]]*/,
+          'workspaceType': 'bookReading',
+          'layout': '1x1',
+          'mainMenuSettings': {
+            'show': true,
+            'buttons': {
+              'bookmark': true,
+              'layout': true
+            },
+            'userLogo': {
+              'label': 'IIIF',
+              'attributes': {
+                'href': 'http://iiif.io'
               }
-              ],
-              'windowObjects': [
-              {
-              /*<![CDATA[*/
-              'loadedManifest': /*[[@{__${manifestId}__}]]*/,
-                      /*]]>*/
-                      'viewType': 'ImageView',
-                      'layoutOptions': {
-                      'close': false,
-                              'slotRight': false,
-                              'slotLeft': false,
-                              'slotAbove': false,
-                              'slotBelow': false
-                      },
-                      'annotationLayer': false,
-                      'annotationCreation': false,
-                      'saveSession': false,
-                      'displayLayout': true,
-                      'bottomPanel': true,
-                      'sidePanel': true
+            },
+            "userButtons": [{
+              "label": "IIIF-Manifest",
+              "iconClass": "fa fa-file-text",
+              "attributes": {
+                "class": "file",
+                "href": /*[[@{__${manifestId}__}]]*/
               }
-              ]
-              ,
-              'annotationEndpoint': { 'name':'Local Storage', 'module': 'LocalStorageEndpoint' }
-      });
+            }]
+          },
+          'showAddFromURLBox': true,
+          'saveSession': false,
+          'data': [{
+            /*<![CDATA[*/
+            'manifestUri': /*[[@{__${manifestId}__}]]*/
+            /*]]>*/
+          }],
+          'windowObjects': [{
+            /*<![CDATA[*/
+            'loadedManifest': /*[[@{__${manifestId}__}]]*/,
+            /*]]>*/
+            'viewType': 'ImageView',
+            'layoutOptions': {
+              'close': false
+            },
+            'annotationLayer': false,
+            'annotationCreation': false,
+            'saveSession': false,
+            'displayLayout': true,
+            'bottomPanel': true,
+            'sidePanel': true
+          }],
+          'annotationEndpoint': {
+            'name': 'Local Storage',
+            'module': 'LocalStorageEndpoint'
+          }
+        });
       });
     </script>
   </th:block>
