@@ -103,7 +103,7 @@ img.preview-thumbnail {
 /* Thumbnail- and listview */
 
 #rowSearchForm {
-  margin: 40px 0 20px;
+  margin-bottom: 10px;
 }
 
 .objectCounter {
