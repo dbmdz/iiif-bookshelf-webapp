@@ -349,6 +349,10 @@ img.preview-thumbnail {
   box-sizing: content-box;
 }
 
+.overlay * {
+  box-sizing: border-box !important;
+}
+
 a.manifest-link > img {
   display: inline;
   float: none !important;
