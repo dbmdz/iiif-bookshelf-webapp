@@ -185,7 +185,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     // We don't want to escape whitespaces, * and "
     // But we want to escape all the ohter special characters
     //   return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\\"", "\"");
-    return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\s", " ").
+    return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\?", "?").replaceAll("\\\\\\s", " ").
             replaceAll("\\\\\\\"", "\"");
   }
 

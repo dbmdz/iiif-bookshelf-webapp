@@ -20,16 +20,16 @@ public class IiiifManifestSummarySearchRepositoryImplSolrjTest {
   @Test
   public void unwantedSpecialCharactersShallBeEscaped() {
     manifestSummarySearch = new IiifManifestSummarySearchRepositoryImplSolrj();
-    text = "+-&&||!(){}[]^~?:\\";
+    text = "+-&&||!(){}[]^~:\\";
     result = manifestSummarySearch.escapeUnwantedSpecialChars(text);
-    assertThat(result).isEqualTo("\\+\\-\\&\\&\\|\\|\\!\\(\\)\\{\\}\\[\\]\\^\\~\\?\\:\\\\");
+    assertThat(result).isEqualTo("\\+\\-\\&\\&\\|\\|\\!\\(\\)\\{\\}\\[\\]\\^\\~\\:\\\\");
   }
 
   @Test
   public void asteriskAndQuotationMarkShallRemainUnchanged() {
     manifestSummarySearch = new IiifManifestSummarySearchRepositoryImplSolrj();
-    text = "* \"";
+    text = "* \"?";
     result = manifestSummarySearch.escapeUnwantedSpecialChars(text);
-    assertThat(result).isEqualTo("* \"");
+    assertThat(result).isEqualTo("* \"?");
   }
 }
