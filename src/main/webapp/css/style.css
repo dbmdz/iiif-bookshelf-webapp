@@ -392,3 +392,8 @@ div.tablerow .lastModified {
 ul.toc {
   width: 270px;
 }
+
+/* Fixes cutoff thumbnail labels */
+.panel-thumbnail-view > ul.panel-listing-thumbs > li {
+  margin-bottom: 11px !important;
+}
