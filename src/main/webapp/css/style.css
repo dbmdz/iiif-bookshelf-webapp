@@ -387,3 +387,8 @@ div.tablerow .lastModified {
 .smaller {
   font-size: 0.9em;
 }
+
+/* Fixes disappearing scrollbar in TOC */
+ul.toc {
+  width: 270px;
+}
