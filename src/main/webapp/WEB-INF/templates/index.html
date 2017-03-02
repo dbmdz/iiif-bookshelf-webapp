@@ -150,14 +150,14 @@
         <li th:class="${page.firstPage}? 'disabled' : ''">
           <span th:if='${page.firstPage}'><span class="glyphicon glyphicon-fast-backward"></span></span>
           <a th:if='${not page.firstPage}'
-             th:href='@{${page.url}(page=0,size=${page.size},query=${searchRequest.query},style=${style})}'><span
-              class="glyphicon glyphicon-fast-backward"></span></a>
+             th:href='@{${page.url}(page=0,size=${page.size},query=${searchRequest.query},style=${style})}'
+             th:title='#{first_page}'><span class="glyphicon glyphicon-fast-backward"></span></a>
         </li>
         <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
           <span th:if='${not page.hasPreviousPage}'><span class="glyphicon glyphicon-backward"></span></span>
           <a th:if='${page.hasPreviousPage}'
              th:href='@{${page.url}(page=${page.number - 2},size=${page.size},query=${searchRequest.query},style=${style})}'
-             title='Go to previous page'><span class="glyphicon glyphicon-backward"></span></a>
+             th:title='#{previous_page}'><span class="glyphicon glyphicon-backward"></span></a>
         </li>
         <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
           <span th:if='${item.current}' th:text='${item.number}'>1</span>
@@ -169,13 +169,13 @@
           <span th:if='${not page.hasNextPage}'><span class="glyphicon glyphicon-forward"></span></span>
           <a th:if='${page.hasNextPage}'
              th:href='@{${page.url}(page=${page.number},size=${page.size},query=${searchRequest.query},style=${style})}'
-             title='Go to next page'><span class="glyphicon glyphicon-forward"></span></a>
+             th:title='#{next_page}'><span class="glyphicon glyphicon-forward"></span></a>
         </li>
         <li th:class="${page.lastPage}? 'disabled' : ''">
           <span th:if='${page.lastPage}'><span class="glyphicon glyphicon-fast-forward"></span></span>
           <a th:if='${not page.lastPage}'
-             th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},query=${searchRequest.query},style=${style})}'><span
-              class="glyphicon glyphicon-fast-forward"></span></a>
+             th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},query=${searchRequest.query},style=${style})}'
+             th:title='#{last_page}'><span class="glyphicon glyphicon-fast-forward"></span></a>
         </li>
       </ul>
     </div>
