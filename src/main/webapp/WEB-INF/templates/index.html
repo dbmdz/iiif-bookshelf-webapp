@@ -111,7 +111,7 @@
                     </span>
                   </th:block>
                   <th:block th:unless="${manifest.attributions.isEmpty()}">
-                    <em th:text="${manifest.attributions.isEmpty()} ? '' : (${manifest.getAttribution('__${#locale.language}__') != null? manifest.getAttribution('__${#locale.language}__') : manifest.attributions.values().toArray()[0]})">attribution</em>
+                    <em th:utext="${manifest.attributions.isEmpty()} ? '' : (${manifest.getAttribution('__${#locale.language}__') != null? manifest.getAttribution('__${#locale.language}__') : manifest.attributions.values().toArray()[0]})">attribution</em>
                   </th:block>
                   </p>
                 </div>
