@@ -111,7 +111,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
           IiifManifestSummary childManifestSummary = new IiifManifestSummary();
           childManifestSummary.setManifestUri(uri);
           try {
-            JSONObject subcollObject = presentationRepository.getManifestAsJsonObject(uri);
+            JSONObject subcollObject = presentationRepository.getResourceAsJsonObject(uri);
             saveManifestsFromCollection(subcollObject);
           } catch (Exception e) {
             LOGGER.warn("Could not read collection from {}", uri, e);
@@ -140,7 +140,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       manifestSummary.setUuid(existingManifest.getUuid());
     }
 
-    JSONObject jsonObject = presentationRepository.getManifestAsJsonObject(manifestSummary.getManifestUri());
+    JSONObject jsonObject = presentationRepository.getResourceAsJsonObject(manifestSummary.getManifestUri());
 
     String type = (String) jsonObject.get("@type");
     if ("sc:Manifest".equalsIgnoreCase(type)) {
