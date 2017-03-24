@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
-        <action>
-            <actionName>CUSTOM-mvn jetty:run -DskipTests=true -Djpda.listen=maven</actionName>
-            <displayName>mvn jetty:run -DskipTests=true -Djpda.listen=maven</displayName>
-            <goals>
-                <goal>jetty:run</goal>
-            </goals>
-            <properties>
-                <skipTests>true</skipTests>
-                <jpda.listen>maven</jpda.listen>
-            </properties>
-        </action>
-        <action>
-            <actionName>CUSTOM-mvn deploy</actionName>
-            <displayName>mvn deploy</displayName>
-            <goals>
-                <goal>deploy</goal>
-            </goals>
-        </action>
-        <action>
-            <actionName>CUSTOM-mvn clean install -U</actionName>
-            <displayName>mvn clean install -U</displayName>
-            <goals>
-                <goal>clean</goal>
-                <goal>install</goal>
-            </goals>
-        </action>
-    </actions>
+  <action>
+    <actionName>CUSTOM-mvn jetty:run -DskipTests=true -Djpda.listen=maven</actionName>
+    <displayName>mvn jetty:run -DskipTests=true -Djpda.listen=maven</displayName>
+    <goals>
+      <goal>jetty:run</goal>
+    </goals>
+    <properties>
+      <skipTests>true</skipTests>
+      <jpda.listen>maven</jpda.listen>
+    </properties>
+  </action>
+  <action>
+    <actionName>CUSTOM-mvn clean deploy -U</actionName>
+    <displayName>mvn deploy -U</displayName>
+    <goals>
+      <goal>clean</goal>
+      <goal>deploy</goal>
+    </goals>
+  </action>
+  <action>
+    <actionName>CUSTOM-mvn clean install -U</actionName>
+    <displayName>mvn clean install -U</displayName>
+    <goals>
+      <goal>clean</goal>
+      <goal>install</goal>
+    </goals>
+  </action>
+</actions>
