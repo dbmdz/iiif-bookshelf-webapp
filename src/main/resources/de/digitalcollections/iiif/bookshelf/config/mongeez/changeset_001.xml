@@ -1,0 +1,14 @@
+<mongoChangeLog>
+
+  <changeSet changeId="Bookshelf-001" author="ralf">
+    <script>
+
+      // clear mongeez collection (just in first changeset to be sure nothing is in...)
+      db.mongeez.remove({});
+          
+      // create index on date field
+      db['iiif-manifest-summaries'].createIndex( { lastModified: -1 } );
+    </script>
+  </changeSet>
+
+</mongoChangeLog>

@@ -10,6 +10,7 @@ import de.digitalcollections.iiif.presentation.config.SpringConfigBackendPresent
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
+import org.mongeez.MongeezRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -47,6 +49,9 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
   @Value("${mongo.port}")
   private int mongoPort;
 
+  @Value("${mongeez.classpathToMongeezXml}")
+  private String mongeezClasspathToMongeezXml;
+
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
@@ -58,7 +63,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
   }
 
   /*
-   * Factory bean that creates the com.mongodb.Mongo instance
+   * Factory bean that creates the com.mongodb.MongoClient instance
    */
   @Override
   @Bean
@@ -76,6 +81,16 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
     }
     client.setWriteConcern(WriteConcern.ACKNOWLEDGED);
     return client;
+  }
+
+  @Bean(name = "mongeez")
+  public MongeezRunner mongeez() throws Exception {
+    MongeezRunner mongeezRunner = new MongeezRunner();
+    mongeezRunner.setMongo(mongo());
+    mongeezRunner.setExecuteEnabled(true);
+    mongeezRunner.setDbName(getDatabaseName());
+    mongeezRunner.setFile(new ClassPathResource(mongeezClasspathToMongeezXml));
+    return mongeezRunner;
   }
 
   @Override
