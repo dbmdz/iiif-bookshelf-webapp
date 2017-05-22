@@ -33,7 +33,7 @@
 
       <!--/* Pagination and thumbnail-/listview switcher*/-->
       <div class="row rowSearchMenu">
-        <div class="col-sm-6" >
+        <div class="col-sm-8" >
           <div th:replace="this :: pagination">
             ...
           </div>
@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <div id="btnStyleSwitcher" class="btn-group pull-right">
             <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='list')}" id="list" class="btn btn-default btn-sm"
                th:classappend="${style} == 'list' ? 'active' : ''">
