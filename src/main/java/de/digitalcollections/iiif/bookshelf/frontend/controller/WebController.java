@@ -122,9 +122,9 @@ public class WebController extends AbstractController {
       iiifManifestSummaryService.enrichAndSave(summary);
       return summary;
     } catch (ParseException e) {
-      throw new ApiException("Invalid JSON at URL.", HttpStatus.BAD_REQUEST);
+      throw new ApiException("Invalid JSON at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     } catch (NotFoundException e) {
-      throw new ApiException("No manifest at URL.", HttpStatus.BAD_REQUEST);
+      throw new ApiException("No manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     }
   }
 
