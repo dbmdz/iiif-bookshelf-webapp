@@ -394,7 +394,7 @@ a.external {
   font-size: 1.5em;
 }
 
-#viewer .overlay * {
+#viewer .overlay *, #viewer .thumbnail-view img.thumbnail-image {
   box-sizing: border-box !important;
 }
 
