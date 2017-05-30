@@ -60,23 +60,8 @@ img.preview-thumbnail {
   color: white;
 }
 
-#viewer {
-  background: #333;
-  width: 100%;
-  height: calc(100vh - 120px);
-  position: relative;
-}
-
-.window-manifest-title {
-  height: 1.25em;
-}
-
 .pagination {
   margin: 0;
-}
-
-.toc h2 {
-  font-size: 1.5em;
 }
 
 .navbar-brand > img {
@@ -345,14 +330,6 @@ img.preview-thumbnail {
   font-size: 0.9em;
 }
 
-#viewer * {
-  box-sizing: content-box;
-}
-
-.overlay * {
-  box-sizing: border-box !important;
-}
-
 a.manifest-link > img {
   display: inline;
   float: none !important;
@@ -388,18 +365,44 @@ div.tablerow .lastModified {
   font-size: 0.9em;
 }
 
+a.external {
+  background: url(../images/icon_extLink16x16_blau.png) no-repeat 0 2px;
+  padding-left: 18px;
+  display: inline-block;
+}
+
+/*
+ * VIEWER STUFF GOES HERE
+ */
+
+#viewer {
+  width: 100%;
+  height: calc(100vh - 120px);
+  position: relative;
+}
+
+#viewer * {
+  box-sizing: content-box;
+}
+
 /* Fixes disappearing scrollbar in TOC */
-ul.toc {
+#viewer ul.toc {
   width: 270px;
 }
 
+#viewer ul.toc h2 {
+  font-size: 1.5em;
+}
+
+#viewer .overlay * {
+  box-sizing: border-box !important;
+}
+
 /* Fixes cutoff thumbnail labels */
-.panel-thumbnail-view > ul.panel-listing-thumbs > li {
+#viewer .panel-thumbnail-view > ul.panel-listing-thumbs > li {
   margin-bottom: 11px !important;
 }
 
-a.external {
-    background: url(../images/icon_extLink16x16_blau.png) no-repeat 0 2px;
-    padding-left: 18px;
-    display: inline-block;
+#viewer .window-manifest-title {
+  height: 1.25em;
 }
