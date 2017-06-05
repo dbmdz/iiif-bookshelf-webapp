@@ -64,8 +64,8 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
     registry.addResourceHandler("/html/**").addResourceLocations("/html/");
     registry.addResourceHandler("/img/**").addResourceLocations("/img/");
     registry.addResourceHandler("/images/**").addResourceLocations("/images/");
-    registry.addResourceHandler("/js/**").addResourceLocations("/js/");
-    registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(Integer.MAX_VALUE);
+    registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(Integer.MAX_VALUE);
   }
 
   @Bean
