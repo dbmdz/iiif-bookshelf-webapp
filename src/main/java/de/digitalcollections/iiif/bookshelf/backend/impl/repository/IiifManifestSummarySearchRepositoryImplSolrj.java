@@ -102,7 +102,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     }
 
     // Facets
-    //List<Count> facetFields =  response.getFacetField("attributionDE_fct").getValues();
+    // List<Count> facetFields = response.getFacetField("attributionDE_fct").getValues();
     SolrDocumentList result = response.getResults();
     List<UUID> uuids = getUUIDs(result);
     List<IiifManifestSummary> manifests = iiifManifestSummaryRepository.findByUuidIn(uuids);
@@ -140,20 +140,20 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
     SolrInputDocument doc = new SolrInputDocument();
     doc.addField("id", manifestSummary.getUuid());
-    //doc.addField("manifesturi_key", manifestSummary.getManifestUri());
+    // doc.addField("manifesturi_key", manifestSummary.getManifestUri());
     String[] uri = manifestSummary.getManifestUri().split("/");
-    doc.addField("identifier_txt", uri[uri.length - 2]);
+    doc.addField("identifier_str", uri[uri.length - 2]);
 
     for (Entry<Locale, String> e : manifestSummary.getLabels().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
       doc.addField("label" + key.toUpperCase() + "_txt", value);
     }
-    for (Entry<Locale, String> e : manifestSummary.getAttributions().entrySet()) {
-      String key = e.getKey().getLanguage();
-      String value = e.getValue();
-      doc.addField("attribution" + key.toUpperCase() + "_fct", value);
-    }
+    /*
+     * for (Entry<Locale, String> e : manifestSummary.getAttributions().entrySet()) { String key =
+     * e.getKey().getLanguage(); String value = e.getValue(); doc.addField("attribution" + key.toUpperCase() + "_fct",
+     * value); }
+     */
     for (Entry<Locale, String> e : manifestSummary.getDescriptions().entrySet()) {
       String key = e.getKey().getLanguage();
       String value = e.getValue();
@@ -184,22 +184,18 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   protected String escapeUnwantedSpecialChars(String text) {
     // We don't want to escape whitespaces, * and "
     // But we want to escape all the ohter special characters
-    //   return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\\"", "\"");
-    return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\?", "?").replaceAll("\\\\\\s", " ").
-            replaceAll("\\\\\\\"", "\"");
+    // return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\\"", "\"");
+    return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\?", "?").replaceAll("\\\\\\s", " ").replaceAll("\\\\\\\"", "\"");
   }
 
   private SolrQuery buildSolrQuery(String text, int start) {
     SolrQuery query = new SolrQuery();
     String trimmedQuery = escapeUnwantedSpecialChars(text);
-    // further trimming is necessary:
 
-    //query.setQuery("labelDE_txt:" + trimmedQuery + " OR descriptionDE_txt:" +trimmedQuery + " OR identifier_txt:" + trimmedQuery);
+    query.set("defType", "edismax");
+    query.set("qf", "text identifier_str");
     query.setQuery(trimmedQuery);
     query.setFields("id");
-    // Create facets
-    //query.setFacet(true);
-    //query.set("facet.field", "attributionDE_fct");
 
     query.setStart(start);
     return query;
