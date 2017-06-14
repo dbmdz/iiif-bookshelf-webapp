@@ -1,27 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<schema name="bookshelf" version="1.5">
+<!-- ================================================================================================== -->
+<!--
+    ***********************************************************************************************
+    ********************************* Schema Version 4.8.2 ****************************************
+    ***********************************************************************************************
 
-    <uniqueKey>uuid</uniqueKey>
-    <field name="_version_" type="long" indexed="true" stored="true"/>
-    <field name="id" type="string" indexed="true" stored="true" required="false"/>
-    <field name="attribution.de" type="text_general" indexed="true" stored="true" multiValued="false"/>
-    <field name="description.de" type="text_general" indexed="true" stored="true" multiValued="false"/>
-    <field name="label.de" type="text_general" indexed="true" stored="true" multiValued="false"/>
-    <field name="title" type="text_general" indexed="true" stored="true" multiValued="false"/>
-    <field name="uuid" type="string" indexed="true" stored="true" multiValued="false"/>
+    Solr-Schema-Datei
 
-    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
-    <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
-    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
-        <analyzer type="index">
-            <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-        </analyzer>
-        <analyzer type="query">
-            <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-        </analyzer>
+    Changelog
+    ***********************************************************************************************
+
+    2017-01-18 DP:
+    - Reduziertes Schema fuer Bookshelf
+    - Nicht benötigte Elemente entfernt
+    2017-01-17 CL:
+    - Fix Stopwords aus encoded-analyzer entfernt
+
+    2014-05-08 SL:
+    - Schema 4.8.0 auf Basis von DC
+    - Reduziertes schema fuer 5.4
+    _______________________________________________________________________________________________
+-->
+<!-- ================================================================================================== -->
+<schema name="bookshelf-webapp" version="1.4">
+
+  <types>
+
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="integer" class="solr.TrieIntField" sortMissingLast="true" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="long" class="solr.TrieLongField" sortMissingLast="true" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="6" positionIncrementGap="0"/>
+
+
+    <!-- Text Standard -->
+    <fieldType name="text" class="solr.TextField" positionIncrementGap="1000" sortMissingLast="true" autoGeneratePhraseQueries="true">
+      <analyzer type="index">
+        <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ger_umlauts2ascii.txt"/>
+        <!-- splits at Whitespace only-->
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <!-- Special filter for chinese, japanese and korean tokens-->        
+        <filter class="solr.CJKBigramFilterFactory"/>
+        <!-- Helps to match words with different delimiters: it deletes the non-word characters but also creates and stores substrings (e.g. when you have []- within an expression)--> 
+        <filter class="solr.WordDelimiterFilterFactory" preserveOriginal="0" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="1" splitOnCaseChange="1" splitOnNumerics="1" stemEnglishPossessive="1"/>
+        <filter class="solr.LengthFilterFactory" min="1" max="2147483647"/>
+        <!-- removes diacritical signs and replaces them by their non-diacritical equivalent-->
+        <filter class="solr.ASCIIFoldingFilterFactory"/>
+        <!-- normalizes to lower case--> 
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ger_umlauts2ascii.txt"/>
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.CJKBigramFilterFactory"/>
+        <filter class="solr.DelimitedPayloadTokenFilterFactory" encoder="identity" delimiter="|"/>
+        <filter class="solr.WordDelimiterFilterFactory" preserveOriginal="0" generateWordParts="0" generateNumberParts="0" catenateWords="1" catenateNumbers="1" catenateAll="1" splitOnCaseChange="0" splitOnNumerics="0" stemEnglishPossessive="1"/>
+        <filter class="solr.LengthFilterFactory" min="1" max="128"/>
+        <filter class="solr.ASCIIFoldingFilterFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
     </fieldType>
+
+    <!-- Field facet - as the string is only used to be displayed, but not to be searched actively, it should remaine unchanged-->
+    <fieldType name="facet" class="solr.TextField" positionIncrementGap="1000" sortMissingLast="true" omitNorms="true">
+      <analyzer type="index">
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+      </analyzer>
+    </fieldType>
+
+  </types>
+
+  <fields>
+
+    <!--+
+        | Technische Felder
+        +-->
+
+    <!-- cloud -->
+    <field name="_version_" type="long" indexed="true" stored="true"/>
+    <!-- Nested document support -->
+    <field name="_root_" type="string" indexed="true" stored="false"/>
+    <!-- id -->
+    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+    <!-- core  -->
+    <field name="core" type="string" indexed="true" stored="true" required="true" multiValued="false" default="${solr.core.name}"/>
+    <!-- lastMod: letzte Modifikation -->
+    <field name="lastMod" type="date" indexed="true" stored="true" required="true" default="NOW" multiValued="false"/>
+    <!-- DRM -->
+    <field name="access" type="integer" indexed="true" stored="true" required="true" multiValued="false" default="1"/>
+
+    <!--+
+        | Dynamisch
+        +-->
+
+    <!-- dynamisches Feld fuer unbekannte Felder als Metadaten -->
+    <dynamicField name="*_txt" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
+    <dynamicField name="*_str" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+    <dynamicField name="*_fct" type="facet" indexed="true" stored="false" required="false" multiValued="true"/>
+    <field name="text" type="text" indexed="true" stored="false" required="false" multiValued="true"/>
+    <copyField source="*_txt" dest="text"/>
+
+  </fields>
+
+  <uniqueKey>id</uniqueKey>
+  <solrQueryParser defaultOperator="AND"/>
+
 </schema>
