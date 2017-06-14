@@ -41,8 +41,7 @@ $ docker-compose stop
 To delete the containers and all data:
 
 ```shell
-$ docker-compose stop
-$ docker-compose rm
+$ docker-compose down
 ```
 
 ## Requirements
