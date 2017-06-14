@@ -13,11 +13,21 @@ import org.springframework.context.annotation.PropertySource;
 })
 public class SpringConfigBackendSolr {
 
-  @Value("${solr.url}")
-  private String solrUrl;
+  @Value("${solr.protocol}")
+  private String solrProtocol;
+
+  @Value("${solr.host}")
+  private String solrHost;
+
+  @Value("${solr.port}")
+  private String solrPort;
+
+  @Value("${solr.path}")
+  private String solrPath;
 
   @Bean
   public SolrClient solr() {
+    String solrUrl = solrProtocol.concat("://" + solrHost).concat(":" + solrPort).concat(solrPath);
     return new HttpSolrClient(solrUrl);
   }
 
