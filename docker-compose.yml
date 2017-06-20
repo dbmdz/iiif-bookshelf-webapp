@@ -1,14 +1,12 @@
-version: '2'
+version: '3'
 services:
   database:
     image: mongo:3
     ports:
-      - "27017:27017"
+      - "20202:27017"
   search:
-    image: solr:6-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile-solr
     ports:
-      - "8983:8983"
-    entrypoint:
-      - docker-entrypoint.sh
-      - solr-precreate
-      - bookshelf
+      - "21212:8983"

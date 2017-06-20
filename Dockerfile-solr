@@ -1,0 +1,9 @@
+FROM  solr:6.4.2
+
+COPY src/main/resources/solr_conf/* /tmp/solr_conf/
+
+RUN bin/solr start \
+ && bin/solr create -c bookshelf -d /tmp/solr_conf -p 8983 \
+ && bin/solr stop
+
+ENTRYPOINT ["docker-entrypoint.sh", "solr-foreground"]

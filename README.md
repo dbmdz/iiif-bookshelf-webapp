@@ -27,10 +27,17 @@ To get the Bookshelf quickly up running, you can start all backend services usin
 
 ```shell
 $ cd iiif-bookshelf-webapp
+$ docker-compose build
 $ docker-compose up -d
 ```
 
-Then Solr and MongoDB are running in containers and everything is ready for running a a local instance of IIIF Bookshelf Webapp (see below).
+Then Solr and MongoDB are running in containers and everything is ready for running a local instance of IIIF Bookshelf Webapp (see below).
+
+To start the IIIF Bookshelf Webapp, you have to define the ports exposed by the containers:
+
+```shell
+$ mvn -Dmongo.port=20202 -Dsolr.port=21212 jetty:run
+```
 
 To stop the containers run
 
