@@ -69,10 +69,7 @@
               <div class="thumbnailImage">
                 <th:block th:if="${manifest.thumbnail} != null">
                   <a class="imageLink" th:href="@{/view/__${manifest.uuid}__}">
-                    <th:block th:if="${manifest.thumbnail.url} != null">
-                      <img class="list-group-image" th:src="|${manifest.thumbnail.url}|"/>
-                    </th:block>
-                    <th:block th:if="${manifest.thumbnail.url} == null">
+                    <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
                       <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
                         <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} eq 'V1_1'">
                           <img class="list-group-image"
@@ -83,6 +80,9 @@
                                th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/default.jpg|"/>
                         </th:block>
                       </th:block>
+                    </th:block>
+                    <th:block th:else>
+                      <img class="list-group-image" th:src="|${manifest.thumbnail.url}|"/>
                     </th:block>
                   </a>
                 </th:block>
