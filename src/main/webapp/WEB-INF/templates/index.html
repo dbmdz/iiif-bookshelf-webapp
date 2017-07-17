@@ -81,7 +81,7 @@
                         </th:block>
                       </th:block>
                     </th:block>
-                    <th:block th:else>
+                    <th:block th:unless="${manifest.thumbnail.iiifImageApiVersion} != null">
                       <img class="list-group-image" th:src="|${manifest.thumbnail.url}|"/>
                     </th:block>
                   </a>
