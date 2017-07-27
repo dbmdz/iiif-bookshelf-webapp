@@ -7,7 +7,7 @@ import de.digitalcollections.iiif.bookshelf.frontend.model.PageWrapper;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
-import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;

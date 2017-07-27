@@ -6,9 +6,10 @@ import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSum
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
-import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
 import de.digitalcollections.iiif.presentation.model.api.enums.Version;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import java.net.URI;
@@ -155,7 +156,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Deprecated
-  public void fillFromManifest(IiifManifestSummary manifestSummary) throws NotFoundException {
+  public void fillFromManifest(IiifManifestSummary manifestSummary) throws NotFoundException, InvalidDataException {
     Manifest manifest = presentationRepository.getManifest(manifestSummary.getManifestUri());
 
     // enrichment
@@ -180,14 +181,14 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     URI thumbnailServiceUri = null;
     String context;
     try {
-      thumbnailServiceUri = manifest.getThumbnail().getService().getId();
+      thumbnailServiceUri = manifest.getThumbnail().getServices().get(0).getId();
     } catch (Exception ex) {
 
     }
     if (thumbnailServiceUri == null) {
       try {
         final de.digitalcollections.iiif.presentation.model.api.v2.Service service = manifest.getSequences().get(0).
-                getCanvases().get(0).getImages().get(0).getResource().getService();
+                getCanvases().get(0).getImages().get(0).getResource().getServices().get(0);
         // first image
         thumbnailServiceUri = service.getId();
         context = service.getContext();
