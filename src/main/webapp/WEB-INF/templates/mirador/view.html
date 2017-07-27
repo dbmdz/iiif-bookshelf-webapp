@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="base">
   <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/mirador/2.5.0/css/mirador-combined.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/mirador/2.5.1/css/mirador-combined.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/manifestButton.css}" />
     <style type="text/css">
       body { font-size: 14px; }
@@ -20,7 +20,7 @@
     </section>
 
   <th:block layout:fragment="morejs">
-    <script th:src="@{/webjars/mirador/2.5.0/mirador.min.js}"></script>
+    <script th:src="@{/webjars/mirador/2.5.1/mirador.min.js}"></script>
     <script th:src="@{/js/manifestButton.js}"></script>
     <script th:src="@{/js/viewFromUrl.js}"></script>
     <script th:src="@{/js/keyboardNavigation.js}"></script>
@@ -29,7 +29,7 @@
       $(function () {
         Mirador({
           'id': 'viewer',
-          'buildPath': /*[[@{/webjars/mirador/2.5.0/}]]*/,
+          'buildPath': /*[[@{/webjars/mirador/2.5.1/}]]*/,
           'workspaceType': 'bookReading',
           'layout': '1x1',
           'mainMenuSettings': {
