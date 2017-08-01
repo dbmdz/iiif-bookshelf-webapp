@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -133,6 +134,8 @@ public class WebController extends AbstractController {
   public String viewBook(@PathVariable UUID uuid, Model model) {
     IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(uuid);
     model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
+    String title = iiifManifestSummary.getLabel(LocaleContextHolder.getLocale());
+    model.addAttribute("title", title);
     // model.addAttribute("canvasId", iiifPresentationEndpoint + identifier + "/canvas/p1");
     // return "bookreader/view-book";
     return "mirador/view";

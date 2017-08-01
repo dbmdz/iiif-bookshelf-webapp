@@ -1,9 +1,9 @@
 package de.digitalcollections.iiif.bookshelf.backend.impl.repository;
 
-import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummaryRepository;
 import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummarySearchRepository;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
+import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,7 +162,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     try {
       solr.add(doc);
       solr.commit();
-    } catch (SolrServerException | IOException ex) {
+    } catch (RemoteSolrException | SolrServerException | IOException ex) {
       LOGGER.error("Could not save ", ex);
     }
   }
