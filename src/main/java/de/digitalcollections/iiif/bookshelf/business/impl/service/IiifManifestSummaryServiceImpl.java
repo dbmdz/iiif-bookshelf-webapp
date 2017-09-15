@@ -79,6 +79,22 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     return iiifManifestSummaryRepository.save(manifest);
   }
 
+  @Override
+  public String getLabel(IiifManifestSummary manifestSummary, Locale locale) {
+    String result = null;
+    if (manifestSummary == null) {
+      return result;
+    }
+    result = manifestSummary.getLabel(locale);
+    if (result == null) {
+      result = manifestSummary.getLabel(DEFAULT_LOCALE);
+    }
+    if (result == null) {
+      result = (String) (manifestSummary.getLabels().values().toArray())[0];
+    }
+    return result;
+  }
+
   private void saveManifestsFromCollection(JSONObject collection) {
     // try to get list of manifests
     Object manifestsNode = collection.get("manifests");

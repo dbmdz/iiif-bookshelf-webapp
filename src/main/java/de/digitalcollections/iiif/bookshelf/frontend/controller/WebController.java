@@ -134,10 +134,8 @@ public class WebController extends AbstractController {
   public String viewBook(@PathVariable UUID uuid, Model model) {
     IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(uuid);
     model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
-    String title = iiifManifestSummary.getLabel(LocaleContextHolder.getLocale());
+    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);
-    // model.addAttribute("canvasId", iiifPresentationEndpoint + identifier + "/canvas/p1");
-    // return "bookreader/view-book";
     return "mirador/view";
   }
 
