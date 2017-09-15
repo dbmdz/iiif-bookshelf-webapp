@@ -8,11 +8,7 @@ import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
 import de.digitalcollections.iiif.presentation.model.api.enums.Version;
-import de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException;
 import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
-import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
-import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
-import java.net.URI;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -168,50 +164,6 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       // FIXME: This breaks the "enrich" contract, since we're adding potentially thousands of manifests that
       // the user of this method won't know about, the API should probably be reworked
       saveManifestsFromCollection(jsonObject);
-    }
-  }
-
-  @Deprecated
-  public void fillFromManifest(IiifManifestSummary manifestSummary) throws NotFoundException, InvalidDataException {
-    Manifest manifest = presentationRepository.getManifest(manifestSummary.getManifestUri());
-
-    // enrichment
-    final PropertyValue label1 = manifest.getLabel();
-    if (label1 != null) {
-      String label = label1.getFirstValue();
-      manifestSummary.addLabel(DEFAULT_LOCALE, label);
-    }
-
-    final PropertyValue description1 = manifest.getDescription();
-    if (description1 != null) {
-      String description = description1.getFirstValue();
-      manifestSummary.addDescription(DEFAULT_LOCALE, description);
-    }
-
-    final PropertyValue attribution1 = manifest.getAttribution();
-    if (attribution1 != null) {
-      String attribution = attribution1.getFirstValue();
-      manifestSummary.addAttribution(DEFAULT_LOCALE, attribution);
-    }
-
-    URI thumbnailServiceUri = null;
-    String context;
-    try {
-      thumbnailServiceUri = manifest.getThumbnail().getServices().get(0).getId();
-    } catch (Exception ex) {
-
-    }
-    if (thumbnailServiceUri == null) {
-      try {
-        final de.digitalcollections.iiif.presentation.model.api.v2.Service service = manifest.getSequences().get(0).
-                getCanvases().get(0).getImages().get(0).getResource().getServices().get(0);
-        // first image
-        thumbnailServiceUri = service.getId();
-        context = service.getContext();
-        manifestSummary.setThumbnail(new Thumbnail(thumbnailServiceUri.toString(), context));
-      } catch (Exception ex) {
-
-      }
     }
   }
 
