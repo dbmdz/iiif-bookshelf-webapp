@@ -261,34 +261,13 @@
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>${version.webjar-bootstrap}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.webjars</groupId>
-          <artifactId>jquery</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
       <artifactId>html5shiv</artifactId>
       <version>${version.webjar-html5shiv}</version>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
-      <artifactId>jquery</artifactId>
-      <version>${version.webjar-jquery}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
       <artifactId>mirador</artifactId>
       <version>${version.webjar-mirador}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>respond</artifactId>
-      <version>${version.webjar-respond}</version>
     </dependency>
     <dependency>
       <groupId>org.webjars.bower</groupId>
@@ -297,8 +276,23 @@
     </dependency>
     <dependency>
       <groupId>org.webjars.npm</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>${version.webjar-bootstrap}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
+      <artifactId>jquery</artifactId>
+      <version>${version.webjar-jquery}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
       <artifactId>jquery.shorten</artifactId>
       <version>${version.webjar-jquery-shorten}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
+      <artifactId>respond.js</artifactId>
+      <version>${version.webjar-respond}</version>
     </dependency>
   </dependencies>
 
