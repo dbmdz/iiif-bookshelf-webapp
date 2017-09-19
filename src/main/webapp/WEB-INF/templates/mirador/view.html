@@ -4,6 +4,7 @@
       layout:decorator="base">
   <head>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/mirador/2.5.1/css/mirador-combined.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/dbmdz__mirador-imagecropper/1.1.1/imageCropper.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/dbmdz__mirador-manifestbutton/1.1.1/manifestButton.min.css}" />
     <style type="text/css">
       body { font-size: 14px; }
@@ -22,6 +23,7 @@
 
   <th:block layout:fragment="morejs">
     <script th:src="@{/webjars/mirador/2.5.1/mirador.min.js}"></script>
+    <script th:src="@{/webjars/dbmdz__mirador-imagecropper/1.1.1/imageCropper.min.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-keyboardnavigation/1.1.0/keyboardNavigation.min.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-manifestbutton/1.1.1/manifestButton.min.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-viewfromurl/1.1.0/viewFromUrl.min.js}"></script>
