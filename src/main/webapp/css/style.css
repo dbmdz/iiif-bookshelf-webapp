@@ -381,7 +381,7 @@ a.external {
   position: relative;
 }
 
-#viewer * {
+#viewer .mirador-osd-annotation-controls * {
   box-sizing: content-box;
 }
 
@@ -392,10 +392,6 @@ a.external {
 
 #viewer ul.toc h2 {
   font-size: 1.5em;
-}
-
-#viewer .overlay *, #viewer .thumbnail-view img.thumbnail-image {
-  box-sizing: border-box !important;
 }
 
 /* Fixes cutoff thumbnail labels */
