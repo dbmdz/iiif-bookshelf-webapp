@@ -390,7 +390,12 @@ a.external {
   width: 270px;
 }
 
-#viewer ul.toc h2 {
+#viewer ul.toc h1,
+#viewer ul.toc h2,
+#viewer ul.toc h3,
+#viewer ul.toc h4,
+#viewer ul.toc h5,
+#viewer ul.toc h6 {
   font-size: 1.5em;
 }
 
