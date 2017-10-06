@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  </head>
+  <body>
+
+  <th:block th:fragment="searchForm">
+    <!--/* Search input */-->
+    <div id="rowSearchForm" class="row">
+      <form action="#" th:action="@{/search}" th:object="${searchRequest}" method="get" accept-charset="utf-8">
+        <div th:replace="fragments/feedback-messages :: form"></div>
+        <div class="col-sm-6 col-sm-offset-3">
+          <div class="input-group">
+            <input type="text" name="query" th:field="*{query}" class="form-control"
+                   th:placeholder="| #{searchterm}|"/>
+            <span class="input-group-btn"><button name="submit" type="submit" class="btn btn-primary"><span
+                  class="glyphicon glyphicon-search"></span></button></span>
+          </div>
+        </div>
+      </form>
+      <div class="col-md-1" style="text-align: right;">
+        <p>
+        <th:block th:if='${not authentication}'>
+          <a class="btn btn-primary" th:href="@{/add}" role="button" th:utext="#{add}">
+            add
+            <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+          </a>
+        </th:block>
+        </p>
+      </div>
+    </div>
+  </th:block>
+
+  <th:block th:fragment="pagination">
+    <div class="table-pagination">
+      <ul class="pagination pagination-sm">
+        <li th:class="${page.firstPage}? 'disabled' : ''">
+          <span th:if='${page.firstPage}'><span class="glyphicon glyphicon-fast-backward"></span></span>
+          <a th:if='${not page.firstPage}'
+             th:href='@{${page.url}(page=0,size=${page.size},query=${searchRequest.query},style=${style})}'
+             th:title='#{first_page}'><span class="glyphicon glyphicon-fast-backward"></span></a>
+        </li>
+        <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+          <span th:if='${not page.hasPreviousPage}'><span class="glyphicon glyphicon-backward"></span></span>
+          <a th:if='${page.hasPreviousPage}'
+             th:href='@{${page.url}(page=${page.number - 2},size=${page.size},query=${searchRequest.query},style=${style})}'
+             th:title='#{previous_page}'><span class="glyphicon glyphicon-backward"></span></a>
+        </li>
+        <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+          <span th:if='${item.current}' th:text='${item.number}'>1</span>
+          <a th:if='${not item.current}'
+             th:href='@{${page.url}(page=${item.number - 1},size=${page.size},query=${searchRequest.query},style=${style})}'><span
+              th:text='${item.number}'>1</span></a>
+        </li>
+        <li th:class="${page.hasNextPage}? '' : 'disabled'">
+          <span th:if='${not page.hasNextPage}'><span class="glyphicon glyphicon-forward"></span></span>
+          <a th:if='${page.hasNextPage}'
+             th:href='@{${page.url}(page=${page.number},size=${page.size},query=${searchRequest.query},style=${style})}'
+             th:title='#{next_page}'><span class="glyphicon glyphicon-forward"></span></a>
+        </li>
+        <li th:class="${page.lastPage}? 'disabled' : ''">
+          <span th:if='${page.lastPage}'><span class="glyphicon glyphicon-fast-forward"></span></span>
+          <a th:if='${not page.lastPage}'
+             th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},query=${searchRequest.query},style=${style})}'
+             th:title='#{last_page}'><span class="glyphicon glyphicon-fast-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </th:block>
+
+  <th:block th:fragment="searchResultHeader">
+    <!--/* Pagination and thumbnail-/listview switcher*/-->
+    <div class="row rowSearchMenu">
+      <div class="col-sm-8" >
+        <div th:replace="fragments/search :: pagination">
+          ...
+        </div>
+        <div class="objectCounter lighter">
+          <span class="message" th:text="#{msg.found_n_books(${page.totalItems})}">Found 17 books.</span>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div id="btnStyleSwitcher" class="btn-group pull-right">
+          <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='list')}" id="list" class="btn btn-default btn-sm"
+             th:classappend="${style} == 'list' ? 'active' : ''">
+            <span class="glyphicon glyphicon-th-list"></span>
+            <span th:text="#{list}">List</span>
+          </a>
+          <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='grid')}" id="grid" class="btn btn-default btn-sm"
+             th:classappend="${style} == 'grid' ? 'active' : ''">
+            <span class="glyphicon glyphicon-th"></span>
+            <span th:text="#{grid}">Grid</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </th:block>
+
+  <th:block th:fragment="searchResults">
+    <!--/* Search result list */-->
+    <div id="search-results" class="row list-group">
+      <div class="col-xs-12">
+        <div th:each="manifest : ${page.content}" class="search-result-item"
+             th:classappend="${style} == 'grid' ? 'grid-group-item' : 'list-group-item'">
+
+          <!--/* The image */-->
+          <div class="thumbnail">
+            <div class="thumbnailImage">
+              <th:block th:if="${manifest.thumbnail} != null">
+                <a class="imageLink" th:href="@{/view/__${manifest.uuid}__}">
+                  <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
+                    <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
+                      <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} eq 'V1_1'">
+                        <img class="list-group-image"
+                             th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/native.jpg|"/>
+                      </th:block>
+                      <th:block th:if="${manifest.thumbnail.iiifImageApiVersion.name()} eq 'V2'">
+                        <img class="list-group-image"
+                             th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/default.jpg|"/>
+                      </th:block>
+                    </th:block>
+                  </th:block>
+                  <th:block th:unless="${manifest.thumbnail.iiifImageApiVersion} != null">
+                    <img class="list-group-image" th:src="|${manifest.thumbnail.url}|"/>
+                  </th:block>
+                </a>
+              </th:block>
+              <th:block th:if="${manifest.logoUrl} != null">
+                <span class="attributorLogo">
+                  <img th:src="${manifest.logoUrl}" />
+                </span>
+              </th:block>
+            </div>
+
+            <!--/* The caption */-->
+            <div class="caption">
+              <h4 class="group inner list-group-item-heading">
+                <a th:href="@{/view/__${manifest.uuid}__}"
+                   th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.getLabel('__${#locale.language}__') != null? manifest.getLabel('__${#locale.language}__') : manifest.labels.values().toArray()[0]})">Title</a>
+              </h4>
+              <p class="group inner list-group-item-text"
+                 th:utext="${manifest.descriptions.isEmpty()} ? '' : (${manifest.getDescription('__${#locale.language}__') != null? manifest.getDescription('__${#locale.language}__') : manifest.descriptions.values().toArray()[0]})">
+                Description</p>
+
+              <div>
+                <p class="attribution">
+                <th:block th:if="${manifest.logoUrl} != null">
+                  <span class="attributorLogo">
+                    <img th:src="${manifest.logoUrl}" />
+                  </span>
+                </th:block>
+                <th:block th:unless="${manifest.attributions.isEmpty()}">
+                  <em th:utext="${manifest.attributions.isEmpty()} ? '' : (${manifest.getAttribution('__${#locale.language}__') != null? manifest.getAttribution('__${#locale.language}__') : manifest.attributions.values().toArray()[0]})">attribution</em>
+                </th:block>
+                </p>
+              </div>
+
+              <div class="row tablerow">
+                <div class="col-xs-6 col-sm-6">
+                  <div>
+                    <a class="btn btn-primary" th:href="@{/view/__${manifest.uuid}__}" th:text="#{read}" style="float:left;">Read</a>
+                  </div>
+                  <div class="iiif-logo">
+                    <a class="manifest-link" th:href="${manifest.manifestUri}" target="_blank" style="float:left;"><img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" /></a>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 lastModified">
+                  <span class="pull-right lighter smaller"
+                        th:title="${#dates.format(manifest.lastModified)}"
+                        th:text="${@prettyTime.format(manifest.lastModified, #locale)}">5 minutes ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery.shorten/1.0.0/src/jquery.shorten.min.js}"></script>
+
+    <script language="javascript" th:inline="javascript">
+      /*<![CDATA[*/
+      $(document).ready(function () {
+        $(".search-result-item .list-group-item-text").shorten({
+          showChars: 150,
+          moreText: /*[[#{read_more}]]*/ 'read more',
+          lessText: /*[[#{read_less}]]*/'read less'
+        });
+      });
+      /*]]>*/
+    </script>
+  </th:block>
+</body>
+</html>

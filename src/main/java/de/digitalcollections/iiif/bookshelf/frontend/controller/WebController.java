@@ -61,23 +61,7 @@ public class WebController extends AbstractController {
     verifyBinding(results);
 
     model.addAttribute("authentication", authentication);
-    if (searchRequest != null && !StringUtils.isEmpty(searchRequest.getQuery())) {
-      final String term = searchRequest.getQuery().replace(":", "\\:");
-      if (!StringUtils.isEmpty(term)) {
-        Page<IiifManifestSummary> page;
-        try {
-          page = iiifManifestSummaryService.findAll(term, pageRequest);
-        } catch (SearchSyntaxException ex) {
-          page = new PageImpl(new ArrayList<>());
-          results.reject("error.search_syntax");
-        }
-        model.addAttribute("menu", "home");
-        model.addAttribute("page", new PageWrapper(page, "/"));
-        model.addAttribute("searchRequest", searchRequest);
-        model.addAttribute("style", style);
-        return "index";
-      }
-    }
+
     final Page<IiifManifestSummary> page = iiifManifestSummaryService.getAll(pageRequest);
     model.addAttribute("menu", "home");
     model.addAttribute("page", new PageWrapper(page, "/"));
@@ -144,5 +128,42 @@ public class WebController extends AbstractController {
     Map<String, Object> rv = Maps.newHashMap();
     rv.put("error", e.message);
     return ResponseEntity.status(e.statusCode).body(rv);
+  }
+
+  @RequestMapping(value = {"/search"}, method = RequestMethod.GET)
+  public String search(SearchRequest searchRequest, Model model, Pageable pageRequest, @RequestParam(required = false,
+          defaultValue = "grid") String style, BindingResult results) {
+    verifyBinding(results);
+
+    model.addAttribute("authentication", authentication);
+
+    if (searchRequest == null) {
+      searchRequest = new SearchRequest();
+    }
+
+    Page<IiifManifestSummary> page = null;
+    if (!StringUtils.isEmpty(searchRequest.getQuery())) {
+      final String term = searchRequest.getQuery().replace(":", "\\:");
+      if (!StringUtils.isEmpty(term)) {
+        try {
+          page = iiifManifestSummaryService.findAll(term, pageRequest);
+        } catch (SearchSyntaxException ex) {
+          page = new PageImpl(new ArrayList<>());
+          results.reject("error.search_syntax");
+        }
+      }
+    } else {
+      page = iiifManifestSummaryService.getAll(pageRequest);
+    }
+
+    model.addAttribute("menu", "search");
+    model.addAttribute("page", new PageWrapper(page, "/search"));
+    model.addAttribute("searchRequest", searchRequest);
+    model.addAttribute("style", style);
+
+    // model.addAttribute("manifests", iiifManifestSummaryService.getAll());
+    // model.addAttribute("count", iiifManifestSummaryService.countAll());
+    // model.addAttribute("infoUrl", "/iiif/image/" + identifier + "/info.json");
+    return "search-advanced";
   }
 }
