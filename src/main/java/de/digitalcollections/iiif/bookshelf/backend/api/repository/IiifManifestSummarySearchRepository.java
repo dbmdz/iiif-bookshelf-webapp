@@ -1,7 +1,7 @@
 package de.digitalcollections.iiif.bookshelf.backend.api.repository;
 
-import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
+import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

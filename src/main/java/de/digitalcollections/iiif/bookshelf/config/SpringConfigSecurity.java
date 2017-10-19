@@ -36,36 +36,42 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
   @Configuration
   @Order(1)
   public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+
     @Value("${authentication}")
     private boolean authentication;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      if (!authentication) return;
+      if (!authentication) {
+        return;
+      }
       http
-          .antMatcher("/api/add").authorizeRequests()
-            .antMatchers("/api/add").authenticated()
-            .and()
-            .httpBasic()
-            .and()
-            .csrf().disable();
+              .antMatcher("/api/add").authorizeRequests()
+              .antMatchers("/api/add").authenticated()
+              .and()
+              .httpBasic()
+              .and()
+              .csrf().disable();
     }
   }
 
   @Configuration
   @Order(2)
   public static class FormLoginWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+
     @Value("${authentication}")
     private boolean authentication;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      if (!authentication) return;
+      if (!authentication) {
+        return;
+      }
       http
-          .antMatcher("/add").authorizeRequests()
-            .antMatchers("/add").authenticated()
-            .and()
-            .formLogin();
+              .antMatcher("/add").authorizeRequests()
+              .antMatchers("/add").authenticated()
+              .and()
+              .formLogin();
     }
   }
 

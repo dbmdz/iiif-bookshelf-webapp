@@ -1,7 +1,8 @@
 package de.digitalcollections.iiif.bookshelf.backend.impl.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class IiiifManifestSummarySearchRepositoryImplSolrjTest {
 

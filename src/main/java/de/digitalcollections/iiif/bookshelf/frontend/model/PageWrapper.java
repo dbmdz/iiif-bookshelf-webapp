@@ -30,7 +30,8 @@ public class PageWrapper<T> {
 
     currentNumber = page.getNumber() + 1; // start from 1 to match page.page
 
-    int start, size;
+    int start;
+    int size;
     if (page.getTotalPages() <= MAX_PAGE_ITEM_DISPLAY) {
       start = 1;
       size = page.getTotalPages();
