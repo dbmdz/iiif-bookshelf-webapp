@@ -1,29 +1,31 @@
 package de.digitalcollections.iiif.bookshelf.business.impl.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummaryRepository;
 import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummarySearchRepository;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSummaryService;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
+import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
-import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
-import de.digitalcollections.iiif.presentation.model.api.enums.Version;
-import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
-import java.util.Comparator;
+import de.digitalcollections.iiif.model.ImageContent;
+import de.digitalcollections.iiif.model.PropertyValue;
+import de.digitalcollections.iiif.model.sharedcanvas.Collection;
+import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
+import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryService {
@@ -39,7 +41,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   private IiifManifestSummarySearchRepository iiifManifestSummarySearchRepository;
 
   @Autowired
-  private PresentationRepository presentationRepository;
+  private ObjectMapper objectMapper;
 
   @Override
   public List<IiifManifestSummary> getAll() {
@@ -91,48 +93,28 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     return result;
   }
 
-  private void saveManifestsFromCollection(JSONObject collection) {
+  private void saveManifestsFromCollection(Collection collection) {
+    OkHttpClient httpClient = new OkHttpClient();
     // try to get list of manifests
-    Object manifestsNode = collection.get("manifests");
-    if (manifestsNode != null && JSONArray.class.isAssignableFrom(manifestsNode.getClass())) {
-      JSONArray manifests = (JSONArray) manifestsNode;
-      for (Object manifest : manifests) {
-        JSONObject manifestObj = (JSONObject) manifest;
-        String uri = (String) manifestObj.get("@id");
-        String manifestType = (String) manifestObj.get("@type");
-        if ("sc:Manifest".equalsIgnoreCase(manifestType)) {
-          IiifManifestSummary childManifestSummary = new IiifManifestSummary();
-          childManifestSummary.setManifestUri(uri);
-          try {
-            enrichAndSave(childManifestSummary);
-          } catch (Exception e) {
-            LOGGER.warn("Could not read manifest from {}", uri, e);
-          }
-        }
-      }
-    }
-    // try to get subcollections
-    Object collectionsNode = collection.get("collections");
-    if (collectionsNode != null && JSONArray.class.isAssignableFrom(collectionsNode.getClass())) {
-      JSONArray collections = (JSONArray) collectionsNode;
-      collections.sort(Comparator.comparing(JSONObject::hashCode));
-      for (Object subcollection : collections) {
-        JSONObject collectionObj = (JSONObject) collection;
-        String uri = (String) collectionObj.get("@id");
-        String collectionType = (String) collectionObj.get("@type");
-        if ("sc:Manifest".equalsIgnoreCase(collectionType) || "sc:Collection".equalsIgnoreCase(collectionType)) {
-          IiifManifestSummary childManifestSummary = new IiifManifestSummary();
-          childManifestSummary.setManifestUri(uri);
-          try {
-            JSONObject subcollObject = presentationRepository.getResourceAsJsonObject(uri);
-            saveManifestsFromCollection(subcollObject);
-          } catch (Exception e) {
-            LOGGER.warn("Could not read collection from {}", uri, e);
-          }
-        }
+    for (Manifest manifest : collection.getManifests()) {
+      IiifManifestSummary summary = new IiifManifestSummary();
+      summary.setManifestUri(manifest.getIdentifier().toString());
+      try {
+        enrichAndSave(summary);
+      } catch (Exception e) {
+        LOGGER.warn("Could not read manifest from {}", manifest.getIdentifier(), e);
       }
     }
 
+    // try to get subcollections
+    for (Collection subCollection : collection.getCollections()) {
+      try {
+        subCollection = objectMapper.readValue(subCollection.getIdentifier().toString(), Collection.class);
+        saveManifestsFromCollection(subCollection);
+      } catch (IOException e) {
+        LOGGER.warn("Could not read collection from {}", subCollection.getIdentifier(), e);
+      }
+    }
   }
 
   @Override
@@ -145,7 +127,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
-  public void enrichAndSave(IiifManifestSummary manifestSummary) throws ParseException, NotFoundException {
+  public void enrichAndSave(IiifManifestSummary manifestSummary) throws NotFoundException, IOException {
     // if exists already: update existing manifest
     final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
             .findByManifestUri(manifestSummary.getManifestUri());
@@ -153,18 +135,10 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       manifestSummary.setUuid(existingManifest.getUuid());
     }
 
-    JSONObject jsonObject = presentationRepository.getResourceAsJsonObject(manifestSummary.getManifestUri());
-
-    String type = (String) jsonObject.get("@type");
-    if ("sc:Manifest".equalsIgnoreCase(type)) {
-      fillFromJsonObject(jsonObject, manifestSummary);
-      iiifManifestSummaryRepository.save(manifestSummary);
-      iiifManifestSummarySearchRepository.save(manifestSummary);
-    } else if ("sc:Collection".equalsIgnoreCase(type)) {
-      // FIXME: This breaks the "enrich" contract, since we're adding potentially thousands of manifests that
-      // the user of this method won't know about, the API should probably be reworked
-      saveManifestsFromCollection(jsonObject);
-    }
+    Manifest manifest = objectMapper.readValue(manifestSummary.getManifestUri(), Manifest.class);
+    fillFromManifest(manifest, manifestSummary);
+    iiifManifestSummaryRepository.save(manifestSummary);
+    iiifManifestSummarySearchRepository.save(manifestSummary);
   }
 
   /**
@@ -179,114 +153,45 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
    * @throws NotFoundException
    * @throws ParseException
    */
-  private void fillFromJsonObject(JSONObject jsonObject, IiifManifestSummary manifestSummary) throws NotFoundException, ParseException {
+  private void fillFromManifest(Manifest manifest, IiifManifestSummary manifestSummary) throws NotFoundException {
+    manifestSummary.setLabels(getLocalizedStrings(manifest.getLabel()));
+    manifestSummary.setDescriptions(getLocalizedStrings(manifest.getDescription()));
+    manifestSummary.setAttributions(getLocalizedStrings(manifest.getAttribution()));
 
-    Version version = null;
-    final Object contextNode = jsonObject.get("@context");
-    if (JSONArray.class.isAssignableFrom(contextNode.getClass())) {
-      JSONArray contexts = (JSONArray) contextNode;
-      for (Object context : contexts) {
-        version = Version.getVersion((String) context);
-        if (version != null) {
-          break;
-        }
-      }
-    } else {
-      version = Version.getVersion((String) contextNode);
-    }
-    if (version != null) {
-      manifestSummary.setVersion(version);
-    }
-
-    Object label = jsonObject.get("label");
-    HashMap<Locale, String> localizedLabels = getLocalizedStrings(label);
-    manifestSummary.setLabels(localizedLabels);
-
-    Object description = jsonObject.get("description");
-    HashMap<Locale, String> localizedDescriptions = getLocalizedStrings(description);
-    manifestSummary.setDescriptions(localizedDescriptions);
-
-    Object attribution = jsonObject.get("attribution");
-    HashMap<Locale, String> localizedAttributions = getLocalizedStrings(attribution);
-    manifestSummary.setAttributions(localizedAttributions);
-
-    Thumbnail thumbnail = getThumbnail(jsonObject);
+    Thumbnail thumbnail = getThumbnail(manifest);
     manifestSummary.setThumbnail(thumbnail);
 
-    String logoUrl = (String) jsonObject.get("logo");
-    if (!StringUtils.isEmpty(logoUrl)) {
-      manifestSummary.setLogoUrl(logoUrl);
+    URI logoUri = manifest.getLogoUri();
+    if (logoUri != null) {
+      manifestSummary.setLogoUrl(logoUri.toString());
     }
   }
 
-  public HashMap<Locale, String> getLocalizedStrings(Object jsonNode) {
-    HashMap<Locale, String> result = new HashMap<>();
-    if (jsonNode == null) {
-      return result;
-    }
-    if (JSONArray.class.isAssignableFrom(jsonNode.getClass())) {
-      JSONArray descriptions = (JSONArray) jsonNode;
-      for (Object descr : descriptions) {
-        JSONObject descrObj = (JSONObject) descr;
-        String value = (String) descrObj.get("@value");
-        String language = (String) descrObj.get("@language");
-        result.put(new Locale(language), value);
-      }
+  public HashMap<Locale, String> getLocalizedStrings(PropertyValue val) {
+    HashMap<Locale, String> strings = new HashMap<>();
+    val.getLocalizations().forEach(l -> strings.put(l, val.getFirstValue(l)));
+    return strings;
+  }
+
+  private Thumbnail getThumbnail(Manifest manifest) {
+    ImageContent thumb;
+    if (manifest.getThumbnail() != null) {
+      thumb = manifest.getThumbnail();
     } else {
-      String value = (String) jsonNode;
-      result.put(DEFAULT_LOCALE, value);
+      thumb = manifest.getDefaultSequence().getCanvases().stream()
+          .map(c -> c.getThumbnails())
+          .filter(ts -> ts != null && ts.size() > 0)
+          .map(ts -> ts.get(0))
+          .findFirst().get();
     }
-    return result;
+
+    if (thumb != null && thumb.getServices() != null && thumb.getServices().size() > 0) {
+      de.digitalcollections.iiif.model.Service service = thumb.getServices().get(0);
+      return new Thumbnail(service.getContext().toString(), service.getIdentifier().toString());
+    } else if (thumb != null) {
+      return new Thumbnail(thumb.getIdentifier().toString());
+    } else {
+      return null;
+    }
   }
-
-  private Thumbnail getThumbnail(JSONObject manifestObj) {
-    // try to get thumbnail of manifest itself
-    JSONObject thumbnailObj = (JSONObject) manifestObj.get("thumbnail");
-    if (thumbnailObj != null) {
-      JSONObject serviceObj = (JSONObject) thumbnailObj.get("service");
-      if (serviceObj != null) {
-        String context = (String) serviceObj.get("@context");
-        String id = (String) serviceObj.get("@id");
-        return new Thumbnail(context, id);
-      } else {
-        String url = (String) thumbnailObj.get("@id");
-        return new Thumbnail(url);
-      }
-    }
-
-    // try to get thumbnail of first canvas
-    try {
-      // manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService().getId();
-      JSONArray sequencesArray = (JSONArray) manifestObj.get("sequences");
-      JSONObject firstSequence = (JSONObject) sequencesArray.get(0);
-
-      JSONArray canvasesArray = (JSONArray) firstSequence.get("canvases");
-      JSONObject firstCanvas = (JSONObject) canvasesArray.get(0);
-
-      Object obj = firstCanvas.get("thumbnail");
-      if (obj instanceof JSONObject) {
-        JSONObject firstCanvasThumbnail = (JSONObject) firstCanvas.get("thumbnail");
-        if (firstCanvasThumbnail != null) {
-          String url = (String) firstCanvasThumbnail.get("@id");
-          return new Thumbnail(url);
-        }
-      } else if (obj instanceof String) {
-        String url = (String) obj;
-        return new Thumbnail(url);
-      }
-
-      JSONArray imagesArray = (JSONArray) firstCanvas.get("images");
-      JSONObject firstImage = (JSONObject) imagesArray.get(0);
-
-      JSONObject resourceObj = (JSONObject) firstImage.get("resource");
-      JSONObject serviceObj = (JSONObject) resourceObj.get("service");
-      String context = (String) serviceObj.get("@context");
-      String id = (String) serviceObj.get("@id");
-      return new Thumbnail(context, id);
-    } catch (Exception ex) {
-    }
-
-    return null;
-  }
-
 }

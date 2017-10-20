@@ -6,12 +6,12 @@ import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSum
 import de.digitalcollections.iiif.bookshelf.frontend.model.PageWrapper;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
+import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
-import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
-import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +84,7 @@ public class WebController extends AbstractController {
   public String add(IiifManifestSummary manifestSummary, Model model) {
     try {
       iiifManifestSummaryService.enrichAndSave(manifestSummary);
-    } catch (ParseException e) {
+    } catch (IOException e) {
       LOGGER.error("Could not load manifest from {} because of malformed JSON", manifestSummary.getManifestUri(), e);
       model.addAttribute("manifest", manifestSummary);
       model.addAttribute("errorMessage", "Manifest at URL contains malformed JSON.");
@@ -106,7 +106,7 @@ public class WebController extends AbstractController {
     try {
       iiifManifestSummaryService.enrichAndSave(summary);
       return summary;
-    } catch (ParseException e) {
+    } catch (IOException e) {
       throw new ApiException("Invalid JSON at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     } catch (NotFoundException e) {
       throw new ApiException("No manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);

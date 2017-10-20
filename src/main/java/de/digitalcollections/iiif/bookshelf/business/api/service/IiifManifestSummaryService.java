@@ -1,12 +1,12 @@
 package de.digitalcollections.iiif.bookshelf.business.api.service;
 
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
+import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
-import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import org.json.simple.parser.ParseException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,7 +20,7 @@ public interface IiifManifestSummaryService {
 
   public long countAll();
 
-  public void enrichAndSave(IiifManifestSummary manifestSummary) throws ParseException, NotFoundException;
+  public void enrichAndSave(IiifManifestSummary manifestSummary) throws NotFoundException, IOException;
 
   public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) throws SearchSyntaxException;
 

@@ -1,13 +1,14 @@
 package de.digitalcollections.iiif.bookshelf.config;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
-import de.digitalcollections.iiif.presentation.config.SpringConfigBackendPresentation;
-import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.mongeez.MongeezRunner;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
@@ -38,7 +40,6 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 @EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.api.repository"})
 @EnableMongoAuditing
 @EnableSpringDataWebSupport
-@Import(SpringConfigBackendPresentation.class)
 public class SpringConfigBackend extends AbstractMongoConfiguration {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigBackend.class);
@@ -93,6 +94,12 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
     return mongeezRunner;
   }
 
+  @Bean
+  @Primary
+  public ObjectMapper objectMapper() {
+    return new IiifObjectMapper();
+  }
+
   @Override
   protected String getMappingBasePackage() {
     return "de.digitalcollections.iiif.bookshelf.model";
@@ -102,16 +109,5 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
   @Override
   public MongoTemplate mongoTemplate() throws Exception {
     return new MongoTemplate(mongo(), getDatabaseName());
-  }
-
-  @Bean
-  public ObjectMapper objectMapper() {
-    ObjectMapper objectMapper = new IiifPresentationApiObjectMapper();
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-    // define which fields schould be ignored with Filter-classes:
-    // objectMapper.addMixIn(User.class, UserJsonFilter.class);
-    // objectMapper.addMixIn(GrantedAuthority.class, GrantedAuthorityJsonFilter.class);
-    return objectMapper;
   }
 }

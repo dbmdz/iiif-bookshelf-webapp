@@ -1,6 +1,6 @@
 package de.digitalcollections.iiif.bookshelf.model;
 
-import de.digitalcollections.iiif.presentation.model.api.enums.Version;
+import de.digitalcollections.iiif.model.image.ImageApiProfile;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -23,7 +23,6 @@ public class IiifManifestSummary {
   @Id
   private UUID uuid = UUID.randomUUID();
 
-  private Version version;
   @TextIndexed
   private String manifestUri;
   @TextIndexed(weight = 2)
@@ -159,13 +158,5 @@ public class IiifManifestSummary {
 
   public void setAttributions(HashMap<Locale, String> attributions) {
     this.attributions = attributions;
-  }
-
-  public Version getVersion() {
-    return version;
-  }
-
-  public void setVersion(Version version) {
-    this.version = version;
   }
 }
