@@ -14,12 +14,12 @@ import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,7 +135,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       manifestSummary.setUuid(existingManifest.getUuid());
     }
 
-    Manifest manifest = objectMapper.readValue(manifestSummary.getManifestUri(), Manifest.class);
+    Manifest manifest = objectMapper.readValue(new URL(manifestSummary.getManifestUri()), Manifest.class);
     fillFromManifest(manifest, manifestSummary);
     iiifManifestSummaryRepository.save(manifestSummary);
     iiifManifestSummarySearchRepository.save(manifestSummary);
