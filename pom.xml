@@ -78,7 +78,7 @@
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.1.Final</version.prettytime>
     <version.slf4j>1.7.22</version.slf4j>
-    <version.solr>5.4.1</version.solr>
+    <version.solr>6.4.0</version.solr>
     <version.spring>4.3.6.RELEASE</version.spring>
     <version.spring-data-mongodb>1.10.0.RELEASE</version.spring-data-mongodb>
     <version.spring-security>4.2.1.RELEASE</version.spring-security>
