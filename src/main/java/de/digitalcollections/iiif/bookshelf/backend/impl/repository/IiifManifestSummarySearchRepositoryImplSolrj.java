@@ -139,7 +139,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     }
 
     SolrInputDocument doc = new SolrInputDocument();
-    doc.addField("id", manifestSummary.getUuid());
+    doc.addField("id", manifestSummary.getUuid().toString());
     // doc.addField("manifesturi_key", manifestSummary.getManifestUri());
     String[] uri = manifestSummary.getManifestUri().split("/");
     doc.addField("identifier_str", uri[uri.length - 2]);

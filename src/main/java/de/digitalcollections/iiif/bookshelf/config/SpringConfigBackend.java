@@ -1,14 +1,11 @@
 package de.digitalcollections.iiif.bookshelf.config;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.mongeez.MongeezRunner;
@@ -18,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -96,7 +92,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
 
   @Bean
   @Primary
-  public IiifObjectMapper objectMapper() {
+  public ObjectMapper objectMapper() {
     return new IiifObjectMapper();
   }
 

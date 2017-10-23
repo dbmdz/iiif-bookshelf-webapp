@@ -9,6 +9,7 @@ import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import de.digitalcollections.iiif.model.ImageContent;
 import de.digitalcollections.iiif.model.PropertyValue;
+import de.digitalcollections.iiif.model.image.ImageService;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
@@ -169,20 +170,30 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   public HashMap<Locale, String> getLocalizedStrings(PropertyValue val) {
     HashMap<Locale, String> strings = new HashMap<>();
-    val.getLocalizations().forEach(l -> strings.put(l, val.getFirstValue(l)));
+    if (val != null) {
+      val.getLocalizations().forEach(l -> strings.put(l, val.getFirstValue(l)));
+    }
     return strings;
   }
 
   private Thumbnail getThumbnail(Manifest manifest) {
     ImageContent thumb;
-    if (manifest.getThumbnail() != null) {
+    if (manifest.getThumbnails() != null && manifest.getThumbnails().size() > 0) {
       thumb = manifest.getThumbnail();
     } else {
       thumb = manifest.getDefaultSequence().getCanvases().stream()
           .map(c -> c.getThumbnails())
           .filter(ts -> ts != null && ts.size() > 0)
           .map(ts -> ts.get(0))
-          .findFirst().get();
+          .findFirst().orElse(null);
+    }
+    if (thumb == null) {
+      thumb = manifest.getDefaultSequence().getCanvases().stream()
+          .map(c -> c.getImages().get(0).getResource())
+          .map(ImageContent.class::cast)
+          .map(i -> (ImageService) i.getServices().get(0))
+          .map(s -> new ImageContent(String.format("%s/full/280,/0/default.jpg", s.getIdentifier())))
+          .findFirst().orElse(null);
     }
 
     if (thumb != null && thumb.getServices() != null && thumb.getServices().size() > 0) {
