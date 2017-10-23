@@ -1,5 +1,6 @@
 package de.digitalcollections.iiif.bookshelf.business.impl.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummaryRepository;
 import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummarySearchRepository;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSummaryService;
@@ -10,7 +11,6 @@ import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxExcepti
 import de.digitalcollections.iiif.model.ImageContent;
 import de.digitalcollections.iiif.model.PropertyValue;
 import de.digitalcollections.iiif.model.image.ImageService;
-import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   private IiifManifestSummarySearchRepository iiifManifestSummarySearchRepository;
 
   @Autowired
-  private IiifObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
   @Override
   public List<IiifManifestSummary> getAll() {
