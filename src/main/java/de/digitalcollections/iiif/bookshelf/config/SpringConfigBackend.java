@@ -96,7 +96,7 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
 
   @Bean
   @Primary
-  public ObjectMapper objectMapper() {
+  public IiifObjectMapper objectMapper() {
     return new IiifObjectMapper();
   }
 

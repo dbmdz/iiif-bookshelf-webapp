@@ -60,7 +60,7 @@
     <version.aspectjweaver>1.8.8</version.aspectjweaver>
     <version.assertj>3.5.2</version.assertj>
     <version.digitalcollections-commons-springmvc>1.2.3</version.digitalcollections-commons-springmvc>
-    <version.iiif-apis>0.1.0</version.iiif-apis>
+    <version.iiif-apis>0.2.0</version.iiif-apis>
     <version.jackson>2.9.0</version.jackson>
     <version.jacoco-maven-plugin>0.7.8</version.jacoco-maven-plugin>
     <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
