@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.digitalcollections</groupId>
-  <artifactId>iiif-bookshelf-webapp</artifactId>
-  <version>2.5.1</version>
-  <packaging>war</packaging>
 
   <name>DigitalCollections: IIIF Bookshelf Webapp</name>
-  <description>The bookshelf is a webapp for collecting IIIF representations of books. It is based on the functionality of the IIIF Presentation API for modelling books. You can add books to your bookshelf by loading the manifest.json of the book.</description>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-bookshelf-webapp</artifactId>
+  <version>2.6.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <description>The bookshelf is a webapp for collecting IIIF representations of books. It is based on the functionality of the IIIF Presentation API for modelling books. You can add books to your bookshelf loading the manifest.json of the book by its web-address.</description>
+  
   <url>https://github.com/dbmdz/iiif-bookshelf-webapp</url>
   <licenses>
     <license>
@@ -53,9 +55,11 @@
   </scm>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility. If you want to follow our recommendation and use a later Java version you can add a java.version property -->
+    <java.version>1.8</java.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <version.aspectjweaver>1.8.8</version.aspectjweaver>
     <version.assertj>3.5.2</version.assertj>
@@ -73,18 +77,16 @@
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
     <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
     <version.mongeez>0.9.6</version.mongeez>
-    <version.mongodb-driver>3.0.4</version.mongodb-driver>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.1.Final</version.prettytime>
     <version.slf4j>1.7.22</version.slf4j>
     <version.solr>6.4.0</version.solr>
     <version.spring>4.3.6.RELEASE</version.spring>
-    <version.spring-data-mongodb>1.10.0.RELEASE</version.spring-data-mongodb>
     <version.spring-security>4.2.1.RELEASE</version.spring-security>
-    <version.thymeleaf>2.1.4.RELEASE</version.thymeleaf>
-    <version.thymeleaf-layout-dialect>1.2.9</version.thymeleaf-layout-dialect>
-    <version.thymeleaf-spring4>2.1.4.RELEASE</version.thymeleaf-spring4>
+    <version.thymeleaf>3.0.7.RELEASE</version.thymeleaf>
+    <version.thymeleaf-layout-dialect>2.2.2</version.thymeleaf-layout-dialect>
+    <version.thymeleaf-spring4>3.0.7.RELEASE</version.thymeleaf-spring4>
     <version.okhttp>3.9.0</version.okhttp>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
@@ -102,17 +104,20 @@
     <version.maven-war-plugin>3.1.0</version.maven-war-plugin>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <!-- Import dependency management from Spring Boot -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>1.5.6.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
   <dependencies>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>${version.logback}</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <version>${version.logback}</version>
-    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
@@ -120,7 +125,22 @@
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
+      <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-parameter-names</artifactId>
       <version>${version.jackson}</version>
     </dependency>
     <dependency>
@@ -144,19 +164,9 @@
       <version>${version.persistence-api}</version>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>${version.javax-servlet-api}</version>
-    </dependency>
-    <dependency>
       <groupId>nz.net.ultraq.thymeleaf</groupId>
       <artifactId>thymeleaf-layout-dialect</artifactId>
       <version>${version.thymeleaf-layout-dialect}</version>
-    </dependency>
-    <dependency>
-      <groupId>net.logstash.logback</groupId>
-      <artifactId>logstash-logback-encoder</artifactId>
-      <version>${version.logstash-logback-encoder}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.solr</groupId>
@@ -170,25 +180,8 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>${version.assertj}</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.logback-extensions</groupId>
-      <artifactId>logback-ext-spring</artifactId>
-      <version>${version.logback-ext-spring}</version>
-    </dependency>
-    <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver</artifactId>
-      <version>${version.mongodb-driver}</version>
     </dependency>
     <dependency>
       <groupId>org.mongeez</groupId>
@@ -201,50 +194,35 @@
       <version>${version.prettytime}</version>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${version.slf4j}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-      <version>${version.spring}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${version.spring}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${version.spring}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>${version.spring}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-mongodb</artifactId>
-      <version>${version.spring-data-mongodb}</version>
       <exclusions>
         <exclusion>
           <groupId>org.mongodb</groupId>
           <artifactId>mongo-java-driver</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-config</artifactId>
-      <version>${version.spring-security}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-web</artifactId>
-      <version>${version.spring-security}</version>
     </dependency>
     <dependency>
       <groupId>org.thymeleaf</groupId>
@@ -358,43 +336,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>${version.maven-war-plugin}</version>
-        <configuration>
-          <attachClasses>true</attachClasses>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${version.jetty-maven-plugin}</version>
-        <configuration>
-          <classesDirectory>${project.build.directory}/classes</classesDirectory>
-          <scanIntervalSeconds>2</scanIntervalSeconds>
-          <webApp>
-            <contextPath>/bookshelf</contextPath>
-            <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
-            <resourceBases>
-              <resourceBase>src/main/webapp</resourceBase>
-              <!--<resourceBase>${project.build.directory}/${project.build.finalName}</resourceBase>-->
-            </resourceBases>
-            <webInfIncludeJarPattern>.*/.*(spring-security-web|spring-webmvc|spring-web).*\.jar$</webInfIncludeJarPattern>
-          </webApp>
-          <systemProperties>
-            <systemProperty>
-              <name>spring.profiles.active</name>
-              <value>local</value>
-            </systemProperty>
-          </systemProperties>
-          <httpConnector>
-            <port>9898</port>
-          </httpConnector>
-          <!--          <stopKey>foo</stopKey>
-          <stopPort>9000</stopPort>-->
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
         <version>${version.versions-maven-plugin}</version>
@@ -433,6 +374,21 @@
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>1.5.6.RELEASE</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <classifier>exec</classifier>
         </configuration>
       </plugin>
     </plugins>

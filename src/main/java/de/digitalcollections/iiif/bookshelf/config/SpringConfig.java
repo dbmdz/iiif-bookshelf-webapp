@@ -17,8 +17,7 @@ import org.springframework.core.env.Environment;
 @PropertySource(value = {
   "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfig-${spring.profiles.active:PROD}.properties"
 })
-@Import({SpringConfigSecurity.class, SpringConfigWeb.class, SpringConfigBusiness.class, SpringConfigBackend.class,
-  SpringConfigBackendSolr.class})
+@Import({SpringConfigSecurity.class, SpringConfigWeb.class, SpringConfigBusiness.class, SpringConfigBackend.class, SpringConfigBackendSolr.class})
 public class SpringConfig implements EnvironmentAware {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfig.class);

@@ -23,7 +23,6 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @Configuration
 @ComponentScan(basePackages = {
@@ -35,7 +34,6 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 })
 @EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.api.repository"})
 @EnableMongoAuditing
-@EnableSpringDataWebSupport
 public class SpringConfigBackend extends AbstractMongoConfiguration {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigBackend.class);
