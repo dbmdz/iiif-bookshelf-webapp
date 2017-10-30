@@ -144,11 +144,6 @@
       <version>${version.jackson}</version>
     </dependency>
     <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>okhttp</artifactId>
-      <version>${version.okhttp}</version>
-    </dependency>
-    <dependency>
       <groupId>de.digitalcollections.iiif</groupId>
       <artifactId>iiif-apis</artifactId>
       <version>${version.iiif-apis}</version>

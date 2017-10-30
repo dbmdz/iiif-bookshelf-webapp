@@ -11,7 +11,6 @@ import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxExcepti
 import de.digitalcollections.iiif.model.ImageContent;
 import de.digitalcollections.iiif.model.PropertyValue;
 import de.digitalcollections.iiif.model.image.ImageService;
-import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.net.URI;
@@ -20,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,30 +92,6 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     return result;
   }
 
-  private void saveManifestsFromCollection(Collection collection) {
-    OkHttpClient httpClient = new OkHttpClient();
-    // try to get list of manifests
-    for (Manifest manifest : collection.getManifests()) {
-      IiifManifestSummary summary = new IiifManifestSummary();
-      summary.setManifestUri(manifest.getIdentifier().toString());
-      try {
-        enrichAndSave(summary);
-      } catch (Exception e) {
-        LOGGER.warn("Could not read manifest from {}", manifest.getIdentifier(), e);
-      }
-    }
-
-    // try to get subcollections
-    for (Collection subCollection : collection.getCollections()) {
-      try {
-        subCollection = objectMapper.readValue(subCollection.getIdentifier().toString(), Collection.class);
-        saveManifestsFromCollection(subCollection);
-      } catch (IOException e) {
-        LOGGER.warn("Could not read collection from {}", subCollection.getIdentifier(), e);
-      }
-    }
-  }
-
   @Override
   public void reindexSearch() {
     for (IiifManifestSummary summary : iiifManifestSummaryRepository.findAll()) {
@@ -140,6 +114,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     fillFromManifest(manifest, manifestSummary);
     iiifManifestSummaryRepository.save(manifestSummary);
     iiifManifestSummarySearchRepository.save(manifestSummary);
+    LOGGER.info("successfully imported and indexed {}", manifestSummary.getManifestUri());
   }
 
   /**
@@ -182,18 +157,18 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       thumb = manifest.getThumbnail();
     } else {
       thumb = manifest.getDefaultSequence().getCanvases().stream()
-          .map(c -> c.getThumbnails())
-          .filter(ts -> ts != null && ts.size() > 0)
-          .map(ts -> ts.get(0))
-          .findFirst().orElse(null);
+              .map(c -> c.getThumbnails())
+              .filter(ts -> ts != null && ts.size() > 0)
+              .map(ts -> ts.get(0))
+              .findFirst().orElse(null);
     }
     if (thumb == null) {
       thumb = manifest.getDefaultSequence().getCanvases().stream()
-          .map(c -> c.getImages().get(0).getResource())
-          .map(ImageContent.class::cast)
-          .map(i -> (ImageService) i.getServices().get(0))
-          .map(s -> new ImageContent(String.format("%s/full/280,/0/default.jpg", s.getIdentifier())))
-          .findFirst().orElse(null);
+              .map(c -> c.getImages().get(0).getResource())
+              .map(ImageContent.class::cast)
+              .map(i -> (ImageService) i.getServices().get(0))
+              .map(s -> new ImageContent(String.format("%s/full/280,/0/default.jpg", s.getIdentifier())))
+              .findFirst().orElse(null);
     }
 
     if (thumb != null && thumb.getServices() != null && thumb.getServices().size() > 0) {

@@ -5,6 +5,7 @@
   <body>
     <section layout:fragment="content">
 
+      <h3>Add a single object</h3>
       <form action="#" th:action="@{/add}" th:object="${manifest}" method="post">
         <div class="form-group" th:classappend="${errorMessage != null} ? has-error : ''">
           <label for="url" th:text="#{url_to_manifest}">URL to manifest</label>
@@ -14,6 +15,15 @@
         <button name="submit" type="submit" class="btn btn-primary" th:text="#{load}">load</button>
       </form>
 
+      <h3>Add all objects of a collection (recursively)</h3>
+      <form action="#" th:action="@{/addCollection}" th:object="${manifest}" method="post">
+        <div class="form-group" th:classappend="${errorMessage != null} ? has-error : ''">
+          <label for="url" th:text="#{url_to_manifest}">URL to manifest of collection</label>
+          <input type="text" th:field="*{manifestUri}" class="form-control" id="url" placeholder="http://manifests.ydc2.yale.edu/manifest" />
+          <span th:if="${errorMessage != null}" class="help-block" th:text="${errorMessage}" />
+        </div>
+        <button name="submit" type="submit" class="btn btn-primary" th:text="#{load}">load</button>
+      </form>
     </section>
   </body>
 </html>

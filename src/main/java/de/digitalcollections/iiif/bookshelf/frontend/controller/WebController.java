@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.bookshelf.frontend.controller;
 
 import com.google.common.collect.Maps;
 import de.digitalcollections.commons.springmvc.controller.AbstractController;
+import de.digitalcollections.iiif.bookshelf.business.api.service.IiifCollectionService;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSummaryService;
 import de.digitalcollections.iiif.bookshelf.frontend.model.PageWrapper;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
@@ -9,6 +10,7 @@ import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -42,6 +44,9 @@ public class WebController extends AbstractController {
   @Value("${authentication}")
   private boolean authentication;
 
+  @Autowired
+  private IiifCollectionService iiifCollectionService;
+  
   @Autowired
   private IiifManifestSummaryService iiifManifestSummaryService;
 
@@ -97,6 +102,19 @@ public class WebController extends AbstractController {
     }
     return "redirect:/";
   }
+  
+  @RequestMapping(value = "/addCollection", method = RequestMethod.POST)
+  public String addCollection(IiifManifestSummary manifestSummary, Model model) {
+    try {
+      iiifCollectionService.importAllObjects(manifestSummary);
+    } catch (IOException e) {
+      LOGGER.error("Could not load manifest from {} because of malformed Url/JSON", manifestSummary.getManifestUri(), e);
+      model.addAttribute("manifest", manifestSummary);
+      model.addAttribute("errorMessage", "Manifest at URL contains malformed JSON or does not exist.");
+      return "add";
+    }
+    return "redirect:/";
+  }
 
   @ResponseBody
   @RequestMapping(value = "/api/add", method = RequestMethod.POST, produces = "application/json")
@@ -110,6 +128,19 @@ public class WebController extends AbstractController {
       throw new ApiException("Invalid JSON at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     } catch (NotFoundException e) {
       throw new ApiException("No manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
+    }
+  }
+  
+  @ResponseBody
+  @RequestMapping(value = "/api/addCollection", method = RequestMethod.POST, produces = "application/json")
+  public boolean apiAddCollection(@RequestParam("uri") String manifestUri) throws ApiException {
+    IiifManifestSummary summary = new IiifManifestSummary();
+    summary.setManifestUri(manifestUri);
+    try {
+      iiifCollectionService.importAllObjects(summary);
+      return true;
+    } catch (IOException e) {
+      throw new ApiException("Invalid manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     }
   }
 
