@@ -3,8 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="base">
   <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/mirador/2.5.1/css/mirador-combined.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/dbmdz__mirador-imagecropper/2.2.0/imageCropper.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/mirador/2.6.0/css/mirador-combined.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/dbmdz__mirador-imagecropper/2.2.1/imageCropper.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/dbmdz__mirador-manifestbutton/1.1.1/manifestButton.min.css}" />
     <style type="text/css">
       body { font-size: 14px; }
@@ -22,8 +22,8 @@
     </section>
 
   <th:block layout:fragment="morejs">
-    <script th:src="@{/webjars/mirador/2.5.1/mirador.min.js}"></script>
-    <script th:src="@{/webjars/dbmdz__mirador-imagecropper/2.2.0/imageCropper.js}"></script>
+    <script th:src="@{/webjars/mirador/2.6.0/mirador.min.js}"></script>
+    <script th:src="@{/webjars/dbmdz__mirador-imagecropper/2.2.1/imageCropper.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-keyboardnavigation/1.1.0/keyboardNavigation.min.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-manifestbutton/1.1.1/manifestButton.min.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-physicalruler/1.2.1/physicalRuler.js}"></script>
@@ -33,7 +33,7 @@
       $(function () {
         Mirador({
           'id': 'viewer',
-          'buildPath': /*[[@{/webjars/mirador/2.5.1/}]]*/,
+          'buildPath': /*[[@{/webjars/mirador/2.6.0/}]]*/,
           'workspaceType': 'bookReading',
           'layout': '1x1',
           'mainMenuSettings': {
