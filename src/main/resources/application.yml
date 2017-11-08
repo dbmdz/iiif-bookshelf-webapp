@@ -1,0 +1,51 @@
+endpoints:
+  hypermedia:
+    enabled: true
+
+info:
+  app:
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @maven.compiler.source@
+      target: @maven.compiler.target@
+    project:
+      name: '@project.name@'
+      groupId: @project.groupId@
+      artifactId: @project.artifactId@
+      version: @project.version@
+
+management:
+  context-path: '/monitoring'
+  port: 9001
+  security:
+    enabled: true
+    roles: 'ACTUATOR, USER'
+    # ACTUATOR is default, but we add USER as workaround for not working application.yml name/password
+    
+security:
+  headers:
+    cache: false
+  user:
+    name: admin
+    password: secret
+
+server:
+  port: 8080
+  server-header: '@project.name@ v@project.version@'
+
+spring:
+  profiles:
+    active: local
+  thymeleaf:
+    cache: false
+
+---
+
+management:
+  security:
+    enabled: true
+
+spring:
+  profiles: PROD
+  thymeleaf:
+    cache: true

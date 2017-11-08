@@ -72,22 +72,26 @@
     <version.logback>1.1.9</version.logback>
     <version.logback-ext-spring>0.1.4</version.logback-ext-spring>
     <version.logstash-logback-encoder>4.8</version.logstash-logback-encoder>
-    <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
+    <version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
+    <version.maven-resources-plugin>3.0.2</version.maven-resources-plugin>
     <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
+    <version.maven-war-plugin>3.1.0</version.maven-war-plugin>
     <version.mongeez>0.9.6</version.mongeez>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.1.Final</version.prettytime>
+    <version.prometheus-spring-boot-starter>1.0.2</version.prometheus-spring-boot-starter>
     <version.slf4j>1.7.22</version.slf4j>
     <version.solr>6.4.0</version.solr>
     <version.spring>4.3.6.RELEASE</version.spring>
+    <version.spring-boot-maven-plugin>1.5.8.RELEASE</version.spring-boot-maven-plugin>
+    <version.spring-boot-dependencies>1.5.8.RELEASE</version.spring-boot-dependencies>
     <version.spring-security>4.2.1.RELEASE</version.spring-security>
     <version.thymeleaf>3.0.7.RELEASE</version.thymeleaf>
     <version.thymeleaf-layout-dialect>2.2.2</version.thymeleaf-layout-dialect>
     <version.thymeleaf-spring4>3.0.7.RELEASE</version.thymeleaf-spring4>
-    <version.okhttp>3.9.0</version.okhttp>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
     <version.webjar-html5shiv>3.7.3</version.webjar-html5shiv>
@@ -101,7 +105,6 @@
     <version.webjar-mirador-physicalruler>1.3.0</version.webjar-mirador-physicalruler>
     <version.webjar-mirador-viewfromurl>1.1.0</version.webjar-mirador-viewfromurl>
     <version.webjar-respond>1.4.2</version.webjar-respond>
-    <version.maven-war-plugin>3.1.0</version.maven-war-plugin>
   </properties>
 
   <dependencyManagement>
@@ -110,7 +113,7 @@
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>${version.spring-boot-dependencies}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -142,6 +145,11 @@
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-parameter-names</artifactId>
       <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.moelholm</groupId>
+      <artifactId>prometheus-spring-boot-starter</artifactId>
+      <version>${version.prometheus-spring-boot-starter}</version>
     </dependency>
     <dependency>
       <groupId>de.digitalcollections.iiif</groupId>
@@ -194,6 +202,10 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
     <dependency>
@@ -228,6 +240,10 @@
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf-spring4</artifactId>
       <version>${version.thymeleaf-spring4}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>hal-browser</artifactId>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
@@ -294,6 +310,20 @@
   <build>
     <finalName>iiif-bookshelf</finalName>
 
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>application.yml</include>
+        </includes>
+      </resource>
+    </resources>
+  
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -316,6 +346,17 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${version.maven-resources-plugin}</version>
+        <configuration>
+          <delimiters>
+            <delimiter>@</delimiter>
+          </delimiters>
+          <useDefaultDelimiters>false</useDefaultDelimiters>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -374,7 +415,7 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>${version.spring-boot-maven-plugin}</version>
         <executions>
           <execution>
             <goals>

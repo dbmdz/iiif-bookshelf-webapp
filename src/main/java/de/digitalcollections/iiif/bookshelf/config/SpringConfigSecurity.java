@@ -78,5 +78,8 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().anyRequest().permitAll().and().formLogin().and().httpBasic();
+
+    // and this line is needed so that http basic authentication with configured username and password (in application.yml) is working again
+//    http.authorizeRequests().antMatchers("/monitoring").authenticated().and().httpBasic();
   }
 }
