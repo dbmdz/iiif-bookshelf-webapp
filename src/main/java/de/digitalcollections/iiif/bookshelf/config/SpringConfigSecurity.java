@@ -17,13 +17,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
 
-  @Value("${authentication}")
+  @Value("${custom.app.security.enabled}")
   private boolean authentication;
 
-  @Value("${username}")
+  @Value("${custom.app.security.username}")
   private String username;
 
-  @Value("${password}")
+  @Value("${custom.app.security.password}")
   private String password;
 
   @Autowired
@@ -37,7 +37,7 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
   @Order(1)
   public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
-    @Value("${authentication}")
+    @Value("${custom.app.security.enabled}")
     private boolean authentication;
 
     @Override
@@ -59,7 +59,7 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
   @Order(2)
   public static class FormLoginWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
-    @Value("${authentication}")
+    @Value("${custom.app.security.enabled}")
     private boolean authentication;
 
     @Override

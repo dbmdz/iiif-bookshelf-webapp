@@ -10,7 +10,6 @@ import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -39,14 +38,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class WebController extends AbstractController {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
 
-  @Value("${authentication}")
+  @Value("${custom.app.security.enabled}")
   private boolean authentication;
 
   @Autowired
   private IiifCollectionService iiifCollectionService;
-  
+
   @Autowired
   private IiifManifestSummaryService iiifManifestSummaryService;
 
@@ -102,7 +101,7 @@ public class WebController extends AbstractController {
     }
     return "redirect:/";
   }
-  
+
   @RequestMapping(value = "/addCollection", method = RequestMethod.POST)
   public String addCollection(IiifManifestSummary manifestSummary, Model model) {
     try {
@@ -130,7 +129,7 @@ public class WebController extends AbstractController {
       throw new ApiException("No manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     }
   }
-  
+
   @ResponseBody
   @RequestMapping(value = "/api/addCollection", method = RequestMethod.POST, produces = "application/json")
   public boolean apiAddCollection(@RequestParam("uri") String manifestUri) throws ApiException {

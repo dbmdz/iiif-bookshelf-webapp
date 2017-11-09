@@ -1,6 +1,5 @@
 package de.digitalcollections.iiif.bookshelf.model;
 
-import de.digitalcollections.iiif.model.image.ImageApiProfile;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;

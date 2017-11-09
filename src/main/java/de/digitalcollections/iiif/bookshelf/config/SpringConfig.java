@@ -8,16 +8,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@PropertySource(value = {
-  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfig-${spring.profiles.active:PROD}.properties"
-})
-@Import({SpringConfigSecurity.class, SpringConfigWeb.class, SpringConfigBusiness.class, SpringConfigBackend.class, SpringConfigBackendSolr.class})
+@Import({SpringConfigSecurity.class, SpringConfigWeb.class, SpringConfigBusiness.class, SpringConfigBackend.class})
 public class SpringConfig implements EnvironmentAware {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfig.class);

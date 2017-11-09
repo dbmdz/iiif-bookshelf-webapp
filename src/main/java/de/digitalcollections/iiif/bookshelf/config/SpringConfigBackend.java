@@ -2,12 +2,7 @@ package de.digitalcollections.iiif.bookshelf.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
-import com.mongodb.ReadPreference;
-import com.mongodb.ServerAddress;
-import com.mongodb.WriteConcern;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
-import java.util.ArrayList;
-import java.util.List;
 import org.mongeez.MongeezRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
@@ -29,61 +21,29 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
   "de.digitalcollections.iiif.bookshelf.backend.api.repository",
   "de.digitalcollections.iiif.bookshelf.backend.impl.repository"
 })
-@PropertySource(value = {
-  "classpath:de/digitalcollections/iiif/bookshelf/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
-})
 @EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.api.repository"})
 @EnableMongoAuditing
-public class SpringConfigBackend extends AbstractMongoConfiguration {
+public class SpringConfigBackend {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigBackend.class);
 
-  @Value("${mongo.host}")
-  private String mongoHost;
-
-  @Value("${mongo.port}")
-  private int mongoPort;
-
-  @Value("${mongeez.classpathToMongeezXml}")
+  @Value("${custom.mongeez.classpathToMongeezXml}")
   private String mongeezClasspathToMongeezXml;
+
+  @Value("${custom.mongeez.dbName}")
+  private String mongeezDbName;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
   }
 
-  @Override
-  protected String getDatabaseName() {
-    return "iiif-bookshelf";
-  }
-
-  /*
-   * Factory bean that creates the com.mongodb.MongoClient instance
-   */
-  @Override
-  @Bean
-  public MongoClient mongo() throws Exception {
-    MongoClient client;
-    if (mongoHost.contains(",")) {
-      List<ServerAddress> addresses = new ArrayList<>();
-      for (String host : mongoHost.split(",")) {
-        addresses.add(new ServerAddress(host, mongoPort));
-      }
-      client = new MongoClient(addresses);
-      client.setReadPreference(ReadPreference.secondaryPreferred());
-    } else {
-      client = new MongoClient(mongoHost, mongoPort);
-    }
-    client.setWriteConcern(WriteConcern.ACKNOWLEDGED);
-    return client;
-  }
-
   @Bean(name = "mongeez")
-  public MongeezRunner mongeez() throws Exception {
+  public MongeezRunner mongeez(MongoClient mongo) throws Exception {
     MongeezRunner mongeezRunner = new MongeezRunner();
-    mongeezRunner.setMongo(mongo());
+    mongeezRunner.setMongo(mongo);
     mongeezRunner.setExecuteEnabled(true);
-    mongeezRunner.setDbName(getDatabaseName());
+    mongeezRunner.setDbName(mongeezDbName);
     mongeezRunner.setFile(new ClassPathResource(mongeezClasspathToMongeezXml));
     return mongeezRunner;
   }
@@ -92,16 +52,5 @@ public class SpringConfigBackend extends AbstractMongoConfiguration {
   @Primary
   public ObjectMapper objectMapper() {
     return new IiifObjectMapper();
-  }
-
-  @Override
-  protected String getMappingBasePackage() {
-    return "de.digitalcollections.iiif.bookshelf.model";
-  }
-
-  @Bean
-  @Override
-  public MongoTemplate mongoTemplate() throws Exception {
-    return new MongoTemplate(mongo(), getDatabaseName());
   }
 }

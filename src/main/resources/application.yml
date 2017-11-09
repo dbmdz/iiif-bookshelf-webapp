@@ -1,3 +1,18 @@
+# "custom": configuration section with not Spring Boot common application properties
+# see https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
+custom:
+  app:
+    security:
+      enabled: true
+      username: foobar
+      password: hamspam
+  mongeez:
+    classpathToMongeezXml: '/de/digitalcollections/iiif/bookshelf/config/mongeez/mongeez.xml'
+    dbName: 'iiif-bookshelf'
+  solr:
+    collection: 'bookshelf'
+# end of custom configuration section
+
 endpoints:
   hypermedia:
     enabled: true
@@ -34,18 +49,50 @@ server:
   server-header: '@project.name@ v@project.version@'
 
 spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:20202/iiif-bookshelf
+    solr:
+      # collection name see custom-section
+      host: 'http://127.0.0.1:21212/solr'
+      # Solr host. Ignored if "zk-host" is set.
+#      repositories:
+#        enabled: true
+        # Enable Solr repositories.
+#      zk-host: ''
+      # ZooKeeper host address in the form HOST:PORT.
   profiles:
     active: local
   thymeleaf:
     cache: false
+    mode: HTML
 
 ---
+
+custom:
+  app:
+    security:
+      enabled: true
+      username: mdz
+      password: Hopfenzeitung
 
 management:
   security:
     enabled: true
 
 spring:
+  # SOLR (SolrProperties)
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/iiif-bookshelf
+    solr:
+      host: 'http://127.0.0.1:8983/solr'
+      # Solr host. Ignored if "zk-host" is set.
+#      repositories:
+#        enabled: true
+        # Enable Solr repositories.
+#      zk-host: ''
+      # ZooKeeper host address in the form HOST:PORT.
   profiles: PROD
   thymeleaf:
     cache: true

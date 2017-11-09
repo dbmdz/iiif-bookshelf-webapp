@@ -22,6 +22,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -38,10 +39,13 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   @Autowired
   private SolrClient solr;
 
+  @Value("${custom.solr.collection}")
+  private String collection;
+
   public void deleteById(String id) {
     try {
-      solr.deleteById(id);
-      solr.commit();
+      solr.deleteById(collection, id);
+      solr.commit(collection);
     } catch (SolrServerException | IOException exception) {
       LOGGER.error("Could not delete " + id, exception);
     }
@@ -53,7 +57,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
     QueryResponse response;
     try {
-      response = solr.query(query);
+      response = solr.query(collection, query);
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
       return new ArrayList<>();
@@ -68,7 +72,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
       current += rs.size();
       query.setStart(current);
       try {
-        response = solr.query(query);
+        response = solr.query(collection, query);
       } catch (SolrServerException | IOException ex) {
         LOGGER.error(null, ex);
       }
@@ -89,7 +93,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     QueryResponse response;
     try {
       LOGGER.info("query = " + query);
-      response = solr.query(query);
+      response = solr.query(collection, query);
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
       return new PageImpl<>(new ArrayList<>());
@@ -117,7 +121,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
     QueryResponse response;
     try {
-      response = solr.query(query);
+      response = solr.query(collection, query);
     } catch (SolrServerException | IOException ex) {
       LOGGER.error(null, ex);
       return new ArrayList<>();
@@ -132,8 +136,8 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   public void save(IiifManifestSummary manifestSummary) {
     // first delete doc with this uuid (if exists) otherwise we get duplicates
     try {
-      solr.deleteByQuery("id:" + manifestSummary.getUuid().toString());
-      solr.commit();
+      solr.deleteByQuery(collection, "id:" + manifestSummary.getUuid().toString());
+      solr.commit(collection);
     } catch (RemoteSolrException | SolrServerException | IOException exception) {
       LOGGER.error("Could not delete existing " + manifestSummary, exception);
     }
@@ -160,8 +164,8 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
       doc.addField("description" + key.toUpperCase() + "_txt", value);
     }
     try {
-      solr.add(doc);
-      solr.commit();
+      solr.add(collection, doc);
+      solr.commit(collection);
     } catch (RemoteSolrException | SolrServerException | IOException ex) {
       LOGGER.error("Could not save ", ex);
     }
