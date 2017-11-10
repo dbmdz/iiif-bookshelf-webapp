@@ -81,7 +81,6 @@ management:
     enabled: true
 
 spring:
-  # SOLR (SolrProperties)
   data:
     mongodb:
       uri: mongodb://localhost:27017/iiif-bookshelf
