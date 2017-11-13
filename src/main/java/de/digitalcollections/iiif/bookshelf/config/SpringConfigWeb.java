@@ -1,16 +1,13 @@
 package de.digitalcollections.iiif.bookshelf.config;
 
-import de.digitalcollections.commons.springmvc.controller.ErrorController;
 import de.digitalcollections.commons.springmvc.interceptors.CurrentUrlAsModelAttributeHandlerInterceptor;
 import java.util.Date;
 import java.util.Locale;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.servlet.LocaleResolver;
@@ -22,10 +19,6 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
-@ComponentScan(
-        basePackages = {"de.digitalcollections.commons.springmvc.controller"},
-        excludeFilters = {@ComponentScan.Filter(value = ErrorController.class, type = FilterType.ASSIGNABLE_TYPE)}
-)
 @EnableAspectJAutoProxy
 @EnableSpringDataWebSupport
 public class SpringConfigWeb extends WebMvcConfigurerAdapter {

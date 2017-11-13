@@ -19,21 +19,16 @@ import org.springframework.data.mongodb.core.mapping.TextScore;
 // 'attributions.values' : 1}")
 public class IiifManifestSummary {
 
-  @Id
-  private UUID uuid = UUID.randomUUID();
-
-  @TextIndexed
-  private String manifestUri;
-  @TextIndexed(weight = 2)
-  private HashMap<Locale, String> labels = new HashMap<>();
-  @TextIndexed
-  private HashMap<Locale, String> descriptions = new HashMap<>();
   @TextIndexed
   private HashMap<Locale, String> attributions = new HashMap<>();
-  private Thumbnail thumbnail;
-  @TextScore
-  private Float score;
-  // DOES NOT WORK BECAUSE OF CUSTOM @Id (not being mongo object id):
+
+  @TextIndexed
+  private HashMap<Locale, String> descriptions = new HashMap<>();
+
+  @TextIndexed(weight = 2)
+  private HashMap<Locale, String> labels = new HashMap<>();
+
+// DOES NOT WORK BECAUSE OF CUSTOM @Id (not being mongo object id):
   // @Temporal(TemporalType.TIMESTAMP)
   // @CreatedDate
   // private Date created;
@@ -44,83 +39,45 @@ public class IiifManifestSummary {
 
   private String logoUrl;
 
-  public String getLogoUrl() {
-    return logoUrl;
+  @TextIndexed
+  private String manifestUri;
+
+  @TextScore
+  private Float score;
+
+  private Thumbnail thumbnail;
+
+  @Id
+  private UUID uuid = UUID.randomUUID();
+
+  private String viewId;
+
+  public void addAttribution(Locale locale, String attribution) {
+    attributions.put(locale, attribution);
   }
 
-  public void setLogoUrl(String logoUrl) {
-    this.logoUrl = logoUrl;
-  }
-
-  public Float getScore() {
-    return score;
-  }
-
-  public void setScore(Float score) {
-    this.score = score;
-  }
-
-  // public Date getCreated() {
-  // return created;
-  // }
-  //
-  // public void setCreated(Date created) {
-  // this.created = created;
-  // }
-  public Date getLastModified() {
-    return lastModified;
-  }
-
-  public void setLastModified(Date lastModified) {
-    this.lastModified = lastModified;
-  }
-
-  public Thumbnail getThumbnail() {
-    return thumbnail;
-  }
-
-  public void setThumbnail(Thumbnail thumbnail) {
-    this.thumbnail = thumbnail;
-  }
-
-  public UUID getUuid() {
-    return uuid;
-  }
-
-  public void setUuid(UUID uuid) {
-    this.uuid = uuid;
-  }
-
-  public String getManifestUri() {
-    return manifestUri;
-  }
-
-  public void setManifestUri(String manifestUri) {
-    this.manifestUri = manifestUri;
+  public void addDescription(Locale locale, String description) {
+    descriptions.put(locale, description);
   }
 
   public void addLabel(Locale locale, String label) {
     labels.put(locale, label);
   }
 
-  public String getLabel(String language) {
-    return labels.get(new Locale(language));
+  public String getAttribution(String language) {
+    return attributions.get(new Locale(language));
   }
 
-  public String getLabel(Locale locale) {
-    return labels.get(locale);
+  public String getAttribution(Locale locale) {
+    return attributions.get(locale);
   }
 
-  public HashMap<Locale, String> getLabels() {
-    return labels;
+  public HashMap<Locale, String> getAttributions() {
+    return attributions;
   }
 
-  public void setLabels(HashMap<Locale, String> labels) {
-    this.labels = labels;
-  }
-
-  public void addDescription(Locale locale, String description) {
-    descriptions.put(locale, description);
+  public void setAttributions(HashMap<Locale, String> attributions) {
+    this.attributions = attributions;
   }
 
   public String getDescription(Locale locale) {
@@ -139,23 +96,82 @@ public class IiifManifestSummary {
     this.descriptions = descriptions;
   }
 
-  public void addAttribution(Locale locale, String attribution) {
-    attributions.put(locale, attribution);
+  public String getLabel(String language) {
+    return labels.get(new Locale(language));
   }
 
-  public String getAttribution(String language) {
-    return attributions.get(new Locale(language));
+  public String getLabel(Locale locale) {
+    return labels.get(locale);
   }
 
-  public String getAttribution(Locale locale) {
-    return attributions.get(locale);
+  public HashMap<Locale, String> getLabels() {
+    return labels;
   }
 
-  public HashMap<Locale, String> getAttributions() {
-    return attributions;
+  public void setLabels(HashMap<Locale, String> labels) {
+    this.labels = labels;
   }
 
-  public void setAttributions(HashMap<Locale, String> attributions) {
-    this.attributions = attributions;
+  // public Date getCreated() {
+  // return created;
+  // }
+  //
+  // public void setCreated(Date created) {
+  // this.created = created;
+  // }
+  public Date getLastModified() {
+    return lastModified;
+  }
+
+  public void setLastModified(Date lastModified) {
+    this.lastModified = lastModified;
+  }
+
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
+
+  public String getManifestUri() {
+    return manifestUri;
+  }
+
+  public void setManifestUri(String manifestUri) {
+    this.manifestUri = manifestUri;
+  }
+
+  public Float getScore() {
+    return score;
+  }
+
+  public void setScore(Float score) {
+    this.score = score;
+  }
+
+  public Thumbnail getThumbnail() {
+    return thumbnail;
+  }
+
+  public void setThumbnail(Thumbnail thumbnail) {
+    this.thumbnail = thumbnail;
+  }
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  public void setUuid(UUID uuid) {
+    this.uuid = uuid;
+  }
+
+  public String getViewId() {
+    return viewId;
+  }
+
+  public void setViewId(String viewId) {
+    this.viewId = viewId;
   }
 }

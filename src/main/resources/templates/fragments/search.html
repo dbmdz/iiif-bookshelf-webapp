@@ -108,7 +108,7 @@
           <div class="thumbnail">
             <div class="thumbnailImage">
               <th:block th:if="${manifest.thumbnail} != null">
-                <a class="imageLink" th:href="@{/view/__${manifest.uuid}__}">
+                <a class="imageLink" th:href="@{/view/__${manifest.viewId}__}">
                   <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
                     <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
                       <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} eq 'V1_1'">
@@ -136,7 +136,7 @@
             <!--/* The caption */-->
             <div class="caption">
               <h4 class="group inner list-group-item-heading">
-                <a th:href="@{/view/__${manifest.uuid}__}"
+                <a th:href="@{/view/__${manifest.viewId}__}"
                    th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.getLabel('__${#locale.language}__') != null? manifest.getLabel('__${#locale.language}__') : manifest.labels.values().toArray()[0]})">Title</a>
               </h4>
               <p class="group inner list-group-item-text"
@@ -159,7 +159,7 @@
               <div class="row tablerow">
                 <div class="col-xs-6 col-sm-6">
                   <div>
-                    <a class="btn btn-primary" th:href="@{/view/__${manifest.uuid}__}" th:text="#{read}" style="float:left;">Read</a>
+                    <a class="btn btn-primary" th:href="@{/view/__${manifest.viewId}__}" th:text="#{read}" style="float:left;">Read</a>
                   </div>
                   <div class="iiif-logo">
                     <a class="manifest-link" th:href="${manifest.manifestUri}" target="_blank" style="float:left;"><img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" /></a>

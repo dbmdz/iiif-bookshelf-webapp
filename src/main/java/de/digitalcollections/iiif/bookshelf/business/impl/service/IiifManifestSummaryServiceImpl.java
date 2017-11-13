@@ -29,9 +29,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(IiifManifestSummaryServiceImpl.class);
-
   public static final Locale DEFAULT_LOCALE = Locale.GERMAN;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(IiifManifestSummaryServiceImpl.class);
 
   @Autowired
   private IiifManifestSummaryRepository iiifManifestSummaryRepository;
@@ -41,30 +41,6 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Autowired
   private ObjectMapper objectMapper;
-
-  @Override
-  public List<IiifManifestSummary> getAll() {
-    return iiifManifestSummaryRepository.findAllByOrderByLastModifiedDesc();
-  }
-
-  @Override
-  public Page<IiifManifestSummary> getAll(Pageable pageable) {
-    return iiifManifestSummaryRepository.findAllByOrderByLastModifiedDesc(pageable);
-  }
-
-  @Override
-  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) throws SearchSyntaxException {
-    return iiifManifestSummarySearchRepository.findBy(searchText, pageable);
-  }
-
-  @Override
-  public long countAll() {
-    return iiifManifestSummaryRepository.count();
-  }
-
-  public IiifManifestSummary get(UUID uuid) {
-    return iiifManifestSummaryRepository.findOne(uuid);
-  }
 
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
@@ -77,28 +53,8 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
-  public String getLabel(IiifManifestSummary manifestSummary, Locale locale) {
-    String result = null;
-    if (manifestSummary == null) {
-      return result;
-    }
-    result = manifestSummary.getLabel(locale);
-    if (result == null) {
-      result = manifestSummary.getLabel(DEFAULT_LOCALE);
-    }
-    if (result == null) {
-      result = (String) (manifestSummary.getLabels().values().toArray())[0];
-    }
-    return result;
-  }
-
-  @Override
-  public void reindexSearch() {
-    for (IiifManifestSummary summary : iiifManifestSummaryRepository.findAll()) {
-      // TODO: Could probably benefit from batched ingest
-      iiifManifestSummarySearchRepository.save(summary);
-    }
-
+  public long countAll() {
+    return iiifManifestSummaryRepository.count();
   }
 
   @Override
@@ -108,6 +64,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
             .findByManifestUri(manifestSummary.getManifestUri());
     if (existingManifest != null) {
       manifestSummary.setUuid(existingManifest.getUuid());
+      manifestSummary.setViewId(existingManifest.getViewId());
     }
 
     Manifest manifest = objectMapper.readValue(new URL(manifestSummary.getManifestUri()), Manifest.class);
@@ -141,6 +98,75 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     if (logoUri != null) {
       manifestSummary.setLogoUrl(logoUri.toString());
     }
+
+    if (manifestSummary.getViewId() == null) {
+      // if null: manifest not yet exists in database (see calling method "enrichAndSave")
+      // set convenience (short) viewId:
+      String uri = manifestSummary.getManifestUri();
+      String prefix = uri.substring(0, uri.indexOf("/manifest"));
+      String viewId = prefix.substring(prefix.lastIndexOf("/") + 1);
+      // check if another object with same viewId exists
+      List<IiifManifestSummary> others = iiifManifestSummaryRepository.findByViewId(viewId);
+      if (others != null) {
+        viewId += "-" + others.size();
+      }
+      manifestSummary.setViewId(viewId);
+    }
+  }
+
+  @Override
+  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) throws SearchSyntaxException {
+    return iiifManifestSummarySearchRepository.findBy(searchText, pageable);
+  }
+
+  @Override
+  public IiifManifestSummary get(String id) {
+    UUID uuid;
+    try {
+      uuid = UUID.fromString(id);
+    } catch (IllegalArgumentException e) {
+      uuid = null;
+    }
+    List<IiifManifestSummary> objects = iiifManifestSummaryRepository.findByViewIdOrUuid(id, uuid);
+    if (objects == null || objects.isEmpty()) {
+      return null;
+    }
+    if (objects.size() > 1) {
+      // TODO: or throw a (to be introduced) NotUniqueException?
+      return null;
+    }
+    return objects.get(0);
+  }
+
+  @Override
+  public IiifManifestSummary get(UUID uuid) {
+    return iiifManifestSummaryRepository.findOne(uuid);
+  }
+
+  @Override
+  public List<IiifManifestSummary> getAll() {
+    return iiifManifestSummaryRepository.findAllByOrderByLastModifiedDesc();
+  }
+
+  @Override
+  public Page<IiifManifestSummary> getAll(Pageable pageable) {
+    return iiifManifestSummaryRepository.findAllByOrderByLastModifiedDesc(pageable);
+  }
+
+  @Override
+  public String getLabel(IiifManifestSummary manifestSummary, Locale locale) {
+    String result = null;
+    if (manifestSummary == null) {
+      return result;
+    }
+    result = manifestSummary.getLabel(locale);
+    if (result == null) {
+      result = manifestSummary.getLabel(DEFAULT_LOCALE);
+    }
+    if (result == null) {
+      result = (String) (manifestSummary.getLabels().values().toArray())[0];
+    }
+    return result;
   }
 
   public HashMap<Locale, String> getLocalizedStrings(PropertyValue val) {
@@ -161,6 +187,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
               .filter(ts -> ts != null && ts.size() > 0)
               .map(ts -> ts.get(0))
               .findFirst().orElse(null);
+
     }
     if (thumb == null) {
       thumb = manifest.getDefaultSequence().getCanvases().stream()
@@ -179,5 +206,14 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     } else {
       return null;
     }
+  }
+
+  @Override
+  public void reindexSearch() {
+    for (IiifManifestSummary summary : iiifManifestSummaryRepository.findAll()) {
+      // TODO: Could probably benefit from batched ingest
+      iiifManifestSummarySearchRepository.save(summary);
+    }
+
   }
 }

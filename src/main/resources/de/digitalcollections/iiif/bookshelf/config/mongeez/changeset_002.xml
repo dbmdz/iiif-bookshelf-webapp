@@ -1,0 +1,19 @@
+<mongoChangeLog>
+
+  <changeSet changeId="Bookshelf-002" author="ralf">
+    <script>
+      db['iiif-manifest-summaries'].find().forEach(function(doc) {
+        var uri = doc.manifestUri;
+        var prefix = uri.substring(0, uri.indexOf("/manifest"));
+        var viewId = prefix.substring(prefix.lastIndexOf("/") + 1);
+        var numExisting = db['iiif-manifest-summaries'].find({'viewId': viewId}).length;
+        if (numExisting > 0) {
+          viewId += '-' + numExisting;
+        }
+        db['iiif-manifest-summaries'].update({'manifestUri': uri}, {$set: {'viewId': viewId}});
+      });
+      db['iiif-manifest-summaries'].createIndex( { 'viewId': 1 }, {unique: true});
+    </script>
+  </changeSet>
+
+</mongoChangeLog>

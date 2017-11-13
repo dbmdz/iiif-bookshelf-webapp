@@ -143,10 +143,33 @@ public class WebController extends AbstractController {
     }
   }
 
+//  @CrossOrigin(origins = "*")
+//  @RequestMapping(value = {"/view/{uuid}"}, method = RequestMethod.GET)
+//  public String viewBook(@PathVariable UUID uuid, Model model) {
+//    IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+//    model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
+//    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
+//    model.addAttribute("title", title);
+//    return "mirador/view";
+//  }
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/view/{uuid}"}, method = RequestMethod.GET)
-  public String viewBook(@PathVariable UUID uuid, Model model) {
-    IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+  @RequestMapping(value = {"/view/{id}"}, method = RequestMethod.GET)
+  public String viewObject(@PathVariable String id, Model model) {
+    IiifManifestSummary iiifManifestSummary = null;
+    UUID uuid;
+    try {
+      uuid = UUID.fromString(id);
+      iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+    } catch (IllegalArgumentException e) {
+    }
+    if (iiifManifestSummary != null) {
+      return "redirect:/view/" + iiifManifestSummary.getViewId();
+    }
+
+    iiifManifestSummary = iiifManifestSummaryService.get(id);
+    if (iiifManifestSummary == null) {
+      throw new NotFoundException();
+    }
     model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
     String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);

@@ -26,6 +26,8 @@ public interface IiifManifestSummaryService {
 
   public IiifManifestSummary get(UUID uuid);
 
+  public IiifManifestSummary get(String id);
+
   public List<IiifManifestSummary> getAll();
 
   public Page<IiifManifestSummary> getAll(Pageable pageable);

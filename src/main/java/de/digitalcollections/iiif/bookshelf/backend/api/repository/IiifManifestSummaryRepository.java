@@ -13,16 +13,19 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface IiifManifestSummaryRepository extends MongoRepository<IiifManifestSummary, UUID>, IiifManifestSummaryRepositoryCustom {
 
-  public IiifManifestSummary findByManifestUri(String manifestUri);
-
   public List<IiifManifestSummary> findAllByOrderByLastModifiedDesc();
 
   public Page<IiifManifestSummary> findAllByOrderByLastModifiedDesc(Pageable pageRequest);
 
-  public Page<IiifManifestSummary> findBy(TextCriteria criteria, Pageable page); // do not expose mongo TextCriteria to
-                                                                                 // service layer!
+  public Page<IiifManifestSummary> findBy(TextCriteria criteria, Pageable page); // do not expose mongo TextCriteria to service layer!
+
+  public IiifManifestSummary findByManifestUri(String manifestUri);
+
+  public List<IiifManifestSummary> findByUuidIn(List<UUID> uuids);
 
   public Page<IiifManifestSummary> findByUuidIn(List<UUID> uuids, Pageable page);
 
-  public List<IiifManifestSummary> findByUuidIn(List<UUID> uuids);
+  public List<IiifManifestSummary> findByViewId(String viewId);
+
+  public List<IiifManifestSummary> findByViewIdOrUuid(String viewId, UUID uuid);
 }
