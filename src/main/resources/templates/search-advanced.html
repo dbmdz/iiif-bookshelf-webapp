@@ -23,5 +23,21 @@
         </div>
       </div>
     </section>
-  </body>
+
+  <th:block layout:fragment="morejs">
+    <script type="text/javascript" th:src="@{/webjars/jquery.shorten/1.0.0/src/jquery.shorten.min.js}"></script>
+
+    <script language="javascript" th:inline="javascript">
+      /*<![CDATA[*/
+      $(document).ready(function () {
+        $(".search-result-item .list-group-item-text").shorten({
+          showChars: 150,
+          moreText: /*[[#{read_more}]]*/ 'read more',
+          lessText: /*[[#{read_less}]]*/ 'read less'
+        });
+      });
+      /*]]>*/
+    </script>
+  </th:block>
+</body>
 </html>
