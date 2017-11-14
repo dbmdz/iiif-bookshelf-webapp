@@ -43,6 +43,9 @@ public class WebController extends AbstractController {
   @Value("${custom.app.security.enabled}")
   private boolean authentication;
 
+  @Value("${custom.versions.mirador.core}")
+  private String miradorVersion;
+
   @Autowired
   private IiifCollectionService iiifCollectionService;
 
@@ -171,6 +174,7 @@ public class WebController extends AbstractController {
       throw new NotFoundException();
     }
     model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
+    model.addAttribute("miradorVersion", miradorVersion);
     String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);
     return "mirador/view";

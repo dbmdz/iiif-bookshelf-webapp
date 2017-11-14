@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
   <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/mirador/2.6.0/css/mirador-combined.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/mirador/__${miradorVersion}__/css/mirador-combined.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/dbmdz__mirador-imagecropper/2.2.1/imageCropper.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/dbmdz__mirador-manifestbutton/1.1.1/manifestButton.min.css}" />
     <style type="text/css">
@@ -22,7 +22,7 @@
     </section>
 
   <th:block layout:fragment="morejs">
-    <script th:src="@{/webjars/mirador/2.6.0/mirador.min.js}"></script>
+    <script th:src="@{/webjars/mirador/__${miradorVersion}__/mirador.min.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-imagecropper/2.2.1/imageCropper.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-keyboardnavigation/1.1.0/keyboardNavigation.min.js}"></script>
     <script th:src="@{/webjars/dbmdz__mirador-manifestbutton/1.1.1/manifestButton.min.js}"></script>
@@ -36,7 +36,7 @@
             'name': 'Local Storage',
             'module': 'LocalStorageEndpoint'
           },
-          'buildPath': /*[[@{/webjars/mirador/2.6.0/}]]*/,
+          'buildPath': /*[[@{/webjars/mirador/__${miradorVersion}__/}]]*/,
           'data': [{
             /*<![CDATA[*/
             'manifestUri': /*[[@{__${manifestId}__}]]*/
