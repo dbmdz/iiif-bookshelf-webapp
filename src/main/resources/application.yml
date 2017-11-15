@@ -11,9 +11,6 @@ custom:
     dbName: 'iiif-bookshelf'
   solr:
     collection: 'bookshelf'
-  versions:
-    mirador:
-      core: 2.6.0
 # end of custom configuration section
 
 endpoints:
