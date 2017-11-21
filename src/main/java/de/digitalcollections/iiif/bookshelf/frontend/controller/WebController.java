@@ -10,7 +10,6 @@ import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -35,14 +34,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.yaml.snakeyaml.Yaml;
 
 @Controller
 public class WebController extends AbstractController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
 
-  private Map<String, Object> miradorVersions = getMiradorVersions();
+  @Autowired
+  @Value("#{iiifVersions}")
+  private Map<String, Object> iiifVersions;
 
   @Value("${custom.app.security.enabled}")
   private boolean authentication;
@@ -174,8 +174,8 @@ public class WebController extends AbstractController {
     if (iiifManifestSummary == null) {
       throw new NotFoundException();
     }
+    model.addAttribute("iiifVersions", iiifVersions);
     model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
-    model.addAttribute("miradorVersions", miradorVersions);
     String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);
     return "mirador/view";
@@ -223,16 +223,5 @@ public class WebController extends AbstractController {
     // model.addAttribute("count", iiifManifestSummaryService.countAll());
     // model.addAttribute("infoUrl", "/iiif/image/" + identifier + "/info.json");
     return "search-advanced";
-  }
-
-  private Map<String, Object> getMiradorVersions() {
-    Map<String, Object> versions = null;
-    Yaml yaml = new Yaml();
-    try (InputStream in = this.getClass().getResourceAsStream("/mirador-versions.yml")) {
-      versions = (Map<String, Object>) yaml.load(in);
-    } catch (IOException exception) {
-      throw new IllegalStateException(exception);
-    }
-    return versions;
   }
 }

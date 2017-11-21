@@ -1,0 +1,7 @@
+---
+mirador: @version.webjar-mirador@
+mirador-imagecropper: @version.webjar-mirador-imagecropper@
+mirador-keyboardnavigation: @version.webjar-mirador-keyboardnavigation@
+mirador-manifestbutton: @version.webjar-mirador-manifestbutton@
+mirador-physicalruler: @version.webjar-mirador-physicalruler@
+mirador-viewfromurl: @version.webjar-mirador-viewfromurl@

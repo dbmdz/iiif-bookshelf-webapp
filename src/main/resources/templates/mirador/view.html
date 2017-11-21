@@ -3,9 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
   <head>
-    <link rel="stylesheet" type="text/css" th:href="@{|/webjars/mirador/${miradorVersions.core}/css/mirador-combined.css|}" />
-    <link rel="stylesheet" type="text/css" th:href="@{|/webjars/dbmdz__mirador-imagecropper/${miradorVersions.plugins.imageCropper}/imageCropper.css|}" />
-    <link rel="stylesheet" type="text/css" th:href="@{|/webjars/dbmdz__mirador-manifestbutton/${miradorVersions.plugins.manifestButton}/manifestButton.min.css|}" />
+    <link rel="stylesheet" type="text/css" th:href="@{|/webjars/mirador/${iiifVersions.mirador}/css/mirador-combined.css|}" />
+    <link rel="stylesheet" type="text/css" th:href="@{|/webjars/dbmdz__mirador-imagecropper/${iiifVersions['mirador-imagecropper']}/imageCropper.css|}" />
+    <link rel="stylesheet" type="text/css" th:href="@{|/webjars/dbmdz__mirador-manifestbutton/${iiifVersions['mirador-manifestbutton']}/manifestButton.min.css|}" />
     <style type="text/css">
       body { font-size: 14px; }
       body > div.container { width: 100% !important; }
@@ -22,12 +22,12 @@
     </section>
 
   <th:block layout:fragment="morejs">
-    <script th:src="@{|/webjars/mirador/${miradorVersions.core}/mirador.min.js|}"></script>
-    <script th:src="@{|/webjars/dbmdz__mirador-imagecropper/${miradorVersions.plugins.imageCropper}/imageCropper.js|}"></script>
-    <script th:src="@{|/webjars/dbmdz__mirador-keyboardnavigation/${miradorVersions.plugins.keyboardNavigation}/keyboardNavigation.min.js|}"></script>
-    <script th:src="@{|/webjars/dbmdz__mirador-manifestbutton/${miradorVersions.plugins.manifestButton}/manifestButton.min.js|}"></script>
-    <script th:src="@{|/webjars/dbmdz__mirador-physicalruler/${miradorVersions.plugins.physicalRuler}/physicalRuler.js|}"></script>
-    <script th:src="@{|/webjars/dbmdz__mirador-viewfromurl/${miradorVersions.plugins.viewFromUrl}/viewFromUrl.min.js|}"></script>
+    <script th:src="@{|/webjars/mirador/${iiifVersions.mirador}/mirador.min.js|}"></script>
+    <script th:src="@{|/webjars/dbmdz__mirador-imagecropper/${iiifVersions['mirador-imagecropper']}/imageCropper.js|}"></script>
+    <script th:src="@{|/webjars/dbmdz__mirador-keyboardnavigation/${iiifVersions['mirador-keyboardnavigation']}/keyboardNavigation.min.js|}"></script>
+    <script th:src="@{|/webjars/dbmdz__mirador-manifestbutton/${iiifVersions['mirador-manifestbutton']}/manifestButton.min.js|}"></script>
+    <script th:src="@{|/webjars/dbmdz__mirador-physicalruler/${iiifVersions['mirador-physicalruler']}/physicalRuler.js|}"></script>
+    <script th:src="@{|/webjars/dbmdz__mirador-viewfromurl/${iiifVersions['mirador-viewfromurl']}/viewFromUrl.min.js|}"></script>
 
     <script type="text/javascript" th:inline="javascript">
       $(function () {
@@ -36,17 +36,17 @@
             'name': 'Local Storage',
             'module': 'LocalStorageEndpoint'
           },
-          'buildPath': /*[[@{/webjars/mirador/__${miradorVersions.core}__/}]]*/,
+          'buildPath': /*[[@{|/webjars/mirador/${iiifVersions.mirador}/|}]]*/,
           'data': [{
             /*<![CDATA[*/
-            'manifestUri': /*[[@{__${manifestId}__}]]*/
+            'manifestUri': /*[[@{|${manifestId}|}]]*/
             /*]]>*/
           }],
           'id': 'viewer',
           'language': /*[[@{__${#locale.language}__}]]*/,
           'windowObjects': [{
             /*<![CDATA[*/
-            'loadedManifest': /*[[@{__${manifestId}__}]]*/
+            'loadedManifest': /*[[@{|${manifestId}|}]]*/
             /*]]>*/
           }]
         });

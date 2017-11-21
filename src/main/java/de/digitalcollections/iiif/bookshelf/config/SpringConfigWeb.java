@@ -1,8 +1,11 @@
 package de.digitalcollections.iiif.bookshelf.config;
 
 import de.digitalcollections.commons.springmvc.interceptors.CurrentUrlAsModelAttributeHandlerInterceptor;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.yaml.snakeyaml.Yaml;
 
 @Configuration
 @EnableAspectJAutoProxy
@@ -83,5 +87,26 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
   @Override
   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
     configurer.enable();
+  }
+
+  @Bean(name = "iiifVersions")
+  public Map<String, String> iiifVersions() {
+    Map<String, String> versions = null;
+    Map<String, String> customVersions;
+    Yaml yaml = new Yaml();
+    try (InputStream in = this.getClass().getResourceAsStream("/iiif-versions.yml")) {
+      versions = (Map<String, String>) yaml.load(in);
+    } catch (IOException exception) {
+      throw new IllegalStateException(exception);
+    }
+    try (InputStream in = this.getClass().getResourceAsStream("/iiif-versions-custom.yml")) {
+      customVersions = (Map<String, String>) yaml.load(in);
+      if (customVersions != null) {
+        customVersions.forEach(versions::putIfAbsent);
+      }
+    } catch (IOException exception) {
+      throw new IllegalStateException(exception);
+    }
+    return versions;
   }
 }
