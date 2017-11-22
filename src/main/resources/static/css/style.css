@@ -398,3 +398,21 @@ a.external {
 #viewer .window-manifest-title {
   height: 1.25em;
 }
+
+#viewer .metadata-listing .metadata-item {
+  padding-top: 5px;
+}
+
+#viewer .metadata-listing .metadata-label,
+#viewer .metadata-listing .metadata-value {
+  display: inline;
+}
+
+#viewer .metadata-listing .metadata-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+#viewer .metadata-listing img {
+  display: block;
+}
