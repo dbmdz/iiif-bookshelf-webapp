@@ -26,7 +26,7 @@
             // Re-initialise batch operation
             bulk = collection.initializeOrderedBulkOp();
           }*/);
-          print('Migrated ' + counter + 'documents.');
+          print('Mongeez: migrated ' + counter + ' documents.');
           // Re-initialise batch operation
           bulk = collection.initializeOrderedBulkOp();
         }
@@ -36,7 +36,7 @@
         bulk.execute();
       }
 
-      print('Migrated ' + counter + 'documents.');
+      print('Mongeez: migrated ' + counter + ' documents.');
     </script>
   </changeSet>
 
