@@ -2,17 +2,41 @@
 
   <changeSet changeId="Bookshelf-002" author="ralf">
     <script>
-      db['iiif-manifest-summaries'].find().forEach(function(doc) {
+      // Get the collection
+      var collection = db.getCollection('iiif-manifest-summaries');
+      // Initialize the Ordered Batch
+      var bulk = collection.initializeOrderedBulkOp();
+      var bulkResult;
+      // Initialize the counter
+      var counter = 0;
+
+      collection.find({'viewId': {$exists: false}}).forEach(function(doc){
         var uri = doc.manifestUri;
         var prefix = uri.substring(0, uri.indexOf("/manifest"));
         var viewId = prefix.substring(prefix.lastIndexOf("/") + 1);
-        var numExisting = db['iiif-manifest-summaries'].find({'viewId': viewId}).length;
-        if (numExisting > 0) {
-          viewId += '-' + numExisting;
+
+        bulk.find({"_id": doc._id}).updateOne({
+          '$set': {'viewId': viewId}
+        });
+
+        counter++;
+
+        if(counter % 1000 === 0 ){
+          bulkResult = bulk.execute(/*function(error, result){
+            // Re-initialise batch operation
+            bulk = collection.initializeOrderedBulkOp();
+          }*/);
+          print('Migrated ' + counter + 'documents.');
+          // Re-initialise batch operation
+          bulk = collection.initializeOrderedBulkOp();
         }
-        db['iiif-manifest-summaries'].update({'manifestUri': uri}, {$set: {'viewId': viewId}});
       });
-      db['iiif-manifest-summaries'].createIndex( { 'viewId': 1 }, {unique: true});
+
+      if(counter % 1000 !== 0 ){
+        bulk.execute();
+      }
+
+      print('Migrated ' + counter + 'documents.');
     </script>
   </changeSet>
 
