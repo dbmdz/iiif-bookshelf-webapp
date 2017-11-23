@@ -365,12 +365,6 @@ div.tablerow .lastModified {
   font-size: 0.9em;
 }
 
-a.external {
-  background: url(../images/icon_extLink16x16_blau.png) no-repeat 0 2px;
-  padding-left: 18px;
-  display: inline-block;
-}
-
 /*
  * VIEWER STUFF GOES HERE
  */
