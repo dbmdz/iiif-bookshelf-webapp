@@ -91,6 +91,8 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
    * @throws ParseException
    */
   private void fillFromManifest(Manifest manifest, IiifManifestSummary manifestSummary) throws NotFoundException {
+    // set from "@id" value to avoid using slightly different http-urls (e.g. with or without request params) pointing to same manifest
+    manifestSummary.setManifestUri(manifest.getIdentifier().toString());
     manifestSummary.setLabels(getLocalizedStrings(manifest.getLabel()));
     manifestSummary.setDescriptions(getLocalizedStrings(manifest.getDescription()));
     manifestSummary.setAttributions(getLocalizedStrings(manifest.getAttribution()));
