@@ -10,7 +10,9 @@ import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import de.digitalcollections.iiif.model.ImageContent;
 import de.digitalcollections.iiif.model.PropertyValue;
+import de.digitalcollections.iiif.model.image.ImageApiProfile;
 import de.digitalcollections.iiif.model.image.ImageService;
+import de.digitalcollections.iiif.model.openannotation.Choice;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.net.URI;
@@ -19,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,18 +104,39 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
 
     if (manifestSummary.getViewId() == null) {
+      String viewId;
       // if null: manifest not yet exists in database (see calling method "enrichAndSave")
       // set convenience (short) viewId:
       String uri = manifestSummary.getManifestUri();
-      String prefix = uri.substring(0, uri.indexOf("/manifest"));
-      String viewId = prefix.substring(prefix.lastIndexOf("/") + 1);
-      // check if another object with same viewId exists
-      List<IiifManifestSummary> others = iiifManifestSummaryRepository.findByViewId(viewId);
-      if (others != null) {
-        viewId += "-" + others.size();
+      viewId = getIdentifierFromManifestUri(uri);
+      if (viewId != null) {
+        // check if another object with same viewId exists
+        List<IiifManifestSummary> others = iiifManifestSummaryRepository.findByViewId(viewId);
+        if (others != null) {
+          viewId += "-" + others.size();
+        }
+      } else {
+        viewId = manifestSummary.getUuid().toString();
       }
+//      String prefix = uri.substring(0, uri.indexOf("/manifest"));
+//      String viewId = prefix.substring(prefix.lastIndexOf("/") + 1);
       manifestSummary.setViewId(viewId);
     }
+  }
+
+  /**
+   * try to get identifier if uri follows recommended URI pattern
+   * see http://iiif.io/api/presentation/2.1/#manifest
+   * @param uri manifest uri
+   * @return identifier or null
+   */
+  public String getIdentifierFromManifestUri(String uri) {
+    Pattern manifestUriPattern = Pattern.compile(".*/(?<identifier>.*)/manifest");
+    Matcher matcher = manifestUriPattern.matcher(uri);
+    if (matcher.matches()) {
+      return matcher.group("identifier");
+    }
+    return null;
   }
 
   @Override
@@ -190,12 +215,33 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
     }
     if (thumb == null) {
-      thumb = manifest.getDefaultSequence().getCanvases().stream()
-              .map(c -> c.getImages().get(0).getResource())
-              .map(ImageContent.class::cast)
-              .map(i -> (ImageService) i.getServices().get(0))
-              .map(s -> new ImageContent(String.format("%s/full/280,/0/default.jpg", s.getIdentifier())))
+      ImageService service = manifest.getDefaultSequence().getCanvases().get(0).getImages().stream()
+              .map(a -> {
+                if (a.getResource() instanceof ImageContent) {
+                  return (ImageContent) a.getResource();
+                } else {
+                  return (ImageContent) ((Choice) a.getResource()).getDefault();
+                }
+              })
+              .flatMap(r -> r.getServices().stream())
+              .filter(ImageService.class::isInstance)
+              .map(ImageService.class::cast)
               .findFirst().orElse(null);
+      boolean isV1 = service.getProfiles().stream()
+              .map(p -> p.getIdentifier().toString())
+              .anyMatch(ImageApiProfile.V1_PROFILES::contains);
+
+      String serviceUrl = service.getIdentifier().toString();
+      if (serviceUrl.endsWith("/")) {
+        serviceUrl = serviceUrl.substring(0, serviceUrl.length() - 1);
+      }
+      String thumbnailUrl = String.format("%s/full/280,/0/", serviceUrl);
+      if (isV1) {
+        thumbnailUrl += "native.jpg";
+      } else {
+        thumbnailUrl += "default.jpg";
+      }
+      thumb = new ImageContent(thumbnailUrl);
     }
 
     if (thumb != null && thumb.getServices() != null && thumb.getServices().size() > 0) {

@@ -102,6 +102,8 @@ public class WebController extends AbstractController {
       model.addAttribute("manifest", manifestSummary);
       model.addAttribute("errorMessage", "No Manifest was found at URL.");
       return "add";
+    } catch (Exception e) {
+      LOGGER.warn("Could not load manifest from {} because of invalid JSON", manifestSummary.getManifestUri(), e);
     }
     return "redirect:/";
   }
@@ -159,15 +161,18 @@ public class WebController extends AbstractController {
   @CrossOrigin(origins = "*")
   @RequestMapping(value = {"/view/{id}"}, method = RequestMethod.GET)
   public String viewObject(@PathVariable String id, Model model) {
-    IiifManifestSummary iiifManifestSummary = null;
-    UUID uuid;
+    IiifManifestSummary iiifManifestSummary;
+
     try {
-      uuid = UUID.fromString(id);
+      // if old bookmark with uuid, send redirect to new viewId (if exists)
+      UUID uuid = UUID.fromString(id);
       iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+      String viewId = iiifManifestSummary.getViewId();
+      if (viewId != null && !uuid.toString().equals(viewId)) {
+        return "redirect:/view/" + iiifManifestSummary.getViewId();
+      }
     } catch (IllegalArgumentException e) {
-    }
-    if (iiifManifestSummary != null) {
-      return "redirect:/view/" + iiifManifestSummary.getViewId();
+      // no uuid, so it is a viewId
     }
 
     iiifManifestSummary = iiifManifestSummaryService.get(id);

@@ -33,7 +33,7 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
     saveManifestsFromCollection(collection);
   }
 
-  private void saveManifestsFromCollection(Collection collection) {
+  private void saveManifestsFromCollection(Collection collection) throws IOException {
     // try to get list of manifests
     final List<Manifest> manifests = collection.getManifests();
     if (manifests != null) {
@@ -46,7 +46,8 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
         try {
           iiifManifestSummaryService.enrichAndSave(summary);
         } catch (Exception e) {
-          LOGGER.warn("Could not read manifest from {}", manifestUri, e);
+          LOGGER.warn("Could not read manifest from {} because of error {}", manifestUri, e.getMessage());
+          throw new IOException(e.getMessage());
         }
       }
     }
@@ -59,8 +60,8 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
         try {
           subCollection = objectMapper.readValue(new URL(subCollectionIdentifier), Collection.class);
           saveManifestsFromCollection(subCollection);
-        } catch (IOException e) {
-          LOGGER.warn("Could not read collection from {}", subCollectionIdentifier, e);
+        } catch (Exception e) {
+          LOGGER.warn("Could not read collection from {} because of error {}", subCollectionIdentifier, e.getMessage());
         }
       }
     }
