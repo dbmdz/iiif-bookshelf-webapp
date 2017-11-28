@@ -365,6 +365,10 @@ div.tablerow .lastModified {
   font-size: 0.9em;
 }
 
+.login-form .form-group.submit-button {
+  margin-bottom: 0;
+}
+
 /*
  * VIEWER STUFF GOES HERE
  */

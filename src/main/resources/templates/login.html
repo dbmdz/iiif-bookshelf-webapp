@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+  <body>
+    <section layout:fragment="content">
+      <div class="row spacer">
+        <div class="col-md-6 col-md-offset-3">
+          <h3  th:text="#{msg.please_log_in}">...</h3>
+          <div class="panel panel-default login-form">
+            <div class="panel-body">
+              <div class="alert alert-danger" th:if="${param.error}" th:text="#{msg.wrong_username_password}">...</div>
+              <form class="form-horizontal" role="form" name="input" th:action="@{/login}" method="post">
+                <div class="form-group">
+                  <label for="username" class="col-sm-3 control-label" th:text="#{username}">...</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="username" name="username" autofocus="autofocus"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password" class="col-sm-3 control-label" th:text="#{password}">...</label>
+                  <div class="col-sm-9">
+                    <input type="password" class="form-control" id="password" name="password" />
+                  </div>
+                </div>
+                <div class="form-group submit-button">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-primary" th:text="#{log_in}">...</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

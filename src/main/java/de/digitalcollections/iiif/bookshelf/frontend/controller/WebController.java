@@ -229,4 +229,9 @@ public class WebController extends AbstractController {
     // model.addAttribute("infoUrl", "/iiif/image/" + identifier + "/info.json");
     return "search-advanced";
   }
+
+  @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+  public String login() {
+    return "login";
+  }
 }

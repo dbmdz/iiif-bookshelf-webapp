@@ -71,13 +71,14 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
               .antMatcher("/add").authorizeRequests()
               .antMatchers("/add").authenticated()
               .and()
-              .formLogin();
+              .formLogin()
+              .loginPage("/login");
     }
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().anyRequest().permitAll().and().formLogin().and().httpBasic();
+    http.authorizeRequests().anyRequest().permitAll().and().formLogin().loginPage("/login").and().httpBasic();
 
     // and this line is needed so that http basic authentication with configured username and password (in application.yml) is working again
 //    http.authorizeRequests().antMatchers("/monitoring").authenticated().and().httpBasic();
