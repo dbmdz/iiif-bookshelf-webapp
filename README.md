@@ -58,7 +58,6 @@ $ docker-compose down
 * Java 8: You will need the Java Runtime Environment (JRE) version 1.8 or higher. At a command line, check your Java version with "java -version".
 * MongoDB Version: 3.2.4+
 * Apache Solr Version: 5.4.1+
-* Apache Tomcat 8.0
 
 ### Mongo DB
 
@@ -371,55 +370,17 @@ $ sudo ./bin/solr stop
 Sending stop command to Solr running on port 8983 ... waiting 5 seconds to allow Jetty process 7763 to stop gracefully.
 ```
 
-
-## Apache Tomcat
-
-* Homepage: http://tomcat.apache.org/
-* Version: 8.0.35
-
-### Installation
-
-Download Tomcat 8 and decompress it to target directory.
-
-```shell
-$ cd /opt
-$ sudo wget http://mirror.synyx.de/apache/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz
-$ sudo tar -xvfz apache-tomcat-8.0.35.tar.gz
-```
-
-### Usage
-
-Start Tomcat:
-
-```shell
-$ cd /opt/tomcat/apache-tomcat-8.0.35
-$ sudo bin/startup.sh
-```
-
-Stop Tomcat:
-```shell
-$ cd /opt/tomcat/apache-tomcat-8.0.35
-$ sudo bin/shutdown.sh
-```
-
 ## Bookshelf webapp
 
 ### Installation
 
-Build the webapp locally and copy it to server:
+Build the webapp locally and copy it to the server:
 
 ```shell
 $ cd <source_directory_bookshelf>
 $ mvn clean install
-$ scp target/iiif-bookshelf.war <user>@<server>:/tmp
+$ scp target/iiif-bookshelf-exec.jar <user>@<server>:/local
 ```
-
-Deploy Bookshelf WAR into Tomcat:
-
-```shell
-$ mv /tmp/iiif-bookshelf.war /opt/tomcat/apache-tomcat-8.0.35/webapps
-```
-
 ### Usage
 
 * To run iiif-bookshelf run Mongo DB, Solr and Tomcat.
@@ -427,15 +388,14 @@ $ mv /tmp/iiif-bookshelf.war /opt/tomcat/apache-tomcat-8.0.35/webapps
 ```shell
 # mongod --dbpath /local/mongodb/data --logpath /var/log/mongodb.log &
 # /opt/solr-5.4.1/bin/solr start -s /local/data-solr
-# /opt/apache-tomcat-8.0.35/bin/startup.sh
+# java -jar iiif-bookshelf-<version>-exec.jar
 ```
 
-Open webapp in browser: http://localhost:8080/iiif-bookshelf
+Open webapp in browser: http://<server>:8080/
 
-* To stop iiif-bookshelf stop all servers:
+* To stop iiif-bookshelf stop the Spring Boot app and all servers:
 
 ```shell
-# /opt/apache-tomcat-8.0.35/bin/shutdown.sh
 # /opt/solr-5.4.1/bin/solr stop -s /local/data-solr
 # mongod --dbpath /local/mongodb/data --shutdown
 ```
@@ -475,7 +435,7 @@ To install SimpleAnnotationServer run the following commands in Linux:
 
   ```
 
-Check at  http://localhost:8888/index.html wheter the server has started. After that one can write annotations from IIIF Bookshelf Webapp.
+Check at  http://localhost:8888/index.html whether the server has started. After that one can write annotations from IIIF Bookshelf Webapp.
 
 # FAQ
 
