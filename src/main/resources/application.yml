@@ -31,12 +31,12 @@ info:
 
 management:
   context-path: '/monitoring'
-  port: 9001
+  port: 8081
   security:
     enabled: true
     roles: 'ACTUATOR, USER'
     # ACTUATOR is default, but we add USER as workaround for not working application.yml name/password
-    
+
 security:
   headers:
     cache: false
@@ -77,6 +77,7 @@ custom:
       password: Hopfenzeitung
 
 management:
+  port: 9001
   security:
     enabled: true
 
