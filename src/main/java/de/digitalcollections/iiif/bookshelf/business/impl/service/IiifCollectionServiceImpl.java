@@ -47,7 +47,6 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
           iiifManifestSummaryService.enrichAndSave(summary);
         } catch (Exception e) {
           LOGGER.warn("Could not read manifest from {} because of error {}", manifestUri, e.getMessage());
-          throw new IOException(e.getMessage());
         }
       }
     }
