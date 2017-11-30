@@ -16,13 +16,18 @@ import de.digitalcollections.iiif.model.openannotation.Choice;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import javax.xml.bind.DatatypeConverter;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +76,11 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       manifestSummary.setViewId(existingManifest.getViewId());
     }
 
-    Manifest manifest = objectMapper.readValue(new URL(manifestSummary.getManifestUri()), Manifest.class);
+    String url = manifestSummary.getManifestUri();
+    HttpClient httpClient = HttpClientBuilder.create().build();
+    HttpGet httpGet = new HttpGet(url);
+    HttpResponse response = httpClient.execute(httpGet);
+    Manifest manifest = objectMapper.readValue(response.getEntity().getContent(), Manifest.class);
     fillFromManifest(manifest, manifestSummary);
     iiifManifestSummaryRepository.save(manifestSummary);
     iiifManifestSummarySearchRepository.save(manifestSummary);
@@ -79,16 +88,10 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   /**
-   * Language may be associated with strings that are intended to be displayed to the user with the following pattern of
-   *
-   * @value plus the RFC 5646 code in
-   *
-   *        @language, instead of a plain string. This pattern may be used in label, description, attribution and the
-   *        label and value fields of the metadata construction.
-   *
-   * @param manifestSummary
-   * @throws NotFoundException
-   * @throws ParseException
+   * Language may be associated with strings that are intended to be displayed to the user with
+   * the following pattern of &#64;value plus the RFC 5646 code in &#64;language, instead of a plain string.
+   * This pattern may be used in label, description, attribution and the label and value fields of the
+   * metadata construction.
    */
   private void fillFromManifest(Manifest manifest, IiifManifestSummary manifestSummary) throws NotFoundException {
     // set from "@id" value to avoid using slightly different http-urls (e.g. with or without request params) pointing to same manifest
@@ -106,39 +109,26 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
 
     if (manifestSummary.getViewId() == null) {
-      String viewId;
-      // if null: manifest not yet exists in database (see calling method "enrichAndSave")
-      // set convenience (short) viewId:
-      String uri = manifestSummary.getManifestUri();
-      viewId = getIdentifierFromManifestUri(uri);
-      if (viewId != null) {
-        // check if another object with same viewId exists
-        List<IiifManifestSummary> others = iiifManifestSummaryRepository.findByViewId(viewId);
-        if (others != null && !others.isEmpty()) {
-          viewId += "-" + others.size();
-        }
-      } else {
-        viewId = manifestSummary.getUuid().toString();
-      }
-//      String prefix = uri.substring(0, uri.indexOf("/manifest"));
-//      String viewId = prefix.substring(prefix.lastIndexOf("/") + 1);
+      String viewId = getViewId(manifestSummary);
       manifestSummary.setViewId(viewId);
     }
   }
 
-  /**
-   * try to get identifier if uri follows recommended URI pattern
-   * see http://iiif.io/api/presentation/2.1/#manifest
-   * @param uri manifest uri
-   * @return identifier or null
-   */
-  public String getIdentifierFromManifestUri(String uri) {
-    Pattern manifestUriPattern = Pattern.compile(".*/(?<identifier>.*)/manifest");
-    Matcher matcher = manifestUriPattern.matcher(uri);
-    if (matcher.matches()) {
-      return matcher.group("identifier");
+  protected String getViewId(IiifManifestSummary manifestSummary) {
+    // if sha-1 leads to not unique collisions, use this:
+    // return = manifestSummary.getUuid().toString();
+
+    // create a short reasonable unique view id
+    try {
+      String viewId = manifestSummary.getManifestUri();
+      MessageDigest digest = MessageDigest.getInstance("SHA-1");
+      byte[] sha1 = digest.digest(viewId.getBytes(StandardCharsets.UTF_8));
+      viewId = DatatypeConverter.printHexBinary(sha1);
+      return viewId.substring(0, 8);
+    } catch (NoSuchAlgorithmException ex) {
+      // if it does not work, just use uuid (which is longer)
+      return manifestSummary.getUuid().toString();
     }
-    return null;
   }
 
   @Override
