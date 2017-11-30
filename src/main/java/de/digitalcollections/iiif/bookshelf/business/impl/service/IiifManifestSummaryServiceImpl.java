@@ -68,19 +68,19 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Override
   public void enrichAndSave(IiifManifestSummary manifestSummary) throws NotFoundException, IOException {
-    // if exists already: update existing manifest
-    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
-            .findByManifestUri(manifestSummary.getManifestUri());
-    if (existingManifest != null) {
-      manifestSummary.setUuid(existingManifest.getUuid());
-      manifestSummary.setViewId(existingManifest.getViewId());
-    }
-
     String url = manifestSummary.getManifestUri();
     HttpClient httpClient = HttpClientBuilder.create().build();
     HttpGet httpGet = new HttpGet(url);
     HttpResponse response = httpClient.execute(httpGet);
     Manifest manifest = objectMapper.readValue(response.getEntity().getContent(), Manifest.class);
+
+    // if exists already: update existing manifest
+    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifest.getIdentifier().toString());
+    if (existingManifest != null) {
+      manifestSummary.setUuid(existingManifest.getUuid());
+      manifestSummary.setViewId(existingManifest.getViewId());
+    }
+
     fillFromManifest(manifest, manifestSummary);
     iiifManifestSummaryRepository.save(manifestSummary);
     iiifManifestSummarySearchRepository.save(manifestSummary);
