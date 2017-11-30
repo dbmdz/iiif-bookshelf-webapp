@@ -114,7 +114,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       if (viewId != null) {
         // check if another object with same viewId exists
         List<IiifManifestSummary> others = iiifManifestSummaryRepository.findByViewId(viewId);
-        if (others != null) {
+        if (others != null && !others.isEmpty()) {
           viewId += "-" + others.size();
         }
       } else {
