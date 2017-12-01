@@ -1,0 +1,9 @@
+<mongoChangeLog>
+
+  <changeSet changeId="Bookshelf-003" author="matthias">
+    <script>
+       db['iiif-manifest-summaries'].createIndex( { "viewId": 1 }, { unique: true } );
+    </script>
+  </changeSet>
+
+</mongoChangeLog>
