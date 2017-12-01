@@ -144,8 +144,9 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
 
     SolrInputDocument doc = new SolrInputDocument();
     doc.addField("id", manifestSummary.getUuid().toString());
-    // doc.addField("manifesturi_key", manifestSummary.getManifestUri());
+    doc.addField("manifesturi_keu", manifestSummary.getManifestUri());
     String[] uri = manifestSummary.getManifestUri().split("/");
+    // FIXME: just works with recommended url pattern (see http://iiif.io/api/presentation/2.1/#a-summary-of-recommended-uri-patterns)
     doc.addField("identifier_str", uri[uri.length - 2]);
 
     for (Entry<Locale, String> e : manifestSummary.getLabels().entrySet()) {
@@ -197,7 +198,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     String trimmedQuery = escapeUnwantedSpecialChars(text);
 
     query.set("defType", "edismax");
-    query.set("qf", "text identifier_str");
+    query.set("qf", "text identifier_str manifesturi_keu");
     query.setQuery(trimmedQuery);
     query.setFields("id");
 

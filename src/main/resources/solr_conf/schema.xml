@@ -100,6 +100,7 @@
     <dynamicField name="*_txt" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
     <dynamicField name="*_str" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
     <dynamicField name="*_fct" type="facet" indexed="true" stored="false" required="false" multiValued="true"/>
+    <dynamicField name="*_keu" type="string" indexed="true" stored="true" required="false" multiValued="false"/>
     <field name="text" type="text" indexed="true" stored="false" required="false" multiValued="true"/>
     <copyField source="*_txt" dest="text"/>
 
