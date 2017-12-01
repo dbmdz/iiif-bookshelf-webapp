@@ -50,6 +50,7 @@ public class IiifManifestSummary {
   @Id
   private UUID uuid = UUID.randomUUID();
 
+  @Indexed(unique = true)
   private String viewId;
 
   public void addAttribution(Locale locale, String attribution) {
