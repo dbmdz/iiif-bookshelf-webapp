@@ -10,6 +10,7 @@ import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -93,12 +94,12 @@ public class WebController extends AbstractController {
     try {
       iiifManifestSummaryService.enrichAndSave(manifestSummary);
     } catch (IOException e) {
-      LOGGER.error("Could not load manifest from {} because of malformed JSON", manifestSummary.getManifestUri(), e);
+      LOGGER.warn("Could not load manifest from {} because of malformed JSON", manifestSummary.getManifestUri(), e);
       model.addAttribute("manifest", manifestSummary);
       model.addAttribute("errorMessage", "Manifest at URL contains malformed JSON.");
       return "add";
     } catch (NotFoundException e) {
-      LOGGER.error("Could not find manifest at {}", manifestSummary.getManifestUri(), e);
+      LOGGER.warn("Could not find manifest at {}", manifestSummary.getManifestUri(), e);
       model.addAttribute("manifest", manifestSummary);
       model.addAttribute("errorMessage", "No Manifest was found at URL.");
       return "add";
@@ -112,10 +113,10 @@ public class WebController extends AbstractController {
   public String addCollection(IiifManifestSummary manifestSummary, Model model) {
     try {
       iiifCollectionService.importAllObjects(manifestSummary);
-    } catch (IOException e) {
-      LOGGER.error("Could not load manifest from {} because of malformed Url/JSON", manifestSummary.getManifestUri(), e);
+    } catch (Exception e) {
+      LOGGER.warn("Could not load collection manifest from {} because of malformed Url/JSON", manifestSummary.getManifestUri(), e);
       model.addAttribute("manifest", manifestSummary);
-      model.addAttribute("errorMessage", "Manifest at URL contains malformed JSON or does not exist.");
+      model.addAttribute("errorMessage", "Collection manifest at URL contains malformed JSON or does not exist.");
       return "add";
     }
     return "redirect:/";
@@ -130,9 +131,11 @@ public class WebController extends AbstractController {
       iiifManifestSummaryService.enrichAndSave(summary);
       return summary;
     } catch (IOException e) {
-      throw new ApiException("Invalid JSON at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
-    } catch (NotFoundException e) {
-      throw new ApiException("No manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
+      LOGGER.warn("IOException for manifest at {}: ", manifestUri, e);
+      throw new ApiException("Invalid manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
+    } catch (NotFoundException | URISyntaxException e) {
+      LOGGER.warn("Exception for manifest at {}: ", manifestUri, e);
+      throw new ApiException("No manifest at URL '" + manifestUri + "'", HttpStatus.NOT_FOUND);
     }
   }
 
@@ -145,7 +148,10 @@ public class WebController extends AbstractController {
       iiifCollectionService.importAllObjects(summary);
       return true;
     } catch (IOException e) {
-      throw new ApiException("Invalid manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
+      LOGGER.warn("IOException for collection at {}: ", manifestUri, e);
+      throw new ApiException("Invalid collection manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
+    } catch (URISyntaxException e) {
+      throw new ApiException("No collection manifest at URL '" + manifestUri + "'", HttpStatus.NOT_FOUND);
     }
   }
 

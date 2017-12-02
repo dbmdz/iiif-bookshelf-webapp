@@ -4,6 +4,7 @@ import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -20,7 +21,7 @@ public interface IiifManifestSummaryService {
 
   public long countAll();
 
-  public void enrichAndSave(IiifManifestSummary manifestSummary) throws NotFoundException, IOException;
+  public void enrichAndSave(IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, IOException;
 
   public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) throws SearchSyntaxException;
 

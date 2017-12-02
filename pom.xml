@@ -141,6 +141,10 @@
       <version>${version.jackson}</version>
     </dependency>
     <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.moelholm</groupId>
       <artifactId>prometheus-spring-boot-starter</artifactId>
       <version>${version.prometheus-spring-boot-starter}</version>

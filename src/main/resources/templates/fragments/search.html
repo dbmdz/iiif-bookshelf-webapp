@@ -112,17 +112,20 @@
                   <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
                     <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} != null">
                       <th:block th:if="${manifest.thumbnail.iiifImageApiVersion} eq 'V1_1'">
-                        <img class="list-group-image"
-                             th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/native.jpg|"/>
+                        <img class="list-group-image" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/native.jpg|"/>
                       </th:block>
                       <th:block th:if="${manifest.thumbnail.iiifImageApiVersion.name()} eq 'V2'">
-                        <img class="list-group-image"
-                             th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/default.jpg|"/>
+                        <img class="list-group-image" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/default.jpg|"/>
                       </th:block>
                     </th:block>
                   </th:block>
                   <th:block th:unless="${manifest.thumbnail.iiifImageApiVersion} != null">
-                    <img class="list-group-image" th:src="|${manifest.thumbnail.url}|"/>
+                    <th:block th:if="${manifest.thumbnail.url} != null">
+                      <img class="list-group-image" th:src="|${manifest.thumbnail.url}|"/>
+                    </th:block>
+                    <th:block th:if="${manifest.thumbnail.url} == null and ${manifest.thumbnail.iiifImageServiceUri} != null">
+                      <img class="list-group-image" th:src="|${manifest.thumbnail.iiifImageServiceUri}/full/280,/0/native.jpg|"/>
+                    </th:block>
                   </th:block>
                 </a>
               </th:block>

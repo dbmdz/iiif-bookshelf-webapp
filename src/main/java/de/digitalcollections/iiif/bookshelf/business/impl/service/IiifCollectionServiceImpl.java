@@ -1,14 +1,12 @@
 package de.digitalcollections.iiif.bookshelf.business.impl.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifCollectionService;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSummaryService;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URISyntaxException;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +22,11 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
   private IiifManifestSummaryService iiifManifestSummaryService;
 
   @Autowired
-  private ObjectMapper objectMapper;
+  private StrictCollectionParser strictCollectionParser;
 
   @Override
-  public void importAllObjects(IiifManifestSummary manifestSummary) throws MalformedURLException, IOException {
-    final String manifestUri = manifestSummary.getManifestUri();
-    Collection collection = objectMapper.readValue(new URL(manifestUri), Collection.class);
+  public void importAllObjects(IiifManifestSummary manifestSummary) throws URISyntaxException, IOException {
+    Collection collection = strictCollectionParser.parse(manifestSummary.getManifestUri());
     saveManifestsFromCollection(collection);
   }
 
@@ -57,7 +54,7 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
       for (Collection subCollection : subCollections) {
         final String subCollectionIdentifier = subCollection.getIdentifier().toString();
         try {
-          subCollection = objectMapper.readValue(new URL(subCollectionIdentifier), Collection.class);
+          subCollection = strictCollectionParser.parse(subCollectionIdentifier);
           saveManifestsFromCollection(subCollection);
         } catch (Exception e) {
           LOGGER.warn("Could not read collection from {} because of error {}", subCollectionIdentifier, e.getMessage());

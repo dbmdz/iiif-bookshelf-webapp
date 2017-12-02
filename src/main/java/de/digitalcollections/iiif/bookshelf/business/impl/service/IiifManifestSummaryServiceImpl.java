@@ -1,36 +1,24 @@
 package de.digitalcollections.iiif.bookshelf.business.impl.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummaryRepository;
 import de.digitalcollections.iiif.bookshelf.backend.api.repository.IiifManifestSummarySearchRepository;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSummaryService;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
-import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
-import de.digitalcollections.iiif.model.ImageContent;
-import de.digitalcollections.iiif.model.PropertyValue;
-import de.digitalcollections.iiif.model.image.ImageApiProfile;
-import de.digitalcollections.iiif.model.image.ImageService;
-import de.digitalcollections.iiif.model.openannotation.Choice;
-import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
-import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import javax.xml.bind.DatatypeConverter;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,7 +37,13 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   private IiifManifestSummarySearchRepository iiifManifestSummarySearchRepository;
 
   @Autowired
-  private ObjectMapper objectMapper;
+  private GraciousManifestParser graciousManifestParser;
+
+  @Autowired
+  private StrictManifestParser strictManifestParser;
+
+  @Value("${custom.iiif.graciousParsing}")
+  private boolean graciousParsing;
 
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
@@ -67,54 +61,41 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
-  public void enrichAndSave(IiifManifestSummary manifestSummary) throws NotFoundException, IOException {
-    String url = manifestSummary.getManifestUri();
-    HttpClient httpClient = HttpClientBuilder.create().build();
-    HttpGet httpGet = new HttpGet(url);
-    HttpResponse response = httpClient.execute(httpGet);
-    Manifest manifest = objectMapper.readValue(response.getEntity().getContent(), Manifest.class);
-
-    // if exists already: update existing manifest
-    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifest.getIdentifier().toString());
-    if (existingManifest != null) {
-      manifestSummary.setUuid(existingManifest.getUuid());
-      manifestSummary.setViewId(existingManifest.getViewId());
+  public void enrichAndSave(IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, IOException {
+    try {
+      strictManifestParser.fillSummary(manifestSummary);
+    } catch (Exception ex) {
+      if (graciousParsing) {
+        // Manifest might not be standard conform. Nevertheless we just want some values from it to form a short summary.
+        // As long viewer can handle the manifest, we are fine to show it.
+        LOGGER.warn("Manifest at uri {} might be not standard conform, trying gracious parsing.", manifestSummary.getManifestUri(), ex);
+        graciousManifestParser.fillSummary(manifestSummary);
+      } else {
+        throw ex;
+      }
     }
 
-    fillFromManifest(manifest, manifestSummary);
+    // add system specific unique view id for shorter viewer urls.
+    String viewId = getViewId(manifestSummary);
+    manifestSummary.setViewId(viewId);
+    // manifestUri now set to field @id of manifest.
+    // no longer might be the same value as from user input (could have been redirected...). now it is save to use it as unique key for lookup:
+    prepareUpdateIfAlreadyExists(manifestSummary.getManifestUri(), manifestSummary);
     iiifManifestSummaryRepository.save(manifestSummary);
     iiifManifestSummarySearchRepository.save(manifestSummary);
     LOGGER.info("successfully imported and indexed {}", manifestSummary.getManifestUri());
   }
 
-  /**
-   * Language may be associated with strings that are intended to be displayed to the user with
-   * the following pattern of &#64;value plus the RFC 5646 code in &#64;language, instead of a plain string.
-   * This pattern may be used in label, description, attribution and the label and value fields of the
-   * metadata construction.
-   */
-  private void fillFromManifest(Manifest manifest, IiifManifestSummary manifestSummary) throws NotFoundException {
-    // set from "@id" value to avoid using slightly different http-urls (e.g. with or without request params) pointing to same manifest
-    manifestSummary.setManifestUri(manifest.getIdentifier().toString());
-    manifestSummary.setLabels(getLocalizedStrings(manifest.getLabel()));
-    manifestSummary.setDescriptions(getLocalizedStrings(manifest.getDescription()));
-    manifestSummary.setAttributions(getLocalizedStrings(manifest.getAttribution()));
-
-    Thumbnail thumbnail = getThumbnail(manifest);
-    manifestSummary.setThumbnail(thumbnail);
-
-    URI logoUri = manifest.getLogoUri();
-    if (logoUri != null) {
-      manifestSummary.setLogoUrl(logoUri.toString());
-    }
-
-    if (manifestSummary.getViewId() == null) {
-      String viewId = getViewId(manifestSummary);
-      manifestSummary.setViewId(viewId);
+  private void prepareUpdateIfAlreadyExists(final String manifestIdentifier, IiifManifestSummary manifestSummary) {
+    // if exists already: set/overwrite unique fields to values of existing summary to enforce update instead of insert
+    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestIdentifier);
+    if (existingManifest != null) {
+      manifestSummary.setUuid(existingManifest.getUuid());
+      manifestSummary.setViewId(existingManifest.getViewId());
     }
   }
 
-  protected String getViewId(IiifManifestSummary manifestSummary) {
+  private String getViewId(IiifManifestSummary manifestSummary) {
     // if sha-1 leads to not unique collisions, use this:
     // return = manifestSummary.getUuid().toString();
 
@@ -184,66 +165,6 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       result = (String) (manifestSummary.getLabels().values().toArray())[0];
     }
     return result;
-  }
-
-  public HashMap<Locale, String> getLocalizedStrings(PropertyValue val) {
-    HashMap<Locale, String> strings = new HashMap<>();
-    if (val != null) {
-      val.getLocalizations().forEach(l -> strings.put(l, val.getFirstValue(l)));
-    }
-    return strings;
-  }
-
-  private Thumbnail getThumbnail(Manifest manifest) {
-    ImageContent thumb;
-    if (manifest.getThumbnails() != null && manifest.getThumbnails().size() > 0) {
-      thumb = manifest.getThumbnail();
-    } else {
-      thumb = manifest.getDefaultSequence().getCanvases().stream()
-              .map(c -> c.getThumbnails())
-              .filter(ts -> ts != null && ts.size() > 0)
-              .map(ts -> ts.get(0))
-              .findFirst().orElse(null);
-
-    }
-    if (thumb == null) {
-      ImageService service = manifest.getDefaultSequence().getCanvases().get(0).getImages().stream()
-              .map(a -> {
-                if (a.getResource() instanceof ImageContent) {
-                  return (ImageContent) a.getResource();
-                } else {
-                  return (ImageContent) ((Choice) a.getResource()).getDefault();
-                }
-              })
-              .flatMap(r -> r.getServices().stream())
-              .filter(ImageService.class::isInstance)
-              .map(ImageService.class::cast)
-              .findFirst().orElse(null);
-      boolean isV1 = service.getProfiles().stream()
-              .map(p -> p.getIdentifier().toString())
-              .anyMatch(ImageApiProfile.V1_PROFILES::contains);
-
-      String serviceUrl = service.getIdentifier().toString();
-      if (serviceUrl.endsWith("/")) {
-        serviceUrl = serviceUrl.substring(0, serviceUrl.length() - 1);
-      }
-      String thumbnailUrl = String.format("%s/full/280,/0/", serviceUrl);
-      if (isV1) {
-        thumbnailUrl += "native.jpg";
-      } else {
-        thumbnailUrl += "default.jpg";
-      }
-      thumb = new ImageContent(thumbnailUrl);
-    }
-
-    if (thumb != null && thumb.getServices() != null && thumb.getServices().size() > 0) {
-      de.digitalcollections.iiif.model.Service service = thumb.getServices().get(0);
-      return new Thumbnail(service.getContext().toString(), service.getIdentifier().toString());
-    } else if (thumb != null) {
-      return new Thumbnail(thumb.getIdentifier().toString());
-    } else {
-      return null;
-    }
   }
 
   @Override

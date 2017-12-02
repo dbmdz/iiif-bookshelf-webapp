@@ -1,0 +1,2989 @@
+{
+  "@id": "http://manifests.ydc2.yale.edu/manifest/BlakeCopyL",
+  "@type": "sc:Manifest",
+  "label": "Songs of Innocence and of Experience, Copy L",
+  "sequences": [{
+      "@id": "http://manifests.ydc2.yale.edu/sequence/BlakeCopyL",
+      "@type": "sc:Sequence",
+      "canvases": [{
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3999",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/ff78a8c8-d85a-4fc5-9c11-1307831bded0",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/ff78a8c8-d85a-4fc5-9c11-1307831bded0/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3999",
+                "label": "Front Cover",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/ff78a8c8-d85a-4fc5-9c11-1307831bded0/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2851"
+              }
+            }],
+          "label": "Front Cover",
+          "width": "2851"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0007-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "4029",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/f2c1d67c-b84b-47be-8b4d-a91977f41a93",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0007-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/f2c1d67c-b84b-47be-8b4d-a91977f41a93/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "4029",
+                "label": "Endpaper, glued",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/f2c1d67c-b84b-47be-8b4d-a91977f41a93/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2963"
+              }
+            }],
+          "label": "Endpaper, glued",
+          "width": "2963"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0008-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3975",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/014b5f62-e7f3-44ef-85d6-a37c493a49d6",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0008-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/014b5f62-e7f3-44ef-85d6-a37c493a49d6/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3975",
+                "label": "Endpaper, free, recto",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/014b5f62-e7f3-44ef-85d6-a37c493a49d6/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2939"
+              }
+            }],
+          "label": "Endpaper, free, recto",
+          "width": "2939"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0018-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3438",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/7dc1d101-0705-483c-89aa-696225647e82",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0018-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/7dc1d101-0705-483c-89aa-696225647e82/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3438",
+                "label": "Endpaper, free, verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/7dc1d101-0705-483c-89aa-696225647e82/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2345"
+              }
+            }],
+          "label": "Endpaper, free, verso",
+          "width": "2345"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0019-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3420",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/cca9baf0-0ea5-4b0d-ba6c-aa46dbd7a001",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0019-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/cca9baf0-0ea5-4b0d-ba6c-aa46dbd7a001/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3420",
+                "label": "blank page, recto",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/cca9baf0-0ea5-4b0d-ba6c-aa46dbd7a001/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2339"
+              }
+            }],
+          "label": "blank page, recto",
+          "width": "2339"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0020-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3407",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/8ec97420-4b0f-4dfa-94a9-94393479ae66",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0020-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/8ec97420-4b0f-4dfa-94a9-94393479ae66/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3407",
+                "label": "blank page, verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/8ec97420-4b0f-4dfa-94a9-94393479ae66/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2297"
+              }
+            }],
+          "label": "blank page, verso",
+          "width": "2297"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0021-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3425",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/7166abfb-89e3-427e-b1af-2cdd3b1004d4",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0021-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/7166abfb-89e3-427e-b1af-2cdd3b1004d4/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3425",
+                "label": "blank page, recto",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/7166abfb-89e3-427e-b1af-2cdd3b1004d4/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2309"
+              }
+            }],
+          "label": "blank page, recto",
+          "width": "2309"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0011-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3660",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/e9462bf0-0d7a-4c39-818b-8c077094b5a7",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0011-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/e9462bf0-0d7a-4c39-818b-8c077094b5a7/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3660",
+                "label": "blank page, verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/e9462bf0-0d7a-4c39-818b-8c077094b5a7/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "blank page, verso",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3727-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3677",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/667ad5cd-ab74-40ab-803e-3a3b3b702a8d",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3727-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/667ad5cd-ab74-40ab-803e-3a3b3b702a8d/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3677",
+                "label": "B1992.8.13(1) recto (blank except for graphite notes) ",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/667ad5cd-ab74-40ab-803e-3a3b3b702a8d/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2453"
+              }
+            }],
+          "label": "B1992.8.13(1) recto (blank except for graphite notes) ",
+          "width": "2453"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3727-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3702",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/3996465e-0078-4009-b299-2b4c03b35f9b",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3727-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/3996465e-0078-4009-b299-2b4c03b35f9b/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3702",
+                "label": "B1992.8.13(1) verso (frontispiece)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/3996465e-0078-4009-b299-2b4c03b35f9b/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2459"
+              }
+            }],
+          "label": "B1992.8.13(1) verso (frontispiece)",
+          "width": "2459"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3739-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3664",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/7c474f8c-4904-494f-a0a6-f27328402c94",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3739-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/7c474f8c-4904-494f-a0a6-f27328402c94/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3664",
+                "label": "B1992.8.13(2) recto  Songs of Innocence and of Experience - combined title page",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/7c474f8c-4904-494f-a0a6-f27328402c94/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "B1992.8.13(2) recto  Songs of Innocence and of Experience - combined title page",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3739-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3654",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/9b19997a-d215-496c-b0b7-b1e9bb9412dd",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3739-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/9b19997a-d215-496c-b0b7-b1e9bb9412dd/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3654",
+                "label": "B1992.8.13(2) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/9b19997a-d215-496c-b0b7-b1e9bb9412dd/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2460"
+              }
+            }],
+          "label": "B1992.8.13(2) verso (blank)",
+          "width": "2460"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3750-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3702",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/14c9c41c-f21a-455e-8788-8b32c02bcc7b",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3750-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/14c9c41c-f21a-455e-8788-8b32c02bcc7b/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3702",
+                "label": "B1992.8.13(3) recto  Songs of Innocence Title Page",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/14c9c41c-f21a-455e-8788-8b32c02bcc7b/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2436"
+              }
+            }],
+          "label": "B1992.8.13(3) recto  Songs of Innocence Title Page",
+          "width": "2436"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3750-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3640",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/cde8eeb7-239d-4101-ace9-c014e9c21947",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3750-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/cde8eeb7-239d-4101-ace9-c014e9c21947/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3640",
+                "label": "B1992.8.13(3) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/cde8eeb7-239d-4101-ace9-c014e9c21947/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2436"
+              }
+            }],
+          "label": "B1992.8.13(3) verso (blank)",
+          "width": "2436"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3761-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3706",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/cb8b59f5-5668-4fe9-af08-84a050096112",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3761-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/cb8b59f5-5668-4fe9-af08-84a050096112/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3706",
+                "label": "B1992.8.13(4) recto  Plate 4, \"Introduction\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/cb8b59f5-5668-4fe9-af08-84a050096112/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(4) recto  Plate 4, \"Introduction\"",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3761-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3650",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/b1486dca-ad5c-4042-b400-57a3ae528755",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3761-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/b1486dca-ad5c-4042-b400-57a3ae528755/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3650",
+                "label": "B1992.8.13(4) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/b1486dca-ad5c-4042-b400-57a3ae528755/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "B1992.8.13(4) verso (blank)",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3772-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3700",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/93b7e4e2-0207-4376-a46b-311db5e1239e",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3772-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/93b7e4e2-0207-4376-a46b-311db5e1239e/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3700",
+                "label": "B1992.8.13(5) recto  Plate 5, \"The Ecchoing Green\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/93b7e4e2-0207-4376-a46b-311db5e1239e/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2400"
+              }
+            }],
+          "label": "B1992.8.13(5) recto  Plate 5, \"The Ecchoing Green\"",
+          "width": "2400"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3772-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3696",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/ca81497e-9d86-4916-9aeb-7bd48f75d1dc",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3772-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/ca81497e-9d86-4916-9aeb-7bd48f75d1dc/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3696",
+                "label": "B1992.8.13(5) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/ca81497e-9d86-4916-9aeb-7bd48f75d1dc/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2370"
+              }
+            }],
+          "label": "B1992.8.13(5) verso (blank)",
+          "width": "2370"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3778-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3714",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/e27edbf7-e8a2-477d-89fb-da4bbd56dd6e",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3778-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/e27edbf7-e8a2-477d-89fb-da4bbd56dd6e/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3714",
+                "label": "B1992.8.13(6) recto   Plate 6, \"The Ecchoing Green\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/e27edbf7-e8a2-477d-89fb-da4bbd56dd6e/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2418"
+              }
+            }],
+          "label": "B1992.8.13(6) recto   Plate 6, \"The Ecchoing Green\"",
+          "width": "2418"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3778-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3660",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/0e1288ef-04e8-4a53-902c-4151e46411ad",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3778-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/0e1288ef-04e8-4a53-902c-4151e46411ad/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3660",
+                "label": "B1992.8.13(6) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/0e1288ef-04e8-4a53-902c-4151e46411ad/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2418"
+              }
+            }],
+          "label": "B1992.8.13(6) verso (blank)",
+          "width": "2418"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3779-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3708",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/e16eeea2-12ab-4297-8857-5b29ee55e0ed",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3779-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/e16eeea2-12ab-4297-8857-5b29ee55e0ed/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3708",
+                "label": "B1992.8.13(7) recto  Plate7, \"The Chimney Sweeper\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/e16eeea2-12ab-4297-8857-5b29ee55e0ed/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2437"
+              }
+            }],
+          "label": "B1992.8.13(7) recto  Plate7, \"The Chimney Sweeper\"",
+          "width": "2437"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3779-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3672",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/be858d43-b8fd-4946-8d29-980445061006",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3779-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/be858d43-b8fd-4946-8d29-980445061006/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3672",
+                "label": "B1992.8.13(7) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/be858d43-b8fd-4946-8d29-980445061006/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2442"
+              }
+            }],
+          "label": "B1992.8.13(7) verso (blank)",
+          "width": "2442"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3780-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3714",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/409dcc2d-a425-43f4-8c50-0740d624f673",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3780-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/409dcc2d-a425-43f4-8c50-0740d624f673/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3714",
+                "label": "B1992.8.13(8)recto  Plate 8, \"The Little Black Boy\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/409dcc2d-a425-43f4-8c50-0740d624f673/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "B1992.8.13(8)recto  Plate 8, \"The Little Black Boy\"",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3780-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3663",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/512b6805-1929-43a1-9891-648f7651bbd8",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3780-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/512b6805-1929-43a1-9891-648f7651bbd8/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3663",
+                "label": "B1992.8.13(8) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/512b6805-1929-43a1-9891-648f7651bbd8/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2448"
+              }
+            }],
+          "label": "B1992.8.13(8) verso (blank)",
+          "width": "2448"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3781-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3712",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/921347be-56bb-4f0c-ae82-876b90b67d5f",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3781-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/921347be-56bb-4f0c-ae82-876b90b67d5f/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3712",
+                "label": "B1992.8.13(9) recto  Plate 9, \"The Little Black Boy\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/921347be-56bb-4f0c-ae82-876b90b67d5f/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2460"
+              }
+            }],
+          "label": "B1992.8.13(9) recto  Plate 9, \"The Little Black Boy\"",
+          "width": "2460"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3781-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3661",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/46d05d0e-e181-4844-a3e8-6fa023b1f26f",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3781-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/46d05d0e-e181-4844-a3e8-6fa023b1f26f/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3661",
+                "label": "B1992.8.13(9) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/46d05d0e-e181-4844-a3e8-6fa023b1f26f/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2442"
+              }
+            }],
+          "label": "B1992.8.13(9) verso (blank)",
+          "width": "2442"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3729-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3718",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/03594dd9-cc85-4ed1-a7fa-35eec6156d7c",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3729-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/03594dd9-cc85-4ed1-a7fa-35eec6156d7c/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3718",
+                "label": "B1992.8.13(10) recto  Plate 10, \"Holy Thursday\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/03594dd9-cc85-4ed1-a7fa-35eec6156d7c/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2418"
+              }
+            }],
+          "label": "B1992.8.13(10) recto  Plate 10, \"Holy Thursday\"",
+          "width": "2418"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3729-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3663",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/1394a308-a8e0-4eb0-8898-626cad25e76d",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3729-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/1394a308-a8e0-4eb0-8898-626cad25e76d/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3663",
+                "label": "B1992.8.13(10) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/1394a308-a8e0-4eb0-8898-626cad25e76d/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2388"
+              }
+            }],
+          "label": "B1992.8.13(10) verso (blank)",
+          "width": "2388"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3730-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3712",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/8284508e-2ff3-4af3-a948-c353fd967ba1",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3730-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/8284508e-2ff3-4af3-a948-c353fd967ba1/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3712",
+                "label": "B1992.8.13(11 )recto Plate 11, \"Spring\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/8284508e-2ff3-4af3-a948-c353fd967ba1/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2454"
+              }
+            }],
+          "label": "B1992.8.13(11 )recto Plate 11, \"Spring\"",
+          "width": "2454"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3730-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3675",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/e2f72a4d-a4eb-4cd7-93ea-2f565d807c05",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3730-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/e2f72a4d-a4eb-4cd7-93ea-2f565d807c05/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3675",
+                "label": "B1992.8.13(11) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/e2f72a4d-a4eb-4cd7-93ea-2f565d807c05/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(11) verso",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3731-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3712",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/1aee297a-68ee-494c-b524-c041f4ae1464",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3731-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/1aee297a-68ee-494c-b524-c041f4ae1464/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3712",
+                "label": "B1992.8.13(12)recto  Plate 12, \"Spring\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/1aee297a-68ee-494c-b524-c041f4ae1464/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(12)recto  Plate 12, \"Spring\"",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3731-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3675",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/01c332f7-c068-4e57-8f6a-3b5692345067",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3731-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/01c332f7-c068-4e57-8f6a-3b5692345067/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3675",
+                "label": "B1992.8.13(12) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/01c332f7-c068-4e57-8f6a-3b5692345067/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2406"
+              }
+            }],
+          "label": "B1992.8.13(12) verso",
+          "width": "2406"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3732-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3700",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/9f7a16e6-c827-4c64-8406-2b933e277959",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3732-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/9f7a16e6-c827-4c64-8406-2b933e277959/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3700",
+                "label": "B1992.8.13(13)recto Plate 13, \"Nurse's Song\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/9f7a16e6-c827-4c64-8406-2b933e277959/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "B1992.8.13(13)recto Plate 13, \"Nurse's Song\"",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3732-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3662",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6071bb63-718f-49ed-944d-e012dc7b2f2a",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3732-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6071bb63-718f-49ed-944d-e012dc7b2f2a/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3662",
+                "label": "B1992.8.13(13) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6071bb63-718f-49ed-944d-e012dc7b2f2a/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2424"
+              }
+            }],
+          "label": "B1992.8.13(13) verso",
+          "width": "2424"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3733-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3712",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/339daf5a-dd49-4fe9-8248-6e4575c097ce",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3733-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/339daf5a-dd49-4fe9-8248-6e4575c097ce/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3712",
+                "label": "B1992.8.13(14)recto  Plate 14, \"The Shepherd\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/339daf5a-dd49-4fe9-8248-6e4575c097ce/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2490"
+              }
+            }],
+          "label": "B1992.8.13(14)recto  Plate 14, \"The Shepherd\"",
+          "width": "2490"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3733-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3698",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/8637a519-299b-44f2-aa27-b4aa65922e42",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3733-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/8637a519-299b-44f2-aa27-b4aa65922e42/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3698",
+                "label": "B1992.8.13(14) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/8637a519-299b-44f2-aa27-b4aa65922e42/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2514"
+              }
+            }],
+          "label": "B1992.8.13(14) verso",
+          "width": "2514"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3734-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3682",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/8f5b49ef-19c6-4694-9af5-3aea016b7abd",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3734-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/8f5b49ef-19c6-4694-9af5-3aea016b7abd/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3682",
+                "label": "B1992.8.13(15)recto  Plate 15, \"A Dream\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/8f5b49ef-19c6-4694-9af5-3aea016b7abd/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2490"
+              }
+            }],
+          "label": "B1992.8.13(15)recto  Plate 15, \"A Dream\"",
+          "width": "2490"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3734-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3663",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/024d28f4-4a5e-46ab-8448-027dcd5772cd",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3734-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/024d28f4-4a5e-46ab-8448-027dcd5772cd/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3663",
+                "label": "B1992.8.13(15) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/024d28f4-4a5e-46ab-8448-027dcd5772cd/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2435"
+              }
+            }],
+          "label": "B1992.8.13(15) verso",
+          "width": "2435"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3735-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3718",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/17e49948-c44a-46a5-a863-6b8b8aa12da0",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3735-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/17e49948-c44a-46a5-a863-6b8b8aa12da0/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3718",
+                "label": "B1992.8.13(16)recto Plate 16, \"A Cradle Song\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/17e49948-c44a-46a5-a863-6b8b8aa12da0/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2425"
+              }
+            }],
+          "label": "B1992.8.13(16)recto Plate 16, \"A Cradle Song\"",
+          "width": "2425"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3735-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3695",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/30aeb183-f698-41a3-aa1f-b3fa5d36203b",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3735-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/30aeb183-f698-41a3-aa1f-b3fa5d36203b/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3695",
+                "label": "B1992.8.13(16) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/30aeb183-f698-41a3-aa1f-b3fa5d36203b/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2424"
+              }
+            }],
+          "label": "B1992.8.13(16) verso",
+          "width": "2424"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3736-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3708",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/7886ce1c-2ac6-42a3-bfae-b0f2953d0ca2",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3736-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/7886ce1c-2ac6-42a3-bfae-b0f2953d0ca2/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3708",
+                "label": "B1992.8.13(17)recto  Plate 17, \"A Cradle Song\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/7886ce1c-2ac6-42a3-bfae-b0f2953d0ca2/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2442"
+              }
+            }],
+          "label": "B1992.8.13(17)recto  Plate 17, \"A Cradle Song\"",
+          "width": "2442"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3736-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3701",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/644f9077-0727-4fe0-9148-a898a8041ee8",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3736-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/644f9077-0727-4fe0-9148-a898a8041ee8/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3701",
+                "label": "B1992.8.13(17) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/644f9077-0727-4fe0-9148-a898a8041ee8/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2448"
+              }
+            }],
+          "label": "B1992.8.13(17) verso",
+          "width": "2448"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3737-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3707",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/4c48bfa9-e6fb-4e8f-b827-456e4f3b32d3",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3737-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/4c48bfa9-e6fb-4e8f-b827-456e4f3b32d3/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3707",
+                "label": "B1992.8.13(18)recto  Plate 18, \"Night\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/4c48bfa9-e6fb-4e8f-b827-456e4f3b32d3/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(18)recto  Plate 18, \"Night\"",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3737-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3713",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/40877722-2fbb-4dab-86bc-37bbba1b60e0",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3737-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/40877722-2fbb-4dab-86bc-37bbba1b60e0/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3713",
+                "label": "B1992.8.13(18) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/40877722-2fbb-4dab-86bc-37bbba1b60e0/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2434"
+              }
+            }],
+          "label": "B1992.8.13(18) verso",
+          "width": "2434"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3738-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3714",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/eaa4fe48-f94a-4e88-b38e-fab70fef7298",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3738-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/eaa4fe48-f94a-4e88-b38e-fab70fef7298/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3714",
+                "label": "B1992.8.13(19)recto, Plate 19, \"Night\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/eaa4fe48-f94a-4e88-b38e-fab70fef7298/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2466"
+              }
+            }],
+          "label": "B1992.8.13(19)recto, Plate 19, \"Night\"",
+          "width": "2466"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3738-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3671",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/c3ad1850-8219-4402-8c34-dbb88de9b8a5",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3738-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/c3ad1850-8219-4402-8c34-dbb88de9b8a5/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3671",
+                "label": "B1992.8.13(19) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/c3ad1850-8219-4402-8c34-dbb88de9b8a5/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2340"
+              }
+            }],
+          "label": "B1992.8.13(19) verso",
+          "width": "2340"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3740-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3677",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/f045f5e9-bf66-4750-a8ca-8c4a7fad285f",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3740-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/f045f5e9-bf66-4750-a8ca-8c4a7fad285f/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3677",
+                "label": "B1992.8.13(20)recto, Plate 20, \"The Blossom\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/f045f5e9-bf66-4750-a8ca-8c4a7fad285f/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2376"
+              }
+            }],
+          "label": "B1992.8.13(20)recto, Plate 20, \"The Blossom\"",
+          "width": "2376"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3740-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3656",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/e9349058-7076-4f93-b993-0cb2dafe049c",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3740-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/e9349058-7076-4f93-b993-0cb2dafe049c/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3656",
+                "label": "B1992.8.13(20) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/e9349058-7076-4f93-b993-0cb2dafe049c/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2442"
+              }
+            }],
+          "label": "B1992.8.13(20) verso",
+          "width": "2442"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3741-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3682",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/cbd5b920-5f01-4f0e-ba1a-f578db65ca94",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3741-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/cbd5b920-5f01-4f0e-ba1a-f578db65ca94/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3682",
+                "label": "B1992.8.13(21)recto, Plate 21, \"The Little Boy Lost\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/cbd5b920-5f01-4f0e-ba1a-f578db65ca94/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2436"
+              }
+            }],
+          "label": "B1992.8.13(21)recto, Plate 21, \"The Little Boy Lost\"",
+          "width": "2436"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3741-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3689",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/0b21adb4-f8a0-4eb4-bbfc-b4c9c7d23265",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3741-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/0b21adb4-f8a0-4eb4-bbfc-b4c9c7d23265/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3689",
+                "label": "B1992.8.13(21) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/0b21adb4-f8a0-4eb4-bbfc-b4c9c7d23265/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2448"
+              }
+            }],
+          "label": "B1992.8.13(21) verso",
+          "width": "2448"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3742-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3696",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/334461c0-d357-4ac4-8a2b-b0c0f86d51d0",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3742-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/334461c0-d357-4ac4-8a2b-b0c0f86d51d0/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3696",
+                "label": "B1992.8.13(22)recto, Plate 22, The Little Boy Found\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/334461c0-d357-4ac4-8a2b-b0c0f86d51d0/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2460"
+              }
+            }],
+          "label": "B1992.8.13(22)recto, Plate 22, The Little Boy Found\"",
+          "width": "2460"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3742-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3669",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/86ddff1e-4925-4e68-a568-9378b4793b91",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3742-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/86ddff1e-4925-4e68-a568-9378b4793b91/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3669",
+                "label": "B1992.8.13(22) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/86ddff1e-4925-4e68-a568-9378b4793b91/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2494"
+              }
+            }],
+          "label": "B1992.8.13(22) verso",
+          "width": "2494"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3743-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3691",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/087c17b0-4543-4e7b-8295-f45bb1f7e08c",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3743-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/087c17b0-4543-4e7b-8295-f45bb1f7e08c/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3691",
+                "label": "B1992.8.13(23)recto, Plate 23, \"infant Joy\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/087c17b0-4543-4e7b-8295-f45bb1f7e08c/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2444"
+              }
+            }],
+          "label": "B1992.8.13(23)recto, Plate 23, \"infant Joy\"",
+          "width": "2444"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3743-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3698",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/19d46552-9cad-4294-b352-f25f73ab3850",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3743-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/19d46552-9cad-4294-b352-f25f73ab3850/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3698",
+                "label": "B1992.8.13(23) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/19d46552-9cad-4294-b352-f25f73ab3850/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2470"
+              }
+            }],
+          "label": "B1992.8.13(23) verso",
+          "width": "2470"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3744-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3720",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/a155bc72-ed1b-49aa-93d5-76522f06bc66",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3744-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/a155bc72-ed1b-49aa-93d5-76522f06bc66/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3720",
+                "label": "B1992.8.13(24)recto, Plate 24, \"The Lamb\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/a155bc72-ed1b-49aa-93d5-76522f06bc66/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2420"
+              }
+            }],
+          "label": "B1992.8.13(24)recto, Plate 24, \"The Lamb\"",
+          "width": "2420"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3744-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3712",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/670e7912-220c-4d56-bbf8-8526b4c14cd8",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3744-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/670e7912-220c-4d56-bbf8-8526b4c14cd8/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3712",
+                "label": "B1992.8.13(24) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/670e7912-220c-4d56-bbf8-8526b4c14cd8/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2466"
+              }
+            }],
+          "label": "B1992.8.13(24) verso",
+          "width": "2466"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3745-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3674",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/0a9132a6-f443-4262-bf50-b1ec372c8159",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3745-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/0a9132a6-f443-4262-bf50-b1ec372c8159/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3674",
+                "label": "B1992.8.13(25)recto, Plate 25, \"The Voice of the Ancient Bard\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/0a9132a6-f443-4262-bf50-b1ec372c8159/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2448"
+              }
+            }],
+          "label": "B1992.8.13(25)recto, Plate 25, \"The Voice of the Ancient Bard\"",
+          "width": "2448"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3745-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3692",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/fe5bcf83-4118-4b97-8505-c9fc180017e6",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3745-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/fe5bcf83-4118-4b97-8505-c9fc180017e6/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3692",
+                "label": "B1992.8.13(25) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/fe5bcf83-4118-4b97-8505-c9fc180017e6/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2465"
+              }
+            }],
+          "label": "B1992.8.13(25) verso",
+          "width": "2465"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3746-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3710",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/a90d49a3-4f6b-4fbd-9464-1dabed580168",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3746-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/a90d49a3-4f6b-4fbd-9464-1dabed580168/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3710",
+                "label": "B1992.8.13(26)recto, Plate 26, \"Laughing Song\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/a90d49a3-4f6b-4fbd-9464-1dabed580168/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2448"
+              }
+            }],
+          "label": "B1992.8.13(26)recto, Plate 26, \"Laughing Song\"",
+          "width": "2448"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3746-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3690",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/01f2a29a-930a-4057-a98e-f13dfa200b9e",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3746-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/01f2a29a-930a-4057-a98e-f13dfa200b9e/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3690",
+                "label": "B1992.8.13(26) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/01f2a29a-930a-4057-a98e-f13dfa200b9e/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2448"
+              }
+            }],
+          "label": "B1992.8.13(26) verso",
+          "width": "2448"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3747-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3712",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6df48a93-acd4-4866-93e4-3312e7e5f448",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3747-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6df48a93-acd4-4866-93e4-3312e7e5f448/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3712",
+                "label": "B1992.8.13(27)recto, Plate 27, \"The Divine Image\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6df48a93-acd4-4866-93e4-3312e7e5f448/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2432"
+              }
+            }],
+          "label": "B1992.8.13(27)recto, Plate 27, \"The Divine Image\"",
+          "width": "2432"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3747-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3648",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/fe071b6e-18a9-4755-b8b2-f2b47b59b7cb",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3747-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/fe071b6e-18a9-4755-b8b2-f2b47b59b7cb/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3648",
+                "label": "B1992.8.13(27) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/fe071b6e-18a9-4755-b8b2-f2b47b59b7cb/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2428"
+              }
+            }],
+          "label": "B1992.8.13(27) verso",
+          "width": "2428"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3748-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3712",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/75567d91-0bf6-442e-ba39-46f6a619f1f2",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3748-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/75567d91-0bf6-442e-ba39-46f6a619f1f2/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3712",
+                "label": "B1992.8.13(28)recto, Plate 28, \"On Anothers Sorrow\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/75567d91-0bf6-442e-ba39-46f6a619f1f2/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2452"
+              }
+            }],
+          "label": "B1992.8.13(28)recto, Plate 28, \"On Anothers Sorrow\"",
+          "width": "2452"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3748-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3290",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6494ce3c-413b-46a4-b848-987985513ffb",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3748-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6494ce3c-413b-46a4-b848-987985513ffb/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3290",
+                "label": "B1992.8.13(28) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6494ce3c-413b-46a4-b848-987985513ffb/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2184"
+              }
+            }],
+          "label": "B1992.8.13(28) verso (blank)",
+          "width": "2184"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3749-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3320",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/4ce75937-c647-4a27-9082-bf885f51c9ba",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3749-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/4ce75937-c647-4a27-9082-bf885f51c9ba/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3320",
+                "label": "B1992.8.13(29)recto (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/4ce75937-c647-4a27-9082-bf885f51c9ba/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2238"
+              }
+            }],
+          "label": "B1992.8.13(29)recto (blank)",
+          "width": "2238"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3749-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3680",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/790c25fb-4769-4a26-96d6-3b6b2f237d78",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3749-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/790c25fb-4769-4a26-96d6-3b6b2f237d78/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3680",
+                "label": "B1992.8.13(29) verso, Plate 29, Experience Frontispiece",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/790c25fb-4769-4a26-96d6-3b6b2f237d78/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2424"
+              }
+            }],
+          "label": "B1992.8.13(29) verso, Plate 29, Experience Frontispiece",
+          "width": "2424"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3751-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3702",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/f0b524ed-8d23-4632-9d09-d3df3f50c5ac",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3751-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/f0b524ed-8d23-4632-9d09-d3df3f50c5ac/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3702",
+                "label": "B1992.8.13(30)recto , Plate 30, Experience Title Page",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/f0b524ed-8d23-4632-9d09-d3df3f50c5ac/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2460"
+              }
+            }],
+          "label": "B1992.8.13(30)recto , Plate 30, Experience Title Page",
+          "width": "2460"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3751-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3702",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/08947f60-f575-4b0c-a3c2-57729b5cfc87",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3751-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/08947f60-f575-4b0c-a3c2-57729b5cfc87/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3702",
+                "label": "B1992.8.13(30) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/08947f60-f575-4b0c-a3c2-57729b5cfc87/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2454"
+              }
+            }],
+          "label": "B1992.8.13(30) verso",
+          "width": "2454"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3752-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3732",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/bae5bd1c-04ec-483f-ae5e-13ee026c93af",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3752-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/bae5bd1c-04ec-483f-ae5e-13ee026c93af/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3732",
+                "label": "B1992.8.13(31)recto, Plate 31, \"Introduction\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/bae5bd1c-04ec-483f-ae5e-13ee026c93af/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2472"
+              }
+            }],
+          "label": "B1992.8.13(31)recto, Plate 31, \"Introduction\"",
+          "width": "2472"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3752-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3716",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/d108a70c-d234-4633-b31a-10182c570dff",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3752-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/d108a70c-d234-4633-b31a-10182c570dff/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3716",
+                "label": "B1992.8.13(31) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/d108a70c-d234-4633-b31a-10182c570dff/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2460"
+              }
+            }],
+          "label": "B1992.8.13(31) verso",
+          "width": "2460"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3753-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3718",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/3ca1d5f2-c9fd-4147-8814-4af27710fdd6",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3753-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/3ca1d5f2-c9fd-4147-8814-4af27710fdd6/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3718",
+                "label": "B1992.8.13(32)recto , plate 32, \"Earth's Answer\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/3ca1d5f2-c9fd-4147-8814-4af27710fdd6/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2466"
+              }
+            }],
+          "label": "B1992.8.13(32)recto , plate 32, \"Earth's Answer\"",
+          "width": "2466"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3753-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3714",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/d4fb0e77-3916-4d91-8b91-ac0622b70c76",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3753-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/d4fb0e77-3916-4d91-8b91-ac0622b70c76/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3714",
+                "label": "B1992.8.13(32) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/d4fb0e77-3916-4d91-8b91-ac0622b70c76/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "B1992.8.13(32) verso",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3754-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3708",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6f581ec9-8155-444c-8187-cc0c2a429a30",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3754-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6f581ec9-8155-444c-8187-cc0c2a429a30/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3708",
+                "label": "B1992.8.13(33)recto, plate 33, \"The Little Girl Lost\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6f581ec9-8155-444c-8187-cc0c2a429a30/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2454"
+              }
+            }],
+          "label": "B1992.8.13(33)recto, plate 33, \"The Little Girl Lost\"",
+          "width": "2454"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3754-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3684",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/39d8c56f-f4d5-4767-8203-a1c6ca9149f5",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3754-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/39d8c56f-f4d5-4767-8203-a1c6ca9149f5/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3684",
+                "label": "B1992.8.13(33) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/39d8c56f-f4d5-4767-8203-a1c6ca9149f5/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2400"
+              }
+            }],
+          "label": "B1992.8.13(33) verso",
+          "width": "2400"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3755-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3714",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/60cefdf6-a462-44d5-b83f-e1f2d9a2bc1a",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3755-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/60cefdf6-a462-44d5-b83f-e1f2d9a2bc1a/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3714",
+                "label": "B1992.8.13(34)recto, plate 34, \"The Little Girl Found\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/60cefdf6-a462-44d5-b83f-e1f2d9a2bc1a/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2442"
+              }
+            }],
+          "label": "B1992.8.13(34)recto, plate 34, \"The Little Girl Found\"",
+          "width": "2442"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3755-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3690",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/62ce817b-ab4c-48f4-8b20-f98d9fca8232",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3755-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/62ce817b-ab4c-48f4-8b20-f98d9fca8232/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3690",
+                "label": "B1992.8.13(34) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/62ce817b-ab4c-48f4-8b20-f98d9fca8232/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "B1992.8.13(34) verso",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3756-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3708",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/ed46ba2d-4f31-4886-8f52-074ce86dc657",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3756-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/ed46ba2d-4f31-4886-8f52-074ce86dc657/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3708",
+                "label": "B1992.8.13(35)recto, plate 35, \"The Little Girl Found\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/ed46ba2d-4f31-4886-8f52-074ce86dc657/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2472"
+              }
+            }],
+          "label": "B1992.8.13(35)recto, plate 35, \"The Little Girl Found\"",
+          "width": "2472"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3756-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3714",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/d8dd09fb-5d3d-414c-9e60-9307b0a700ad",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3756-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/d8dd09fb-5d3d-414c-9e60-9307b0a700ad/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3714",
+                "label": "B1992.8.13(35) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/d8dd09fb-5d3d-414c-9e60-9307b0a700ad/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(35) verso",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3757-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3708",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/ea4b95f3-3e70-4ebf-9d03-1c8421f44ecf",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3757-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/ea4b95f3-3e70-4ebf-9d03-1c8421f44ecf/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3708",
+                "label": "B1992.8.13(36)recto , plate 36, \"The Tyger\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/ea4b95f3-3e70-4ebf-9d03-1c8421f44ecf/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(36)recto , plate 36, \"The Tyger\"",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3757-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3714",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/4e98a07a-d4f7-4ef7-9d5b-41d2cf9a43a9",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3757-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/4e98a07a-d4f7-4ef7-9d5b-41d2cf9a43a9/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3714",
+                "label": "B1992.8.13(36) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/4e98a07a-d4f7-4ef7-9d5b-41d2cf9a43a9/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2418"
+              }
+            }],
+          "label": "B1992.8.13(36) verso",
+          "width": "2418"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3758-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3720",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/7b38462c-91da-4ff3-a74d-483048ec6c22",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3758-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/7b38462c-91da-4ff3-a74d-483048ec6c22/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3720",
+                "label": "B1992.8.13(37)recto, plate 37, \"The Fly\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/7b38462c-91da-4ff3-a74d-483048ec6c22/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(37)recto, plate 37, \"The Fly\"",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3758-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3696",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6f1ad1a2-735a-4b05-9f83-678c5b6d261e",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3758-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6f1ad1a2-735a-4b05-9f83-678c5b6d261e/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3696",
+                "label": "B1992.8.13(37) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6f1ad1a2-735a-4b05-9f83-678c5b6d261e/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2442"
+              }
+            }],
+          "label": "B1992.8.13(37) verso",
+          "width": "2442"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3759-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3696",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/d69baf83-8487-4f3c-bffa-bbadbe308d9a",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3759-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/d69baf83-8487-4f3c-bffa-bbadbe308d9a/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3696",
+                "label": "B1992.8.13(38)recto, plate 38  \"Holy Thursday\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/d69baf83-8487-4f3c-bffa-bbadbe308d9a/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(38)recto, plate 38  \"Holy Thursday\"",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3759-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3690",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/ad95034e-024d-43c1-b83c-b352c73d0f6e",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3759-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/ad95034e-024d-43c1-b83c-b352c73d0f6e/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3690",
+                "label": "B1992.8.13(38) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/ad95034e-024d-43c1-b83c-b352c73d0f6e/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(38) verso",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3760-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3720",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/9ff2d3f5-a6ef-4dc5-b0ad-0c4817d6ef05",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3760-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/9ff2d3f5-a6ef-4dc5-b0ad-0c4817d6ef05/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3720",
+                "label": "B1992.8.13(39)recto, plate 39, \"Infant Sorrow\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/9ff2d3f5-a6ef-4dc5-b0ad-0c4817d6ef05/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2425"
+              }
+            }],
+          "label": "B1992.8.13(39)recto, plate 39, \"Infant Sorrow\"",
+          "width": "2425"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3760-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3663",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/7e65190d-5a88-45d0-8f59-9b270a10af60",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3760-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/7e65190d-5a88-45d0-8f59-9b270a10af60/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3663",
+                "label": "B1992.8.13(39) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/7e65190d-5a88-45d0-8f59-9b270a10af60/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2424"
+              }
+            }],
+          "label": "B1992.8.13(39) verso",
+          "width": "2424"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3762-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3711",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/cf7e8a64-40f3-4ff0-b5c6-3431d5d97064",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3762-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/cf7e8a64-40f3-4ff0-b5c6-3431d5d97064/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3711",
+                "label": "B1992.8.13(40)recto, plate 40, \"The Clod \u0026 the Pebble\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/cf7e8a64-40f3-4ff0-b5c6-3431d5d97064/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2491"
+              }
+            }],
+          "label": "B1992.8.13(40)recto, plate 40, \"The Clod \u0026 the Pebble\"",
+          "width": "2491"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3762-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3683",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/1a478f95-b2bf-4bc1-a307-5e3935d14122",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3762-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/1a478f95-b2bf-4bc1-a307-5e3935d14122/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3683",
+                "label": "B1992.8.13(40) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/1a478f95-b2bf-4bc1-a307-5e3935d14122/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "B1992.8.13(40) verso",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3763-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3720",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/cf02d3c1-664d-4554-95fc-9f8fc1905423",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3763-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/cf02d3c1-664d-4554-95fc-9f8fc1905423/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3720",
+                "label": "B1992.8.13(41)recto, plate 41, \"The Chimney Sweeper\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/cf02d3c1-664d-4554-95fc-9f8fc1905423/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2466"
+              }
+            }],
+          "label": "B1992.8.13(41)recto, plate 41, \"The Chimney Sweeper\"",
+          "width": "2466"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3763-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3695",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/8cf8670c-0653-44e8-9954-ab9a398fd872",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3763-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/8cf8670c-0653-44e8-9954-ab9a398fd872/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3695",
+                "label": "B1992.8.13(41) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/8cf8670c-0653-44e8-9954-ab9a398fd872/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2440"
+              }
+            }],
+          "label": "B1992.8.13(41) verso",
+          "width": "2440"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3764-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3714",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/cb26a013-d72b-452b-92ff-c9ec8358fffe",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3764-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/cb26a013-d72b-452b-92ff-c9ec8358fffe/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3714",
+                "label": "B1992.8.13(42)recto, plate 42, \"To Tirzah\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/cb26a013-d72b-452b-92ff-c9ec8358fffe/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2454"
+              }
+            }],
+          "label": "B1992.8.13(42)recto, plate 42, \"To Tirzah\"",
+          "width": "2454"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3764-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3690",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/136362ac-6d42-48bf-a84f-3012dedc6a67",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3764-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/136362ac-6d42-48bf-a84f-3012dedc6a67/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3690",
+                "label": "B1992.8.13(42) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/136362ac-6d42-48bf-a84f-3012dedc6a67/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2466"
+              }
+            }],
+          "label": "B1992.8.13(42) verso",
+          "width": "2466"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3765-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3720",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/b3541bae-0e8c-4195-a21d-57465c814f72",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3765-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/b3541bae-0e8c-4195-a21d-57465c814f72/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3720",
+                "label": "B1992.8.13(43)recto, plate 43, \"The Little Vagabond\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/b3541bae-0e8c-4195-a21d-57465c814f72/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2467"
+              }
+            }],
+          "label": "B1992.8.13(43)recto, plate 43, \"The Little Vagabond\"",
+          "width": "2467"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3765-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3718",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/20ff5506-c55d-4381-8136-c58b440a0b0b",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3765-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/20ff5506-c55d-4381-8136-c58b440a0b0b/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3718",
+                "label": "B1992.8.13(43) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/20ff5506-c55d-4381-8136-c58b440a0b0b/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2471"
+              }
+            }],
+          "label": "B1992.8.13(43) verso",
+          "width": "2471"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3766-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3694",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6dbd09f3-9401-4ed2-b23c-0f5ef8b0b0f7",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3766-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6dbd09f3-9401-4ed2-b23c-0f5ef8b0b0f7/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3694",
+                "label": "B1992.8.13(44)recto, plate 44, \"The Human Abstract\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6dbd09f3-9401-4ed2-b23c-0f5ef8b0b0f7/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2455"
+              }
+            }],
+          "label": "B1992.8.13(44)recto, plate 44, \"The Human Abstract\"",
+          "width": "2455"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3766-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3702",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/d5bece46-e2c6-494f-be61-d9775a29ce29",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3766-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/d5bece46-e2c6-494f-be61-d9775a29ce29/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3702",
+                "label": "B1992.8.13(44) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/d5bece46-e2c6-494f-be61-d9775a29ce29/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2436"
+              }
+            }],
+          "label": "B1992.8.13(44) verso",
+          "width": "2436"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3767-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3720",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6052eff1-e90e-4712-82ff-045e67fbcc04",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3767-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6052eff1-e90e-4712-82ff-045e67fbcc04/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3720",
+                "label": "B1992.8.13(45)recto, plate 45, \"The Garden of Love\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6052eff1-e90e-4712-82ff-045e67fbcc04/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2431"
+              }
+            }],
+          "label": "B1992.8.13(45)recto, plate 45, \"The Garden of Love\"",
+          "width": "2431"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3767-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3693",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/7cae6c74-dcb9-472e-9649-0f8742892b76",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3767-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/7cae6c74-dcb9-472e-9649-0f8742892b76/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3693",
+                "label": "B1992.8.13(45) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/7cae6c74-dcb9-472e-9649-0f8742892b76/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2453"
+              }
+            }],
+          "label": "B1992.8.13(45) verso",
+          "width": "2453"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3768-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3711",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/52d72b65-2fff-43d9-8eef-44b555e959ee",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3768-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/52d72b65-2fff-43d9-8eef-44b555e959ee/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3711",
+                "label": "B1992.8.13(46)recto, plate 46, \"A Little Boy Lost\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/52d72b65-2fff-43d9-8eef-44b555e959ee/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2455"
+              }
+            }],
+          "label": "B1992.8.13(46)recto, plate 46, \"A Little Boy Lost\"",
+          "width": "2455"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3768-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3696",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/13a5e562-b992-4d4e-8840-a1e1d24a7ffb",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3768-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/13a5e562-b992-4d4e-8840-a1e1d24a7ffb/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3696",
+                "label": "B1992.8.13(46) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/13a5e562-b992-4d4e-8840-a1e1d24a7ffb/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(46) verso",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3769-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3702",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/dd4cc58f-ad94-4228-9331-87f7fbb3a387",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3769-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/dd4cc58f-ad94-4228-9331-87f7fbb3a387/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3702",
+                "label": "B1992.8.13(47)recto, plate 47, \"The Angel\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/dd4cc58f-ad94-4228-9331-87f7fbb3a387/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2478"
+              }
+            }],
+          "label": "B1992.8.13(47)recto, plate 47, \"The Angel\"",
+          "width": "2478"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3769-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3670",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/07cda54f-6e6b-4977-b47b-77b8a1efc510",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3769-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/07cda54f-6e6b-4977-b47b-77b8a1efc510/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3670",
+                "label": "B1992.8.13(47) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/07cda54f-6e6b-4977-b47b-77b8a1efc510/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2393"
+              }
+            }],
+          "label": "B1992.8.13(47) verso",
+          "width": "2393"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3770-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3718",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/975403ec-c1a8-46ee-bf89-70c64ca860a6",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3770-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/975403ec-c1a8-46ee-bf89-70c64ca860a6/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3718",
+                "label": "B1992.8.13(48)recto, plate 48, \"The Sick Rose\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/975403ec-c1a8-46ee-bf89-70c64ca860a6/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2461"
+              }
+            }],
+          "label": "B1992.8.13(48)recto, plate 48, \"The Sick Rose\"",
+          "width": "2461"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3770-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3617",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/cc255d77-7ae7-4c2e-b15d-95ef817a47cf",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3770-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/cc255d77-7ae7-4c2e-b15d-95ef817a47cf/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3617",
+                "label": "B1992.8.13(48) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/cc255d77-7ae7-4c2e-b15d-95ef817a47cf/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2314"
+              }
+            }],
+          "label": "B1992.8.13(48) verso",
+          "width": "2314"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3771-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3720",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/61e7ed78-ff9f-41a1-815c-6761d16ed6d0",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3771-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/61e7ed78-ff9f-41a1-815c-6761d16ed6d0/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3720",
+                "label": "B1992.8.13(49)recto, plate 49, \"Nurses Song\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/61e7ed78-ff9f-41a1-815c-6761d16ed6d0/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2460"
+              }
+            }],
+          "label": "B1992.8.13(49)recto, plate 49, \"Nurses Song\"",
+          "width": "2460"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3771-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3630",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/017a697a-ac27-4f3a-b5c7-d10ef0038184",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3771-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/017a697a-ac27-4f3a-b5c7-d10ef0038184/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3630",
+                "label": "B1992.8.13(49) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/017a697a-ac27-4f3a-b5c7-d10ef0038184/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2358"
+              }
+            }],
+          "label": "B1992.8.13(49) verso",
+          "width": "2358"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3773-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3690",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/e2648b37-261d-4c5d-bbdd-bc73b12fb14b",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3773-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/e2648b37-261d-4c5d-bbdd-bc73b12fb14b/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3690",
+                "label": "B1992.8.13(50)recto, plate 50, \"A Poison Tree\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/e2648b37-261d-4c5d-bbdd-bc73b12fb14b/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2442"
+              }
+            }],
+          "label": "B1992.8.13(50)recto, plate 50, \"A Poison Tree\"",
+          "width": "2442"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3773-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3654",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/b2aa5e6a-9fbb-416b-91f8-5123673c14fa",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3773-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/b2aa5e6a-9fbb-416b-91f8-5123673c14fa/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3654",
+                "label": "B1992.8.13(50) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/b2aa5e6a-9fbb-416b-91f8-5123673c14fa/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2358"
+              }
+            }],
+          "label": "B1992.8.13(50) verso",
+          "width": "2358"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3774-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3684",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/a23391a9-94fc-4031-b095-bda4913ab750",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3774-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/a23391a9-94fc-4031-b095-bda4913ab750/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3684",
+                "label": "B1992.8.13(51)recto, plate 51, \"London\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/a23391a9-94fc-4031-b095-bda4913ab750/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2412"
+              }
+            }],
+          "label": "B1992.8.13(51)recto, plate 51, \"London\"",
+          "width": "2412"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3774-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3642",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6c2306fe-2d95-49b2-82d0-e27f6d69711a",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3774-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6c2306fe-2d95-49b2-82d0-e27f6d69711a/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3642",
+                "label": "B1992.8.13(51) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6c2306fe-2d95-49b2-82d0-e27f6d69711a/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2358"
+              }
+            }],
+          "label": "B1992.8.13(51) verso",
+          "width": "2358"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3775-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3684",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/778566f5-4bcf-4830-ab56-5f9646a60bf4",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3775-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/778566f5-4bcf-4830-ab56-5f9646a60bf4/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3684",
+                "label": "B1992.8.13(52)recto, plate 52, \"A Little Girl Lost\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/778566f5-4bcf-4830-ab56-5f9646a60bf4/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2460"
+              }
+            }],
+          "label": "B1992.8.13(52)recto, plate 52, \"A Little Girl Lost\"",
+          "width": "2460"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3775-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3678",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/658ec6d4-91f2-4663-b38f-bf1f43efd76b",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3775-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/658ec6d4-91f2-4663-b38f-bf1f43efd76b/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3678",
+                "label": "B1992.8.13(52) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/658ec6d4-91f2-4663-b38f-bf1f43efd76b/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2382"
+              }
+            }],
+          "label": "B1992.8.13(52) verso",
+          "width": "2382"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3776-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3684",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/a6c08b85-0b75-4c6a-a7da-7212341a93a8",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3776-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/a6c08b85-0b75-4c6a-a7da-7212341a93a8/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3684",
+                "label": "B1992.8.13(53)recto, plate 53, \"My Pretty Rose Tree\"",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/a6c08b85-0b75-4c6a-a7da-7212341a93a8/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2430"
+              }
+            }],
+          "label": "B1992.8.13(53)recto, plate 53, \"My Pretty Rose Tree\"",
+          "width": "2430"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3776-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3675",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/68e06f33-9ff4-4231-8961-65aa73eebb6e",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3776-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/68e06f33-9ff4-4231-8961-65aa73eebb6e/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3675",
+                "label": "B1992.8.13(53) verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/68e06f33-9ff4-4231-8961-65aa73eebb6e/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2459"
+              }
+            }],
+          "label": "B1992.8.13(53) verso",
+          "width": "2459"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3777-0001-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3688",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/f9191443-cb60-481f-9f53-50f8e35fedd0",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3777-0001-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/f9191443-cb60-481f-9f53-50f8e35fedd0/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3688",
+                "label": "B1992.8.13(54)recto",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/f9191443-cb60-481f-9f53-50f8e35fedd0/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2466"
+              }
+            }],
+          "label": "B1992.8.13(54)recto",
+          "width": "2466"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3777-0002-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3323",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/68c469ad-9c9b-47d9-9db8-b86e56d28811",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-3777-0002-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/68c469ad-9c9b-47d9-9db8-b86e56d28811/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3323",
+                "label": "B1992.8.13(54) verso (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/68c469ad-9c9b-47d9-9db8-b86e56d28811/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2200"
+              }
+            }],
+          "label": "B1992.8.13(54) verso (blank)",
+          "width": "2200"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0022-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3335",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/e3c5c144-eed4-4aa9-9924-204f8534b3b4",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0022-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/e3c5c144-eed4-4aa9-9924-204f8534b3b4/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3335",
+                "label": "blank page, recto",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/e3c5c144-eed4-4aa9-9924-204f8534b3b4/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2206"
+              }
+            }],
+          "label": "blank page, recto",
+          "width": "2206"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0023-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3347",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6f100430-82b6-4a08-9904-15a231d89d42",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0023-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6f100430-82b6-4a08-9904-15a231d89d42/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3347",
+                "label": "blank page, verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6f100430-82b6-4a08-9904-15a231d89d42/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2228"
+              }
+            }],
+          "label": "blank page, verso",
+          "width": "2228"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0024-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3347",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/df79d293-5e10-4793-9003-f4540f8979ca",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0024-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/df79d293-5e10-4793-9003-f4540f8979ca/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3347",
+                "label": "blank page, recto",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/df79d293-5e10-4793-9003-f4540f8979ca/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2248"
+              }
+            }],
+          "label": "blank page, recto",
+          "width": "2248"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0025-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3672",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/6a509a23-5b61-428c-ae58-f989e950cfdb",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0025-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/6a509a23-5b61-428c-ae58-f989e950cfdb/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3672",
+                "label": "blank page, verso",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/6a509a23-5b61-428c-ae58-f989e950cfdb/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2460"
+              }
+            }],
+          "label": "blank page, verso",
+          "width": "2460"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0012-pub.tif  ",
+          "@type": "sc:Canvas",
+          "height": "3678",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/012ebed5-9b86-4154-9cdf-0832dca0c26a",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0012-pub.tif  ",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/012ebed5-9b86-4154-9cdf-0832dca0c26a/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3678",
+                "label": "Endpaper, free, recto (blank)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/012ebed5-9b86-4154-9cdf-0832dca0c26a/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2508"
+              }
+            }],
+          "label": "Endpaper, free, recto (blank)",
+          "width": "2508"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0009-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "3966",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/52e46c8f-21d6-4f7f-9baf-36989210aef2",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0009-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/52e46c8f-21d6-4f7f-9baf-36989210aef2/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "3966",
+                "label": "Endpaper, free, verso (colored)",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/52e46c8f-21d6-4f7f-9baf-36989210aef2/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "3006"
+              }
+            }],
+          "label": "Endpaper, free, verso (colored)",
+          "width": "3006"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0010-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "4026",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/f3f4dcc1-ff6b-4e32-bfbd-dde7b4870d19",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0010-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/f3f4dcc1-ff6b-4e32-bfbd-dde7b4870d19/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "4026",
+                "label": "Endpaper, glued",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/f3f4dcc1-ff6b-4e32-bfbd-dde7b4870d19/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2964"
+              }
+            }],
+          "label": "Endpaper, glued",
+          "width": "2964"
+        }, {
+          "@id": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0006-pub.tif",
+          "@type": "sc:Canvas",
+          "height": "4014",
+          "images": [{
+              "@id": "http://manifests.ydc2.yale.edu/annotation/794e20f9-d679-4e41-a6cf-24cce9e2d41c",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "http://manifests.ydc2.yale.edu/canvas/ba-obj-57619-0006-pub.tif",
+              "resource": {
+                "@id": "http://scale.ydc2.yale.edu/iiif/794e20f9-d679-4e41-a6cf-24cce9e2d41c/full/full/0/native.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "4014",
+                "label": "Back Cover",
+                "service": {
+                  "@id": "http://scale.ydc2.yale.edu/iiif/794e20f9-d679-4e41-a6cf-24cce9e2d41c/",
+                  "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+                },
+                "width": "2844"
+              }
+            }],
+          "label": "Back Cover",
+          "width": "2844"
+        }],
+      "label": "BlakeCopyL",
+      "viewingDirection": "Left-to-Right"
+    }],
+  "@context": "http://www.shared-canvas.org/ns/context.json"
+}

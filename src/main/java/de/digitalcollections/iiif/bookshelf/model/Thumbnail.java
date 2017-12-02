@@ -11,8 +11,8 @@ public class Thumbnail {
   }
 
   public Thumbnail(IiifImageApiVersion iiifImageApiVersion, String iiifImageServiceUri) {
-    this.iiifImageApiVersion = iiifImageApiVersion;
-    this.iiifImageServiceUri = iiifImageServiceUri;
+    setIiifImageApiVersion(iiifImageApiVersion);
+    setIiifImageServiceUri(iiifImageServiceUri);
   }
 
   public Thumbnail(String context, String iiifImageServiceUri) {
