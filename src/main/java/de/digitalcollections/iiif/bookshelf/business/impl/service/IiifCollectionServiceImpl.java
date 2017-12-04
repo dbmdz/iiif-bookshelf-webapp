@@ -31,8 +31,14 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
   }
 
   private void saveManifestsFromCollection(Collection collection) throws IOException {
-    // try to get list of manifests
     final List<Manifest> manifests = collection.getManifests();
+    final List<Collection> subCollections = collection.getCollections();
+
+    int manifestsCount = (manifests != null) ? manifests.size() : -1;
+    int subCollectionsCount = (subCollections != null) ? subCollections.size() : -1;
+    LOGGER.info("processing collection '{}' with {} manifests and {} sub collections.", collection.getIdentifier().toString(), manifestsCount, subCollectionsCount);
+
+    // try to get list of manifests
     if (manifests != null) {
       for (Manifest manifest : manifests) {
         final String manifestUri = manifest.getIdentifier().toString();
@@ -49,7 +55,6 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
     }
 
     // try to get subcollections
-    final List<Collection> subCollections = collection.getCollections();
     if (subCollections != null) {
       for (Collection subCollection : subCollections) {
         final String subCollectionIdentifier = subCollection.getIdentifier().toString();
