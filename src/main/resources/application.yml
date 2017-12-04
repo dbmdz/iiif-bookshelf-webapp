@@ -7,7 +7,7 @@ custom:
       username: foobar
       password: hamspam
   iiif:
-    graciousParsing: false
+    graciousParsing: true
   mongeez:
     classpathToMongeezXml: '/de/digitalcollections/iiif/bookshelf/config/mongeez/mongeez.xml'
     dbName: 'iiif-bookshelf'
