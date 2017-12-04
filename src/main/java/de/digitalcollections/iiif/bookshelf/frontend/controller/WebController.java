@@ -173,9 +173,11 @@ public class WebController extends AbstractController {
       // if old bookmark with uuid, send redirect to new viewId (if exists)
       UUID uuid = UUID.fromString(id);
       iiifManifestSummary = iiifManifestSummaryService.get(uuid);
-      String viewId = iiifManifestSummary.getViewId();
-      if (viewId != null && !uuid.toString().equals(viewId)) {
-        return "redirect:/view/" + iiifManifestSummary.getViewId();
+      if (iiifManifestSummary != null) {
+        String viewId = iiifManifestSummary.getViewId();
+        if (viewId != null && !uuid.toString().equals(viewId)) {
+          return "redirect:/view/" + iiifManifestSummary.getViewId();
+        }
       }
     } catch (IllegalArgumentException e) {
       // no uuid, so it is a viewId
