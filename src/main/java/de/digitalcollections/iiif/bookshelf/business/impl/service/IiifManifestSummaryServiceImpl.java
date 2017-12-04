@@ -95,7 +95,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
   }
 
-  private String getViewId(IiifManifestSummary manifestSummary) {
+  protected String getViewId(IiifManifestSummary manifestSummary) {
     // if sha-1 leads to not unique collisions, use this:
     // return = manifestSummary.getUuid().toString();
 
