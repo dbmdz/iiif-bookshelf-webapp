@@ -9,19 +9,22 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.logging.Level;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
 public class GraciousManifestParser extends AbstractManifestParser {
   private static final Logger LOGGER = LoggerFactory.getLogger(GraciousManifestParser.class);
+  
+  @Value("${custom.summary.thumbnail.width}")
+  private int thumbnailWidth;
   
   public static final Locale DEFAULT_LOCALE = Locale.GERMAN;
 

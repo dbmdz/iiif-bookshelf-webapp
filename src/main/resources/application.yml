@@ -13,6 +13,9 @@ custom:
     dbName: 'iiif-bookshelf'
   solr:
     collection: 'bookshelf'
+  summary:
+    thumbnail:
+      width: 280
 # end of custom configuration section
 
 endpoints:

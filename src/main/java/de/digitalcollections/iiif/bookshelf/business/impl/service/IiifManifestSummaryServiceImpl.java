@@ -44,7 +44,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Value("${custom.iiif.graciousParsing}")
   private boolean graciousParsing;
-
+  
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
     final IiifManifestSummary existingManifest = iiifManifestSummaryRepository

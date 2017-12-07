@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,6 +25,9 @@ public class StrictManifestParser extends AbstractManifestParser {
 
   @Autowired
   private ObjectMapper objectMapper;
+
+  @Value("${custom.summary.thumbnail.width}")
+  private int thumbnailWidth;
 
   @Override
   public void fillSummary(IiifManifestSummary manifestSummary) throws IOException, URISyntaxException {
@@ -99,7 +103,8 @@ public class StrictManifestParser extends AbstractManifestParser {
       if (serviceUrl.endsWith("/")) {
         serviceUrl = serviceUrl.substring(0, serviceUrl.length() - 1);
       }
-      String thumbnailUrl = String.format("%s/full/280,/0/", serviceUrl);
+      int supportedThumbnailWidth = thumbnailWidth;
+      String thumbnailUrl = String.format("%s/full/" + supportedThumbnailWidth + ",/0/", serviceUrl);
       if (isV1) {
         thumbnailUrl += "native.jpg";
       } else {
