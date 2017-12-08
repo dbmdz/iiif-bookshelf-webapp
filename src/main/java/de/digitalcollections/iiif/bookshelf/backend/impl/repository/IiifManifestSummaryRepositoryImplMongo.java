@@ -7,8 +7,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Repository;
 
@@ -17,12 +15,6 @@ public class IiifManifestSummaryRepositoryImplMongo implements IiifManifestSumma
 
   @Autowired
   IiifManifestSummaryRepository repo;
-
-  @Autowired
-  private MongoOperations mongoOperations;
-
-  @Autowired
-  private MongoTemplate mongoTemplate;
 
   @PostConstruct
   public void ensureTextIndex() {
