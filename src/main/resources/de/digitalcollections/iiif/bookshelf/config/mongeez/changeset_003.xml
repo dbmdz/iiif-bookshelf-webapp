@@ -2,7 +2,7 @@
 
   <changeSet changeId="Bookshelf-003" author="matthias">
     <script>
-       db['iiif-manifest-summaries'].createIndex( { "viewId": 1 }, { unique: true } );
+       db['iiif-manifest-summaries'].createIndex( { "viewId": 1 }, { sparse: true, unique: true } );
     </script>
   </changeSet>
 
