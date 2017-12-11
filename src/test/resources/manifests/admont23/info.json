@@ -1,0 +1,12 @@
+{
+  "@context": "http://library.stanford.edu/iiif/image-api/1.1/context.json",
+  "tile_width": 1024,
+  "scale_factors": [1, 4, 16, 64, 256, 1024],
+  "tile_height": 1024,
+  "height": 4337,
+  "width": 3012,
+  "@id": "http://scale.ydc2.yale.edu/iiif/a096ab28-fc3e-4293-99f2-d0f1eed3d993",
+  "identifier": "a096ab28-fc3e-4293-99f2-d0f1eed3d993",
+  "tilesUrl": "http://scale.ydc2.yale.edu/iiif",
+  "profile": "http://library.stanford.edu/iiif/image-api/compliance.html#level1"
+}

@@ -6,25 +6,39 @@ import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.model.ImageContent;
 import de.digitalcollections.iiif.model.PropertyValue;
+import de.digitalcollections.iiif.model.Service;
 import de.digitalcollections.iiif.model.image.ImageApiProfile;
 import de.digitalcollections.iiif.model.image.ImageService;
+import de.digitalcollections.iiif.model.image.Size;
+import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import de.digitalcollections.iiif.model.openannotation.Choice;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
 public class StrictManifestParser extends AbstractManifestParser {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(StrictManifestParser.class);
+
   @Autowired
   private ObjectMapper objectMapper;
+
+  @Autowired
+  private ApplicationContext appContext;
 
   @Value("${custom.summary.thumbnail.width}")
   private int thumbnailWidth;
@@ -70,57 +84,111 @@ public class StrictManifestParser extends AbstractManifestParser {
     return strings;
   }
 
-  private Thumbnail getThumbnail(Manifest manifest) {
-    ImageContent thumb;
-    if (manifest.getThumbnails() != null && manifest.getThumbnails().size() > 0) {
-      thumb = manifest.getThumbnail();
-    } else {
-      thumb = manifest.getDefaultSequence().getCanvases().stream()
+  public void setObjectMapper(IiifObjectMapper mapper) {
+    this.objectMapper = mapper;
+  }
+
+  /**
+   * Thumbnail: "A small image that depicts or pictorially represents the resource that the property is attached to, such as the title page,
+   * a significant image or rendering of a canvas with multiple content resources associated with it.
+   * It is recommended that a IIIF Image API service be available for this image for manipulations such as resizing.
+   * If a resource has multiple thumbnails, then each of them should be different."
+   *
+   * see http://iiif.io/api/presentation/2.1/#thumbnail
+   *
+   * @param manifest iiif manifest
+   * @return thumbnail representing this manifest's object
+   */
+  public Thumbnail getThumbnail(Manifest manifest) {
+    /*
+    A manifest should have exactly one thumbnail image, and may have more than one.
+    A sequence may have one or more thumbnails and should have at least one thumbnail if there are multiple sequences in a single manifest.
+    A canvas may have one or more thumbnails and should have at least one thumbnail if there are multiple images or resources that make up the representation.
+    A content resource may have one or more thumbnails and should have at least one thumbnail if it is an option in a choice of resources.
+    Other resource types may have one or more thumbnails.
+     */
+    ImageContent imageContent = null;
+
+    // A manifest should have exactly one thumbnail image, and may have more than one.
+    if (manifest.getThumbnails() != null) {
+      imageContent = manifest.getThumbnail();
+    }
+
+    if (imageContent == null && manifest.getDefaultSequence() != null) {
+      // A sequence may have one or more thumbnails and should have at least one thumbnail if there are multiple sequences in a single manifest.
+      imageContent = manifest.getDefaultSequence().getThumbnail();
+    }
+
+    if (imageContent == null && manifest.getDefaultSequence() != null && manifest.getDefaultSequence().getCanvases() != null) {
+      // A canvas may have one or more thumbnails and should have at least one thumbnail if there are multiple images or resources that make up the representation.
+      imageContent = manifest.getDefaultSequence().getCanvases().stream()
               .map(c -> c.getThumbnails())
               .filter(ts -> ts != null && ts.size() > 0)
               .map(ts -> ts.get(0))
               .findFirst().orElse(null);
 
     }
-    if (thumb == null) {
-      ImageService service = manifest.getDefaultSequence().getCanvases().get(0).getImages().stream()
+
+    if (imageContent == null) {
+      // No thumbnail found, yet. Take the first image of first canvas as "thumbnail".
+      imageContent = manifest.getDefaultSequence().getCanvases().get(0).getImages().stream()
               .map(a -> {
                 if (a.getResource() instanceof ImageContent) {
                   return (ImageContent) a.getResource();
                 } else {
                   return (ImageContent) ((Choice) a.getResource()).getDefault();
                 }
-              })
-              .flatMap(r -> r.getServices().stream())
+              }).findFirst().orElse(null);
+    }
+
+    if (imageContent != null) {
+      // thumbnail candidate found
+      ImageService imageService = imageContent.getServices().stream()
               .filter(ImageService.class::isInstance)
               .map(ImageService.class::cast)
               .findFirst().orElse(null);
-      boolean isV1 = service.getProfiles().stream()
-              .map(p -> p.getIdentifier().toString())
-              .anyMatch(ImageApiProfile.V1_PROFILES::contains);
 
-      String serviceUrl = service.getIdentifier().toString();
-      if (serviceUrl.endsWith("/")) {
-        serviceUrl = serviceUrl.substring(0, serviceUrl.length() - 1);
+      if (imageService != null) {
+        boolean isV1 = imageService.getProfiles().stream()
+                .map(p -> p.getIdentifier().toString())
+                .anyMatch(ImageApiProfile.V1_PROFILES::contains);
+
+        String serviceUrl = imageService.getIdentifier().toString();
+        if (serviceUrl.endsWith("/")) {
+          serviceUrl = serviceUrl.substring(0, serviceUrl.length() - 1);
+        }
+
+        List<Size> sizes = imageService.getSizes();
+        if (sizes == null) {
+          try {
+            Resource springResource = appContext.getResource(serviceUrl + "/info.json");
+            // get info.json for available sizes
+            imageService = (ImageService) objectMapper.readValue(springResource.getInputStream(), Service.class);
+            sizes = imageService.getSizes();
+          } catch (IOException ex) {
+            LOGGER.debug("Can not read info.json", ex);
+          }
+        }
+
+        int bestWidth = thumbnailWidth;
+        if (sizes != null) {
+          bestWidth = sizes.stream()
+                  .sorted(Comparator.comparing(s -> Math.abs(thumbnailWidth - s.getWidth())))
+                  .map(Size::getWidth)
+                  .findFirst().orElse(thumbnailWidth);
+        }
+
+        String thumbnailUrl = String.format("%s/full/%d,/0/", serviceUrl, bestWidth);
+        if (isV1) {
+          thumbnailUrl += "native.jpg";
+        } else {
+          thumbnailUrl += "default.jpg";
+        }
+        LOGGER.debug("Thumbnail url = '{}'", thumbnailUrl);
+        return new Thumbnail(thumbnailUrl);
       }
-      int supportedThumbnailWidth = thumbnailWidth;
-      String thumbnailUrl = String.format("%s/full/" + supportedThumbnailWidth + ",/0/", serviceUrl);
-      if (isV1) {
-        thumbnailUrl += "native.jpg";
-      } else {
-        thumbnailUrl += "default.jpg";
-      }
-      thumb = new ImageContent(thumbnailUrl);
     }
 
-    if (thumb != null && thumb.getServices() != null && thumb.getServices().size() > 0) {
-      de.digitalcollections.iiif.model.Service service = thumb.getServices().get(0);
-      return new Thumbnail(service.getContext().toString(), service.getIdentifier().toString());
-    } else if (thumb != null) {
-      return new Thumbnail(thumb.getIdentifier().toString());
-    } else {
-      return null;
-    }
+    return null;
   }
-
 }

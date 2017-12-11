@@ -1,0 +1,145 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@type": "sc:Manifest",
+  "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/manifest",
+  "label": "Wochentliche Ordinari Zeitung, 27.08.1669",
+  "metadata": [{
+      "label": [{
+          "@language": "de",
+          "@value": "Titel"
+        }, {
+          "@language": "en",
+          "@value": "Title"
+        }],
+      "value": "Wochentliche Ordinari Zeitung, 27.08.1669"
+    }, {
+      "label": [{
+          "@language": "de",
+          "@value": "Zeitraum"
+        }, {
+          "@language": "en",
+          "@value": "Period"
+        }],
+      "value": "1669-08-27"
+    }, {
+      "label": [{
+          "@language": "de",
+          "@value": "Erschienen"
+        }, {
+          "@language": "en",
+          "@value": "Published"
+        }],
+      "value": "[Regensburg]"
+    }],
+  "navDate": "1669-08-26T23:50:39Z",
+  "license": "http://www.europeana.eu/rights/out-of-copyright-non-commercial/",
+  "attribution": "Bayerische Staatsbibliothek",
+  "seeAlso": "https://opacplus.bsb-muenchen.de/title/2125656-1",
+  "within": "https://api.digitale-sammlungen.de/iiif/presentation/v2/collection/2125656-1",
+  "sequences": [{
+      "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/sequence/normal",
+      "@type": "sc:Sequence",
+      "canvases": [{
+          "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/canvas/p1",
+          "@type": "sc:Canvas",
+          "label": "Seite 1",
+          "images": [{
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb10916320_00001/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "service": {
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "@id": "classpath:manifests/bsb10916320_00001",
+                  "profile": "http://iiif.io/api/image/2/level1.json",
+                  "protocol": "http://iiif.io/api/image"
+                },
+                "format": "image/jpeg",
+                "width": 1370,
+                "height": 1839
+              },
+              "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/canvas/p1"
+            }],
+          "width": 1370,
+          "height": 1839
+        }, {
+          "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/canvas/p2",
+          "@type": "sc:Canvas",
+          "label": "Seite 2",
+          "images": [{
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb10916320_00002/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "service": {
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb10916320_00002",
+                  "profile": "http://iiif.io/api/image/2/level1.json",
+                  "protocol": "http://iiif.io/api/image"
+                },
+                "format": "image/jpeg",
+                "width": 1370,
+                "height": 1847
+              },
+              "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/canvas/p2"
+            }],
+          "width": 1370,
+          "height": 1847
+        }, {
+          "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/canvas/p3",
+          "@type": "sc:Canvas",
+          "label": "Seite 3",
+          "images": [{
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb10916320_00003/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "service": {
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb10916320_00003",
+                  "profile": "http://iiif.io/api/image/2/level1.json",
+                  "protocol": "http://iiif.io/api/image"
+                },
+                "format": "image/jpeg",
+                "width": 1370,
+                "height": 1947
+              },
+              "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/canvas/p3"
+            }],
+          "width": 1370,
+          "height": 1947
+        }, {
+          "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/canvas/p4",
+          "@type": "sc:Canvas",
+          "label": "Seite 4",
+          "images": [{
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb10916320_00004/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "service": {
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb10916320_00004",
+                  "profile": "http://iiif.io/api/image/2/level1.json",
+                  "protocol": "http://iiif.io/api/image"
+                },
+                "format": "image/jpeg",
+                "width": 1370,
+                "height": 1850
+              },
+              "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10916320_00001_u001/canvas/p4"
+            }],
+          "width": 1370,
+          "height": 1850
+        }]
+    }],
+  "logo": {
+    "@id": "https://api.digitale-sammlungen.de/iiif/images/bsb_logo.png",
+    "format": "image/png"
+  },
+  "viewingHint": "paged"
+}

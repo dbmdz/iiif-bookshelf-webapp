@@ -1,0 +1,27 @@
+{
+  "@context": "http://iiif.io/api/image/2/context.json",
+  "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb10916320_00001",
+  "width": 1370,
+  "height": 1839,
+  "tiles": [{
+      "width": 512,
+      "scaleFactors": [1, 2, 4, 8, 16]
+    }, {
+      "width": 1024,
+      "scaleFactors": [1, 2, 4, 8, 16]
+    }],
+  "sizes": [{
+      "width": 1370,
+      "height": 1839
+    }, {
+      "width": 1028,
+      "height": 1380
+    }, {
+      "width": 172,
+      "height": 230
+    }],
+  "profile": ["http://iiif.io/api/image/2/level2.json", {
+      "supports": ["baseUriRedirect", "cors", "jsonldMediaType", "mirroring", "profileLinkHeader", "regionByPct", "regionByPx", "regionSquare", "rotationBy90s", "sizeByConfinedWh", "sizeByH", "sizeByPct", "sizeByW", "sizeByWh"]
+    }],
+  "protocol": "http://iiif.io/api/image"
+}

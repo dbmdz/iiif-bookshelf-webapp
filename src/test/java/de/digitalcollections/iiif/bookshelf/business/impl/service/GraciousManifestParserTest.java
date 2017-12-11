@@ -13,7 +13,7 @@ public class GraciousManifestParserTest {
 
   @Test
   public void testManifestYale() throws IOException, URISyntaxException {
-    InputStream is = this.getClass().getClassLoader().getResourceAsStream("manifests/yale_BlakeCopyL_manifest.json");
+    InputStream is = this.getClass().getClassLoader().getResourceAsStream("manifests/manifests.ydc2.yale.edu-manifest-BlakeCopyL.json");
     IiifManifestSummary iiifManifestSummary = new IiifManifestSummary();
     parser.fillFromInputStream(is, iiifManifestSummary);
     Assert.assertNotNull(iiifManifestSummary.getThumbnail());
