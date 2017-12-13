@@ -2,12 +2,16 @@ package de.digitalcollections.iiif.bookshelf.business.impl.service;
 
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
+import de.digitalcollections.iiif.model.image.ImageApiProfile;
+import de.digitalcollections.iiif.model.image.Size;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,17 +19,14 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
 public class GraciousManifestParser extends AbstractManifestParser {
+
   private static final Logger LOGGER = LoggerFactory.getLogger(GraciousManifestParser.class);
-  
-  @Value("${custom.summary.thumbnail.width}")
-  private int thumbnailWidth;
-  
+
   public static final Locale DEFAULT_LOCALE = Locale.GERMAN;
 
   @Override
@@ -43,14 +44,14 @@ public class GraciousManifestParser extends AbstractManifestParser {
     try {
       JSONParser jsonParser = new JSONParser();
       JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
-      
+
       fillFromJsonObject(jsonObject, manifestSummary);
     } catch (ParseException ex) {
       LOGGER.warn("Could not parse json at {}.", manifestSummary.getManifestUri());
       throw new IOException("Invalid JSON.");
     }
   }
-  
+
   /**
    * Language may be associated with strings that are intended to be displayed to the user with the following pattern of
    *
@@ -80,12 +81,19 @@ public class GraciousManifestParser extends AbstractManifestParser {
     Thumbnail thumbnail = getThumbnail(jsonObject);
     manifestSummary.setThumbnail(thumbnail);
 
-    String logoUrl = (String) jsonObject.get("logo");
+    String logoUrl = null;
+    Object logo = jsonObject.get("logo");
+    if (logo instanceof JSONObject) {
+      logoUrl = (String) ((JSONObject) logo).get("@id");
+    }
+    if (logo instanceof String) {
+      logoUrl = (String) logo;
+    }
     if (!StringUtils.isEmpty(logoUrl)) {
       manifestSummary.setLogoUrl(logoUrl);
     }
   }
-  
+
   public HashMap<Locale, String> getLocalizedStrings(Object jsonNode) {
     HashMap<Locale, String> result = new HashMap<>();
     if (jsonNode == null) {
@@ -107,52 +115,99 @@ public class GraciousManifestParser extends AbstractManifestParser {
   }
 
   private Thumbnail getThumbnail(JSONObject manifestObj) {
-    // try to get thumbnail of manifest itself
-    JSONObject thumbnailObj = (JSONObject) manifestObj.get("thumbnail");
+    JSONObject thumbnailObj;
+
+    // A manifest should have exactly one thumbnail image, and may have more than one.
+    thumbnailObj = (JSONObject) manifestObj.get("thumbnail");
+
+    JSONObject firstSequence = null;
+    if (thumbnailObj == null) {
+      // A sequence may have one or more thumbnails and should have at least one thumbnail if there are multiple sequences in a single manifest.
+      JSONArray sequencesArray = (JSONArray) manifestObj.get("sequences");
+      if (sequencesArray != null) {
+        firstSequence = (JSONObject) sequencesArray.get(0);
+        if (firstSequence != null) {
+          thumbnailObj = (JSONObject) firstSequence.get("thumbnail");
+        }
+      }
+    }
+
+    JSONArray canvases = null;
+    if (thumbnailObj == null && firstSequence != null) {
+      // A canvas may have one or more thumbnails and should have at least one thumbnail if there are multiple images or resources that make up the representation.
+      canvases = (JSONArray) firstSequence.get("canvases");
+      if (canvases != null) {
+        Object obj = canvases.stream()
+                .map(c -> ((JSONObject) c).get("thumbnail"))
+                .filter(t -> t != null)
+                .findFirst().orElse(null);
+        if (obj != null) {
+          if (obj instanceof JSONObject) {
+            thumbnailObj = (JSONObject) obj;
+          }
+          // TODO String = url
+        }
+      }
+    }
+
+    if (thumbnailObj == null && canvases != null) {
+      // No thumbnail found, yet. Take the first image of first canvas as "thumbnail".
+      JSONObject firstCanvas = ((JSONObject) canvases.get(0));
+      if (firstCanvas != null) {
+        JSONArray images = (JSONArray) firstCanvas.get("images");
+        if (images != null) {
+          Object obj = images.stream()
+                  .map(i -> ((JSONObject) i).get("resource"))
+                  .findFirst().orElse(null);
+          if (obj != null) {
+            if (obj instanceof JSONObject) {
+              thumbnailObj = (JSONObject) obj;
+            }
+            // TODO String = url
+          }
+        }
+      }
+    }
+
     if (thumbnailObj != null) {
+      // thumbnail candidate found
       JSONObject serviceObj = (JSONObject) thumbnailObj.get("service");
       if (serviceObj != null) {
-        String context = (String) serviceObj.get("@context");
-        String id = (String) serviceObj.get("@id");
-        return new Thumbnail(context, id);
-      } else {
-        String url = (String) thumbnailObj.get("@id");
-        return new Thumbnail(url);
-      }
-    }
+        boolean isV1 = false;
 
-    // try to get thumbnail of first canvas
-    try {
-      // manifest.getSequences().get(0).getCanvases().get(0).getImages().get(0).getResource().getService().getId();
-      JSONArray sequencesArray = (JSONArray) manifestObj.get("sequences");
-      JSONObject firstSequence = (JSONObject) sequencesArray.get(0);
-
-      JSONArray canvasesArray = (JSONArray) firstSequence.get("canvases");
-      JSONObject firstCanvas = (JSONObject) canvasesArray.get(0);
-
-      Object obj = firstCanvas.get("thumbnail");
-      if (obj instanceof JSONObject) {
-        JSONObject firstCanvasThumbnail = (JSONObject) firstCanvas.get("thumbnail");
-        if (firstCanvasThumbnail != null) {
-          String url = (String) firstCanvasThumbnail.get("@id");
-          return new Thumbnail(url);
+        String profile = null;
+        Object profileObj = serviceObj.get("profile");
+        if (profileObj == null) {
+          profileObj = (String) serviceObj.get("dcterms:conformsTo");
         }
-      } else if (obj instanceof String) {
-        String url = (String) obj;
-        return new Thumbnail(url);
+        if (profileObj instanceof JSONArray) {
+          profile = (String) ((JSONArray) profileObj).get(0);
+        }
+        if (profileObj instanceof String) {
+          profile = (String) profileObj;
+        }
+        if (profile != null) {
+          isV1 = ImageApiProfile.V1_PROFILES.contains(profile);
+        }
+
+        String serviceUrl = (String) serviceObj.get("@id");
+        if (serviceUrl.endsWith("/")) {
+          serviceUrl = serviceUrl.substring(0, serviceUrl.length() - 1);
+        }
+
+        List<Size> sizes = new ArrayList<>();
+        JSONArray sizesArray = (JSONArray) serviceObj.get("sizes");
+        if (sizesArray != null) {
+          for (Object size : sizesArray) {
+            JSONObject sizeObj = (JSONObject) size;
+            int width = new Long((long) sizeObj.get("width")).intValue();
+            int height = new Long((long) sizeObj.get("height")).intValue();
+            sizes.add(new Size(width, height));
+          }
+        }
+        return createThumbnail(sizes, serviceUrl, isV1);
       }
-
-      JSONArray imagesArray = (JSONArray) firstCanvas.get("images");
-      JSONObject firstImage = (JSONObject) imagesArray.get(0);
-
-      JSONObject resourceObj = (JSONObject) firstImage.get("resource");
-      JSONObject serviceObj = (JSONObject) resourceObj.get("service");
-      String context = (String) serviceObj.get("@context");
-      String id = (String) serviceObj.get("@id");
-      return new Thumbnail(context, id);
-    } catch (Exception ex) {
     }
-
     return null;
   }
 }

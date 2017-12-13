@@ -21,7 +21,7 @@
                 "height": "3999",
                 "label": "Front Cover",
                 "service": {
-                  "@id": "http://scale.ydc2.yale.edu/iiif/ff78a8c8-d85a-4fc5-9c11-1307831bded0/",
+                  "@id": "classpath:manifests/blakecopyl/",
                   "dcterms:conformsTo": "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
                 },
                 "width": "2851"

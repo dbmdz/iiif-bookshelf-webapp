@@ -6,7 +6,6 @@ import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.model.ImageContent;
 import de.digitalcollections.iiif.model.PropertyValue;
-import de.digitalcollections.iiif.model.Service;
 import de.digitalcollections.iiif.model.image.ImageApiProfile;
 import de.digitalcollections.iiif.model.image.ImageService;
 import de.digitalcollections.iiif.model.image.Size;
@@ -17,16 +16,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,12 +31,6 @@ public class StrictManifestParser extends AbstractManifestParser {
 
   @Autowired
   private ObjectMapper objectMapper;
-
-  @Autowired
-  private ApplicationContext appContext;
-
-  @Value("${custom.summary.thumbnail.width}")
-  private int thumbnailWidth;
 
   @Override
   public void fillSummary(IiifManifestSummary manifestSummary) throws IOException, URISyntaxException {
@@ -159,36 +148,9 @@ public class StrictManifestParser extends AbstractManifestParser {
         }
 
         List<Size> sizes = imageService.getSizes();
-        if (sizes == null) {
-          try {
-            Resource springResource = appContext.getResource(serviceUrl + "/info.json");
-            // get info.json for available sizes
-            imageService = (ImageService) objectMapper.readValue(springResource.getInputStream(), Service.class);
-            sizes = imageService.getSizes();
-          } catch (IOException ex) {
-            LOGGER.debug("Can not read info.json", ex);
-          }
-        }
-
-        int bestWidth = thumbnailWidth;
-        if (sizes != null) {
-          bestWidth = sizes.stream()
-                  .sorted(Comparator.comparing(s -> Math.abs(thumbnailWidth - s.getWidth())))
-                  .map(Size::getWidth)
-                  .findFirst().orElse(thumbnailWidth);
-        }
-
-        String thumbnailUrl = String.format("%s/full/%d,/0/", serviceUrl, bestWidth);
-        if (isV1) {
-          thumbnailUrl += "native.jpg";
-        } else {
-          thumbnailUrl += "default.jpg";
-        }
-        LOGGER.debug("Thumbnail url = '{}'", thumbnailUrl);
-        return new Thumbnail(thumbnailUrl);
+        return createThumbnail(sizes, serviceUrl, isV1);
       }
     }
-
     return null;
   }
 }

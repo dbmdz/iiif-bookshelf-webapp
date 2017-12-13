@@ -5,7 +5,6 @@ import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,6 @@ public class StrictManifestParserTest {
 
   @Autowired
   private IiifObjectMapper mapper;
-
-  @Before
-  public void setUp() {
-  }
 
   private <T> T readFromResources(String filename, Class<T> clz) throws IOException {
     return mapper.readValue(
