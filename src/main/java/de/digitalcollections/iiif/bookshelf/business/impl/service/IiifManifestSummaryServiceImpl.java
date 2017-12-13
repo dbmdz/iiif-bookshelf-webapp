@@ -44,7 +44,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   @Value("${custom.iiif.graciousParsing}")
   private boolean graciousParsing;
-  
+
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
     final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
@@ -69,7 +69,11 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
         // Manifest might not be standard conform. Nevertheless we just want some values from it to form a short summary.
         // As long viewer can handle the manifest, we are fine to show it.
         LOGGER.warn("Manifest at uri {} might be not standard conform, trying gracious parsing.", manifestSummary.getManifestUri(), ex);
-        graciousManifestParser.fillSummary(manifestSummary);
+        try {
+          graciousManifestParser.fillSummary(manifestSummary);
+        } catch (Exception e) {
+          throw e;
+        }
       } else {
         throw ex;
       }
