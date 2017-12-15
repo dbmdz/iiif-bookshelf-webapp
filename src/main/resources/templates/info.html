@@ -47,6 +47,30 @@
                 </div>
               </div>
             </th:block>
+            
+            <th:block th:if="*{licenses} != null">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label class="pull-right" th:text="#{licenses}">Licenses</label>
+                </div>
+                <div class="col-sm-9">
+                  <p th:each="license : ${manifest.licenses}">
+                    <a th:href="@{${license}}" target="_blank" th:text="${license}"></a>
+                  </p>
+                </div>
+              </div>
+            </th:block>
+            
+            <th:block th:if="*{metadata} != null">
+              <div class="row" th:each="metadata : *{metadata}">
+                <div class="col-sm-3">
+                  <label class="pull-right" th:text="${metadata.label.getFirstValue(#locale.language)}">Label</label>
+                </div>
+                <div class="col-sm-9">
+                  <span th:utext="${metadata.value.getFirstValue(#locale.language)}">...</span>
+                </div>
+              </div>
+            </th:block>
           </div>
         </div>
       </div>
