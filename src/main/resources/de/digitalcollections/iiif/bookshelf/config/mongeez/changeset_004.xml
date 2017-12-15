@@ -1,0 +1,62 @@
+<mongoChangeLog>
+
+  <changeSet changeId="Bookshelf-004" author="matthias">
+    <script>
+      // Get the collection
+      var collection = db.getCollection('iiif-manifest-summaries');
+      // Initialize the Ordered Batch
+      var bulk = collection.initializeOrderedBulkOp();
+      var bulkResult;
+      // Initialize the counter
+      var counter = 0;
+
+      collection.find({'thumbnail': {$ne: null}}).forEach(function(doc){
+        var iiifImageApiVersion = doc.thumbnail.iiifImageApiVersion;
+        var iiifImageServiceUri = doc.thumbnail.iiifImageServiceUri;
+        var url = doc.thumbnail.url;
+        var updateOperation = null;
+      
+        if(iiifImageApiVersion !== null){
+          if(iiifImageApiVersion === 'V1_1'){
+            updateOperation = {
+              '$set': {'thumbnail.url': iiifImageServiceUri + '/full/280,/0/native.jpg'},
+              '$unset': {'thumbnail.iiifImageApiVersion': 1, 'thumbnail.iiifImageServiceUri': 1}
+            }
+          }else if(iiifImageApiVersion === 'V2'){
+            updateOperation = {
+              '$set': {'thumbnail.url': iiifImageServiceUri + '/full/280,/0/default.jpg'},
+              '$unset': {'thumbnail.iiifImageApiVersion': 1, 'thumbnail.iiifImageServiceUri': 1}
+            }
+          }
+        }else if(url === null){
+          if(iiifImageServiceUri !== null){
+            updateOperation = {
+              '$set': {'thumbnail.url': iiifImageServiceUri + '/full/280,/0/native.jpg'},
+              '$unset': {'thumbnail.iiifImageServiceUri': 1}
+            }
+          }
+        }
+
+        if(updateOperation !== null){
+          bulk.find({'_id': doc._id}).updateOne(updateOperation);
+
+          counter++;
+        }
+
+        if(counter % 1000 === 0 ){
+          bulkResult = bulk.execute();
+          print('Mongeez: migrated ' + counter + ' documents.');
+          // Re-initialise batch operation
+          bulk = collection.initializeOrderedBulkOp();
+        }
+      });
+
+      if(counter % 1000 !== 0 ){
+        bulk.execute();
+      }
+
+      print('Mongeez: migrated ' + counter + ' documents.');
+    </script>
+  </changeSet>
+
+</mongoChangeLog>
