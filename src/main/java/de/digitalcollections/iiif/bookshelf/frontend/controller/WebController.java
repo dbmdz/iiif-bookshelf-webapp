@@ -9,8 +9,11 @@ import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
+import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
+import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
@@ -53,6 +56,9 @@ public class WebController extends AbstractController {
 
   @Autowired
   private IiifManifestSummaryService iiifManifestSummaryService;
+
+  @Autowired
+  private IiifObjectMapper iiifObjectMapper;
 
   /**
    * List with or without search query.
@@ -192,6 +198,40 @@ public class WebController extends AbstractController {
     String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);
     return "mirador/view";
+  }
+
+  @CrossOrigin(origins = "*")
+  @RequestMapping(value = {"/info/{id}"}, method = RequestMethod.GET)
+  public String objectInfo(@PathVariable String id, Model model) throws IOException {
+    IiifManifestSummary iiifManifestSummary;
+
+    try {
+      // if old bookmark with uuid, send redirect to new viewId (if exists)
+      UUID uuid = UUID.fromString(id);
+      iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+      if (iiifManifestSummary != null) {
+        String viewId = iiifManifestSummary.getViewId();
+        if (viewId != null && !uuid.toString().equals(viewId)) {
+          return "redirect:/info/" + iiifManifestSummary.getViewId();
+        }
+      }
+    } catch (IllegalArgumentException e) {
+      // no uuid, so it is a viewId
+    }
+
+    iiifManifestSummary = iiifManifestSummaryService.get(id);
+    if (iiifManifestSummary == null) {
+      throw new NotFoundException();
+    }
+    final String manifestUri = iiifManifestSummary.getManifestUri();
+    model.addAttribute("manifestId", manifestUri);
+    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
+    model.addAttribute("title", title);
+
+    Manifest manifest = iiifObjectMapper.readValue(new URL(manifestUri), Manifest.class);
+    model.addAttribute("manifest", manifest);
+    model.addAttribute("manifestSummary", iiifManifestSummary);
+    return "info";
   }
 
   @ExceptionHandler(ApiException.class)

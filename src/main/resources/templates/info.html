@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+  <body>
+    <section layout:fragment="content">
+
+      <div th:object="${manifest}">
+        <h3 th:text="*{label.getFirstValue(#locale.language)}">Label</h3>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="thumbnail">
+              <div class="thumbnailImage">
+                <a class="imageLink" th:href="@{/view/__${manifestSummary.viewId}__}">
+                  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.url} != null">
+                    <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}"/>
+                  </th:block>
+                  <th:block th:if="${manifestSummary.thumbnail} == null or ${manifestSummary.thumbnail.url} == null">
+                    <img class="list-group-image" th:src="@{/images/no-image.png}"/>
+                  </th:block>
+                </a>
+              </div>
+            </div>
+            <a class="btn btn-primary" th:href="@{/view/__${manifestSummary.viewId}__}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span th:text="#{view}">view</span></a>
+          </div>
+
+          <div class="col-sm-9">
+            <th:block th:if="*{description} != null">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label class="pull-right" th:text="#{description}">Description</label>
+                </div>
+                <div class="col-sm-9">
+                  <span th:utext="*{description.getFirstValue(#locale.language)}">...</span>
+                </div>
+              </div>
+            </th:block>
+
+            <th:block th:if="*{attribution} != null">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label class="pull-right" th:text="#{attribution}">Attribution</label>
+                </div>
+                <div class="col-sm-9">
+                  <span th:utext="*{attribution.getFirstValue(#locale.language)}">...</span>
+                </div>
+              </div>
+            </th:block>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </body>
+</html>
