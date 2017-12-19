@@ -6,7 +6,17 @@
     <section layout:fragment="content">
 
       <div th:object="${manifest}">
-        <h3 th:text="*{label.getFirstValue(#locale.language)}">Label</h3>
+        <div class="row">
+          <div class="col-sm-12">
+            <span class="pull-right">
+              <a href="javascript:window.print();"><i class="glyphicon glyphicon-print"></i></a>
+            </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12"><h3 th:text="*{label.getFirstValue(#locale.language)}">Label</h3></div>
+        </div>
 
         <div class="row">
           <div class="col-sm-3">
@@ -37,17 +47,6 @@
               </div>
             </th:block>
 
-            <th:block th:if="*{attribution} != null">
-              <div class="row">
-                <div class="col-sm-3">
-                  <label class="pull-right" th:text="#{attribution}">Attribution</label>
-                </div>
-                <div class="col-sm-9">
-                  <span th:utext="*{attribution.getFirstValue(#locale.language)}">...</span>
-                </div>
-              </div>
-            </th:block>
-            
             <th:block th:if="*{licenses} != null">
               <div class="row">
                 <div class="col-sm-3">
@@ -60,17 +59,66 @@
                 </div>
               </div>
             </th:block>
-            
+
+            <th:block th:if="*{attribution} != null">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label class="pull-right" th:text="#{attribution}">Attribution</label>
+                </div>
+                <div class="col-sm-9">
+                  <span th:utext="*{attribution.getFirstValue(#locale.language)}">...</span>
+                </div>
+              </div>
+            </th:block>
+
+            <th:block th:if="${manifestSummary.logoUrl} != null">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label class="pull-right" th:text="#{logo}">Logo</label>
+                </div>
+                <div class="col-sm-9">
+                  <img class="preview-thumbnail" th:src="${manifestSummary.logoUrl}"/>
+                </div>
+              </div>
+            </th:block>
+
+
+            <!-- block of free structured metadata key / values -->
             <th:block th:if="*{metadata} != null">
               <div class="row" th:each="metadata : *{metadata}">
                 <div class="col-sm-3">
-                  <label class="pull-right" th:text="${metadata.label.getFirstValue(#locale.language)}">Label</label>
+                  <label class="pull-right" th:text="${metadata.label.getFirstValue(#locale.language)}">Metadata-Label</label>
                 </div>
                 <div class="col-sm-9">
                   <span th:utext="${metadata.value.getFirstValue(#locale.language)}">...</span>
                 </div>
               </div>
             </th:block>
+
+            <th:block th:if="*{seeAlso} != null">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label class="pull-right" th:text="#{links}">Links</label>
+                </div>
+                <div class="col-sm-9">
+                  <p th:each="seeAlso : ${manifest.seeAlso}">
+                    <a th:href="@{${seeAlso.identifier}}" target="_blank" th:text="${seeAlso.identifier}"></a>
+                  </p>
+                </div>
+              </div>
+            </th:block>
+
+            <div class="row">
+              <div class="col-sm-3 iiif-logo">
+                <img class="pull-right" th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
+              </div>
+              <div class="col-sm-9">
+                <p>
+                  <a class="manifest-link" th:href="${manifest.identifier}" target="_blank" th:text="${manifest.identifier}"></a>
+                </p>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
