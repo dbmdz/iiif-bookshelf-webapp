@@ -37,7 +37,7 @@
         <div class="col-sm-9">
           <th:block th:if="${manifest} and ${manifest.description} != null">
             <div class="row">
-              <div class="col-sm-3">
+              <div class="col-sm-3 text-right">
                 <label th:text="#{description}">Description</label>
               </div>
               <div class="col-sm-9">
@@ -48,7 +48,7 @@
 
           <th:block th:if="${manifest} and ${manifest.licenses} != null">
             <div class="row">
-              <div class="col-sm-3">
+              <div class="col-sm-3 text-right">
                 <label th:text="#{licenses}">Licenses</label>
               </div>
               <div class="col-sm-9">
@@ -61,7 +61,7 @@
 
           <th:block th:if="${manifest} and ${manifest.attribution} != null">
             <div class="row">
-              <div class="col-sm-3">
+              <div class="col-sm-3 text-right">
                 <label th:text="#{attribution}">Attribution</label>
               </div>
               <div class="col-sm-9">
@@ -72,7 +72,7 @@
 
           <th:block th:if="${manifestSummary.logoUrl} != null">
             <div class="row">
-              <div class="col-sm-3">
+              <div class="col-sm-3 text-right">
                 <label th:text="#{logo}">Logo</label>
               </div>
               <div class="col-sm-9">
@@ -85,7 +85,7 @@
           <!-- block of free structured metadata key / values -->
           <th:block th:if="${manifest} and ${manifest.metadata} != null">
             <div class="row" th:each="metadata : ${manifest.metadata}">
-              <div class="col-sm-3">
+              <div class="col-sm-3 text-right">
                 <label th:text="${metadata.label.getFirstValue(#locale.language)}">Metadata-Label</label>
               </div>
               <div class="col-sm-9">
@@ -94,11 +94,11 @@
             </div>
           </th:block>
 
-          <h4 th:text="#{links}">Links</h4>
+          <h4 th:text="#{links}" class="underline">Links</h4>
 
           <th:block th:if="${manifest} and ${manifest.seeAlso} != null">
             <div class="row">
-              <div class="col-sm-3">
+              <div class="col-sm-3 text-right">
                 <label th:text="#{see_also}">See also</label>
               </div>
               <div class="col-sm-9">
@@ -111,7 +111,7 @@
 
           <th:block th:if="${manifest} and ${manifest.related} != null">
             <div class="row">
-              <div class="col-sm-3">
+              <div class="col-sm-3 text-right">
                 <label th:text="#{related}">Related</label>
               </div>
               <div class="col-sm-9">
@@ -123,7 +123,7 @@
           </th:block>
 
           <div class="row">
-            <div class="col-sm-3 iiif-logo">
+            <div class="col-sm-3 iiif-logo text-right">
               <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
             </div>
             <div class="col-sm-9">

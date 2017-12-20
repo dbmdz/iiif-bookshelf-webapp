@@ -23,7 +23,7 @@ footer {
   text-align: center;
 }
 
-h4 {
+.underline {
   border-bottom: solid 1px #AAA;
 }
 
@@ -366,10 +366,6 @@ div.tablerow .lastModified {
     margin-top: 0;
     margin-bottom: 0;
     line-height: 40px;
-  }
-  
-  .row label, .row .iiif-logo img {
-    float: right !important;
   }
 }
 
