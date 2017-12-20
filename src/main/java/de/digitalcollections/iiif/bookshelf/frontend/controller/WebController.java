@@ -15,12 +15,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -43,6 +45,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WebController extends AbstractController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
+
+  @Autowired
+  private MessageSource messageSource;
 
   @Autowired
   @Value("#{iiifVersions}")
@@ -202,7 +207,7 @@ public class WebController extends AbstractController {
 
   @CrossOrigin(origins = "*")
   @RequestMapping(value = {"/info/{id}"}, method = RequestMethod.GET)
-  public String objectInfo(@PathVariable String id, Model model) throws IOException {
+  public String objectInfo(@PathVariable String id, Model model, Locale locale) throws IOException {
     IiifManifestSummary iiifManifestSummary;
 
     try {
@@ -227,10 +232,14 @@ public class WebController extends AbstractController {
     model.addAttribute("manifestId", manifestUri);
     String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);
-
-    Manifest manifest = iiifObjectMapper.readValue(new URL(manifestUri), Manifest.class);
-    model.addAttribute("manifest", manifest);
     model.addAttribute("manifestSummary", iiifManifestSummary);
+
+    try {
+      Manifest manifest = iiifObjectMapper.readValue(new URL(manifestUri), Manifest.class);
+      model.addAttribute("manifest", manifest);
+    } catch (Exception e) {
+      model.addAttribute("error_message", messageSource.getMessage("manifest_error", new Object[]{}, locale));
+    }
     return "info";
   }
 

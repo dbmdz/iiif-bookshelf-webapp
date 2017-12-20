@@ -67,6 +67,8 @@
 
     <!--/*  Here comes the content  */-->
     <div class="container">
+      <div th:replace="fragments/feedback-messages :: global"></div>
+      
       <section layout:fragment="content">
         ...
       </section>
