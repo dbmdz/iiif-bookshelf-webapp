@@ -56,6 +56,13 @@ public class StrictManifestParserTest {
     url = result.getUrl();
     assertEquals(expResult, url);
 
+    // @value metadata without @language in manifest:
+    manifest = readFromResources("manifests/gallica.bnf.fr-manifest-btv1b7100627v.json", Manifest.class);
+    expResult = "http://gallica.bnf.fr/ark:/12148/btv1b7100627v.thumbnail";
+    result = parser.getThumbnail(manifest);
+    url = result.getUrl();
+    assertEquals(expResult, url);
+
   }
 
 }

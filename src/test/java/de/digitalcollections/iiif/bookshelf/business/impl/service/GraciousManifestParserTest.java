@@ -69,5 +69,16 @@ public class GraciousManifestParserTest {
     expResult = "https://dlcs.io/thumbs/wellcome/1/1a1fcf18-8965-4f72-9324-45c3f6b4b469/full/255,/0/default.jpg";
     url = result.getUrl();
     assertEquals(expResult, url);
+
+    // @value metadata without @language in manifest:
+    is = this.getClass().getClassLoader().getResourceAsStream("manifests/gallica.bnf.fr-manifest-btv1b7100627v.json");
+    iiifManifestSummary = new IiifManifestSummary();
+    parser.fillFromInputStream(is, iiifManifestSummary);
+    result = iiifManifestSummary.getThumbnail();
+    Assert.assertNotNull(result);
+
+    expResult = "http://gallica.bnf.fr/ark:/12148/btv1b7100627v.thumbnail";
+    url = result.getUrl();
+    assertEquals(expResult, url);
   }
 }

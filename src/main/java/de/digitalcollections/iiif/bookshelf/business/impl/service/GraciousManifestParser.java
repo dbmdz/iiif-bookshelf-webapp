@@ -206,6 +206,8 @@ public class GraciousManifestParser extends AbstractManifestParser {
           }
         }
         return createThumbnail(sizes, serviceUrl, isV1);
+      } else {
+        return new Thumbnail(thumbnailObj.get("@id").toString());
       }
     }
     return null;

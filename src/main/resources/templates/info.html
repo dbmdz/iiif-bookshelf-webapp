@@ -6,7 +6,7 @@
     <section layout:fragment="content">
 
       <div th:object="${manifest}">
-        <div class="row">
+        <div class="row page-actions">
           <div class="col-sm-12">
             <span class="pull-right">
               <a href="javascript:window.print();"><i class="glyphicon glyphicon-print"></i></a>
@@ -77,7 +77,7 @@
                   <label class="pull-right" th:text="#{logo}">Logo</label>
                 </div>
                 <div class="col-sm-9">
-                  <img class="preview-thumbnail" th:src="${manifestSummary.logoUrl}"/>
+                  <img class="preview-thumbnail attributorLogo" th:src="${manifestSummary.logoUrl}"/>
                 </div>
               </div>
             </th:block>
@@ -95,14 +95,29 @@
               </div>
             </th:block>
 
+            <h4 th:text="#{links}">Links</h4>
+            
             <th:block th:if="*{seeAlso} != null">
               <div class="row">
                 <div class="col-sm-3">
-                  <label class="pull-right" th:text="#{links}">Links</label>
+                  <label class="pull-right" th:text="#{see_also}">See also</label>
                 </div>
                 <div class="col-sm-9">
                   <p th:each="seeAlso : ${manifest.seeAlso}">
                     <a th:href="@{${seeAlso.identifier}}" target="_blank" th:text="${seeAlso.identifier}"></a>
+                  </p>
+                </div>
+              </div>
+            </th:block>
+            
+            <th:block th:if="*{related} != null">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label class="pull-right" th:text="#{related}">Related</label>
+                </div>
+                <div class="col-sm-9">
+                  <p th:each="related : ${manifest.related}">
+                    <a th:href="@{${related.identifier}}" target="_blank" th:text="${related.identifier}"></a>
                   </p>
                 </div>
               </div>

@@ -132,11 +132,13 @@ public class StrictManifestParser extends AbstractManifestParser {
 
     if (imageContent != null) {
       // thumbnail candidate found
-      ImageService imageService = imageContent.getServices().stream()
-              .filter(ImageService.class::isInstance)
-              .map(ImageService.class::cast)
-              .findFirst().orElse(null);
-
+      ImageService imageService = null;
+      if (imageContent.getServices() != null) {
+        imageService = imageContent.getServices().stream()
+                .filter(ImageService.class::isInstance)
+                .map(ImageService.class::cast)
+                .findFirst().orElse(null);
+      }
       if (imageService != null) {
         boolean isV1 = imageService.getProfiles().stream()
                 .map(p -> p.getIdentifier().toString())
@@ -149,6 +151,8 @@ public class StrictManifestParser extends AbstractManifestParser {
 
         List<Size> sizes = imageService.getSizes();
         return createThumbnail(sizes, serviceUrl, isV1);
+      } else {
+        return new Thumbnail(imageContent.getIdentifier().toString());
       }
     }
     return null;
