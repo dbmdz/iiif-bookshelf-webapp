@@ -367,6 +367,10 @@ div.tablerow .lastModified {
     margin-bottom: 0;
     line-height: 40px;
   }
+  
+  .row label, .row .iiif-logo img {
+    float: right !important;
+  }
 }
 
 
