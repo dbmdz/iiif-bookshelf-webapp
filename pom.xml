@@ -275,6 +275,11 @@
     </dependency>
     <dependency>
       <groupId>org.webjars.npm</groupId>
+      <artifactId>dbmdz__mirador-sharebuttons</artifactId>
+      <version>${version.webjar-mirador-sharebuttons}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
       <artifactId>dbmdz__mirador-viewfromurl</artifactId>
       <version>${version.webjar-mirador-viewfromurl}</version>
     </dependency>
