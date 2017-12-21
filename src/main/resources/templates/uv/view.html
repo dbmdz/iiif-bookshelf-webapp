@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html 
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{base}">
+  <head>
+    <link rel="stylesheet" th:href="@{/css/viewer.css}" />
+    <title th:utext="${title}">Label of manifest in current locale</title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      <div class="uv" id="uv-container" th:attr="data-uri=@{|${manifestId}|}"></div>
+
+      <script type="text/javascript" id="embedUV" th:src="@{|/webjars/universalviewer/${iiifVersions.universalviewer}/dist/uv-${iiifVersions.universalviewer}/lib/embed.js|}"></script>
+    </section>
+  </body>
+</html>

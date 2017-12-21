@@ -100,6 +100,7 @@
     <version.webjar-mirador-sharebuttons>1.0.0</version.webjar-mirador-sharebuttons>
     <version.webjar-mirador-viewfromurl>1.1.0</version.webjar-mirador-viewfromurl>
     <version.webjar-respond>1.4.2</version.webjar-respond>
+    <version.webjar-universalviewer>2.0.2</version.webjar-universalviewer>
   </properties>
 
   <dependencyManagement>
@@ -300,6 +301,11 @@
       <version>${version.webjar-respond}</version>
     </dependency>
     <dependency>
+      <groupId>org.webjars.npm</groupId>
+      <artifactId>universalviewer</artifactId>
+      <version>${version.webjar-universalviewer}</version>
+    </dependency>
+    <dependency>
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
     </dependency>
@@ -319,6 +325,7 @@
         <includes>
           <include>application.yml</include>
           <include>iiif-versions.yml</include>
+          <include>iiif-versions-custom.yml</include>
         </includes>
       </resource>
     </resources>

@@ -206,6 +206,36 @@ public class WebController extends AbstractController {
   }
 
   @CrossOrigin(origins = "*")
+  @RequestMapping(value = {"/uv/{id}"}, method = RequestMethod.GET)
+  public String viewObjectInUniversalViewer(@PathVariable String id, Model model) {
+    IiifManifestSummary iiifManifestSummary;
+
+    try {
+      // if old bookmark with uuid, send redirect to new viewId (if exists)
+      UUID uuid = UUID.fromString(id);
+      iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+      if (iiifManifestSummary != null) {
+        String viewId = iiifManifestSummary.getViewId();
+        if (viewId != null && !uuid.toString().equals(viewId)) {
+          return "redirect:/uv/" + iiifManifestSummary.getViewId();
+        }
+      }
+    } catch (IllegalArgumentException e) {
+      // no uuid, so it is a viewId
+    }
+
+    iiifManifestSummary = iiifManifestSummaryService.get(id);
+    if (iiifManifestSummary == null) {
+      throw new NotFoundException();
+    }
+    model.addAttribute("iiifVersions", iiifVersions);
+    model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
+    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
+    model.addAttribute("title", title);
+    return "uv/view";
+  }
+
+  @CrossOrigin(origins = "*")
   @RequestMapping(value = {"/info/{id}"}, method = RequestMethod.GET)
   public String objectInfo(@PathVariable String id, Model model, Locale locale) throws IOException {
     IiifManifestSummary iiifManifestSummary;
