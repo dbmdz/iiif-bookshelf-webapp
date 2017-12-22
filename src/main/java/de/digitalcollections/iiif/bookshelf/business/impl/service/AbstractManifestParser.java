@@ -76,7 +76,11 @@ public abstract class AbstractManifestParser {
       }
     }
     LOGGER.debug("Thumbnail url = '{}'", thumbnailUrl);
-    return new Thumbnail(thumbnailUrl);
+    final Thumbnail thumbnail = new Thumbnail(thumbnailUrl);
+    if (serviceUrl != null) {
+      thumbnail.setIiifImageServiceUri(serviceUrl);
+    }
+    return thumbnail;
   }
 
   protected InputStream getContentInputStream(String uri) throws URISyntaxException, UnsupportedOperationException, IOException {

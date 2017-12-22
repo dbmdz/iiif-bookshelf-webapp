@@ -2,140 +2,172 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
-  <body>
-    <section layout:fragment="content">
+  <head>
+  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
+    <link rel="stylesheet" th:href="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.css|}" />
+  </th:block>
+</head>
+<body>
+  <section layout:fragment="content">
 
-      <div class="row page-actions">
-        <div class="col-sm-12">
-          <span class="pull-right">
-            <a href="javascript:window.print();"><i class="glyphicon glyphicon-print"></i></a>
-          </span>
-        </div>
+    <div class="row page-actions">
+      <div class="col-sm-12">
+        <span class="pull-right">
+          <a href="javascript:window.print();"><i class="glyphicon glyphicon-print"></i></a>
+        </span>
       </div>
+    </div>
 
-      <div class="row" th:if="${manifest}">
-        <div class="col-sm-12"><h3 th:text="${manifest.label.getFirstValue(#locale.language)}">Label</h3></div>
-      </div>
+    <div class="row" th:if="${manifest}">
+      <div class="col-sm-12"><h3 th:text="${manifest.label.getFirstValue(#locale.language)}">Label</h3></div>
+    </div>
 
-      <div class="row">
-        <div class="col-sm-3">
-          <div class="thumbnail">
-            <div class="thumbnailImage">
-              <a class="imageLink" th:href="@{/view/__${manifestSummary.viewId}__}">
-                <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.url} != null">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="thumbnail">
+          <div class="thumbnailImage">
+            <a class="imageLink" th:href="@{/view/__${manifestSummary.viewId}__}">
+              <!--
+              <th:block th:if="${manifestSummary.thumbnail} != null">
+                <th:block th:if="${manifestSummary.thumbnail.iiifImageServiceUri} != null">
+                  <div id="leaflet-container"></div>
+                </th:block>
+                <th:block th:if="${manifestSummary.thumbnail.iiifImageServiceUri} == null and ${manifestSummary.thumbnail.url} != null">
                   <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}"/>
                 </th:block>
-                <th:block th:if="${manifestSummary.thumbnail} == null or ${manifestSummary.thumbnail.url} == null">
-                  <img class="list-group-image" th:src="@{/images/no-image.png}"/>
-                </th:block>
-              </a>
-            </div>
+              </th:block>
+              -->
+              <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.url} != null">
+                <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}"/>
+              </th:block>
+              <th:block th:if="${manifestSummary.thumbnail} == null or ${manifestSummary.thumbnail.url} == null">
+                <img class="list-group-image" th:src="@{/images/no-image.png}"/>
+              </th:block>
+            </a>
           </div>
-          <a class="btn btn-primary" th:href="@{/view/__${manifestSummary.viewId}__}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span th:text="#{view}">view</span></a>
         </div>
+        <a class="btn btn-primary" th:href="@{/view/__${manifestSummary.viewId}__}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span th:text="#{view}">view</span></a>
+      </div>
 
-        <div class="col-sm-9">
-          <th:block th:if="${manifest} and ${manifest.description} != null">
-            <div class="row">
-              <div class="col-sm-3 text-right">
-                <label th:text="#{description}">Description</label>
-              </div>
-              <div class="col-sm-9">
-                <span th:utext="${manifest.description.getFirstValue(#locale.language)}">...</span>
-              </div>
-            </div>
-          </th:block>
-
-          <th:block th:if="${manifest} and ${manifest.licenses} != null">
-            <div class="row">
-              <div class="col-sm-3 text-right">
-                <label th:text="#{licenses}">Licenses</label>
-              </div>
-              <div class="col-sm-9">
-                <p th:each="license : ${manifest.licenses}">
-                  <a th:href="@{${license}}" target="_blank" th:text="${license}"></a>
-                </p>
-              </div>
-            </div>
-          </th:block>
-
-          <th:block th:if="${manifest} and ${manifest.attribution} != null">
-            <div class="row">
-              <div class="col-sm-3 text-right">
-                <label th:text="#{attribution}">Attribution</label>
-              </div>
-              <div class="col-sm-9">
-                <span th:utext="${manifest.attribution.getFirstValue(#locale.language)}">...</span>
-              </div>
-            </div>
-          </th:block>
-
-          <th:block th:if="${manifestSummary.logoUrl} != null">
-            <div class="row">
-              <div class="col-sm-3 text-right">
-                <label th:text="#{logo}">Logo</label>
-              </div>
-              <div class="col-sm-9">
-                <img class="preview-thumbnail attributorLogo" th:src="${manifestSummary.logoUrl}"/>
-              </div>
-            </div>
-          </th:block>
-
-
-          <!-- block of free structured metadata key / values -->
-          <th:block th:if="${manifest} and ${manifest.metadata} != null">
-            <div class="row" th:each="metadata : ${manifest.metadata}">
-              <div class="col-sm-3 text-right">
-                <label th:text="${metadata.label.getFirstValue(#locale.language)}">Metadata-Label</label>
-              </div>
-              <div class="col-sm-9">
-                <span th:utext="${metadata.value.getFirstValue(#locale.language)}">...</span>
-              </div>
-            </div>
-          </th:block>
-
-          <h4 th:text="#{links}" class="underline">Links</h4>
-
-          <th:block th:if="${manifest} and ${manifest.seeAlso} != null">
-            <div class="row">
-              <div class="col-sm-3 text-right">
-                <label th:text="#{see_also}">See also</label>
-              </div>
-              <div class="col-sm-9">
-                <p th:each="seeAlso : ${manifest.seeAlso}">
-                  <a th:href="@{${seeAlso.identifier}}" target="_blank" th:text="${seeAlso.identifier}"></a>
-                </p>
-              </div>
-            </div>
-          </th:block>
-
-          <th:block th:if="${manifest} and ${manifest.related} != null">
-            <div class="row">
-              <div class="col-sm-3 text-right">
-                <label th:text="#{related}">Related</label>
-              </div>
-              <div class="col-sm-9">
-                <p th:each="related : ${manifest.related}">
-                  <a th:href="@{${related.identifier}}" target="_blank" th:text="${related.identifier}"></a>
-                </p>
-              </div>
-            </div>
-          </th:block>
-
+      <div class="col-sm-9">
+        <th:block th:if="${manifest} and ${manifest.description} != null">
           <div class="row">
-            <div class="col-sm-3 iiif-logo text-right">
-              <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
+            <div class="col-sm-3 text-right">
+              <label th:text="#{description}">Description</label>
             </div>
             <div class="col-sm-9">
-              <p>
-                <a class="manifest-link" th:href="${manifestSummary.manifestUri}" target="_blank" th:text="${manifestSummary.manifestUri}"></a>
+              <span th:utext="${manifest.description.getFirstValue(#locale.language)}">...</span>
+            </div>
+          </div>
+        </th:block>
+
+        <th:block th:if="${manifest} and ${manifest.licenses} != null">
+          <div class="row">
+            <div class="col-sm-3 text-right">
+              <label th:text="#{licenses}">Licenses</label>
+            </div>
+            <div class="col-sm-9">
+              <p th:each="license : ${manifest.licenses}">
+                <a th:href="@{${license}}" target="_blank" th:text="${license}"></a>
               </p>
             </div>
           </div>
+        </th:block>
 
+        <th:block th:if="${manifest} and ${manifest.attribution} != null">
+          <div class="row">
+            <div class="col-sm-3 text-right">
+              <label th:text="#{attribution}">Attribution</label>
+            </div>
+            <div class="col-sm-9">
+              <span th:utext="${manifest.attribution.getFirstValue(#locale.language)}">...</span>
+            </div>
+          </div>
+        </th:block>
+
+        <th:block th:if="${manifestSummary.logoUrl} != null">
+          <div class="row">
+            <div class="col-sm-3 text-right">
+              <label th:text="#{logo}">Logo</label>
+            </div>
+            <div class="col-sm-9">
+              <img class="preview-thumbnail attributorLogo" th:src="${manifestSummary.logoUrl}"/>
+            </div>
+          </div>
+        </th:block>
+
+
+        <!-- block of free structured metadata key / values -->
+        <th:block th:if="${manifest} and ${manifest.metadata} != null">
+          <div class="row" th:each="metadata : ${manifest.metadata}">
+            <div class="col-sm-3 text-right">
+              <label th:text="${metadata.label.getFirstValue(#locale.language)}">Metadata-Label</label>
+            </div>
+            <div class="col-sm-9">
+              <span th:utext="${metadata.value.getFirstValue(#locale.language)}">...</span>
+            </div>
+          </div>
+        </th:block>
+
+        <h4 th:text="#{links}" class="underline">Links</h4>
+
+        <th:block th:if="${manifest} and ${manifest.seeAlso} != null">
+          <div class="row">
+            <div class="col-sm-3 text-right">
+              <label th:text="#{see_also}">See also</label>
+            </div>
+            <div class="col-sm-9">
+              <p th:each="seeAlso : ${manifest.seeAlso}">
+                <a th:href="@{${seeAlso.identifier}}" target="_blank" th:text="${seeAlso.identifier}"></a>
+              </p>
+            </div>
+          </div>
+        </th:block>
+
+        <th:block th:if="${manifest} and ${manifest.related} != null">
+          <div class="row">
+            <div class="col-sm-3 text-right">
+              <label th:text="#{related}">Related</label>
+            </div>
+            <div class="col-sm-9">
+              <p th:each="related : ${manifest.related}">
+                <a th:href="@{${related.identifier}}" target="_blank" th:text="${related.identifier}"></a>
+              </p>
+            </div>
+          </div>
+        </th:block>
+
+        <div class="row">
+          <div class="col-sm-3 iiif-logo text-right">
+            <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
+          </div>
+          <div class="col-sm-9">
+            <p>
+              <a class="manifest-link" th:href="${manifestSummary.manifestUri}" target="_blank" th:text="${manifestSummary.manifestUri}"></a>
+            </p>
+          </div>
         </div>
-      </div>
 
-    </section>
-  </body>
+      </div>
+    </div>
+
+  </section>
+
+<th:block layout:fragment="morejs">
+  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
+    <script th:src="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.js|}"></script>
+    <script th:src="@{|/webjars/leaflet-iiif/${@iiifVersions['leaflet-iiif']}/leaflet-iiif.js|}"></script>
+    <script type="text/javascript" th:inline="javascript">
+      /*<![CDATA[*/
+      var map = L.map('leaflet-container', {
+        center: [0, 0],
+        crs: L.CRS.Simple,
+        zoom: 0,
+      });
+      L.tileLayer.iiif(/*[[@{|${manifestSummary.thumbnail.iiifImageServiceUri}/info.json|}]]*/).addTo(map);
+      /*]]>*/
+    </script>
+  </th:block>
+</th:block>
+</body>
 </html>
