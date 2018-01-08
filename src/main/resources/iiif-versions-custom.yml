@@ -1,4 +1,3 @@
 ---
 leaflet: @version.webjar-leaflet@
 leaflet-iiif: @version.webjar-leaflet-iiif@
-universalviewer: @version.webjar-universalviewer@
