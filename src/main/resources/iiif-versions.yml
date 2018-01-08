@@ -1,4 +1,6 @@
 ---
+leaflet: @version.webjar-leaflet@
+leaflet-iiif: @version.webjar-leaflet-iiif@
 mirador: @version.webjar-mirador@
 mirador-imagecropper: @version.webjar-mirador-imagecropper@
 mirador-keyboardnavigation: @version.webjar-mirador-keyboardnavigation@
