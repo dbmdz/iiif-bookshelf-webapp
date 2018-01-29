@@ -52,7 +52,8 @@ public abstract class AbstractManifestParser {
     int bestWidth = thumbnailWidth;
     if (sizes != null) {
       bestWidth = sizes.stream()
-              .sorted(Comparator.comparing((Size s) -> Math.abs(thumbnailWidth - s.getWidth())))
+              .filter(s -> s.getWidth() >= thumbnailWidth)
+              .sorted(Comparator.comparing(s -> Math.abs(thumbnailWidth - s.getWidth())))
               .map(Size::getWidth).findFirst().orElse(thumbnailWidth);
     }
     // TODO add check, if minimal width is met (make minWidth configurable), otherwise get second best width...
