@@ -115,7 +115,7 @@ public class WebController extends AbstractController {
       model.addAttribute("errorMessage", "No Manifest was found at URL.");
       return "add";
     } catch (Exception e) {
-      LOGGER.warn("Could not load manifest from {} because of invalid JSON", manifestSummary.getManifestUri(), e);
+      LOGGER.warn("Could not add manifest from {}", manifestSummary.getManifestUri(), e);
     }
     return "redirect:/";
   }
@@ -125,9 +125,9 @@ public class WebController extends AbstractController {
     try {
       iiifCollectionService.importAllObjects(manifestSummary);
     } catch (Exception e) {
-      LOGGER.warn("Could not load collection manifest from {} because of malformed Url/JSON", manifestSummary.getManifestUri(), e);
+      LOGGER.warn("Could not add collection manifest from {}", manifestSummary.getManifestUri(), e);
       model.addAttribute("manifest", manifestSummary);
-      model.addAttribute("errorMessage", "Collection manifest at URL contains malformed JSON or does not exist.");
+      model.addAttribute("errorMessage", "Could not add collection manifest from " + manifestSummary.getManifestUri());
       return "add";
     }
     return "redirect:/";
@@ -147,6 +147,9 @@ public class WebController extends AbstractController {
     } catch (NotFoundException | URISyntaxException e) {
       LOGGER.warn("Exception for manifest at {}: ", manifestUri, e);
       throw new ApiException("No manifest at URL '" + manifestUri + "'", HttpStatus.NOT_FOUND);
+    } catch (Exception e) {
+      LOGGER.warn("Exception for manifest at {}: ", manifestUri, e);
+      throw new ApiException("Exception for manifest at: '" + manifestUri + "'", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -163,6 +166,9 @@ public class WebController extends AbstractController {
       throw new ApiException("Invalid collection manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     } catch (URISyntaxException e) {
       throw new ApiException("No collection manifest at URL '" + manifestUri + "'", HttpStatus.NOT_FOUND);
+    } catch (Exception e) {
+      LOGGER.warn("Exception for collection at {}: ", manifestUri, e);
+      throw new ApiException("Exception for collection at: '" + manifestUri + "'", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

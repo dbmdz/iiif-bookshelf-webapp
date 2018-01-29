@@ -84,19 +84,25 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     manifestSummary.setViewId(viewId);
     // manifestUri now set to field @id of manifest.
     // no longer might be the same value as from user input (could have been redirected...). now it is save to use it as unique key for lookup:
-    prepareUpdateIfAlreadyExists(manifestSummary.getManifestUri(), manifestSummary);
-    iiifManifestSummaryRepository.save(manifestSummary);
+    IiifManifestSummary existingManifest = prepareUpdateIfAlreadyExists(manifestSummary.getManifestUri(), manifestSummary);
+    try {
+      iiifManifestSummaryRepository.save(manifestSummary);
+    } catch (Exception ex) {
+      LOGGER.error("Error saving manifest with uri '{}', existing manifest uri '{}'", manifestSummary.getManifestUri(), existingManifest != null ? existingManifest.getManifestUri() : "not existing");
+      throw ex;
+    }
     iiifManifestSummarySearchRepository.save(manifestSummary);
     LOGGER.info("successfully imported and indexed {}", manifestSummary.getManifestUri());
   }
 
-  private void prepareUpdateIfAlreadyExists(final String manifestIdentifier, IiifManifestSummary manifestSummary) {
+  private IiifManifestSummary prepareUpdateIfAlreadyExists(final String manifestIdentifier, IiifManifestSummary manifestSummary) {
     // if exists already: set/overwrite unique fields to values of existing summary to enforce update instead of insert
     final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestIdentifier);
     if (existingManifest != null) {
       manifestSummary.setUuid(existingManifest.getUuid());
       manifestSummary.setViewId(existingManifest.getViewId());
     }
+    return existingManifest;
   }
 
   protected String getViewId(IiifManifestSummary manifestSummary) {
