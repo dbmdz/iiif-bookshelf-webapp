@@ -37,21 +37,21 @@ public class StrictManifestParserTest {
 
     // v1 info.json
     Manifest manifest = readFromResources("manifests/manifests.ydc2.yale.edu-manifest-Admont23.json", Manifest.class);
-    String expResult = "classpath:manifests/admont23/full/188,/0/native.jpg";
+    String expResult = "classpath:manifests/admont23/full/753,/0/native.jpg";
     Thumbnail result = parser.getThumbnail(manifest);
     String url = result.getUrl();
     assertEquals(expResult, url);
 
     // v2 info.json
     manifest = readFromResources("manifests/api.digitale-sammlungen.de_iiif_presentation_v2_bsb10916320_00001_u001-manifest.json", Manifest.class);
-    expResult = "classpath:manifests/bsb10916320_00001/full/172,/0/default.jpg";
+    expResult = "classpath:manifests/bsb10916320_00001/full/1028,/0/default.jpg";
     result = parser.getThumbnail(manifest);
     url = result.getUrl();
     assertEquals(expResult, url);
 
     // info.json inline in manifest:
     manifest = readFromResources("manifests/wellcomelibrary.org_iiif_b19792827-manifest.json", Manifest.class);
-    expResult = "https://dlcs.io/thumbs/wellcome/1/1a1fcf18-8965-4f72-9324-45c3f6b4b469/full/255,/0/default.jpg";
+    expResult = "https://dlcs.io/thumbs/wellcome/1/1a1fcf18-8965-4f72-9324-45c3f6b4b469/full/654,/0/default.jpg";
     result = parser.getThumbnail(manifest);
     url = result.getUrl();
     assertEquals(expResult, url);

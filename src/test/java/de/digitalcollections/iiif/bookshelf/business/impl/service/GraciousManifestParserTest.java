@@ -33,7 +33,7 @@ public class GraciousManifestParserTest {
     Thumbnail result = iiifManifestSummary.getThumbnail();
     Assert.assertNotNull(result);
 
-    String expResult = "classpath:manifests/blakecopyl/full/178,/0/native.jpg";
+    String expResult = "classpath:manifests/blakecopyl/full/712,/0/native.jpg";
     String url = iiifManifestSummary.getThumbnail().getUrl();
     assertEquals(expResult, url);
 
@@ -44,7 +44,7 @@ public class GraciousManifestParserTest {
     result = iiifManifestSummary.getThumbnail();
     Assert.assertNotNull(result);
 
-    expResult = "classpath:manifests/admont23/full/188,/0/native.jpg";
+    expResult = "classpath:manifests/admont23/full/753,/0/native.jpg";
     url = result.getUrl();
     assertEquals(expResult, url);
 
@@ -55,7 +55,7 @@ public class GraciousManifestParserTest {
     result = iiifManifestSummary.getThumbnail();
     Assert.assertNotNull(result);
 
-    expResult = "classpath:manifests/bsb10916320_00001/full/172,/0/default.jpg";
+    expResult = "classpath:manifests/bsb10916320_00001/full/1028,/0/default.jpg";
     url = result.getUrl();
     assertEquals(expResult, url);
 
@@ -66,7 +66,7 @@ public class GraciousManifestParserTest {
     result = iiifManifestSummary.getThumbnail();
     Assert.assertNotNull(result);
 
-    expResult = "https://dlcs.io/thumbs/wellcome/1/1a1fcf18-8965-4f72-9324-45c3f6b4b469/full/255,/0/default.jpg";
+    expResult = "https://dlcs.io/thumbs/wellcome/1/1a1fcf18-8965-4f72-9324-45c3f6b4b469/full/654,/0/default.jpg";
     url = result.getUrl();
     assertEquals(expResult, url);
 
