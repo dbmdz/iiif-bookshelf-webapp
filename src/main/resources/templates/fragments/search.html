@@ -13,8 +13,11 @@
           <div class="input-group">
             <input type="text" name="query" th:field="*{query}" class="form-control"
                    th:placeholder="| #{searchterm}|"/>
-            <span class="input-group-btn"><button name="submit" type="submit" class="btn btn-primary"><span
-                  class="glyphicon glyphicon-search"></span></button></span>
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
           </div>
         </div>
       </form>
