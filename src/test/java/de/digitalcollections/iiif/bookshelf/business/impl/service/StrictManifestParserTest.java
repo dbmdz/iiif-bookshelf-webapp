@@ -33,8 +33,6 @@ public class StrictManifestParserTest {
 
   @Test
   public void testGetThumbnail() throws IOException {
-    System.out.println("getThumbnail");
-
     // v1 info.json
     Manifest manifest = readFromResources("manifests/manifests.ydc2.yale.edu-manifest-Admont23.json", Manifest.class);
     String expResult = "classpath:manifests/admont23/full/753,/0/native.jpg";
