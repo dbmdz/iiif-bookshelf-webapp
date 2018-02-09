@@ -92,7 +92,7 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       throw ex;
     }
     iiifManifestSummarySearchRepository.save(manifestSummary);
-    LOGGER.info("successfully imported and indexed {}", manifestSummary.getManifestUri());
+    LOGGER.info("Successfully imported and indexed {}", manifestSummary.getManifestUri());
   }
 
   private IiifManifestSummary prepareUpdateIfAlreadyExists(final String manifestIdentifier, IiifManifestSummary manifestSummary) {
