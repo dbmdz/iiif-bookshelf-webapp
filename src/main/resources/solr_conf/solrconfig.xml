@@ -19,7 +19,7 @@
 
   <jmx />
 
-  <luceneMatchVersion>6.4</luceneMatchVersion>
+  <luceneMatchVersion>7.2</luceneMatchVersion>
 
   <dataDir>${solr.data.dir:}</dataDir>
 
