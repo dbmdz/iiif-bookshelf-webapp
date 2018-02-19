@@ -197,6 +197,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     String trimmedQuery = escapeUnwantedSpecialChars(text);
 
     query.set("defType", "edismax");
+    query.set("q.op", "AND");
     query.set("qf", "text identifier_str manifesturi_keu");
     query.setQuery(trimmedQuery);
     query.setFields("id");
