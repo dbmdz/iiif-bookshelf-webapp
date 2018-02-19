@@ -66,23 +66,19 @@
     <version.iiif-apis>0.3.0</version.iiif-apis>
     <version.jackson>2.9.0</version.jackson>
     <version.jacoco-maven-plugin>0.7.8</version.jacoco-maven-plugin>
-    <version.javax-servlet-api>3.1.0</version.javax-servlet-api>
-    <version.logstash-logback-encoder>4.8</version.logstash-logback-encoder>
     <version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
     <version.maven-resources-plugin>3.0.2</version.maven-resources-plugin>
     <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
-    <version.maven-war-plugin>3.1.0</version.maven-war-plugin>
     <version.mongeez>0.9.6</version.mongeez>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.1.Final</version.prettytime>
     <version.prometheus-spring-boot-starter>1.0.2</version.prometheus-spring-boot-starter>
-    <version.solr>6.4.0</version.solr>
-    <version.spring-boot-maven-plugin>1.5.8.RELEASE</version.spring-boot-maven-plugin>
-    <version.spring-boot-dependencies>1.5.8.RELEASE</version.spring-boot-dependencies>
-    <version.spring-security>4.2.1.RELEASE</version.spring-security>
+    <version.solr>7.2.1</version.solr>
+    <version.spring-boot-maven-plugin>1.5.10.RELEASE</version.spring-boot-maven-plugin>
+    <version.spring-boot-dependencies>1.5.10.RELEASE</version.spring-boot-dependencies>
     <version.thymeleaf>3.0.7.RELEASE</version.thymeleaf>
     <version.thymeleaf-layout-dialect>2.2.2</version.thymeleaf-layout-dialect>
     <version.thymeleaf-spring4>3.0.7.RELEASE</version.thymeleaf-spring4>
