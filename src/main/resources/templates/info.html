@@ -3,9 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
   <head>
-  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
+<!--  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
     <link rel="stylesheet" th:href="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.css|}" />
-  </th:block>
+  </th:block>-->
 </head>
 <body>
   <section layout:fragment="content">
@@ -155,17 +155,17 @@
 
 <th:block layout:fragment="morejs">
   <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
-    <script th:src="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.js|}"></script>
-    <script th:src="@{|/webjars/leaflet-iiif/${@iiifVersions['leaflet-iiif']}/leaflet-iiif.js|}"></script>
+<!--    <script th:src="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.js|}"></script>
+    <script th:src="@{|/webjars/leaflet-iiif/${@iiifVersions['leaflet-iiif']}/leaflet-iiif.js|}"></script>-->
     <script type="text/javascript" th:inline="javascript">
-      /*<![CDATA[*/
-      var map = L.map('leaflet-container', {
-        center: [0, 0],
-        crs: L.CRS.Simple,
-        zoom: 0,
-      });
-      L.tileLayer.iiif(/*[[@{|${manifestSummary.thumbnail.iiifImageServiceUri}/info.json|}]]*/).addTo(map);
-      /*]]>*/
+//      /*<![CDATA[*/
+//      var map = L.map('leaflet-container', {
+//        center: [0, 0],
+//        crs: L.CRS.Simple,
+//        zoom: 0,
+//      });
+//      L.tileLayer.iiif(/*[[@{|${manifestSummary.thumbnail.iiifImageServiceUri}/info.json|}]]*/).addTo(map);
+//      /*]]>*/
     </script>
   </th:block>
 </th:block>
