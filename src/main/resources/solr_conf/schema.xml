@@ -10,6 +10,9 @@
     Changelog
     ***********************************************************************************************
 
+    2018-02-19 ML:
+    - Upgrade to Solr 7
+
     2017-01-18 DP:
     - Reduziertes Schema fuer Bookshelf
     - Nicht benötigte Elemente entfernt
@@ -53,7 +56,7 @@
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
         <filter class="solr.CJKBigramFilterFactory"/>
         <filter class="solr.DelimitedPayloadTokenFilterFactory" encoder="identity" delimiter="|"/>
-        <filter class="solr.WordDelimiterFilterFactory" preserveOriginal="0" generateWordParts="0" generateNumberParts="0" catenateWords="1" catenateNumbers="1" catenateAll="1" splitOnCaseChange="0" splitOnNumerics="0" stemEnglishPossessive="1"/>
+        <filter class="solr.WordDelimiterGraphFilterFactory" preserveOriginal="0" generateWordParts="0" generateNumberParts="0" catenateWords="1" catenateNumbers="1" catenateAll="1" splitOnCaseChange="0" splitOnNumerics="0" stemEnglishPossessive="1"/>
         <filter class="solr.LengthFilterFactory" min="1" max="128"/>
         <filter class="solr.ASCIIFoldingFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
@@ -107,6 +110,5 @@
   </fields>
 
   <uniqueKey>id</uniqueKey>
-  <solrQueryParser defaultOperator="AND"/>
 
 </schema>
