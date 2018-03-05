@@ -111,7 +111,7 @@
           <!--/* The image */-->
           <div class="thumbnail">
             <div class="thumbnailImage">
-              <a class="imageLink" th:href="@{/view/__${manifest.viewId}__}">
+              <a class="imageLink" th:href="@{/__${manifest.viewId}__/view}">
                 <th:block th:if="${manifest.thumbnail} != null and ${manifest.thumbnail.url} != null">
                   <img class="list-group-image" th:src="${manifest.thumbnail.url}"/>
                 </th:block>
@@ -129,7 +129,7 @@
             <!--/* The caption */-->
             <div class="caption">
               <h4 class="group inner list-group-item-heading">
-                <a th:href="@{/info/__${manifest.viewId}__}"
+                <a th:href="@{/__${manifest.viewId}__}"
                    th:text="${manifest.labels.isEmpty()} ? '' : (${manifest.getLabel('__${#locale.language}__') != null? manifest.getLabel('__${#locale.language}__') : manifest.labels.values().toArray()[0]})">Title</a>
               </h4>
               <p class="group inner list-group-item-text"
@@ -150,8 +150,8 @@
               </div>
 
               <div>
-                <a class="btn btn-primary" th:href="@{/view/__${manifest.viewId}__}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span th:text="#{view}">view</span></a>
-                <a class="btn btn-primary" th:href="@{/info/__${manifest.viewId}__}"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <span th:text="#{details}">details</span></a>
+                <a class="btn btn-primary" th:href="@{/__${manifest.viewId}__/view}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span th:text="#{view}">view</span></a>
+                <a class="btn btn-primary" th:href="@{/__${manifest.viewId}__}"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <span th:text="#{details}">details</span></a>
               </div>
               <div>
                 <span class="lighter smaller"

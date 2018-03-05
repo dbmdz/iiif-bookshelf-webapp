@@ -182,7 +182,7 @@ public class WebController extends AbstractController {
 //    return "mirador/view";
 //  }
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/view/{id}"}, method = RequestMethod.GET)
+  @RequestMapping(value = {"/{id}/view", "/view/{id}"}, method = RequestMethod.GET)
   public String viewObject(@PathVariable String id, Model model) {
     IiifManifestSummary iiifManifestSummary;
 
@@ -193,7 +193,7 @@ public class WebController extends AbstractController {
       if (iiifManifestSummary != null) {
         String viewId = iiifManifestSummary.getViewId();
         if (viewId != null && !uuid.toString().equals(viewId)) {
-          return "redirect:/view/" + iiifManifestSummary.getViewId();
+          return "redirect:/" + iiifManifestSummary.getViewId() + "/view";
         }
       }
     } catch (IllegalArgumentException e) {
@@ -212,7 +212,7 @@ public class WebController extends AbstractController {
   }
 
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/uv/{id}"}, method = RequestMethod.GET)
+  @RequestMapping(value = {"/{id}/uv"}, method = RequestMethod.GET)
   public String viewObjectInUniversalViewer(@PathVariable String id, Model model) {
     IiifManifestSummary iiifManifestSummary;
 
@@ -223,7 +223,7 @@ public class WebController extends AbstractController {
       if (iiifManifestSummary != null) {
         String viewId = iiifManifestSummary.getViewId();
         if (viewId != null && !uuid.toString().equals(viewId)) {
-          return "redirect:/uv/" + iiifManifestSummary.getViewId();
+          return "redirect:/" + iiifManifestSummary.getViewId() + "/uv";
         }
       }
     } catch (IllegalArgumentException e) {
@@ -242,7 +242,7 @@ public class WebController extends AbstractController {
   }
 
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/info/{id}"}, method = RequestMethod.GET)
+  @RequestMapping(value = {"/{id}", "/{id}/info", "/info/{id}"}, method = RequestMethod.GET)
   public String objectInfo(@PathVariable String id, Model model, Locale locale) throws IOException {
     IiifManifestSummary iiifManifestSummary;
 
@@ -253,7 +253,7 @@ public class WebController extends AbstractController {
       if (iiifManifestSummary != null) {
         String viewId = iiifManifestSummary.getViewId();
         if (viewId != null && !uuid.toString().equals(viewId)) {
-          return "redirect:/info/" + iiifManifestSummary.getViewId();
+          return "redirect:/" + iiifManifestSummary.getViewId();
         }
       }
     } catch (IllegalArgumentException e) {
