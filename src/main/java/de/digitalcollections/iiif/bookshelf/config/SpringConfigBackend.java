@@ -3,8 +3,12 @@ package de.digitalcollections.iiif.bookshelf.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
+import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.request.SolrPing;
+import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.mongeez.MongeezRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +48,7 @@ public class SpringConfigBackend {
   private String solrServerAddress;
 
   @Value("${custom.solr.collection}")
-  private String solrCollection;
+  private String collection;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -68,21 +72,18 @@ public class SpringConfigBackend {
   }
 
   @Bean
-  public SolrClient bookshelfCollection() {
-    return getSolrServerForCollection(solrCollection);
-  }
+  public SolrClient solrClient() {
+    SolrClient client = new HttpSolrClient.Builder(solrServerAddress).build();
 
-  private SolrClient getSolrServerForCollection(String collection) {
-    SolrClient client = null;
-
+    // check if solr collection is correctly configured and responding
     try {
-      client = new HttpSolrClient.Builder(solrServerAddress + "/" + collection).build();
-      LOGGER.info("State of solr access to " + solrServerAddress + "/" + collection + ": " + client.ping().getStatus());
-    } catch (Exception e) {
+      SolrPing ping = new SolrPing();
+      SolrPingResponse response = ping.process(client, collection);
+      LOGGER.info("State of solr ping request to " + solrServerAddress + "/" + collection + ": " + response.getStatus());
+    } catch (IOException | SolrServerException e) {
       LOGGER.error("Cannot connect to " + solrServerAddress + ": " + e, e);
     }
 
     return client;
   }
-
 }
