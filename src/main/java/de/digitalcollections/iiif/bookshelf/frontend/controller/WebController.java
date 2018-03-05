@@ -182,7 +182,14 @@ public class WebController extends AbstractController {
 //    return "mirador/view";
 //  }
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/{id}/view", "/view/{id}"}, method = RequestMethod.GET)
+  @RequestMapping(value = {"/view/{id}"}, method = RequestMethod.GET)
+  @Deprecated
+  public String oldViewObject(@PathVariable String id, Model model) {
+    return "redirect:/" + id + "/view";
+  }
+
+  @CrossOrigin(origins = "*")
+  @RequestMapping(value = {"/{id}/view"}, method = RequestMethod.GET)
   public String viewObject(@PathVariable String id, Model model) {
     IiifManifestSummary iiifManifestSummary;
 
@@ -242,7 +249,14 @@ public class WebController extends AbstractController {
   }
 
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/{id}", "/{id}/info", "/info/{id}"}, method = RequestMethod.GET)
+  @RequestMapping(value = {"/info/{id}"}, method = RequestMethod.GET)
+  @Deprecated
+  public String oldObjectInfo(@PathVariable String id, Model model) {
+    return "redirect:/" + id;
+  }
+
+  @CrossOrigin(origins = "*")
+  @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
   public String objectInfo(@PathVariable String id, Model model, Locale locale) throws IOException {
     IiifManifestSummary iiifManifestSummary;
 
