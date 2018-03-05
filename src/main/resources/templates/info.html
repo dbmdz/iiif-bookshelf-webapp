@@ -119,7 +119,7 @@
             <div class="col-sm-9">
               <p th:each="seeAlso : ${manifest.seeAlso}">
                 <th:block th:if="${seeAlso.label} != null">
-                  <label th:utext="#{${seeAlso.label.getFirstValue(#locale.language)}}">seeAlso-Label</label><br/>
+                  <span th:utext="${seeAlso.label.getFirstValue(#locale.language)}">seeAlso-Label</span>:&nbsp;
                 </th:block>
                 <a th:href="@{${seeAlso.identifier}}" target="_blank" th:text="${seeAlso.identifier}">...</a>
               </p>
@@ -135,7 +135,7 @@
             <div class="col-sm-9">
               <p th:each="related : ${manifest.related}">
                 <th:block th:if="${related.label} != null">
-                  <label th:utext="#{${related.label.getFirstValue(#locale.language)}}">Related-Label</label><br/>
+                  <span th:utext="${related.label.getFirstValue(#locale.language)}">Related-Label</span>:&nbsp;
                 </th:block>
                 <a th:href="@{${related.identifier}}" target="_blank" th:utext="${related.identifier}">...</a>
               </p>
