@@ -248,6 +248,14 @@ div.tablerow .lastModified {
   margin-bottom: 0;
 }
 
+.page-actions {
+  margin-top: 10px;
+}
+
+.page-actions .action {
+  font-size: 18px;
+}
+
 /*
  * VIEWER STUFF GOES HERE
  */
