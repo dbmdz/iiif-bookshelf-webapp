@@ -10,12 +10,8 @@
 <body>
   <section layout:fragment="content">
 
-    <div class="row page-actions">
-      <div class="col-sm-12">
-        <span class="action pull-right">
-          <a href="javascript:window.print();"><i class="glyphicon glyphicon-print"></i></a>
-        </span>
-      </div>
+    <div th:replace="fragments/page-actions :: menu">
+      ...
     </div>
 
     <div class="row" th:if="${manifest}">
