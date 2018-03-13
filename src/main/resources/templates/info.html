@@ -15,7 +15,9 @@
     </div>
 
     <div class="row" th:if="${manifest}">
-      <div class="col-sm-12"><h3 th:text="${manifest.label.getFirstValue(#locale.language)}">Label</h3></div>
+      <div class="col-sm-12">
+        <h3 class="manifest-label" th:text="${manifest.label.getFirstValue(#locale.language)}">Label</h3>
+      </div>
     </div>
 
     <div class="row">

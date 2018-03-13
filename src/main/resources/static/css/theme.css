@@ -249,6 +249,10 @@ div.tablerow .lastModified {
   font-size: 18px;
 }
 
+h3.manifest-label {
+  margin-top: 0;
+}
+
 /*
  * VIEWER STUFF GOES HERE
  */
