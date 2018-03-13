@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -253,6 +254,25 @@ public class WebController extends AbstractController {
   @Deprecated
   public String oldObjectInfo(@PathVariable String id, Model model) {
     return "redirect:/" + id;
+  }
+
+  @CrossOrigin(origins = "*")
+  @RequestMapping(value = {"/{id}"}, method = RequestMethod.HEAD)
+  public void objectExists(@PathVariable String id, HttpServletResponse response) throws IOException {
+    IiifManifestSummary iiifManifestSummary;
+
+    try {
+      // if old bookmark with uuid, send redirect to new viewId (if exists)
+      UUID uuid = UUID.fromString(id);
+      iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+    } catch (IllegalArgumentException e) {
+      // no uuid, so it is a viewId
+      iiifManifestSummary = iiifManifestSummaryService.get(id);
+    }
+    if (iiifManifestSummary == null) {
+      throw new NotFoundException();
+    }
+    response.setStatus(HttpStatus.OK.value());
   }
 
   @CrossOrigin(origins = "*")
