@@ -31,19 +31,19 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   private static final Logger LOGGER = LoggerFactory.getLogger(IiifManifestSummaryServiceImpl.class);
 
   @Autowired
+  private GraciousManifestParser graciousManifestParser;
+
+  @Value("${custom.iiif.graciousParsing}")
+  private boolean graciousParsing;
+
+  @Autowired
   private IiifManifestSummaryRepository iiifManifestSummaryRepository;
 
   @Autowired
   private IiifManifestSummarySearchRepository iiifManifestSummarySearchRepository;
 
   @Autowired
-  private GraciousManifestParser graciousManifestParser;
-
-  @Autowired
   private StrictManifestParser strictManifestParser;
-
-  @Value("${custom.iiif.graciousParsing}")
-  private boolean graciousParsing;
 
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
@@ -93,33 +93,6 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     }
     iiifManifestSummarySearchRepository.save(manifestSummary);
     LOGGER.info("Successfully imported and indexed {}", manifestSummary.getManifestUri());
-  }
-
-  private IiifManifestSummary prepareUpdateIfAlreadyExists(final String manifestIdentifier, IiifManifestSummary manifestSummary) {
-    // if exists already: set/overwrite unique fields to values of existing summary to enforce update instead of insert
-    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestIdentifier);
-    if (existingManifest != null) {
-      manifestSummary.setUuid(existingManifest.getUuid());
-      manifestSummary.setViewId(existingManifest.getViewId());
-    }
-    return existingManifest;
-  }
-
-  protected String getViewId(IiifManifestSummary manifestSummary) {
-    // if sha-1 leads to not unique collisions, use this:
-    // return = manifestSummary.getUuid().toString();
-
-    // create a short reasonable unique view id
-    try {
-      String viewId = manifestSummary.getManifestUri();
-      MessageDigest digest = MessageDigest.getInstance("SHA-1");
-      byte[] sha1 = digest.digest(viewId.getBytes(StandardCharsets.UTF_8));
-      viewId = DatatypeConverter.printHexBinary(sha1);
-      return viewId.substring(0, 8);
-    } catch (NoSuchAlgorithmException ex) {
-      // if it does not work, just use uuid (which is longer)
-      return manifestSummary.getUuid().toString();
-    }
   }
 
   @Override
@@ -175,6 +148,33 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       result = (String) (manifestSummary.getLabels().values().toArray())[0];
     }
     return result;
+  }
+
+  protected String getViewId(IiifManifestSummary manifestSummary) {
+    // if sha-1 leads to not unique collisions, use this:
+    // return = manifestSummary.getUuid().toString();
+
+    // create a short reasonable unique view id
+    try {
+      String viewId = manifestSummary.getManifestUri();
+      MessageDigest digest = MessageDigest.getInstance("SHA-1");
+      byte[] sha1 = digest.digest(viewId.getBytes(StandardCharsets.UTF_8));
+      viewId = DatatypeConverter.printHexBinary(sha1);
+      return viewId.substring(0, 8);
+    } catch (NoSuchAlgorithmException ex) {
+      // if it does not work, just use uuid (which is longer)
+      return manifestSummary.getUuid().toString();
+    }
+  }
+
+  private IiifManifestSummary prepareUpdateIfAlreadyExists(final String manifestIdentifier, IiifManifestSummary manifestSummary) {
+    // if exists already: set/overwrite unique fields to values of existing summary to enforce update instead of insert
+    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestIdentifier);
+    if (existingManifest != null) {
+      manifestSummary.setUuid(existingManifest.getUuid());
+      manifestSummary.setViewId(existingManifest.getViewId());
+    }
+    return existingManifest;
   }
 
   @Override
