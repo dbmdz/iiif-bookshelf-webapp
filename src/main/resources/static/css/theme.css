@@ -130,12 +130,7 @@ img.preview-thumbnail {
   margin-right: 10px;
 }
 
-.fa {
-  margin-right: 5px;
-}
-
-.thumbnail
-{
+.thumbnail {
   margin-bottom: 20px;
   padding: 0;
   -webkit-border-radius: 0;
@@ -250,11 +245,7 @@ div.tablerow .lastModified {
   margin-bottom: 0;
 }
 
-.page-actions {
-  margin-top: 10px;
-}
-
-.page-actions .action {
+.page-actions > li > a {
   font-size: 18px;
 }
 
