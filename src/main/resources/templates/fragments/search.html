@@ -16,7 +16,7 @@
             <input type="hidden" name="style" th:value="${style}"/>
             <span class="input-group-btn">
               <button type="submit" class="btn btn-primary">
-                <span class="glyphicon glyphicon-search"></span>
+                <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </span>
           </div>
@@ -27,7 +27,7 @@
         <th:block th:if='${not authentication}'>
           <a class="btn btn-primary" th:href="@{/add}" role="button" th:utext="#{add}">
             add
-            <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+            <i class="fa fa-book" aria-hidden="true"></i>
           </a>
         </th:block>
         </p>
@@ -39,16 +39,16 @@
     <div class="table-pagination">
       <ul class="pagination pagination-sm">
         <li th:class="${page.firstPage}? 'disabled' : ''">
-          <span th:if='${page.firstPage}'><span class="glyphicon glyphicon-fast-backward"></span></span>
+          <span th:if='${page.firstPage}'><i class="fa fa-fast-backward" aria-hidden="true"></i></span>
           <a th:if='${not page.firstPage}'
              th:href='@{${page.url}(page=0,size=${page.size},query=${searchRequest.query},style=${style})}'
-             th:title='#{first_page}'><span class="glyphicon glyphicon-fast-backward"></span></a>
+             th:title='#{first_page}'><i class="fa fa-fast-backward" aria-hidden="true"></i></a>
         </li>
         <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
-          <span th:if='${not page.hasPreviousPage}'><span class="glyphicon glyphicon-backward"></span></span>
+          <span th:if='${not page.hasPreviousPage}'><i class="fa fa-backward" aria-hidden="true"></i></span>
           <a th:if='${page.hasPreviousPage}'
              th:href='@{${page.url}(page=${page.number - 2},size=${page.size},query=${searchRequest.query},style=${style})}'
-             th:title='#{previous_page}'><span class="glyphicon glyphicon-backward"></span></a>
+             th:title='#{previous_page}'><i class="fa fa-backward" aria-hidden="true"></i></a>
         </li>
         <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
           <span th:if='${item.current}' th:text='${item.number}'>1</span>
@@ -57,16 +57,16 @@
               th:text='${item.number}'>1</span></a>
         </li>
         <li th:class="${page.hasNextPage}? '' : 'disabled'">
-          <span th:if='${not page.hasNextPage}'><span class="glyphicon glyphicon-forward"></span></span>
+          <span th:if='${not page.hasNextPage}'><i class="fa fa-forward" aria-hidden="true"></i></span>
           <a th:if='${page.hasNextPage}'
              th:href='@{${page.url}(page=${page.number},size=${page.size},query=${searchRequest.query},style=${style})}'
-             th:title='#{next_page}'><span class="glyphicon glyphicon-forward"></span></a>
+             th:title='#{next_page}'><i class="fa fa-forward" aria-hidden="true"></i></a>
         </li>
         <li th:class="${page.lastPage}? 'disabled' : ''">
-          <span th:if='${page.lastPage}'><span class="glyphicon glyphicon-fast-forward"></span></span>
+          <span th:if='${page.lastPage}'><i class="fa fa-fast-forward" aria-hidden="true"></i></span>
           <a th:if='${not page.lastPage}'
              th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size},query=${searchRequest.query},style=${style})}'
-             th:title='#{last_page}'><span class="glyphicon glyphicon-fast-forward"></span></a>
+             th:title='#{last_page}'><i class="fa fa-fast-forward" aria-hidden="true"></i></a>
         </li>
       </ul>
     </div>
@@ -88,12 +88,12 @@
         <div id="btnStyleSwitcher" class="btn-group pull-right">
           <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='list')}" id="list" class="btn btn-default btn-sm"
              th:classappend="${style} == 'list' ? 'active' : ''">
-            <span class="glyphicon glyphicon-th-list"></span>
+            <i class="fa fa-list" aria-hidden="true"></i>
             <span th:text="#{list}">List</span>
           </a>
           <a th:href="@{${page.url}(page=${page.number-1},size=${page.size},query=${searchRequest.query},style='grid')}" id="grid" class="btn btn-default btn-sm"
              th:classappend="${style} == 'grid' ? 'active' : ''">
-            <span class="glyphicon glyphicon-th"></span>
+            <i class="fa fa-th" aria-hidden="true"></i>
             <span th:text="#{grid}">Grid</span>
           </a>
         </div>
@@ -150,8 +150,8 @@
               </div>
 
               <div>
-                <a class="btn btn-primary" th:href="@{/__${manifest.viewId}__/view}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span th:text="#{view}">view</span></a>
-                <a class="btn btn-primary" th:href="@{/__${manifest.viewId}__}"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <span th:text="#{details}">details</span></a>
+                <a class="btn btn-primary" th:href="@{/__${manifest.viewId}__/view}"><i class="fa fa-eye" aria-hidden="true"></i> <span th:text="#{view}">view</span></a>
+                <a class="btn btn-primary" th:href="@{/__${manifest.viewId}__}"><i class="fa fa-info-circle" aria-hidden="true"></i> <span th:text="#{details}">details</span></a>
               </div>
               <div>
                 <span class="lighter smaller"

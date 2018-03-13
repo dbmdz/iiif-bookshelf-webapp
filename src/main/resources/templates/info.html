@@ -42,7 +42,7 @@
             </a>
           </div>
         </div>
-        <a class="btn btn-primary" th:href="@{/__${manifestSummary.viewId}__/view}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span th:text="#{view}">view</span></a>
+        <a class="btn btn-primary" th:href="@{/__${manifestSummary.viewId}__/view}"><i class="fa fa-eye" aria-hidden="true"></i> <span th:text="#{view}">view</span></a>
       </div>
 
       <div class="col-sm-9">
@@ -91,7 +91,6 @@
             </div>
           </div>
         </th:block>
-
 
         <!-- block of free structured metadata key / values -->
         <th:block th:if="${manifest} and ${manifest.metadata} != null">
