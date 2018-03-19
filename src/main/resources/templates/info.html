@@ -6,7 +6,8 @@
 <!--  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
     <link rel="stylesheet" th:href="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.css|}" />
   </th:block>-->
-</head>
+    <title th:utext="${title}">Label of manifest in current locale</title>
+  </head>
 <body>
   <section layout:fragment="content">
 
