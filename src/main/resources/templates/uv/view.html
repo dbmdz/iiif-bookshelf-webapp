@@ -8,6 +8,12 @@
   </head>
   <body>
     <section layout:fragment="content">
+      <div class="row">
+        <div class="col-md-12">
+          <a th:href="@{/__${manifestSummary.viewId}__}"><i class="fa fa-angle-double-left" aria-hidden="true"></i> <span th:text="#{info}">info</span></a>
+        </div>
+      </div>
+      
       <div class="uv" id="uv-container" th:attr="data-uri=@{|${manifestId}|}"></div>
 
       <script type="text/javascript" id="embedUV" th:src="@{|/webjars/universalviewer/${iiifVersions.universalviewer}/dist/uv-${iiifVersions.universalviewer}/lib/embed.js|}"></script>
