@@ -299,11 +299,31 @@ h3.manifest-label {
   display: block;
 }
 
+/* label alignment */
+div.metadata-table > div.row :first-child {
+  text-align: right;
+}
+
 /* ---------------------- media queries ----------------------- */
 
 @media (max-width : 767px) {
   .navbar .navbar-nav > li > p.navbar-text {
     margin: 10px 15px;
+  }
+  /* label alignment */
+  div.metadata-table {
+    margin-top: 10px;
+  }
+  
+  div.metadata-table > div.row :first-child {
+    text-align: left;
+    margin-bottom: 0px;
+  }
+  div.metadata-table > div.row :first-child label {
+    margin-bottom: 0px;
+  }
+  div.metadata-table > div.row {
+    margin-bottom: 8px;
   }
 }
 

@@ -47,10 +47,10 @@
         <a class="btn btn-primary" th:href="@{/__${manifestSummary.viewId}__/view}"><i class="fa fa-eye" aria-hidden="true"></i> <span th:text="#{view}">view</span></a>
       </div>
 
-      <div class="col-sm-9">
+      <div class="col-sm-9 metadata-table">
         <th:block th:if="${manifest} and ${manifest.description} != null">
           <div class="row">
-            <div class="col-sm-3 text-right">
+            <div class="col-sm-3">
               <label th:text="#{description}">Description</label>
             </div>
             <div class="col-sm-9">
@@ -62,7 +62,7 @@
         <!-- block of free structured metadata key / values -->
         <th:block th:if="${manifest} and ${manifest.metadata} != null">
           <div class="row" th:each="metadata : ${manifest.metadata}">
-            <div class="col-sm-3 text-right">
+            <div class="col-sm-3">
               <label th:text="${metadata.label.getFirstValue(#locale.language)}">Metadata-Label</label>
             </div>
             <div class="col-sm-9">
