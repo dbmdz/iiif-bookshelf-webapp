@@ -299,8 +299,7 @@ h3.manifest-label {
   display: block;
 }
 
-/* label alignment */
-div.metadata-table > div.row :first-child {
+div.metadata-table div.metadata-label {
   text-align: right;
 }
 
@@ -315,11 +314,11 @@ div.metadata-table > div.row :first-child {
     margin-top: 10px;
   }
   
-  div.metadata-table > div.row :first-child {
+  div.metadata-table div.metadata-label {
     text-align: left;
     margin-bottom: 0px;
   }
-  div.metadata-table > div.row :first-child label {
+  div.metadata-table div.metadata-label label {
     margin-bottom: 0px;
   }
   div.metadata-table > div.row {
