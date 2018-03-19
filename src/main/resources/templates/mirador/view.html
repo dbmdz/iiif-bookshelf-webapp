@@ -17,6 +17,11 @@
     <section layout:fragment="content">
       <div class="row">
         <div class="col-md-12">
+          <a th:href="@{/__${manifestSummary.viewId}__}">&laquo; <span th:text="#{info}">info</span></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <div id="viewer"></div>
         </div>
       </div>
@@ -33,25 +38,25 @@
 
     <script type="text/javascript" th:inline="javascript">
       $(function () {
-        Mirador({
-          'annotationEndpoint': {
-            'name': 'Local Storage',
-            'module': 'LocalStorageEndpoint'
-          },
-          'buildPath': /*[[@{|/webjars/mirador/${iiifVersions.mirador}/|}]]*/,
-          'data': [{
-            /*<![CDATA[*/
-            'manifestUri': /*[[@{|${manifestId}|}]]*/
-            /*]]>*/
-          }],
-          'id': 'viewer',
-          'language': /*[[@{__${#locale.language}__}]]*/,
-          'windowObjects': [{
-            /*<![CDATA[*/
-            'loadedManifest': /*[[@{|${manifestId}|}]]*/
-            /*]]>*/
-          }]
-        });
+      Mirador({
+      'annotationEndpoint': {
+      'name': 'Local Storage',
+              'module': 'LocalStorageEndpoint'
+      },
+              'buildPath': /*[[@{|/webjars/mirador/${iiifVersions.mirador}/|}]]*/,
+              'data': [{
+              /*<![CDATA[*/
+              'manifestUri': /*[[@{|${manifestId}|}]]*/
+                      /*]]>*/
+              }],
+              'id': 'viewer',
+              'language': /*[[@{__${#locale.language}__}]]*/,
+              'windowObjects': [{
+              /*<![CDATA[*/
+              'loadedManifest': /*[[@{|${manifestId}|}]]*/
+                      /*]]>*/
+              }]
+      });
       });
     </script>
   </th:block>
