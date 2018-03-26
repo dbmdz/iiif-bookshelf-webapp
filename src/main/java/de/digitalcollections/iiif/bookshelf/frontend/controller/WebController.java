@@ -245,6 +245,7 @@ public class WebController extends AbstractController {
     }
     model.addAttribute("iiifVersions", iiifVersions);
     model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
+    model.addAttribute("manifestSummary", iiifManifestSummary);
     String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);
     return "uv/view";
