@@ -1,4 +1,4 @@
-FROM  solr:6.4.2
+FROM  solr:7.2.1
 
 COPY src/main/resources/solr_conf/* /tmp/solr_conf/
 
