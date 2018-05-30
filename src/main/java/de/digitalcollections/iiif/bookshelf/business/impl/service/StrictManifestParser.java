@@ -10,7 +10,7 @@ import de.digitalcollections.iiif.model.image.ImageApiProfile;
 import de.digitalcollections.iiif.model.image.ImageService;
 import de.digitalcollections.iiif.model.image.Size;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
-import de.digitalcollections.iiif.model.openannotation.Choice;
+import de.digitalcollections.iiif.model.openannotation.Annotation;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.io.InputStream;
@@ -121,13 +121,10 @@ public class StrictManifestParser extends AbstractManifestParser {
     if (imageContent == null) {
       // No thumbnail found, yet. Take the first image of first canvas as "thumbnail".
       imageContent = manifest.getDefaultSequence().getCanvases().get(0).getImages().stream()
-              .map(a -> {
-                if (a.getResource() instanceof ImageContent) {
-                  return (ImageContent) a.getResource();
-                } else {
-                  return (ImageContent) ((Choice) a.getResource()).getDefault();
-                }
-              }).findFirst().orElse(null);
+              .map(Annotation::getResource)
+              .filter(ImageContent.class::isInstance)
+              .map(ImageContent.class::cast)
+              .findFirst().orElse(null);
     }
 
     if (imageContent != null) {
