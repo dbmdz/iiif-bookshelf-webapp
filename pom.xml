@@ -72,14 +72,14 @@
     <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
 
     <version.dc-commons>1.3.0-SNAPSHOT</version.dc-commons>
-    <version.iiif-apis>0.3.1</version.iiif-apis>
+    <version.iiif-apis>0.3.2</version.iiif-apis>
     <version.jackson>2.9.5</version.jackson>
     <version.junit-platform-surefire-provider>1.2.0</version.junit-platform-surefire-provider>
     <version.logstash-logback-encoder>5.1</version.logstash-logback-encoder>
     <version.mongeez>0.9.6</version.mongeez>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.1.Final</version.prettytime>
-    <version.solr>7.2.1</version.solr>
+    <version.solrj>7.2.1</version.solrj>
     <version.spring-boot-dependencies>1.5.10.RELEASE</version.spring-boot-dependencies>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
     <version.webjar-fontawesome>4.7.0</version.webjar-fontawesome>
@@ -187,7 +187,7 @@
     <dependency>
       <groupId>org.apache.solr</groupId>
       <artifactId>solr-solrj</artifactId>
-      <version>${version.solr}</version>
+      <version>${version.solrj}</version>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
