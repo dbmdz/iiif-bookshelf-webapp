@@ -74,7 +74,8 @@
     <version.dc-commons>1.3.0-SNAPSHOT</version.dc-commons>
     <version.iiif-apis>0.3.2</version.iiif-apis>
     <version.jackson>2.9.5</version.jackson>
-    <version.junit-platform-surefire-provider>1.2.0</version.junit-platform-surefire-provider>
+    <version.junit-platform-engine>1.2.0</version.junit-platform-engine>
+    <version.junit-platform-launcher>1.2.0</version.junit-platform-launcher>
     <version.logstash-logback-encoder>5.1</version.logstash-logback-encoder>
     <version.mongeez>0.9.6</version.mongeez>
     <version.persistence-api>1.0.2</version.persistence-api>
@@ -101,6 +102,7 @@
 
     <!-- plugins -->
     <version.jacoco-maven-plugin>0.7.8</version.jacoco-maven-plugin>
+    <version.junit-platform-surefire-provider>1.2.0</version.junit-platform-surefire-provider>
     <version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
@@ -110,8 +112,6 @@
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.spring-boot-maven-plugin>1.5.10.RELEASE</version.spring-boot-maven-plugin>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
-    <version.junit-platform-engine>1.2.0</version.junit-platform-engine>
-    <version.junit-platform-launcher>1.2.0</version.junit-platform-launcher>
   </properties>
 
   <dependencies>
@@ -463,7 +463,6 @@
         <configuration>
           <excludes>
             <exclude>**/SpringConfig*</exclude>
-            <exclude>**/WebappInitializer*</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -481,7 +480,6 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${version.spring-boot-maven-plugin}</version>
         <executions>
           <execution>
             <goals>
