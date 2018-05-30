@@ -5,18 +5,17 @@ import de.digitalcollections.iiif.bookshelf.model.Thumbnail;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = {Application.class})
 @ContextConfiguration(classes = {IiifObjectMapper.class, StrictManifestParser.class})
+@ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = {"custom.summary.thumbnail.width=280"})
 public class StrictManifestParserTest {
 
@@ -38,28 +37,28 @@ public class StrictManifestParserTest {
     String expResult = "classpath:manifests/admont23/full/753,/0/native.jpg";
     Thumbnail result = parser.getThumbnail(manifest);
     String url = result.getUrl();
-    assertEquals(expResult, url);
+    assertThat(url).isEqualTo(expResult);
 
     // v2 info.json
     manifest = readFromResources("manifests/api.digitale-sammlungen.de_iiif_presentation_v2_bsb10916320_00001_u001-manifest.json", Manifest.class);
     expResult = "classpath:manifests/bsb10916320_00001/full/1028,/0/default.jpg";
     result = parser.getThumbnail(manifest);
     url = result.getUrl();
-    assertEquals(expResult, url);
+    assertThat(url).isEqualTo(expResult);
 
     // info.json inline in manifest:
     manifest = readFromResources("manifests/wellcomelibrary.org_iiif_b19792827-manifest.json", Manifest.class);
     expResult = "https://dlcs.io/thumbs/wellcome/1/1a1fcf18-8965-4f72-9324-45c3f6b4b469/full/654,/0/default.jpg";
     result = parser.getThumbnail(manifest);
     url = result.getUrl();
-    assertEquals(expResult, url);
+    assertThat(url).isEqualTo(expResult);
 
     // @value metadata without @language in manifest:
     manifest = readFromResources("manifests/gallica.bnf.fr-manifest-btv1b7100627v.json", Manifest.class);
     expResult = "http://gallica.bnf.fr/ark:/12148/btv1b7100627v.thumbnail";
     result = parser.getThumbnail(manifest);
     url = result.getUrl();
-    assertEquals(expResult, url);
+    assertThat(url).isEqualTo(expResult);
 
   }
 

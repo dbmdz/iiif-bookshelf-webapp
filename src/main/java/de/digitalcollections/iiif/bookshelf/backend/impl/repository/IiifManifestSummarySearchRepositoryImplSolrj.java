@@ -85,7 +85,7 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   @Override
   public Page<IiifManifestSummary> findBy(String text, Pageable pageable) throws SearchSyntaxException {
     // läuft hier rein!!
-    SolrQuery query = buildSolrQuery(text, pageable.getOffset());
+    SolrQuery query = buildSolrQuery(text, (int) pageable.getOffset());
     query.setRows(pageable.getPageSize());
 
     QueryResponse response;

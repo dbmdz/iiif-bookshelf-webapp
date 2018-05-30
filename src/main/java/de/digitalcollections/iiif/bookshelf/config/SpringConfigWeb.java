@@ -17,7 +17,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.yaml.snakeyaml.Yaml;
@@ -25,7 +25,7 @@ import org.yaml.snakeyaml.Yaml;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableSpringDataWebSupport
-public class SpringConfigWeb extends WebMvcConfigurerAdapter {
+public class SpringConfigWeb implements WebMvcConfigurer {
 
   static final String ENCODING = "UTF-8";
 

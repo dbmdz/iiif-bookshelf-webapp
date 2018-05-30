@@ -1,8 +1,11 @@
+# local/default
+
 # "custom": configuration section with not Spring Boot common application properties
 # see https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
 custom:
   app:
     security:
+      # if not enabled, everyone can add manifests and add button will be shown
       enabled: true
       username: foobar
       password: hamspam
@@ -18,10 +21,6 @@ custom:
       width: 280
 # end of custom configuration section
 
-endpoints:
-  hypermedia:
-    enabled: true
-
 info:
   app:
     encoding: @project.build.sourceEncoding@
@@ -33,21 +32,16 @@ info:
       groupId: @project.groupId@
       artifactId: @project.artifactId@
       version: @project.version@
+      buildDetails: '@versionName@'
 
 management:
-  context-path: '/monitoring'
-  port: 8081
-  security:
-    enabled: true
-    roles: 'ACTUATOR, USER'
-    # ACTUATOR is default, but we add USER as workaround for not working application.yml name/password
-
-security:
-  headers:
-    cache: false
-  user:
-    name: admin
-    password: secret
+  endpoints:
+    web:
+      base-path: '/monitoring'
+      exposure:
+        include: '*'
+  server:
+    port: 8081
 
 server:
   port: 8080
@@ -68,23 +62,20 @@ spring:
       # ZooKeeper host address in the form HOST:PORT.
   profiles:
     active: local
+  security:
+    user:
+      name: admin
+      password: secret
+      roles: ACTUATOR
   thymeleaf:
     cache: false
     mode: HTML
 
 ---
 
-custom:
-  app:
-    security:
-      enabled: true
-      username: mdz
-      password: Hopfenzeitung
-
 management:
-  port: 9001
-  security:
-    enabled: true
+  server:
+    port: 9001
 
 spring:
   data:

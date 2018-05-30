@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.0.2.RELEASE</version>
+  </parent>
+
   <name>DigitalCollections: IIIF Bookshelf Webapp</name>
+  <description>The bookshelf is a webapp for collecting IIIF representations of books. It is based on the functionality of the IIIF Presentation API for modelling books. You can add books to your bookshelf loading the manifest.json of the book by its web-address.</description>
+
   <groupId>de.digitalcollections</groupId>
   <artifactId>iiif-bookshelf-webapp</artifactId>
-  <version>2.9.1</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <description>The bookshelf is a webapp for collecting IIIF representations of books. It is based on the functionality of the IIIF Presentation API for modelling books. You can add books to your bookshelf loading the manifest.json of the book by its web-address.</description>
-  
   <url>https://github.com/dbmdz/iiif-bookshelf-webapp</url>
   <licenses>
     <license>
@@ -60,29 +67,20 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <timestamp>${maven.build.timestamp}</timestamp>
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+    <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
 
-    <version.aspectjweaver>1.8.8</version.aspectjweaver>
-    <version.dc-commons-springmvc>1.2.7</version.dc-commons-springmvc>
+    <version.dc-commons>1.3.0-SNAPSHOT</version.dc-commons>
     <version.iiif-apis>0.3.1</version.iiif-apis>
-    <version.jackson>2.9.4</version.jackson>
-    <version.jacoco-maven-plugin>0.7.8</version.jacoco-maven-plugin>
-    <version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
-    <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
-    <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
-    <version.maven-resources-plugin>3.0.2</version.maven-resources-plugin>
-    <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
+    <version.jackson>2.9.5</version.jackson>
+    <version.junit-platform-surefire-provider>1.2.0</version.junit-platform-surefire-provider>
+    <version.logstash-logback-encoder>5.1</version.logstash-logback-encoder>
     <version.mongeez>0.9.6</version.mongeez>
-    <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.1.Final</version.prettytime>
-    <version.prometheus-spring-boot-starter>1.0.2</version.prometheus-spring-boot-starter>
     <version.solr>7.2.1</version.solr>
-    <version.spring-boot-maven-plugin>1.5.10.RELEASE</version.spring-boot-maven-plugin>
     <version.spring-boot-dependencies>1.5.10.RELEASE</version.spring-boot-dependencies>
-    <version.thymeleaf>3.0.7.RELEASE</version.thymeleaf>
-    <version.thymeleaf-layout-dialect>2.2.2</version.thymeleaf-layout-dialect>
-    <version.thymeleaf-spring4>3.0.7.RELEASE</version.thymeleaf-spring4>
-    <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
     <version.webjar-fontawesome>4.7.0</version.webjar-fontawesome>
     <version.webjar-html5shiv>3.7.3</version.webjar-html5shiv>
@@ -100,20 +98,21 @@
     <version.webjar-mirador-viewfromurl>1.1.0</version.webjar-mirador-viewfromurl>
     <version.webjar-respond>1.4.2</version.webjar-respond>
     <version.webjar-universalviewer>2.0.2</version.webjar-universalviewer>
-  </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <!-- Import dependency management from Spring Boot -->
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${version.spring-boot-dependencies}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <!-- plugins -->
+    <version.jacoco-maven-plugin>0.7.8</version.jacoco-maven-plugin>
+    <version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
+    <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
+    <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
+    <version.maven-resources-plugin>3.0.2</version.maven-resources-plugin>
+    <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
+    <version.maven-surefire-plugin>2.21.0</version.maven-surefire-plugin>
+    <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
+    <version.spring-boot-maven-plugin>1.5.10.RELEASE</version.spring-boot-maven-plugin>
+    <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
+    <version.junit-platform-engine>1.2.0</version.junit-platform-engine>
+    <version.junit-platform-launcher>1.2.0</version.junit-platform-launcher>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -144,16 +143,22 @@
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.moelholm</groupId>
-      <artifactId>prometheus-spring-boot-starter</artifactId>
-      <version>${version.prometheus-spring-boot-starter}</version>
+      <groupId>de.digitalcollections.commons</groupId>
+      <artifactId>dc-commons-springboot</artifactId>
+      <version>${version.dc-commons}</version>
     </dependency>
     <dependency>
       <groupId>de.digitalcollections.commons</groupId>
       <artifactId>dc-commons-springmvc</artifactId>
-      <version>${version.dc-commons-springmvc}</version>
+      <version>${version.dc-commons}</version>
     </dependency>
     <dependency>
       <groupId>de.digitalcollections.iiif</groupId>
@@ -161,14 +166,23 @@
       <version>${version.iiif-apis}</version>
     </dependency>
     <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
+    <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>${version.persistence-api}</version>
     </dependency>
     <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+      <version>${version.logstash-logback-encoder}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
       <groupId>nz.net.ultraq.thymeleaf</groupId>
       <artifactId>thymeleaf-layout-dialect</artifactId>
-      <version>${version.thymeleaf-layout-dialect}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.solr</groupId>
@@ -178,8 +192,29 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
-      <version>${version.aspectjweaver}</version>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-engine</artifactId>
+      <version>${version.junit-platform-engine}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>${version.junit-platform-launcher}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mongeez</groupId>
@@ -190,6 +225,10 @@
       <groupId>org.ocpsoft.prettytime</groupId>
       <artifactId>prettytime</artifactId>
       <version>${version.prettytime}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-actuator-autoconfigure</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -211,6 +250,12 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -219,16 +264,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf</artifactId>
-      <version>${version.thymeleaf}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf-spring4</artifactId>
-      <version>${version.thymeleaf-spring4}</version>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
@@ -392,9 +427,20 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.maven-surefire-plugin}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>${version.junit-platform-surefire-provider}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>${version.versions-maven-plugin}</version>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
