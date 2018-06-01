@@ -2,9 +2,9 @@
 leaflet: @version.webjar-leaflet@
 leaflet-iiif: @version.webjar-leaflet-iiif@
 mirador: @version.webjar-mirador@
+mirador-downloadmenu: @version.webjar-mirador-downloadmenu@
 mirador-imagecropper: @version.webjar-mirador-imagecropper@
 mirador-keyboardnavigation: @version.webjar-mirador-keyboardnavigation@
-mirador-manifestbutton: @version.webjar-mirador-manifestbutton@
 mirador-physicalruler: @version.webjar-mirador-physicalruler@
 mirador-sharebuttons: @version.webjar-mirador-sharebuttons@
 mirador-viewfromurl: @version.webjar-mirador-viewfromurl@
