@@ -81,7 +81,6 @@
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.1.Final</version.prettytime>
     <version.solrj>7.2.1</version.solrj>
-    <version.spring-boot-dependencies>1.5.10.RELEASE</version.spring-boot-dependencies>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
     <version.webjar-fontawesome>4.7.0</version.webjar-fontawesome>
     <version.webjar-html5shiv>3.7.3</version.webjar-html5shiv>
@@ -110,7 +109,6 @@
     <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
     <version.maven-surefire-plugin>2.21.0</version.maven-surefire-plugin>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
-    <version.spring-boot-maven-plugin>1.5.10.RELEASE</version.spring-boot-maven-plugin>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
   </properties>
 
