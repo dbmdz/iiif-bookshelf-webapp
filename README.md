@@ -26,7 +26,6 @@ Install Docker Compose according to the official [documentation](https://docs.do
 To get the Bookshelf quickly up running, you can start all backend services using Docker Compose:
 
 ```shell
-$ cd iiif-bookshelf-webapp
 $ docker-compose build
 $ docker-compose up -d
 ```
