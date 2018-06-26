@@ -39,7 +39,7 @@ To start the IIIF Bookshelf Webapp, you have to define the ports exposed by the 
 $ mvn -Dmongo.port=20202 -Dsolr.port=21212 jetty:run
 ```
 
-The Bookshelf is now running under <http://localhost:9898/bookshelf/>.
+The Bookshelf is now running under <http://localhost:8080/>.
 
 To stop the containers run
 
