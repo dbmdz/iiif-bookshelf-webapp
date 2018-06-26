@@ -379,11 +379,11 @@ Build the webapp locally and copy it to the server:
 ```shell
 $ cd <source_directory_bookshelf>
 $ mvn clean install
-$ scp target/iiif-bookshelf-exec.jar <user>@<server>:/local
 ```
+
 ### Usage
 
-* To run iiif-bookshelf run Mongo DB, Solr and Tomcat.
+* To run iiif-bookshelf, run Mongo DB and Solr.
 
 ```shell
 # mongod --dbpath /local/mongodb/data --logpath /var/log/mongodb.log &
@@ -391,7 +391,7 @@ $ scp target/iiif-bookshelf-exec.jar <user>@<server>:/local
 # java -jar iiif-bookshelf-<version>-exec.jar
 ```
 
-Open webapp in browser: http://<server>:8080/
+Open webapp in browser: http://localhost:8080/
 
 * To stop iiif-bookshelf stop the Spring Boot app and all servers:
 
