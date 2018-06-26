@@ -32,10 +32,10 @@ $ docker-compose up -d
 
 Then Solr and MongoDB are running in containers and everything is ready for running a local instance of IIIF Bookshelf Webapp (see below).
 
-To start the IIIF Bookshelf Webapp, you have to define the ports exposed by the containers:
+To start the IIIF Bookshelf Webapp, you have to run:
 
 ```shell
-$ mvn -Dmongo.port=20202 -Dsolr.port=21212 jetty:run
+$ java -jar iiif-bookshelf-exec.jar
 ```
 
 The Bookshelf is now running under <http://localhost:8080/>.
