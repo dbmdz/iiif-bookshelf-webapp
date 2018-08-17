@@ -11,7 +11,7 @@ You can add books to your bookshelf by loading the manifest.json of the book.
 
 ## Development Quickstart using Docker Compose
 
-Install Docker according to the official [Docker documentation](https://www.docker.com/products/overview).
+Install Docker according to the official [Docker documentation](https://docs.docker.com/install/).
 
 Add your user to docker group to run docker without sudo:
 
