@@ -74,8 +74,6 @@
     <version.dc-commons>1.3.0</version.dc-commons>
     <version.iiif-apis>0.3.3</version.iiif-apis>
     <version.jackson>2.9.5</version.jackson>
-    <version.junit-platform-engine>1.2.0</version.junit-platform-engine>
-    <version.junit-platform-launcher>1.2.0</version.junit-platform-launcher>
     <version.logstash-logback-encoder>5.1</version.logstash-logback-encoder>
     <version.mongeez>0.9.6</version.mongeez>
     <version.persistence-api>1.0.2</version.persistence-api>
@@ -100,14 +98,13 @@
     <version.webjar-universalviewer>2.0.2</version.webjar-universalviewer>
 
     <!-- plugins -->
-    <version.jacoco-maven-plugin>0.7.8</version.jacoco-maven-plugin>
-    <version.junit-platform-surefire-provider>1.2.0</version.junit-platform-surefire-provider>
+    <version.jacoco-maven-plugin>0.8.2</version.jacoco-maven-plugin>
     <version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.9.1</version.maven-javadoc-plugin>
     <version.maven-resources-plugin>3.0.2</version.maven-resources-plugin>
     <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
-    <version.maven-surefire-plugin>2.21.0</version.maven-surefire-plugin>
+    <version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
   </properties>
@@ -204,18 +201,6 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-engine</artifactId>
-      <version>${version.junit-platform-engine}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-launcher</artifactId>
-      <version>${version.junit-platform-launcher}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -432,13 +417,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${version.maven-surefire-plugin}</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>${version.junit-platform-surefire-provider}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
