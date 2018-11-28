@@ -8,13 +8,10 @@ import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import javax.xml.bind.DatatypeConverter;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,18 +150,10 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   protected String getViewId(IiifManifestSummary manifestSummary) {
     // if sha-1 leads to not unique collisions, use this:
     // return = manifestSummary.getUuid().toString();
-
     // create a short reasonable unique view id
-    try {
-      String viewId = manifestSummary.getManifestUri();
-      MessageDigest digest = MessageDigest.getInstance("SHA-1");
-      byte[] sha1 = digest.digest(viewId.getBytes(StandardCharsets.UTF_8));
-      viewId = DatatypeConverter.printHexBinary(sha1);
-      return viewId.substring(0, 8);
-    } catch (NoSuchAlgorithmException ex) {
-      // if it does not work, just use uuid (which is longer)
-      return manifestSummary.getUuid().toString();
-    }
+    String viewId = manifestSummary.getManifestUri(); // if it does not work, just use uuid (which is longer)
+    viewId = DigestUtils.sha1Hex(viewId);
+    return viewId.substring(0, 8);
   }
 
   private IiifManifestSummary prepareUpdateIfAlreadyExists(final String manifestIdentifier, IiifManifestSummary manifestSummary) {
