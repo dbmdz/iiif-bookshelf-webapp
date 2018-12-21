@@ -1,9 +1,11 @@
 # IIIF Bookshelf Webapp
-[![Build Status](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp.svg?branch=master)](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp)
-[![codecov](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp/branch/master/graph/badge.svg)](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-bookshelf-webapp.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-bookshelf-webapp/releases)
-[![Maven Central](https://img.shields.io/maven-central/v/de.digitalcollections/iiif-bookshelf-webapp.svg?maxAge=2592000)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22iiif-bookshelf-webapp%22)
+
+[![Javadocs](https://javadoc.io/badge/de.digitalcollections/iiif-bookshelf-webapp.svg)](https://javadoc.io/doc/de.digitalcollections/iiif-bookshelf-webapp)
+[![Build Status](https://img.shields.io/travis/dbmdz/iiif-bookshelf-webapp/master.svg)](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp)
+[![Codecov](https://img.shields.io/codecov/c/github/dbmdz/iiif-bookshelf-webapp/master.svg)](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp)
+[![License](https://img.shields.io/github/license/dbmdz/iiif-bookshelf-webapp.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-bookshelf-webapp.svg)](https://github.com/dbmdz/iiif-bookshelf-webapp/releases)
+[![Maven Central](https://img.shields.io/maven-central/v/de.digitalcollections/iiif-bookshelf-webapp.svg)](https://search.maven.org/search?q=a:iiif-bookshelf-webapp)
 
 This is a webapp for collecting <a href="http://iiif.io">IIIF</a> representations of books.
 It is based on the functionality of the <a href="http://iiif.io/api/presentation/2.0/">IIIF Presentation API</a> for modelling books.
