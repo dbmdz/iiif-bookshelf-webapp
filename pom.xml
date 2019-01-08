@@ -127,6 +127,7 @@
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
+      <version>${version.json-simple}</version>
       <exclusions>
         <exclusion>
           <groupId>junit</groupId>
