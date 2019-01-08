@@ -63,6 +63,11 @@ spring:
         # Enable Solr repositories.
 #      zk-host: ''
       # ZooKeeper host address in the form HOST:PORT.
+  messages:
+    basename: 'messages, messages-commons'
+    cache-duration: 5
+    encoding: 'UTF-8'
+    fallback-to-system-locale: false
   profiles:
     active: local
   security:
