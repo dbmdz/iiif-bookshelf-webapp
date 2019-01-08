@@ -29,8 +29,6 @@ info:
       target: @maven.compiler.target@
     project:
       name: '@project.name@'
-      groupId: @project.groupId@
-      artifactId: @project.artifactId@
       version: @project.version@
       buildDetails: '@versionName@'
 
