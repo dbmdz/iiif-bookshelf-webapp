@@ -11,10 +11,8 @@ import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -26,13 +24,6 @@ import org.yaml.snakeyaml.Yaml;
 @EnableAspectJAutoProxy
 @EnableSpringDataWebSupport
 public class SpringConfigWeb implements WebMvcConfigurer {
-
-  static final String ENCODING = "UTF-8";
-
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
-  }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -54,23 +45,15 @@ public class SpringConfigWeb implements WebMvcConfigurer {
     CurrentUrlAsModelAttributeHandlerInterceptor currentUrlAsModelAttributeHandlerInterceptor = new CurrentUrlAsModelAttributeHandlerInterceptor();
     currentUrlAsModelAttributeHandlerInterceptor.deleteParams("language");
     registry.addInterceptor(currentUrlAsModelAttributeHandlerInterceptor);
-
-    // InterceptorRegistration createAdminUserInterceptorRegistration =
-    // registry.addInterceptor(createAdminUserInterceptor());
-    // createAdminUserInterceptorRegistration.addPathPatterns("/login");
   }
 
-  @Bean(name = "localeResolver")
-  public LocaleResolver sessionLocaleResolver() {
+  @Bean
+  public LocaleResolver localeResolver() {
     SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-    localeResolver.setDefaultLocale(Locale.GERMAN);
+    localeResolver.setDefaultLocale(Locale.ENGLISH);
     return localeResolver;
   }
 
-  // @Bean
-  // public CreateAdminUserInterceptor createAdminUserInterceptor() {
-  // return new CreateAdminUserInterceptor();
-  // }
   @Bean
   public PrettyTime prettyTime() {
     return new MyPrettyTime();
@@ -82,11 +65,6 @@ public class SpringConfigWeb implements WebMvcConfigurer {
       PrettyTime prettyTime = new PrettyTime(locale);
       return prettyTime.format(then);
     }
-  }
-
-  @Override
-  public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-    configurer.enable();
   }
 
   @Bean(name = "iiifVersions")
