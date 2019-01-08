@@ -40,6 +40,9 @@ management:
       base-path: '/monitoring'
       exposure:
         include: '*'
+  info:
+    git:
+      mode: full
   server:
     port: 8081
 

@@ -471,6 +471,28 @@
           <classifier>exec</classifier>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>get-the-git-infos</id>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>validate-the-git-infos</id>
+            <goals>
+              <goal>validateRevision</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <dotGitDirectory>${project.basedir}/../../.git</dotGitDirectory>
+          <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
