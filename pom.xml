@@ -99,14 +99,8 @@
 
     <!-- plugins -->
     <version.jacoco-maven-plugin>0.8.2</version.jacoco-maven-plugin>
-    <version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
-    <version.maven-javadoc-plugin>3.0.1</version.maven-javadoc-plugin>
-    <version.maven-resources-plugin>3.0.2</version.maven-resources-plugin>
-    <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
-    <version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
-    <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
-    <version.versions-maven-plugin>2.3</version.versions-maven-plugin>
+    <version.nexus-staging-maven-plugin>1.6.8</version.nexus-staging-maven-plugin>
   </properties>
 
   <dependencies>
@@ -370,7 +364,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${version.maven-compiler-plugin}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
@@ -379,7 +372,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${version.maven-javadoc-plugin}</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -392,7 +384,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>${version.maven-resources-plugin}</version>
         <configuration>
           <delimiters>
             <delimiter>@</delimiter>
@@ -403,7 +394,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>${version.maven-source-plugin}</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -416,7 +406,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${version.maven-surefire-plugin}</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
