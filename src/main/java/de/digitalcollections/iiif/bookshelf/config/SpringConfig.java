@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 })
 @Import({
   SpringConfigBackend.class, SpringConfigBusiness.class,
-  SpringConfigSecurity.class,
+  SpringConfigSecurityMonitoring.class, SpringConfigSecurityWebapp.class,
   SpringConfigWeb.class
 })
 public class SpringConfig {

@@ -1,6 +1,6 @@
 package de.digitalcollections.iiif.bookshelf;
 
-import de.digitalcollections.iiif.bookshelf.config.SpringConfigSecurity;
+import de.digitalcollections.iiif.bookshelf.config.SpringConfigSecurityMonitoring;
 import java.util.Map;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @Disabled
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {
-  Application.class, SpringConfigSecurity.class
+  Application.class, SpringConfigSecurityMonitoring.class
 }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 ) // set random webapp/server port
 @TestPropertySource(properties = {"management.server.port=0"}) // set random management port
