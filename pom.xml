@@ -369,6 +369,11 @@
         </configuration>
       </plugin>
       <plugin>
+        <!-- Spring Boot configures surefire by default, but not failsafe -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <executions>
