@@ -60,11 +60,9 @@ public class GraciousManifestParser extends AbstractManifestParser {
    *        @language, instead of a plain string. This pattern may be used in label, description, attribution and the
    *        label and value fields of the metadata construction.
    *
-   * @param manifestSummary
-   * @throws NotFoundException
-   * @throws ParseException
+   * @param manifestSummary manifest summary as target
    */
-  private void fillFromJsonObject(JSONObject jsonObject, IiifManifestSummary manifestSummary) throws ParseException {
+  private void fillFromJsonObject(JSONObject jsonObject, IiifManifestSummary manifestSummary) {
 
     Object label = jsonObject.get("label");
     HashMap<Locale, String> localizedLabels = getLocalizedStrings(label);
