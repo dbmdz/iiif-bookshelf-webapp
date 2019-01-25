@@ -4,10 +4,10 @@
       layout:decorate="~{base}">
   <head>
 <!--  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
-    <link rel="stylesheet" th:href="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.css|}" />
+    <link rel="stylesheet" th:href="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.css|}">
   </th:block>-->
     <title th:utext="${title}">Label of manifest in current locale</title>
-    <meta property="og:title" th:attr="content=${title}" />
+    <meta property="og:title" th:attr="content=${title}">
   </head>
 <body>
   <section layout:fragment="content">
@@ -33,15 +33,15 @@
                   <div id="leaflet-container"></div>
                 </th:block>
                 <th:block th:if="${manifestSummary.thumbnail.iiifImageServiceUri} == null and ${manifestSummary.thumbnail.url} != null">
-                  <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}"/>
+                  <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}">
                 </th:block>
               </th:block>
               -->
               <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.url} != null">
-                <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}"/>
+                <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}">
               </th:block>
               <th:block th:if="${manifestSummary.thumbnail} == null or ${manifestSummary.thumbnail.url} == null">
-                <img class="list-group-image" th:src="@{/images/no-image.png}"/>
+                <img class="list-group-image" th:src="@{/images/no-image.png}">
               </th:block>
             </a>
           </div>
@@ -105,7 +105,7 @@
               <label th:text="#{logo}">Logo</label>
             </div>
             <div class="col-sm-9">
-              <img class="preview-thumbnail attributorLogo" th:src="${manifestSummary.logoUrl}"/>
+              <img class="preview-thumbnail attributorLogo" th:src="${manifestSummary.logoUrl}">
             </div>
           </div>
         </th:block>
@@ -146,7 +146,7 @@
 
         <div class="row">
           <div class="col-sm-3 iiif-logo metadata-label">
-            <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest" />
+            <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest">
           </div>
           <div class="col-sm-9">
             <p>

@@ -36,7 +36,7 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
 
     int manifestsCount = (manifests != null) ? manifests.size() : -1;
     int subCollectionsCount = (subCollections != null) ? subCollections.size() : -1;
-    LOGGER.info("processing collection '{}' with {} manifests and {} sub collections.", collection.getIdentifier().toString(), manifestsCount, subCollectionsCount);
+    LOGGER.info("Processing collection '{}' with {} manifests and {} sub collections.", collection.getIdentifier().toString(), manifestsCount, subCollectionsCount);
 
     // try to get list of manifests
     if (manifests != null) {

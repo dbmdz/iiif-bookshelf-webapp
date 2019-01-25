@@ -2,7 +2,8 @@ package de.digitalcollections.iiif.bookshelf.frontend.controller;
 
 import org.springframework.http.HttpStatus;
 
-class ApiException extends RuntimeException {
+public class ApiException extends RuntimeException {
+
   HttpStatus statusCode;
   String message;
 

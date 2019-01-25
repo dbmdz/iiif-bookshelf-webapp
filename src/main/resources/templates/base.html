@@ -4,29 +4,29 @@
       xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
       xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--/* The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags */-->
-    <meta name="description" content="" />
-    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/ico"/>
+    <meta name="description" content="">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/ico">
 
     <title layout:title-pattern="$LAYOUT_TITLE: $CONTENT_TITLE">IIIF Bookshelf</title>
 
     <!--/* Bootstrap CSS */-->
-    <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css}" rel="stylesheet">
 
     <!--/* Bootstrap material design: Custom primary color: see https://github.com/FezVrasta/bootstrap-material-design */-->
-    <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.css}" rel="stylesheet">
 
     <!-- Font awesome CSS -->
-    <link th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link th:href="@{/webjars/ie10-viewport-bug-workaround/1.0.3/dist/ie10-viewport-bug-workaround.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/ie10-viewport-bug-workaround/1.0.3/dist/ie10-viewport-bug-workaround.min.css}" rel="stylesheet">
 
     <!--/* General CSS */-->
-    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+    <link th:href="@{/css/theme.css}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <script th:src="@{/webjars/html5shiv/3.7.3/html5shiv.min.js}"></script>
@@ -45,7 +45,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand iiif-logo" th:href="@{/}">
-            <img th:src="@{/images/iiif-logo.svg}" alt="Logo IIIF" />
+            <img th:src="@{/images/iiif-logo.svg}" alt="Logo IIIF">
             <b>Bookshelf</b>
           </a>
         </div>
@@ -89,7 +89,7 @@
 
   <th:block layout:fragment="basejs">
     <!--/*  Footer Ende  */-->
-    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.3.1/dist/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js}"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

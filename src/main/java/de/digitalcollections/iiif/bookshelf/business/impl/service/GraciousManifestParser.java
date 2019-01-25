@@ -198,8 +198,8 @@ public class GraciousManifestParser extends AbstractManifestParser {
         if (sizesArray != null) {
           for (Object size : sizesArray) {
             JSONObject sizeObj = (JSONObject) size;
-            int width = new Long((long) sizeObj.get("width")).intValue();
-            int height = new Long((long) sizeObj.get("height")).intValue();
+            int width = ((Long) sizeObj.get("width")).intValue();
+            int height = ((Long) sizeObj.get("height")).intValue();
             sizes.add(new Size(width, height));
           }
         }
