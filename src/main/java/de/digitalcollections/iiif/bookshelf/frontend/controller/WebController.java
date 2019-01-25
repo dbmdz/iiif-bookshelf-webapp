@@ -78,7 +78,7 @@ public class WebController extends AbstractController {
    */
   @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
   public String list(SearchRequest searchRequest, Model model, Pageable pageRequest, @RequestParam(required = false,
-          defaultValue = "grid") String style, BindingResult results) {
+    defaultValue = "grid") String style, BindingResult results) {
     verifyBinding(results);
 
     model.addAttribute("authentication", authentication);
@@ -324,7 +324,7 @@ public class WebController extends AbstractController {
 
   @RequestMapping(value = {"/search"}, method = RequestMethod.GET)
   public String search(SearchRequest searchRequest, Model model, Pageable pageRequest, @RequestParam(required = false,
-          defaultValue = "grid") String style, BindingResult results) {
+    defaultValue = "grid") String style, BindingResult results) {
     verifyBinding(results);
 
     model.addAttribute("authentication", authentication);

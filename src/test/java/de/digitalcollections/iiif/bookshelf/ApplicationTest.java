@@ -2,10 +2,10 @@ package de.digitalcollections.iiif.bookshelf;
 
 import de.digitalcollections.iiif.bookshelf.config.SpringConfigSecurityMonitoring;
 import java.util.Map;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -15,12 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Basic integration tests for webapp endpoints.
  */
-@Disabled
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {
   Application.class, SpringConfigSecurityMonitoring.class
@@ -34,36 +33,54 @@ public class ApplicationTest {
   private int port;
 
   @LocalManagementPort
-  private int mgt;
+  private int monitoringPort;
 
   @Autowired
   private TestRestTemplate testRestTemplate;
+
+  @Value("${spring.security.user.name}")
+  private String monitoringUsername;
+
+  @Value("${spring.security.user.password}")
+  private String monitoringPassword;
 
   @Test
   public void shouldReturn200WhenSendingRequestToRoot() throws Exception {
     @SuppressWarnings("rawtypes")
     ResponseEntity<String> entity = this.testRestTemplate.getForEntity(
-            "http://localhost:" + this.port + "/", String.class);
+      "http://localhost:" + this.port + "/", String.class
+    );
 
-    then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+  }
+
+  @Test
+  public void shouldReturn200WhenSendingRequestToManagementEndpoint() throws Exception {
+    ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
+      "http://localhost:" + this.monitoringPort + "/monitoring/health", Map.class
+    );
+
+    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
   }
 
   @Test
   public void shouldReturn200WhenSendingAuthorizedRequestToSensitiveManagementEndpoint() throws Exception {
     @SuppressWarnings("rawtypes")
-    ResponseEntity<Map> entity = this.testRestTemplate.withBasicAuth("foobar", "hamspam").getForEntity(
-            "http://localhost:" + this.mgt + "/monitoring/env", Map.class);
+    ResponseEntity<Map> entity = this.testRestTemplate.withBasicAuth(monitoringUsername, monitoringPassword).getForEntity(
+      "http://localhost:" + this.monitoringPort + "/monitoring/env", Map.class
+    );
 
-    then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
   }
 
   @Test
   public void shouldReturn401WhenSendingUnauthorizedRequestToSensitiveManagementEndpoint() throws Exception {
     @SuppressWarnings("rawtypes")
     ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-            "http://localhost:" + this.mgt + "/monitoring/env", Map.class);
+      "http://localhost:" + this.monitoringPort + "/monitoring/env", Map.class
+    );
 
-    then(entity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
   }
 
 }

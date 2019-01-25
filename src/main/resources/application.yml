@@ -28,11 +28,28 @@ info:
       source: @maven.compiler.source@
       target: @maven.compiler.target@
     project:
+      artifactId: @project.artifactId@
+      buildDetails: '@versionName@'
+      groupId: @project.groupId@
       name: '@project.name@'
       version: @project.version@
-      buildDetails: '@versionName@'
+
+javamelody:
+  enabled: true
+  init-parameters:
+    allowed-addr-pattern: 'localhost|127\.0\.0\.1|0:0:0:0:0:0:0:1'
+    authorized-users: 'admin:secret'
+    http-transform-pattern: '(\\d+|(?<=currenttitles/).*|(?<=citationtitles/).*|(?<=occurrences/).*|(?<=periodical/).*|(?<=issues/).*)'
+    # log http requests:
+    log: false
+    monitoring-path: '/monitoring/javamelody'
+    storage-directory: '/local/javamelody-bookshelf'
+    url-exclude-pattern: '^(/webjars|/monitoring).*'
 
 management:
+  endpoint:
+    health:
+      show-details: when-authorized
   endpoints:
     web:
       base-path: '/monitoring'
@@ -45,8 +62,17 @@ management:
     port: 8081
 
 server:
+  error:
+    include-exception: true
+    include-stacktrace: always
   port: 8080
   server-header: '@project.name@ v@project.version@'
+  tomcat:
+    accesslog:
+      directory: "/var/log/digitalcollections"
+      enabled: true
+      prefix: access_log_iiif_bookshelf
+      rename-on-rotate: true
 
 spring:
   data:
@@ -82,6 +108,11 @@ spring:
 management:
   server:
     port: 9001
+
+server:
+  error:
+    include-exception: false
+    include-stacktrace: 'never'
 
 spring:
   data:

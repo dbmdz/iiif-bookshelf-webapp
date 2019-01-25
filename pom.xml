@@ -64,15 +64,16 @@
   <properties>
     <!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility. If you want to follow our recommendation and use a later Java version you can add a java.version property -->
     <java.version>1.8</java.version>
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <timestamp>${maven.build.timestamp}</timestamp>
-    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
 
-    <version.dc-commons>3.0.1-SNAPSHOT</version.dc-commons>
+    <version.dc-commons>3.0.1</version.dc-commons>
     <version.iiif-apis>0.3.6-SNAPSHOT</version.iiif-apis>
+    <version.javamelody>1.75.0</version.javamelody>
     <version.json-simple>1.1.1</version.json-simple>
     <version.logstash-logback-encoder>5.2</version.logstash-logback-encoder>
     <version.mongeez>0.9.6</version.mongeez>
@@ -102,6 +103,7 @@
     <version.maven-checkstyle-plugin>3.0.0</version.maven-checkstyle-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.nexus-staging-maven-plugin>1.6.8</version.nexus-staging-maven-plugin>
+    <version.spotbugs>3.1.8</version.spotbugs>
   </properties>
 
   <dependencies>
@@ -157,12 +159,21 @@
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
       <artifactId>micrometer-registry-prometheus</artifactId>
     </dependency>
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>${version.persistence-api}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.bull.javamelody</groupId>
+      <artifactId>javamelody-spring-boot-starter</artifactId>
+      <version>${version.javamelody}</version>
     </dependency>
     <dependency>
       <groupId>net.logstash.logback</groupId>
@@ -182,6 +193,11 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jolokia</groupId>
+      <artifactId>jolokia-core</artifactId>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -356,8 +372,31 @@
         </includes>
       </resource>
     </resources>
-  
+
     <plugins>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${version.spotbugs}</version>
+        <dependencies>
+          <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${version.spotbugs}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <failOnError>false</failOnError>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>

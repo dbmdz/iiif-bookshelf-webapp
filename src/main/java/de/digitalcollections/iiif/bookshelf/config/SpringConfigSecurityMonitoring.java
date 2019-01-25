@@ -2,10 +2,13 @@ package de.digitalcollections.iiif.bookshelf.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,10 +23,13 @@ public class SpringConfigSecurityMonitoring extends WebSecurityConfigurerAdapter
   @Value("${spring.security.user.password}")
   private String actuatorPassword;
 
+  @Value("${javamelody.init-parameters.monitoring-path:/monitoring}")
+  String javamelodyMonitoringPath;
+
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.inMemoryAuthentication().passwordEncoder(passwordEncoderDummy())
-            .withUser(User.withUsername(actuatorUsername).password(actuatorPassword).roles("ACTUATOR"));
+      .withUser(User.withUsername(actuatorUsername).password(actuatorPassword).roles("ACTUATOR"));
   }
 
   @Override
@@ -31,8 +37,14 @@ public class SpringConfigSecurityMonitoring extends WebSecurityConfigurerAdapter
     // Monitoring:
     // see https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints
     http.antMatcher("/monitoring/**").authorizeRequests()
-            .requestMatchers(EndpointRequest.to("info", "health")).permitAll()
-            .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ACTUATOR").and().httpBasic();
+      .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
+      .requestMatchers(EndpointRequest.to("jolokia", "prometheus", "version")).permitAll()
+      .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ACTUATOR").and().httpBasic();
+  }
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers(javamelodyMonitoringPath);
   }
 
   private PasswordEncoder passwordEncoderDummy() {
