@@ -7,9 +7,12 @@ addons:
   apt:
     packages:
     - libxml2-utils
+services:
+  - docker
 before_script:
 - PROJECT_VERSION=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml)
 - if [ ! -z "$TRAVIS_TAG" ]; then mvn versions:set -DnewVersion=$TRAVIS_TAG; fi
+- docker-compose up -d
 script:
 - mvn clean install
 after_success:
