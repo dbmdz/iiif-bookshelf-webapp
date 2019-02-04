@@ -349,7 +349,11 @@ public class WebController extends AbstractController {
     }
 
     model.addAttribute("menu", "search");
-    model.addAttribute("page", new PageWrapper(page, "/search"));
+
+    if (page != null) {
+      model.addAttribute("page", new PageWrapper(page, "/search"));
+    }
+
     model.addAttribute("searchRequest", searchRequest);
     model.addAttribute("style", style);
 

@@ -121,11 +121,11 @@ public class IiifManifestSummary {
   // this.created = created;
   // }
   public Date getLastModified() {
-    return lastModified;
+    return new Date(lastModified.getTime());
   }
 
   public void setLastModified(Date lastModified) {
-    this.lastModified = lastModified;
+    this.lastModified = new Date(lastModified.getTime());
   }
 
   public String getLogoUrl() {
