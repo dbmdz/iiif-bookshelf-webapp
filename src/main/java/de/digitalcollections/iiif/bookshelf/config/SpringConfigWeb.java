@@ -59,7 +59,7 @@ public class SpringConfigWeb implements WebMvcConfigurer {
     return new MyPrettyTime();
   }
 
-  private class MyPrettyTime extends PrettyTime {
+  private static class MyPrettyTime extends PrettyTime {
 
     public String format(Date then, Locale locale) {
       PrettyTime prettyTime = new PrettyTime(locale);
