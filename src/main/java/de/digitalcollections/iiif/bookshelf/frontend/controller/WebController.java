@@ -309,7 +309,7 @@ public class WebController extends AbstractController {
     try {
       Manifest manifest = iiifObjectMapper.readValue(new URL(manifestUri), Manifest.class);
       model.addAttribute("manifest", manifest);
-    } catch (Exception e) {
+    } catch (IOException e) {
       model.addAttribute("error_message", messageSource.getMessage("manifest_error", new Object[]{}, locale));
     }
     return "info";
@@ -349,7 +349,11 @@ public class WebController extends AbstractController {
     }
 
     model.addAttribute("menu", "search");
-    model.addAttribute("page", new PageWrapper(page, "/search"));
+
+    if (page != null) {
+      model.addAttribute("page", new PageWrapper(page, "/search"));
+    }
+
     model.addAttribute("searchRequest", searchRequest);
     model.addAttribute("style", style);
 

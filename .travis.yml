@@ -14,7 +14,7 @@ before_script:
 - if [ ! -z "$TRAVIS_TAG" ]; then mvn versions:set -DnewVersion=$TRAVIS_TAG; fi
 - docker-compose up -d
 script:
-- mvn clean install
+- mvn clean install -U
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 - if [[ "$PROJECT_VERSION" == *SNAPSHOT ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then mvn deploy -B -DskipTests=true --settings settings.xml; fi
