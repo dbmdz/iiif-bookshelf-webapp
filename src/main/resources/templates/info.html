@@ -3,179 +3,149 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
   <head>
-<!--  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
-    <link rel="stylesheet" th:href="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.css|}">
-  </th:block>-->
     <title th:utext="${title}">Label of manifest in current locale</title>
     <meta property="og:title" th:attr="content=${title}">
   </head>
-<body>
-  <section layout:fragment="content">
+  <body>
+    <section layout:fragment="content">
 
-    <div th:replace="fragments/page-actions :: menu">
-      ...
-    </div>
-
-    <div class="row" th:if="${manifest}">
-      <div class="col-sm-12">
-        <h3 class="manifest-label" th:text="${manifest.label.getFirstValue(#locale.language)}">Label</h3>
+      <div th:replace="fragments/page-actions :: menu">
+        ...
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-3">
-        <div class="thumbnail">
-          <div class="thumbnailImage">
-            <a class="imageLink" th:href="@{/__${manifestSummary.viewId}__/view}">
-              <!--
-              <th:block th:if="${manifestSummary.thumbnail} != null">
-                <th:block th:if="${manifestSummary.thumbnail.iiifImageServiceUri} != null">
-                  <div id="leaflet-container"></div>
-                </th:block>
-                <th:block th:if="${manifestSummary.thumbnail.iiifImageServiceUri} == null and ${manifestSummary.thumbnail.url} != null">
+      <div class="row" th:if="${manifest}">
+        <div class="col-sm-12">
+          <h3 class="manifest-label" th:text="${manifest.label.getFirstValue(#locale.language)}">Label</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="thumbnail">
+            <div class="thumbnailImage">
+              <a class="imageLink" th:href="@{/__${manifestSummary.viewId}__/view}">
+                <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.url} != null">
                   <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}">
                 </th:block>
-              </th:block>
-              -->
-              <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.url} != null">
-                <img class="list-group-image" th:src="${manifestSummary.thumbnail.url}">
-              </th:block>
-              <th:block th:if="${manifestSummary.thumbnail} == null or ${manifestSummary.thumbnail.url} == null">
-                <img class="list-group-image" th:src="@{/images/no-image.png}">
-              </th:block>
-            </a>
+                <th:block th:if="${manifestSummary.thumbnail} == null or ${manifestSummary.thumbnail.url} == null">
+                  <img class="list-group-image" th:src="@{/images/no-image.png}">
+                </th:block>
+              </a>
+            </div>
           </div>
+          <a class="btn btn-primary" th:href="@{/__${manifestSummary.viewId}__/view}"><i class="fa fa-eye" aria-hidden="true"></i> <span th:text="#{view}">view</span></a>
         </div>
-        <a class="btn btn-primary" th:href="@{/__${manifestSummary.viewId}__/view}"><i class="fa fa-eye" aria-hidden="true"></i> <span th:text="#{view}">view</span></a>
-      </div>
 
-      <div class="col-sm-9 metadata-table">
-        <th:block th:if="${manifest} and ${manifest.description} != null">
-          <div class="row">
-            <div class="col-sm-3 metadata-label">
-              <label th:text="#{description}">Description</label>
+        <div class="col-sm-9 metadata-table">
+          <th:block th:if="${manifest} and ${manifest.description} != null">
+            <div class="row">
+              <div class="col-sm-3 metadata-label">
+                <label th:text="#{description}">Description</label>
+              </div>
+              <div class="col-sm-9">
+                <span th:utext="${manifest.description.getFirstValue(#locale.language)}">...</span>
+              </div>
             </div>
-            <div class="col-sm-9">
-              <span th:utext="${manifest.description.getFirstValue(#locale.language)}">...</span>
-            </div>
-          </div>
-        </th:block>
+          </th:block>
 
-        <!-- block of free structured metadata key / values -->
-        <th:block th:if="${manifest} and ${manifest.metadata} != null">
-          <div class="row" th:each="metadata : ${manifest.metadata}">
-            <div class="col-sm-3 metadata-label">
-              <label th:text="${metadata.label.getFirstValue(#locale.language)}">Metadata-Label</label>
+          <!-- block of free structured metadata key / values -->
+          <th:block th:if="${manifest} and ${manifest.metadata} != null">
+            <div class="row" th:each="metadata : ${manifest.metadata}">
+              <div class="col-sm-3 metadata-label">
+                <label th:text="${metadata.label.getFirstValue(#locale.language)}">Metadata-Label</label>
+              </div>
+              <div class="col-sm-9">
+                <span th:utext="${metadata.value.getFirstValue(#locale.language)}">...</span>
+              </div>
             </div>
-            <div class="col-sm-9">
-              <span th:utext="${metadata.value.getFirstValue(#locale.language)}">...</span>
-            </div>
-          </div>
-        </th:block>
+          </th:block>
 
-        <h4 th:text="#{rights}" class="underline">Rights</h4>
+          <h4 th:text="#{rights}" class="underline">Rights</h4>
 
-        <th:block th:if="${manifest} and ${manifest.licenses} != null">
-          <div class="row">
-            <div class="col-sm-3 metadata-label">
-              <label th:text="#{licenses}">Licenses</label>
+          <th:block th:if="${manifest} and ${manifest.licenses} != null">
+            <div class="row">
+              <div class="col-sm-3 metadata-label">
+                <label th:text="#{licenses}">Licenses</label>
+              </div>
+              <div class="col-sm-9">
+                <p th:each="license : ${manifest.licenses}">
+                  <a th:href="@{${license}}" target="_blank" th:text="${license}"></a>
+                </p>
+              </div>
             </div>
-            <div class="col-sm-9">
-              <p th:each="license : ${manifest.licenses}">
-                <a th:href="@{${license}}" target="_blank" th:text="${license}"></a>
-              </p>
-            </div>
-          </div>
-        </th:block>
+          </th:block>
 
-        <th:block th:if="${manifest} and ${manifest.attribution} != null">
-          <div class="row">
-            <div class="col-sm-3 metadata-label">
-              <label th:text="#{attribution}">Attribution</label>
+          <th:block th:if="${manifest} and ${manifest.attribution} != null">
+            <div class="row">
+              <div class="col-sm-3 metadata-label">
+                <label th:text="#{attribution}">Attribution</label>
+              </div>
+              <div class="col-sm-9">
+                <span th:utext="${manifest.attribution.getFirstValue(#locale.language)}">...</span>
+              </div>
             </div>
-            <div class="col-sm-9">
-              <span th:utext="${manifest.attribution.getFirstValue(#locale.language)}">...</span>
-            </div>
-          </div>
-        </th:block>
+          </th:block>
 
-        <th:block th:if="${manifestSummary.logoUrl} != null">
-          <div class="row">
-            <div class="col-sm-3 metadata-label">
-              <label th:text="#{logo}">Logo</label>
+          <th:block th:if="${manifestSummary.logoUrl} != null">
+            <div class="row">
+              <div class="col-sm-3 metadata-label">
+                <label th:text="#{logo}">Logo</label>
+              </div>
+              <div class="col-sm-9">
+                <img class="preview-thumbnail attributorLogo" th:src="${manifestSummary.logoUrl}">
+              </div>
             </div>
-            <div class="col-sm-9">
-              <img class="preview-thumbnail attributorLogo" th:src="${manifestSummary.logoUrl}">
-            </div>
-          </div>
-        </th:block>
-        
-        <h4 th:text="#{links}" class="underline">Links</h4>
+          </th:block>
 
-        <th:block th:if="${manifest} and ${manifest.seeAlso} != null">
-          <div class="row">
-            <div class="col-sm-3 metadata-label">
-              <label th:text="#{see_also}">See also</label>
-            </div>
-            <div class="col-sm-9">
-              <p th:each="seeAlso : ${manifest.seeAlso}">
+          <h4 th:text="#{links}" class="underline">Links</h4>
+
+          <th:block th:if="${manifest} and ${manifest.seeAlso} != null">
+            <div class="row">
+              <div class="col-sm-3 metadata-label">
+                <label th:text="#{see_also}">See also</label>
+              </div>
+              <div class="col-sm-9">
+                <p th:each="seeAlso : ${manifest.seeAlso}">
                 <th:block th:if="${seeAlso.label} != null">
                   <span th:utext="${seeAlso.label.getFirstValue(#locale.language)}">seeAlso-Label</span>:&nbsp;
                 </th:block>
                 <a th:href="@{${seeAlso.identifier}}" target="_blank" th:text="${seeAlso.identifier}">...</a>
-              </p>
+                </p>
+              </div>
             </div>
-          </div>
-        </th:block>
+          </th:block>
 
-        <th:block th:if="${manifest} and ${manifest.related} != null">
-          <div class="row">
-            <div class="col-sm-3 metadata-label">
-              <label th:text="#{related}">Related</label>
-            </div>
-            <div class="col-sm-9">
-              <p th:each="related : ${manifest.related}">
+          <th:block th:if="${manifest} and ${manifest.related} != null">
+            <div class="row">
+              <div class="col-sm-3 metadata-label">
+                <label th:text="#{related}">Related</label>
+              </div>
+              <div class="col-sm-9">
+                <p th:each="related : ${manifest.related}">
                 <th:block th:if="${related.label} != null">
                   <span th:utext="${related.label.getFirstValue(#locale.language)}">Related-Label</span>:&nbsp;
                 </th:block>
                 <a th:href="@{${related.identifier}}" target="_blank" th:utext="${related.identifier}">...</a>
+                </p>
+              </div>
+            </div>
+          </th:block>
+
+          <div class="row">
+            <div class="col-sm-3 iiif-logo metadata-label">
+              <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest">
+            </div>
+            <div class="col-sm-9">
+              <p>
+                <span th:text="#{iiif-manifest}">IIIF-Manifest</span>:&nbsp;
+                <a class="manifest-link" th:href="${manifestSummary.manifestUri}" target="_blank" th:text="${manifestSummary.manifestUri}"></a>
               </p>
             </div>
           </div>
-        </th:block>
 
-        <div class="row">
-          <div class="col-sm-3 iiif-logo metadata-label">
-            <img th:src="@{/images/iiif-logo.svg}" title="IIIF-Manifest">
-          </div>
-          <div class="col-sm-9">
-            <p>
-              <span th:text="#{iiif-manifest}">IIIF-Manifest</span>:&nbsp;
-              <a class="manifest-link" th:href="${manifestSummary.manifestUri}" target="_blank" th:text="${manifestSummary.manifestUri}"></a>
-            </p>
-          </div>
         </div>
-
       </div>
-    </div>
 
-  </section>
-
-<th:block layout:fragment="morejs">
-  <th:block th:if="${manifestSummary.thumbnail} != null and ${manifestSummary.thumbnail.iiifImageServiceUri} != null">
-<!--    <script th:src="@{|/webjars/leaflet/${@iiifVersions.leaflet}/dist/leaflet.js|}"></script>
-    <script th:src="@{|/webjars/leaflet-iiif/${@iiifVersions['leaflet-iiif']}/leaflet-iiif.js|}"></script>-->
-    <script type="text/javascript" th:inline="javascript">
-//      /*<![CDATA[*/
-//      var map = L.map('leaflet-container', {
-//        center: [0, 0],
-//        crs: L.CRS.Simple,
-//        zoom: 0,
-//      });
-//      L.tileLayer.iiif(/*[[@{|${manifestSummary.thumbnail.iiifImageServiceUri}/info.json|}]]*/).addTo(map);
-//      /*]]>*/
-    </script>
-  </th:block>
-</th:block>
-</body>
+    </section>
+  </body>
 </html>

@@ -87,8 +87,6 @@
     <version.webjar-ie10-viewport-bug-workaround>1.0.3</version.webjar-ie10-viewport-bug-workaround>
     <version.webjar-jquery>3.3.1</version.webjar-jquery>
     <version.webjar-jquery-shorten>1.0.0</version.webjar-jquery-shorten>
-    <version.webjar-leaflet>1.2.0</version.webjar-leaflet>
-    <version.webjar-leaflet-iiif>1.2.1</version.webjar-leaflet-iiif>
     <version.webjar-mirador>2.7.0</version.webjar-mirador>
     <version.webjar-mirador-downloadmenu>1.0.2</version.webjar-mirador-downloadmenu>
     <version.webjar-mirador-imagecropper>2.4.6</version.webjar-mirador-imagecropper>
@@ -328,16 +326,6 @@
       <groupId>org.webjars.npm</groupId>
       <artifactId>jquery.shorten</artifactId>
       <version>${version.webjar-jquery-shorten}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars.npm</groupId>
-      <artifactId>leaflet</artifactId>
-      <version>${version.webjar-leaflet}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars.npm</groupId>
-      <artifactId>leaflet-iiif</artifactId>
-      <version>${version.webjar-leaflet-iiif}</version>
     </dependency>
     <dependency>
       <groupId>org.webjars.npm</groupId>
