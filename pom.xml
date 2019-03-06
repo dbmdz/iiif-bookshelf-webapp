@@ -62,12 +62,12 @@
   </scm>
 
   <properties>
-    <!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility. If you want to follow our recommendation and use a later Java version you can add a java.version property -->
     <java.version>1.8</java.version>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <timestamp>${maven.build.timestamp}</timestamp>
     <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
 
