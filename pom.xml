@@ -71,7 +71,7 @@
     <timestamp>${maven.build.timestamp}</timestamp>
     <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
 
-    <version.dc-commons>3.0.1</version.dc-commons>
+    <version.dc-commons>4.0.1</version.dc-commons>
     <version.iiif-apis>0.3.7</version.iiif-apis>
     <version.javamelody>1.76.0</version.javamelody>
     <version.json-simple>1.1.1</version.json-simple>
