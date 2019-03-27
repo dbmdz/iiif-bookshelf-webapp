@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ...
 
-## [3.1.1](https://github.com/dbmdz/iiif-bookshelf-webapp/releases/tag/3.1.1) - 2019-02-04
+## [3.1.1](https://github.com/dbmdz/iiif-bookshelf-webapp/releases/tag/3.1.1) - 2019-03-27
 
 ### Added
 
@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Changed
 
 - Add missing german translations
+
+### Removed
+
+- Remove unused leaflet dependencies
 
 ## [3.1.0](https://github.com/dbmdz/iiif-bookshelf-webapp/releases/tag/3.1.0) - 2019-01-30
 
