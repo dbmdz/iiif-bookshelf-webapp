@@ -49,9 +49,7 @@ public class SpringConfigWeb implements WebMvcConfigurer {
 
   @Bean
   public LocaleResolver localeResolver() {
-    SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-    localeResolver.setDefaultLocale(Locale.ENGLISH);
-    return localeResolver;
+    return new SessionLocaleResolver();
   }
 
   @Bean
