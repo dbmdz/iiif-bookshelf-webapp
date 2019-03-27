@@ -72,7 +72,7 @@
     <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
 
     <version.dc-commons>3.0.1</version.dc-commons>
-    <version.iiif-apis>0.3.6</version.iiif-apis>
+    <version.iiif-apis>0.3.7</version.iiif-apis>
     <version.javamelody>1.76.0</version.javamelody>
     <version.json-simple>1.1.1</version.json-simple>
     <version.logstash-logback-encoder>5.3</version.logstash-logback-encoder>
