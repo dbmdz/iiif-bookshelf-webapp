@@ -95,7 +95,7 @@
     <version.webjar-mirador-sharebuttons>1.0.2</version.webjar-mirador-sharebuttons>
     <version.webjar-mirador-viewfromurl>1.2.0</version.webjar-mirador-viewfromurl>
     <version.webjar-respond>1.4.2</version.webjar-respond>
-    <version.webjar-universalviewer>2.0.2</version.webjar-universalviewer>
+    <version.webjar-universalviewer>3.0.22</version.webjar-universalviewer>
 
     <!-- plugins -->
     <version.jacoco-maven-plugin>0.8.3</version.jacoco-maven-plugin>
