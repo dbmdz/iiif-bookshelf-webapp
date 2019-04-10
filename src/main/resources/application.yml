@@ -105,6 +105,16 @@ spring:
 
 ---
 
+spring:
+  data:
+    mongodb:
+      uri: mongodb://docker:20202/iiif-bookshelf
+    solr:
+      host: 'http://docker:21212/solr'
+  profiles: ci
+
+---
+
 management:
   server:
     port: 9001
