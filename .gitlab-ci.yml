@@ -1,0 +1,11 @@
+include: "https://raw.githubusercontent.com/dbmdz/development/master/ci/.gitlab-ci-base.yml"
+
+before_script:
+  - cat /etc/hosts
+  - docker-compose up -d
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
