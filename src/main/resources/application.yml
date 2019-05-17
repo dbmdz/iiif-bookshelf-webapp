@@ -19,6 +19,8 @@ custom:
   summary:
     thumbnail:
       width: 280
+  twitter:
+    siteHandle: '@yourhappytwitterhandle'
 # end of custom configuration section
 
 info:
