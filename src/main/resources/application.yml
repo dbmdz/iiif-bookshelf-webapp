@@ -19,8 +19,15 @@ custom:
   summary:
     thumbnail:
       width: 280
-  twitter:
-    siteHandle: '@yourhappytwitterhandle'
+
+  sharing:
+    twitter:
+      siteHandle: '@yourhappytwitterhandle'
+    previewImage:
+      url: 'images/iiif-logo.svg'
+      width: 441
+      height: 493
+
 # end of custom configuration section
 
 info:

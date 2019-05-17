@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import de.digitalcollections.commons.springmvc.controller.AbstractController;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifCollectionService;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSummaryService;
+import de.digitalcollections.iiif.bookshelf.config.SharingConfig;
 import de.digitalcollections.iiif.bookshelf.frontend.model.PageWrapper;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
@@ -68,8 +69,8 @@ public class WebController extends AbstractController {
   @Autowired
   private ObjectMapper objectMapper;
 
-  @Value("twitter.siteHandle")
-  private String twitterSiteHandle;
+  @Autowired
+  private SharingConfig sharingConfig;
 
   /**
    * List with or without search query.
@@ -93,6 +94,11 @@ public class WebController extends AbstractController {
     model.addAttribute("page", new PageWrapper<>(page, "/"));
     model.addAttribute("searchRequest", new SearchRequest());
     model.addAttribute("style", style);
+
+    model.addAttribute("preview", sharingConfig.getPreviewImageUrl());
+    model.addAttribute("previewWidth", sharingConfig.getPreviewImageWidth());
+    model.addAttribute("previewHeight", sharingConfig.getPreviewImageHeight());
+    model.addAttribute("twitterSiteHandle", sharingConfig.getTwitterSiteHandle());
 
     // model.addAttribute("manifests", iiifManifestSummaryService.getAll());
     // model.addAttribute("count", iiifManifestSummaryService.countAll());
@@ -235,7 +241,7 @@ public class WebController extends AbstractController {
     } catch (IOException e) {
       model.addAttribute("error_message", messageSource.getMessage("manifest_error", new Object[]{}, locale));
     }
-    model.addAttribute("twitterSiteHandle", twitterSiteHandle);
+    model.addAttribute("twitterSiteHandle", sharingConfig.getTwitterSiteHandle());
   }
 
 

@@ -5,7 +5,7 @@
   <body>
 
   <th:block th:fragment="twitterAndOG">
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" th:if="${twitterSiteHandle}" content="summary" />
     <meta name="twitter:site" th:if="${twitterSiteHandle}" th:content="${twitterSiteHandle}" />
 
     <meta property="og:image" th:if="${preview}"
@@ -20,7 +20,7 @@
     <meta property="og:title" th:if="${title}"
           th:content="${title}"
           content="Naval affairs of England - BSB Cod.angl. 2"/>
-    <meta property="og:description" th:if="${manifest.description}"
+    <meta property="og:description" th:if="${manifest != null and manifest.description != null}"
           th:content="${manifest.description}"
           content="Sammelhandschrift"/>
   </th:block>
