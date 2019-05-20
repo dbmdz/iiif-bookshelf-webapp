@@ -31,6 +31,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -213,9 +214,8 @@ public class WebController extends AbstractController {
     return "mirador/view";
   }
 
-  private void fillModelWithObject(@PathVariable String id, Model model, Locale locale) {
-    IiifManifestSummary iiifManifestSummary;
-    iiifManifestSummary = iiifManifestSummaryService.get(id);
+  protected Pair<Manifest, IiifManifestSummary> fillModelWithObject(String id, Model model, Locale locale) {
+    IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(id);
     if (iiifManifestSummary == null) {
       throw new NotFoundException();
     }
@@ -238,10 +238,12 @@ public class WebController extends AbstractController {
         model.addAttribute("previewHeight", preview.getHeight());
       }
 
+      return Pair.of(manifest, iiifManifestSummary);
     } catch (IOException e) {
       model.addAttribute("error_message", messageSource.getMessage("manifest_error", new Object[]{}, locale));
     }
     model.addAttribute("twitterSiteHandle", sharingConfig.getTwitterSiteHandle());
+    return Pair.of(null, iiifManifestSummary);
   }
 
 
@@ -287,8 +289,6 @@ public class WebController extends AbstractController {
   @CrossOrigin(origins = "*")
   @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
   public String objectInfo(@PathVariable String id, Model model, Locale locale) throws IOException {
-    IiifManifestSummary iiifManifestSummary;
-
     String redirect = redirectUuidToViewId(id);
     if (redirect != null) {
       return redirect;
@@ -298,12 +298,11 @@ public class WebController extends AbstractController {
     return "info";
   }
 
-  private String redirectUuidToViewId(@PathVariable String id) {
-    IiifManifestSummary iiifManifestSummary;
+  protected String redirectUuidToViewId(@PathVariable String id) {
     try {
       // if old bookmark with uuid, send redirect to new viewId (if exists)
       UUID uuid = UUID.fromString(id);
-      iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+      IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(uuid);
       if (iiifManifestSummary != null) {
         String viewId = iiifManifestSummary.getViewId();
         if (viewId != null && !uuid.toString().equals(viewId)) {
