@@ -5,6 +5,8 @@
   <head>
     <title th:utext="${title}">Label of manifest in current locale</title>
     <meta property="og:title" th:attr="content=${title}">
+
+    <meta th:replace="fragments/sharing_metadata.html :: twitterAndOG" />
   </head>
   <body>
     <section layout:fragment="content">

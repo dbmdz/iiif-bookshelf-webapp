@@ -1,15 +1,18 @@
 package de.digitalcollections.iiif.bookshelf.frontend.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import de.digitalcollections.commons.springmvc.controller.AbstractController;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifCollectionService;
 import de.digitalcollections.iiif.bookshelf.business.api.service.IiifManifestSummaryService;
+import de.digitalcollections.iiif.bookshelf.config.SharingConfig;
 import de.digitalcollections.iiif.bookshelf.frontend.model.PageWrapper;
 import de.digitalcollections.iiif.bookshelf.model.IiifManifestSummary;
 import de.digitalcollections.iiif.bookshelf.model.SearchRequest;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
-import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
+import de.digitalcollections.iiif.bookshelf.util.PreviewImageUtil;
+import de.digitalcollections.iiif.model.ImageContent;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -64,7 +67,10 @@ public class WebController extends AbstractController {
   private IiifManifestSummaryService iiifManifestSummaryService;
 
   @Autowired
-  private IiifObjectMapper iiifObjectMapper;
+  private ObjectMapper objectMapper;
+
+  @Autowired
+  private SharingConfig sharingConfig;
 
   /**
    * List with or without search query.
@@ -85,9 +91,14 @@ public class WebController extends AbstractController {
 
     final Page<IiifManifestSummary> page = iiifManifestSummaryService.getAll(pageRequest);
     model.addAttribute("menu", "home");
-    model.addAttribute("page", new PageWrapper(page, "/"));
+    model.addAttribute("page", new PageWrapper<>(page, "/"));
     model.addAttribute("searchRequest", new SearchRequest());
     model.addAttribute("style", style);
+
+    model.addAttribute("preview", sharingConfig.getPreviewImageUrl());
+    model.addAttribute("previewWidth", sharingConfig.getPreviewImageWidth());
+    model.addAttribute("previewHeight", sharingConfig.getPreviewImageHeight());
+    model.addAttribute("twitterSiteHandle", sharingConfig.getTwitterSiteHandle());
 
     // model.addAttribute("manifests", iiifManifestSummaryService.getAll());
     // model.addAttribute("count", iiifManifestSummaryService.countAll());
@@ -191,63 +202,59 @@ public class WebController extends AbstractController {
 
   @CrossOrigin(origins = "*")
   @RequestMapping(value = {"/{id}/view"}, method = RequestMethod.GET)
-  public String viewObject(@PathVariable String id, Model model) {
-    IiifManifestSummary iiifManifestSummary;
-
-    try {
-      // if old bookmark with uuid, send redirect to new viewId (if exists)
-      UUID uuid = UUID.fromString(id);
-      iiifManifestSummary = iiifManifestSummaryService.get(uuid);
-      if (iiifManifestSummary != null) {
-        String viewId = iiifManifestSummary.getViewId();
-        if (viewId != null && !uuid.toString().equals(viewId)) {
-          return "redirect:/" + iiifManifestSummary.getViewId() + "/view";
-        }
-      }
-    } catch (IllegalArgumentException e) {
-      // no uuid, so it is a viewId
+  public String viewObject(@PathVariable String id, Model model, Locale locale) {
+    String redirect = redirectUuidToViewId(id);
+    if (redirect != null) {
+      return redirect;
     }
 
-    iiifManifestSummary = iiifManifestSummaryService.get(id);
-    if (iiifManifestSummary == null) {
-      throw new NotFoundException();
-    }
-    model.addAttribute("iiifVersions", iiifVersions);
-    model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
-    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
-    model.addAttribute("title", title);
-    model.addAttribute("manifestSummary", iiifManifestSummary);
+    fillModelWithObject(id, model, locale);
+
     return "mirador/view";
   }
 
-  @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/{id}/uv"}, method = RequestMethod.GET)
-  public String viewObjectInUniversalViewer(@PathVariable String id, Model model) {
+  private void fillModelWithObject(@PathVariable String id, Model model, Locale locale) {
     IiifManifestSummary iiifManifestSummary;
-
-    try {
-      // if old bookmark with uuid, send redirect to new viewId (if exists)
-      UUID uuid = UUID.fromString(id);
-      iiifManifestSummary = iiifManifestSummaryService.get(uuid);
-      if (iiifManifestSummary != null) {
-        String viewId = iiifManifestSummary.getViewId();
-        if (viewId != null && !uuid.toString().equals(viewId)) {
-          return "redirect:/" + iiifManifestSummary.getViewId() + "/uv";
-        }
-      }
-    } catch (IllegalArgumentException e) {
-      // no uuid, so it is a viewId
-    }
-
     iiifManifestSummary = iiifManifestSummaryService.get(id);
     if (iiifManifestSummary == null) {
       throw new NotFoundException();
     }
     model.addAttribute("iiifVersions", iiifVersions);
-    model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
-    model.addAttribute("manifestSummary", iiifManifestSummary);
+    final String manifestUri = iiifManifestSummary.getManifestUri();
+    model.addAttribute("manifestId", manifestUri);
     String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);
+    model.addAttribute("ogTitle", title);
+    model.addAttribute("manifestSummary", iiifManifestSummary);
+
+    try {
+      Manifest manifest = objectMapper.readValue(new URL(manifestUri), Manifest.class);
+      model.addAttribute("manifest", manifest);
+
+      ImageContent preview = new PreviewImageUtil(manifest).findBestPreviewImage();
+      if (preview != null) {
+        model.addAttribute("preview", preview.getIdentifier());
+        model.addAttribute("previewWidth", preview.getWidth());
+        model.addAttribute("previewHeight", preview.getHeight());
+      }
+
+    } catch (IOException e) {
+      model.addAttribute("error_message", messageSource.getMessage("manifest_error", new Object[]{}, locale));
+    }
+    model.addAttribute("twitterSiteHandle", sharingConfig.getTwitterSiteHandle());
+  }
+
+
+  @CrossOrigin(origins = "*")
+  @RequestMapping(value = {"/{id}/uv"}, method = RequestMethod.GET)
+  public String viewObjectInUniversalViewer(@PathVariable String id, Model model, Locale locale) {
+    String redirect = redirectUuidToViewId(id);
+    if (redirect != null) {
+      return redirect;
+    }
+
+    fillModelWithObject(id, model, locale);
+
     return "uv/view";
   }
 
@@ -282,6 +289,17 @@ public class WebController extends AbstractController {
   public String objectInfo(@PathVariable String id, Model model, Locale locale) throws IOException {
     IiifManifestSummary iiifManifestSummary;
 
+    String redirect = redirectUuidToViewId(id);
+    if (redirect != null) {
+      return redirect;
+    }
+
+    fillModelWithObject(id, model, locale);
+    return "info";
+  }
+
+  private String redirectUuidToViewId(@PathVariable String id) {
+    IiifManifestSummary iiifManifestSummary;
     try {
       // if old bookmark with uuid, send redirect to new viewId (if exists)
       UUID uuid = UUID.fromString(id);
@@ -295,24 +313,7 @@ public class WebController extends AbstractController {
     } catch (IllegalArgumentException e) {
       // no uuid, so it is a viewId
     }
-
-    iiifManifestSummary = iiifManifestSummaryService.get(id);
-    if (iiifManifestSummary == null) {
-      throw new NotFoundException();
-    }
-    final String manifestUri = iiifManifestSummary.getManifestUri();
-    model.addAttribute("manifestId", manifestUri);
-    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
-    model.addAttribute("title", title);
-    model.addAttribute("manifestSummary", iiifManifestSummary);
-
-    try {
-      Manifest manifest = iiifObjectMapper.readValue(new URL(manifestUri), Manifest.class);
-      model.addAttribute("manifest", manifest);
-    } catch (IOException e) {
-      model.addAttribute("error_message", messageSource.getMessage("manifest_error", new Object[]{}, locale));
-    }
-    return "info";
+    return null;
   }
 
   @ExceptionHandler(ApiException.class)
@@ -340,7 +341,7 @@ public class WebController extends AbstractController {
         try {
           page = iiifManifestSummaryService.findAll(term, pageRequest);
         } catch (SearchSyntaxException ex) {
-          page = new PageImpl(new ArrayList<>());
+          page = new PageImpl<>(new ArrayList<>());
           results.reject("error.search_syntax");
         }
       }
@@ -351,7 +352,7 @@ public class WebController extends AbstractController {
     model.addAttribute("menu", "search");
 
     if (page != null) {
-      model.addAttribute("page", new PageWrapper(page, "/search"));
+      model.addAttribute("page", new PageWrapper<>(page, "/search"));
     }
 
     model.addAttribute("searchRequest", searchRequest);
