@@ -226,6 +226,7 @@ public class WebController extends AbstractController {
     model.addAttribute("title", title);
     model.addAttribute("ogTitle", title);
     model.addAttribute("manifestSummary", iiifManifestSummary);
+    model.addAttribute("twitterSiteHandle", sharingConfig.getTwitterSiteHandle());
 
     try {
       Manifest manifest = objectMapper.readValue(new URL(manifestUri), Manifest.class);
@@ -242,8 +243,7 @@ public class WebController extends AbstractController {
     } catch (IOException e) {
       model.addAttribute("error_message", messageSource.getMessage("manifest_error", new Object[]{}, locale));
     }
-    model.addAttribute("twitterSiteHandle", sharingConfig.getTwitterSiteHandle());
-    return Pair.of(null, iiifManifestSummary);
+    return null;
   }
 
 
