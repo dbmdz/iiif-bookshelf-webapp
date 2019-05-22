@@ -5,12 +5,27 @@
   <body>
 
   <th:block th:fragment="twitterAndOG">
-    <meta name="twitter:card" th:if="${twitterSiteHandle}" content="summary" />
+    <meta name="twitter:card" th:if="${twitterSiteHandle}" content="summary_large_image" />
     <meta name="twitter:site" th:if="${twitterSiteHandle}" th:content="${twitterSiteHandle}" />
+    <meta name="twitter:title" th:if="${title}"
+          th:content="${title}"
+          content="Naval affairs of England - BSB Cod.angl. 2"/>
+    <meta name="twitter:description" th:if="${description}"
+          th:content="${description}"
+          content="Dieser Prachteinband der ottonischen Epoche zählt zu den weltweit bedeutendsten Exemplaren; als Spolien wurden unter anderem eine karolingische Elfenbeintafel, mittelbyzantinische sowie ottonische Emails verwendet. // Karl-Georg Pfändtner"/>
+    <meta name="twitter:image" th:if="${preview}"
+          th:content ="${preview}"
+          content="https://api.digitale-sammlungen.de/iiif/image/v2/bsb00110131_00011/full/full/0/default.jpg"/>
+    <meta property="twitter:image:alt" th:if="${preview != null and title != null}"
+          th:content="${title}"
+          content="Naval affairs of England - BSB Cod.angl. 2"/>
 
     <meta property="og:image" th:if="${preview}"
           th:content ="${preview}"
           content="https://api.digitale-sammlungen.de/iiif/image/v2/bsb00110131_00011/full/full/0/default.jpg"/>
+    <meta property="og:image:alt" th:if="${preview != null and title != null}"
+          th:content="${title}"
+          content="Naval affairs of England - BSB Cod.angl. 2"/>
     <meta property="og:image:width" th:if="${previewWidth}"
           th:content="${previewWidth}"
           content="4683"/>
@@ -20,9 +35,12 @@
     <meta property="og:title" th:if="${title}"
           th:content="${title}"
           content="Naval affairs of England - BSB Cod.angl. 2"/>
-    <meta property="og:description" th:if="${manifest != null and manifest.description != null}"
-          th:content="${manifest.description}"
-          content="Sammelhandschrift"/>
+    <meta property="og:description" th:if="${description}"
+          th:content="${description}"
+          content="Dieser Prachteinband der ottonischen Epoche zählt zu den weltweit bedeutendsten Exemplaren; als Spolien wurden unter anderem eine karolingische Elfenbeintafel, mittelbyzantinische sowie ottonische Emails verwendet. // Karl-Georg Pfändtner"/>
+    <meta property="og:url" th:content="${#httpServletRequest.requestURL}" content="https://app.digitale-sammlungen.de/bookshelf/bsb00110131/view" />
+    <meta property="og:type" content="website">
+
   </th:block>
 
   <th:block th:fragment="twitterCards">

@@ -13,6 +13,7 @@ import de.digitalcollections.iiif.bookshelf.model.exceptions.NotFoundException;
 import de.digitalcollections.iiif.bookshelf.model.exceptions.SearchSyntaxException;
 import de.digitalcollections.iiif.bookshelf.util.PreviewImageUtil;
 import de.digitalcollections.iiif.model.ImageContent;
+import de.digitalcollections.iiif.model.PropertyValue;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -231,6 +232,10 @@ public class WebController extends AbstractController {
     try {
       Manifest manifest = objectMapper.readValue(new URL(manifestUri), Manifest.class);
       model.addAttribute("manifest", manifest);
+      PropertyValue description = manifest.getDescription();
+      if (description != null) {
+        model.addAttribute("description", description.getFirstValue(locale));
+      }
 
       ImageContent preview = new PreviewImageUtil(manifest).findBestPreviewImage();
       if (preview != null) {

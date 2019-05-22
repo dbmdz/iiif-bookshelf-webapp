@@ -8,7 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--/* The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags */-->
-    <meta name="description" content="">
+    <meta name="description" th:if="${description}"
+          th:content="${description}"
+          content="Dieser Prachteinband der ottonischen Epoche zählt zu den weltweit bedeutendsten Exemplaren; als Spolien wurden unter anderem eine karolingische Elfenbeintafel, mittelbyzantinische sowie ottonische Emails verwendet. // Karl-Georg Pfändtner"/>
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/ico">
 
     <title layout:title-pattern="$LAYOUT_TITLE: $CONTENT_TITLE">IIIF Bookshelf</title>
