@@ -11,6 +11,9 @@
     <meta property="og:image" th:if="${preview}"
           th:content ="${preview}"
           content="https://api.digitale-sammlungen.de/iiif/image/v2/bsb00110131_00011/full/full/0/default.jpg"/>
+    <meta property="og:image:alt" th:if="${preview != null and title != null}"
+          th:content="${title}"
+          content="Naval affairs of England - BSB Cod.angl. 2"/>
     <meta property="og:image:width" th:if="${previewWidth}"
           th:content="${previewWidth}"
           content="4683"/>
@@ -23,6 +26,9 @@
     <meta property="og:description" th:if="${description}"
           th:content="${description}"
           content="Sammelhandschrift"/>
+    <meta property="og:url" th:content="${#httpServletRequest.requestURL}" content="https://app.digitale-sammlungen.de/bookshelf/bsb00110131/view" />
+    <meta property="og:type" content="website">
+
   </th:block>
 
   <th:block th:fragment="twitterCards">
