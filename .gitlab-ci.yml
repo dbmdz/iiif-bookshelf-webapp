@@ -4,7 +4,7 @@ before_script:
   - docker-compose up -d
 
 services:
-  - docker:dind
+  - "$DIND_IMAGE"
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
