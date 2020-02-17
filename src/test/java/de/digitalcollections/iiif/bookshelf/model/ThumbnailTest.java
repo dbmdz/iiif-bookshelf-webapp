@@ -1,8 +1,8 @@
 package de.digitalcollections.iiif.bookshelf.model;
 
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 public class ThumbnailTest {
 
@@ -12,5 +12,4 @@ public class ThumbnailTest {
     Thumbnail thumbnail = new Thumbnail(url);
     assertThat(thumbnail.getUrl()).isEqualTo(url);
   }
-
 }

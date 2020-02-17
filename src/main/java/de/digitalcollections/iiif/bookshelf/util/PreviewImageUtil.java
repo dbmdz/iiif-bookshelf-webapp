@@ -19,7 +19,6 @@ public class PreviewImageUtil {
     this.manifest = manifest;
   }
 
-
   public static ImageService findImageService(List<Service> services) {
     if (services == null) {
       return null;
@@ -105,6 +104,4 @@ public class PreviewImageUtil {
     }
     return null;
   }
-
-
 }

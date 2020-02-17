@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class StrictCollectionParser extends AbstractManifestParser {
 
-  @Autowired
-  private ObjectMapper objectMapper;
+  @Autowired private ObjectMapper objectMapper;
 
   @Override
-  public void fillSummary(IiifManifestSummary manifestSummary) throws IOException, URISyntaxException {
+  public void fillSummary(IiifManifestSummary manifestSummary)
+      throws IOException, URISyntaxException {
     throw new UnsupportedOperationException();
   }
 

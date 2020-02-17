@@ -6,9 +6,7 @@ public class Thumbnail {
   private String iiifImageServiceUri;
   private String url;
 
-  public Thumbnail() {
-
-  }
+  public Thumbnail() {}
 
   public Thumbnail(IiifImageApiVersion iiifImageApiVersion, String iiifImageServiceUri) {
     setIiifImageApiVersion(iiifImageApiVersion);
@@ -39,20 +37,21 @@ public class Thumbnail {
     if (iiifImageServiceUri != null) {
       iiifImageServiceUri = iiifImageServiceUri.trim();
       if (iiifImageServiceUri.endsWith("/")) {
-        iiifImageServiceUri = iiifImageServiceUri.substring(0, iiifImageServiceUri.lastIndexOf("/"));
+        iiifImageServiceUri =
+            iiifImageServiceUri.substring(0, iiifImageServiceUri.lastIndexOf("/"));
       }
     }
     this.iiifImageServiceUri = iiifImageServiceUri;
   }
 
   public String getUrl() {
-//    if (iiifImageServiceUri != null && iiifImageApiVersion != null) {
-//      if (IiifImageApiVersion.V1_1 == iiifImageApiVersion) {
-//        setUrl(iiifImageServiceUri + "/full/,90/0/native.jpg");
-//      } else if (IiifImageApiVersion.V2 == iiifImageApiVersion) {
-//        setUrl(iiifImageServiceUri + "/full/,90/0/default.jpg");
-//      }
-//    }
+    //    if (iiifImageServiceUri != null && iiifImageApiVersion != null) {
+    //      if (IiifImageApiVersion.V1_1 == iiifImageApiVersion) {
+    //        setUrl(iiifImageServiceUri + "/full/,90/0/native.jpg");
+    //      } else if (IiifImageApiVersion.V2 == iiifImageApiVersion) {
+    //        setUrl(iiifImageServiceUri + "/full/,90/0/default.jpg");
+    //      }
+    //    }
     return url;
   }
 
