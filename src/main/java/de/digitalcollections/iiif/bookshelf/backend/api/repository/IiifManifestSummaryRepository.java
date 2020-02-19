@@ -10,16 +10,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-/**
- * Repository for IiifManifestSummaries identified by the manifest URI.
- */
-public interface IiifManifestSummaryRepository extends MongoRepository<IiifManifestSummary, UUID>, IiifManifestSummaryRepositoryCustom {
+/** Repository for IiifManifestSummaries identified by the manifest URI. */
+public interface IiifManifestSummaryRepository
+    extends MongoRepository<IiifManifestSummary, UUID>, IiifManifestSummaryRepositoryCustom {
 
   public List<IiifManifestSummary> findAllByOrderByLastModifiedDesc();
 
   public Page<IiifManifestSummary> findAllByOrderByLastModifiedDesc(Pageable pageRequest);
 
-  public Page<IiifManifestSummary> findBy(TextCriteria criteria, Pageable page); // do not expose mongo TextCriteria to service layer!
+  public Page<IiifManifestSummary> findBy(
+      TextCriteria criteria, Pageable page); // do not expose mongo TextCriteria to service layer!
 
   public IiifManifestSummary findByManifestUri(String manifestUri);
 

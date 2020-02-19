@@ -30,7 +30,8 @@ public class GraciousManifestParser extends AbstractManifestParser {
   public static final Locale DEFAULT_LOCALE = Locale.GERMAN;
 
   @Override
-  public void fillSummary(IiifManifestSummary manifestSummary) throws IOException, URISyntaxException {
+  public void fillSummary(IiifManifestSummary manifestSummary)
+      throws IOException, URISyntaxException {
     final InputStream is;
     try {
       is = getContentInputStream(manifestSummary.getManifestUri());
@@ -40,10 +41,12 @@ public class GraciousManifestParser extends AbstractManifestParser {
     fillFromInputStream(is, manifestSummary);
   }
 
-  protected void fillFromInputStream(final InputStream is, IiifManifestSummary manifestSummary) throws IOException {
+  protected void fillFromInputStream(final InputStream is, IiifManifestSummary manifestSummary)
+      throws IOException {
     try {
       JSONParser jsonParser = new JSONParser();
-      JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
+      JSONObject jsonObject =
+          (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
 
       fillFromJsonObject(jsonObject, manifestSummary);
     } catch (ParseException ex) {
@@ -53,13 +56,12 @@ public class GraciousManifestParser extends AbstractManifestParser {
   }
 
   /**
-   * Language may be associated with strings that are intended to be displayed to the user with the following pattern of
+   * Language may be associated with strings that are intended to be displayed to the user with the
+   * following pattern of
    *
    * @value plus the RFC 5646 code in
-   *
-   *        @language, instead of a plain string. This pattern may be used in label, description, attribution and the
-   *        label and value fields of the metadata construction.
-   *
+   * @language, instead of a plain string. This pattern may be used in label, description,
+   *     attribution and the label and value fields of the metadata construction.
    * @param manifestSummary manifest summary as target
    */
   private void fillFromJsonObject(JSONObject jsonObject, IiifManifestSummary manifestSummary) {
@@ -120,7 +122,8 @@ public class GraciousManifestParser extends AbstractManifestParser {
 
     JSONObject firstSequence = null;
     if (thumbnailObj == null) {
-      // A sequence may have one or more thumbnails and should have at least one thumbnail if there are multiple sequences in a single manifest.
+      // A sequence may have one or more thumbnails and should have at least one thumbnail if there
+      // are multiple sequences in a single manifest.
       JSONArray sequencesArray = (JSONArray) manifestObj.get("sequences");
       if (sequencesArray != null) {
         firstSequence = (JSONObject) sequencesArray.get(0);
@@ -132,13 +135,16 @@ public class GraciousManifestParser extends AbstractManifestParser {
 
     JSONArray canvases = null;
     if (thumbnailObj == null && firstSequence != null) {
-      // A canvas may have one or more thumbnails and should have at least one thumbnail if there are multiple images or resources that make up the representation.
+      // A canvas may have one or more thumbnails and should have at least one thumbnail if there
+      // are multiple images or resources that make up the representation.
       canvases = (JSONArray) firstSequence.get("canvases");
       if (canvases != null) {
-        Object obj = canvases.stream()
+        Object obj =
+            canvases.stream()
                 .map(c -> ((JSONObject) c).get("thumbnail"))
                 .filter(t -> t != null)
-                .findFirst().orElse(null);
+                .findFirst()
+                .orElse(null);
         if (obj != null) {
           if (obj instanceof JSONObject) {
             thumbnailObj = (JSONObject) obj;
@@ -154,9 +160,8 @@ public class GraciousManifestParser extends AbstractManifestParser {
       if (firstCanvas != null) {
         JSONArray images = (JSONArray) firstCanvas.get("images");
         if (images != null) {
-          Object obj = images.stream()
-                  .map(i -> ((JSONObject) i).get("resource"))
-                  .findFirst().orElse(null);
+          Object obj =
+              images.stream().map(i -> ((JSONObject) i).get("resource")).findFirst().orElse(null);
           if (obj != null) {
             if (obj instanceof JSONObject) {
               thumbnailObj = (JSONObject) obj;

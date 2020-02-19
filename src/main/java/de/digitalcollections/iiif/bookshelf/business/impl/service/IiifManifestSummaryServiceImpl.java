@@ -25,27 +25,24 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
 
   public static final Locale DEFAULT_LOCALE = Locale.GERMAN;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(IiifManifestSummaryServiceImpl.class);
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(IiifManifestSummaryServiceImpl.class);
 
-  @Autowired
-  private GraciousManifestParser graciousManifestParser;
+  @Autowired private GraciousManifestParser graciousManifestParser;
 
   @Value("${custom.iiif.graciousParsing}")
   private boolean graciousParsing;
 
-  @Autowired
-  private IiifManifestSummaryRepository iiifManifestSummaryRepository;
+  @Autowired private IiifManifestSummaryRepository iiifManifestSummaryRepository;
 
-  @Autowired
-  private IiifManifestSummarySearchRepository iiifManifestSummarySearchRepository;
+  @Autowired private IiifManifestSummarySearchRepository iiifManifestSummarySearchRepository;
 
-  @Autowired
-  private StrictManifestParser strictManifestParser;
+  @Autowired private StrictManifestParser strictManifestParser;
 
   @Override
   public IiifManifestSummary add(IiifManifestSummary manifest) {
-    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository
-            .findByManifestUri(manifest.getManifestUri());
+    final IiifManifestSummary existingManifest =
+        iiifManifestSummaryRepository.findByManifestUri(manifest.getManifestUri());
     if (existingManifest != null) {
       throw new IllegalArgumentException("object already exists");
     }
@@ -58,14 +55,19 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
-  public void enrichAndSave(IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, IOException {
+  public void enrichAndSave(IiifManifestSummary manifestSummary)
+      throws URISyntaxException, NotFoundException, IOException {
     try {
       strictManifestParser.fillSummary(manifestSummary);
     } catch (Exception ex) {
       if (graciousParsing) {
-        // Manifest might not be standard conform. Nevertheless we just want some values from it to form a short summary.
+        // Manifest might not be standard conform. Nevertheless we just want some values from it to
+        // form a short summary.
         // As long viewer can handle the manifest, we are fine to show it.
-        LOGGER.warn("Manifest at uri {} might be not standard conform, trying gracious parsing.", manifestSummary.getManifestUri(), ex);
+        LOGGER.warn(
+            "Manifest at uri {} might be not standard conform, trying gracious parsing.",
+            manifestSummary.getManifestUri(),
+            ex);
         try {
           graciousManifestParser.fillSummary(manifestSummary);
         } catch (Exception e) {
@@ -80,12 +82,17 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     String viewId = getViewId(manifestSummary);
     manifestSummary.setViewId(viewId);
     // manifestUri now set to field @id of manifest.
-    // no longer might be the same value as from user input (could have been redirected...). now it is save to use it as unique key for lookup:
-    IiifManifestSummary existingManifest = prepareUpdateIfAlreadyExists(manifestSummary.getManifestUri(), manifestSummary);
+    // no longer might be the same value as from user input (could have been redirected...). now it
+    // is save to use it as unique key for lookup:
+    IiifManifestSummary existingManifest =
+        prepareUpdateIfAlreadyExists(manifestSummary.getManifestUri(), manifestSummary);
     try {
       iiifManifestSummaryRepository.save(manifestSummary);
     } catch (Exception ex) {
-      LOGGER.error("Error saving manifest with uri '{}', existing manifest uri '{}'", manifestSummary.getManifestUri(), existingManifest != null ? existingManifest.getManifestUri() : "not existing");
+      LOGGER.error(
+          "Error saving manifest with uri '{}', existing manifest uri '{}'",
+          manifestSummary.getManifestUri(),
+          existingManifest != null ? existingManifest.getManifestUri() : "not existing");
       throw ex;
     }
     iiifManifestSummarySearchRepository.save(manifestSummary);
@@ -93,7 +100,8 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
   }
 
   @Override
-  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) throws SearchSyntaxException {
+  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable)
+      throws SearchSyntaxException {
     return iiifManifestSummarySearchRepository.findBy(searchText, pageable);
   }
 
@@ -151,14 +159,18 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
     // if sha-1 leads to not unique collisions, use this:
     // return = manifestSummary.getUuid().toString();
     // create a short reasonable unique view id
-    String viewId = manifestSummary.getManifestUri(); // if it does not work, just use uuid (which is longer)
+    String viewId =
+        manifestSummary.getManifestUri(); // if it does not work, just use uuid (which is longer)
     viewId = DigestUtils.sha1Hex(viewId);
     return viewId.substring(0, 8);
   }
 
-  private IiifManifestSummary prepareUpdateIfAlreadyExists(final String manifestIdentifier, IiifManifestSummary manifestSummary) {
-    // if exists already: set/overwrite unique fields to values of existing summary to enforce update instead of insert
-    final IiifManifestSummary existingManifest = iiifManifestSummaryRepository.findByManifestUri(manifestIdentifier);
+  private IiifManifestSummary prepareUpdateIfAlreadyExists(
+      final String manifestIdentifier, IiifManifestSummary manifestSummary) {
+    // if exists already: set/overwrite unique fields to values of existing summary to enforce
+    // update instead of insert
+    final IiifManifestSummary existingManifest =
+        iiifManifestSummaryRepository.findByManifestUri(manifestIdentifier);
     if (existingManifest != null) {
       manifestSummary.setUuid(existingManifest.getUuid());
       manifestSummary.setViewId(existingManifest.getViewId());
@@ -172,6 +184,5 @@ public class IiifManifestSummaryServiceImpl implements IiifManifestSummaryServic
       // TODO: Could probably benefit from batched ingest
       iiifManifestSummarySearchRepository.save(summary);
     }
-
   }
 }

@@ -29,15 +29,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifestSummarySearchRepository<UUID> {
+public class IiifManifestSummarySearchRepositoryImplSolrj
+    implements IiifManifestSummarySearchRepository<UUID> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(IiifManifestSummarySearchRepositoryImplSolrj.class);
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(IiifManifestSummarySearchRepositoryImplSolrj.class);
 
-  @Autowired
-  private IiifManifestSummaryRepository iiifManifestSummaryRepository;
+  @Autowired private IiifManifestSummaryRepository iiifManifestSummaryRepository;
 
-  @Autowired
-  private SolrClient solr;
+  @Autowired private SolrClient solr;
 
   @Value("${custom.solr.collection}")
   private String collection;
@@ -76,14 +76,14 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
       }
       rs = response.getResults();
       numFound = rs.getNumFound();
-
     }
     LOGGER.info("--------------------------------------------------Results: " + rs.size());
     return getUUIDs(rs);
   }
 
   @Override
-  public Page<IiifManifestSummary> findBy(String text, Pageable pageable) throws SearchSyntaxException {
+  public Page<IiifManifestSummary> findBy(String text, Pageable pageable)
+      throws SearchSyntaxException {
     // läuft hier rein!!
     SolrQuery query = buildSolrQuery(text, (int) pageable.getOffset());
     query.setRows(pageable.getPageSize());
@@ -144,7 +144,8 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
     doc.addField("id", manifestSummary.getUuid().toString());
     doc.addField("manifesturi_keu", manifestSummary.getManifestUri());
     String[] uri = manifestSummary.getManifestUri().split("/");
-    // FIXME: just works with recommended url pattern (see http://iiif.io/api/presentation/2.1/#a-summary-of-recommended-uri-patterns)
+    // FIXME: just works with recommended url pattern (see
+    // http://iiif.io/api/presentation/2.1/#a-summary-of-recommended-uri-patterns)
     doc.addField("identifier_str", uri[uri.length - 2]);
 
     for (Entry<Locale, String> e : manifestSummary.getLabels().entrySet()) {
@@ -187,7 +188,11 @@ public class IiifManifestSummarySearchRepositoryImplSolrj implements IiifManifes
   protected String escapeUnwantedSpecialChars(String text) {
     // We don't want to escape whitespaces, * and "
     // But we want to escape all the ohter special characters
-    return ClientUtils.escapeQueryChars(text).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\?", "?").replaceAll("\\\\\\s", " ").replaceAll("\\\\\\\"", "\"");
+    return ClientUtils.escapeQueryChars(text)
+        .replaceAll("\\\\\\*", "*")
+        .replaceAll("\\\\\\?", "?")
+        .replaceAll("\\\\\\s", " ")
+        .replaceAll("\\\\\\\"", "\"");
   }
 
   private SolrQuery buildSolrQuery(String text, int start) {

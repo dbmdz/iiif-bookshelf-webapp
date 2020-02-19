@@ -15,20 +15,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.TextScore;
 
 @Document(collection = "iiif-manifest-summaries")
-// @CompoundIndex(name = "labels_descriptions_attributions_idx", def = "{'descriptions.values' : 1, 'labels.values' : 2,
+// @CompoundIndex(name = "labels_descriptions_attributions_idx", def = "{'descriptions.values' : 1,
+// 'labels.values' : 2,
 // 'attributions.values' : 1}")
 public class IiifManifestSummary {
 
-  @TextIndexed
-  private HashMap<Locale, String> attributions = new HashMap<>();
+  @TextIndexed private HashMap<Locale, String> attributions = new HashMap<>();
 
-  @TextIndexed
-  private HashMap<Locale, String> descriptions = new HashMap<>();
+  @TextIndexed private HashMap<Locale, String> descriptions = new HashMap<>();
 
   @TextIndexed(weight = 2)
   private HashMap<Locale, String> labels = new HashMap<>();
 
-// DOES NOT WORK BECAUSE OF CUSTOM @Id (not being mongo object id):
+  // DOES NOT WORK BECAUSE OF CUSTOM @Id (not being mongo object id):
   // @Temporal(TemporalType.TIMESTAMP)
   // @CreatedDate
   // private Date created;
@@ -39,16 +38,13 @@ public class IiifManifestSummary {
 
   private String logoUrl;
 
-  @TextIndexed
-  private String manifestUri;
+  @TextIndexed private String manifestUri;
 
-  @TextScore
-  private Float score;
+  @TextScore private Float score;
 
   private Thumbnail thumbnail;
 
-  @Id
-  private UUID uuid = UUID.randomUUID();
+  @Id private UUID uuid = UUID.randomUUID();
 
   @Indexed(sparse = true, unique = true)
   private String viewId;

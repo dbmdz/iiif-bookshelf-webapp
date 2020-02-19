@@ -52,8 +52,7 @@ public class WebController extends AbstractController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
 
-  @Autowired
-  private MessageSource messageSource;
+  @Autowired private MessageSource messageSource;
 
   @Autowired
   @Value("#{iiifVersions}")
@@ -62,17 +61,13 @@ public class WebController extends AbstractController {
   @Value("${custom.app.security.enabled}")
   private boolean authentication;
 
-  @Autowired
-  private IiifCollectionService iiifCollectionService;
+  @Autowired private IiifCollectionService iiifCollectionService;
 
-  @Autowired
-  private IiifManifestSummaryService iiifManifestSummaryService;
+  @Autowired private IiifManifestSummaryService iiifManifestSummaryService;
 
-  @Autowired
-  private ObjectMapper objectMapper;
+  @Autowired private ObjectMapper objectMapper;
 
-  @Autowired
-  private SharingConfig sharingConfig;
+  @Autowired private SharingConfig sharingConfig;
 
   /**
    * List with or without search query.
@@ -84,9 +79,15 @@ public class WebController extends AbstractController {
    * @param results validation results and errors
    * @return view of list of objects
    */
-  @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-  public String list(SearchRequest searchRequest, Model model, Pageable pageRequest, @RequestParam(required = false,
-    defaultValue = "grid") String style, BindingResult results) {
+  @RequestMapping(
+      value = {"", "/"},
+      method = RequestMethod.GET)
+  public String list(
+      SearchRequest searchRequest,
+      Model model,
+      Pageable pageRequest,
+      @RequestParam(required = false, defaultValue = "grid") String style,
+      BindingResult results) {
     verifyBinding(results);
 
     model.addAttribute("authentication", authentication);
@@ -119,7 +120,10 @@ public class WebController extends AbstractController {
     try {
       iiifManifestSummaryService.enrichAndSave(manifestSummary);
     } catch (IOException e) {
-      LOGGER.warn("Could not load manifest from {} because of malformed JSON", manifestSummary.getManifestUri(), e);
+      LOGGER.warn(
+          "Could not load manifest from {} because of malformed JSON",
+          manifestSummary.getManifestUri(),
+          e);
       model.addAttribute("manifest", manifestSummary);
       model.addAttribute("errorMessage", "Manifest at URL contains malformed JSON.");
       return "add";
@@ -141,7 +145,9 @@ public class WebController extends AbstractController {
     } catch (Exception e) {
       LOGGER.warn("Could not add collection manifest from {}", manifestSummary.getManifestUri(), e);
       model.addAttribute("manifest", manifestSummary);
-      model.addAttribute("errorMessage", "Could not add collection manifest from " + manifestSummary.getManifestUri());
+      model.addAttribute(
+          "errorMessage",
+          "Could not add collection manifest from " + manifestSummary.getManifestUri());
       return "add";
     }
     return "redirect:/";
@@ -157,18 +163,23 @@ public class WebController extends AbstractController {
       return summary;
     } catch (IOException e) {
       LOGGER.warn("IOException for manifest at {}: ", manifestUri, e);
-      throw new ApiException("Invalid manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
+      throw new ApiException(
+          "Invalid manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     } catch (NotFoundException | URISyntaxException e) {
       LOGGER.warn("Exception for manifest at {}: ", manifestUri, e);
       throw new ApiException("No manifest at URL '" + manifestUri + "'", HttpStatus.NOT_FOUND);
     } catch (Exception e) {
       LOGGER.warn("Exception for manifest at {}: ", manifestUri, e);
-      throw new ApiException("Exception for manifest at: '" + manifestUri + "'", HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new ApiException(
+          "Exception for manifest at: '" + manifestUri + "'", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   @ResponseBody
-  @RequestMapping(value = "/api/addCollection", method = RequestMethod.POST, produces = "application/json")
+  @RequestMapping(
+      value = "/api/addCollection",
+      method = RequestMethod.POST,
+      produces = "application/json")
   public boolean apiAddCollection(@RequestParam("uri") String manifestUri) throws ApiException {
     IiifManifestSummary summary = new IiifManifestSummary();
     summary.setManifestUri(manifestUri);
@@ -177,33 +188,41 @@ public class WebController extends AbstractController {
       return true;
     } catch (IOException e) {
       LOGGER.warn("IOException for collection at {}: ", manifestUri, e);
-      throw new ApiException("Invalid collection manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
+      throw new ApiException(
+          "Invalid collection manifest at URL '" + manifestUri + "'", HttpStatus.BAD_REQUEST);
     } catch (URISyntaxException e) {
-      throw new ApiException("No collection manifest at URL '" + manifestUri + "'", HttpStatus.NOT_FOUND);
+      throw new ApiException(
+          "No collection manifest at URL '" + manifestUri + "'", HttpStatus.NOT_FOUND);
     } catch (Exception e) {
       LOGGER.warn("Exception for collection at {}: ", manifestUri, e);
-      throw new ApiException("Exception for collection at: '" + manifestUri + "'", HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new ApiException(
+          "Exception for collection at: '" + manifestUri + "'", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-//  @CrossOrigin(origins = "*")
-//  @RequestMapping(value = {"/view/{uuid}"}, method = RequestMethod.GET)
-//  public String viewBook(@PathVariable UUID uuid, Model model) {
-//    IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(uuid);
-//    model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
-//    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
-//    model.addAttribute("title", title);
-//    return "mirador/view";
-//  }
+  //  @CrossOrigin(origins = "*")
+  //  @RequestMapping(value = {"/view/{uuid}"}, method = RequestMethod.GET)
+  //  public String viewBook(@PathVariable UUID uuid, Model model) {
+  //    IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(uuid);
+  //    model.addAttribute("manifestId", iiifManifestSummary.getManifestUri());
+  //    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary,
+  // LocaleContextHolder.getLocale());
+  //    model.addAttribute("title", title);
+  //    return "mirador/view";
+  //  }
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/view/{id}"}, method = RequestMethod.GET)
+  @RequestMapping(
+      value = {"/view/{id}"},
+      method = RequestMethod.GET)
   @Deprecated
   public String oldViewObject(@PathVariable String id, Model model) {
     return "redirect:/" + id + "/view";
   }
 
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/{id}/view"}, method = RequestMethod.GET)
+  @RequestMapping(
+      value = {"/{id}/view"},
+      method = RequestMethod.GET)
   public String viewObject(@PathVariable String id, Model model, Locale locale) {
     String redirect = redirectUuidToViewId(id);
     if (redirect != null) {
@@ -215,7 +234,8 @@ public class WebController extends AbstractController {
     return "mirador/view";
   }
 
-  protected Pair<Manifest, IiifManifestSummary> fillModelWithObject(String id, Model model, Locale locale) {
+  protected Pair<Manifest, IiifManifestSummary> fillModelWithObject(
+      String id, Model model, Locale locale) {
     IiifManifestSummary iiifManifestSummary = iiifManifestSummaryService.get(id);
     if (iiifManifestSummary == null) {
       throw new NotFoundException();
@@ -223,7 +243,8 @@ public class WebController extends AbstractController {
     model.addAttribute("iiifVersions", iiifVersions);
     final String manifestUri = iiifManifestSummary.getManifestUri();
     model.addAttribute("manifestId", manifestUri);
-    String title = iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
+    String title =
+        iiifManifestSummaryService.getLabel(iiifManifestSummary, LocaleContextHolder.getLocale());
     model.addAttribute("title", title);
     model.addAttribute("ogTitle", title);
     model.addAttribute("manifestSummary", iiifManifestSummary);
@@ -246,14 +267,16 @@ public class WebController extends AbstractController {
 
       return Pair.of(manifest, iiifManifestSummary);
     } catch (IOException e) {
-      model.addAttribute("error_message", messageSource.getMessage("manifest_error", new Object[]{}, locale));
+      model.addAttribute(
+          "error_message", messageSource.getMessage("manifest_error", new Object[] {}, locale));
     }
     return null;
   }
 
-
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/{id}/uv"}, method = RequestMethod.GET)
+  @RequestMapping(
+      value = {"/{id}/uv"},
+      method = RequestMethod.GET)
   public String viewObjectInUniversalViewer(@PathVariable String id, Model model, Locale locale) {
     String redirect = redirectUuidToViewId(id);
     if (redirect != null) {
@@ -266,15 +289,20 @@ public class WebController extends AbstractController {
   }
 
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/info/{id}"}, method = RequestMethod.GET)
+  @RequestMapping(
+      value = {"/info/{id}"},
+      method = RequestMethod.GET)
   @Deprecated
   public String oldObjectInfo(@PathVariable String id, Model model) {
     return "redirect:/" + id;
   }
 
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/{id}"}, method = RequestMethod.HEAD)
-  public void objectExists(@PathVariable String id, HttpServletResponse response) throws IOException {
+  @RequestMapping(
+      value = {"/{id}"},
+      method = RequestMethod.HEAD)
+  public void objectExists(@PathVariable String id, HttpServletResponse response)
+      throws IOException {
     IiifManifestSummary iiifManifestSummary;
 
     try {
@@ -292,7 +320,9 @@ public class WebController extends AbstractController {
   }
 
   @CrossOrigin(origins = "*")
-  @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
+  @RequestMapping(
+      value = {"/{id}"},
+      method = RequestMethod.GET)
   public String objectInfo(@PathVariable String id, Model model, Locale locale) throws IOException {
     String redirect = redirectUuidToViewId(id);
     if (redirect != null) {
@@ -327,9 +357,15 @@ public class WebController extends AbstractController {
     return ResponseEntity.status(e.statusCode).body(rv);
   }
 
-  @RequestMapping(value = {"/search"}, method = RequestMethod.GET)
-  public String search(SearchRequest searchRequest, Model model, Pageable pageRequest, @RequestParam(required = false,
-    defaultValue = "grid") String style, BindingResult results) {
+  @RequestMapping(
+      value = {"/search"},
+      method = RequestMethod.GET)
+  public String search(
+      SearchRequest searchRequest,
+      Model model,
+      Pageable pageRequest,
+      @RequestParam(required = false, defaultValue = "grid") String style,
+      BindingResult results) {
     verifyBinding(results);
 
     model.addAttribute("authentication", authentication);
@@ -368,7 +404,9 @@ public class WebController extends AbstractController {
     return "search-advanced";
   }
 
-  @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+  @RequestMapping(
+      value = {"/login"},
+      method = RequestMethod.GET)
   public String login() {
     return "login";
   }

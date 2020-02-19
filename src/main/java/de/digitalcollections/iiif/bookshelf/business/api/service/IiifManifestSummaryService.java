@@ -11,19 +11,18 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-/**
- *
- * @author ralf
- */
+/** @author ralf */
 public interface IiifManifestSummaryService {
 
   public IiifManifestSummary add(IiifManifestSummary manifest);
 
   public long countAll();
 
-  public void enrichAndSave(IiifManifestSummary manifestSummary) throws URISyntaxException, NotFoundException, IOException;
+  public void enrichAndSave(IiifManifestSummary manifestSummary)
+      throws URISyntaxException, NotFoundException, IOException;
 
-  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable) throws SearchSyntaxException;
+  public Page<IiifManifestSummary> findAll(String searchText, Pageable pageable)
+      throws SearchSyntaxException;
 
   public IiifManifestSummary get(UUID uuid);
 

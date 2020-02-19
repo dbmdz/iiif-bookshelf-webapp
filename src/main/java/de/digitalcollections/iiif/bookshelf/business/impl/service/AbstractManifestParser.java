@@ -29,11 +29,9 @@ public abstract class AbstractManifestParser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractManifestParser.class);
 
-  @Autowired
-  private ApplicationContext appContext;
+  @Autowired private ApplicationContext appContext;
 
-  @Autowired
-  private ObjectMapper objectMapper;
+  @Autowired private ObjectMapper objectMapper;
 
   @Value("${custom.summary.thumbnail.width}")
   private int thumbnailWidth;
@@ -43,7 +41,8 @@ public abstract class AbstractManifestParser {
       try {
         Resource springResource = appContext.getResource(serviceUrl + "/info.json");
         // get info.json for available sizes
-        ImageService imageServiceExternal = (ImageService) objectMapper.readValue(springResource.getInputStream(), Service.class);
+        ImageService imageServiceExternal =
+            (ImageService) objectMapper.readValue(springResource.getInputStream(), Service.class);
         sizes = imageServiceExternal.getSizes();
       } catch (IOException ex) {
         LOGGER.debug("Can not read info.json", ex);
@@ -51,12 +50,16 @@ public abstract class AbstractManifestParser {
     }
     int bestWidth = thumbnailWidth;
     if (sizes != null) {
-      bestWidth = sizes.stream()
+      bestWidth =
+          sizes.stream()
               .filter(s -> s.getWidth() >= thumbnailWidth)
               .sorted(Comparator.comparing(s -> Math.abs(thumbnailWidth - s.getWidth())))
-              .map(Size::getWidth).findFirst().orElse(thumbnailWidth);
+              .map(Size::getWidth)
+              .findFirst()
+              .orElse(thumbnailWidth);
     }
-    // TODO add check, if minimal width is met (make minWidth configurable), otherwise get second best width...
+    // TODO add check, if minimal width is met (make minWidth configurable), otherwise get second
+    // best width...
     String thumbnailUrl = String.format("%s/full/%d,/0/", serviceUrl, bestWidth);
     if (isV1) {
       thumbnailUrl += "native.jpg";
@@ -84,11 +87,13 @@ public abstract class AbstractManifestParser {
     return thumbnail;
   }
 
-  protected InputStream getContentInputStream(String uri) throws URISyntaxException, UnsupportedOperationException, IOException {
+  protected InputStream getContentInputStream(String uri)
+      throws URISyntaxException, UnsupportedOperationException, IOException {
     return getContentInputStream(new URI(uri));
   }
 
-  protected InputStream getContentInputStream(URI uri) throws UnsupportedOperationException, IOException {
+  protected InputStream getContentInputStream(URI uri)
+      throws UnsupportedOperationException, IOException {
     HttpClient httpClient = HttpClientBuilder.create().build();
     HttpGet httpGet = new HttpGet(uri);
     HttpResponse response = httpClient.execute(httpGet);
@@ -96,5 +101,6 @@ public abstract class AbstractManifestParser {
     return content;
   }
 
-  public abstract void fillSummary(IiifManifestSummary manifestSummary) throws IOException, URISyntaxException;
+  public abstract void fillSummary(IiifManifestSummary manifestSummary)
+      throws IOException, URISyntaxException;
 }

@@ -18,14 +18,13 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IiifCollectionServiceImpl.class);
 
-  @Autowired
-  private IiifManifestSummaryService iiifManifestSummaryService;
+  @Autowired private IiifManifestSummaryService iiifManifestSummaryService;
 
-  @Autowired
-  private StrictCollectionParser strictCollectionParser;
+  @Autowired private StrictCollectionParser strictCollectionParser;
 
   @Override
-  public void importAllObjects(IiifManifestSummary manifestSummary) throws URISyntaxException, IOException {
+  public void importAllObjects(IiifManifestSummary manifestSummary)
+      throws URISyntaxException, IOException {
     Collection collection = strictCollectionParser.parse(manifestSummary.getManifestUri());
     saveManifestsFromCollection(collection);
   }
@@ -36,7 +35,11 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
 
     int manifestsCount = (manifests != null) ? manifests.size() : -1;
     int subCollectionsCount = (subCollections != null) ? subCollections.size() : -1;
-    LOGGER.info("Processing collection '{}' with {} manifests and {} sub collections.", collection.getIdentifier().toString(), manifestsCount, subCollectionsCount);
+    LOGGER.info(
+        "Processing collection '{}' with {} manifests and {} sub collections.",
+        collection.getIdentifier().toString(),
+        manifestsCount,
+        subCollectionsCount);
 
     // try to get list of manifests
     if (manifests != null) {
@@ -49,7 +52,8 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
         try {
           iiifManifestSummaryService.enrichAndSave(summary);
         } catch (Exception e) {
-          LOGGER.warn("Could not read manifest from {} because of error {}", manifestUri, e.getMessage());
+          LOGGER.warn(
+              "Could not read manifest from {} because of error {}", manifestUri, e.getMessage());
         }
       }
     }
@@ -62,7 +66,10 @@ public class IiifCollectionServiceImpl implements IiifCollectionService {
           subCollection = strictCollectionParser.parse(subCollectionIdentifier);
           saveManifestsFromCollection(subCollection);
         } catch (Exception e) {
-          LOGGER.warn("Could not read collection from {} because of error {}", subCollectionIdentifier, e.getMessage());
+          LOGGER.warn(
+              "Could not read collection from {} because of error {}",
+              subCollectionIdentifier,
+              e.getMessage());
         }
       }
     }

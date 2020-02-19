@@ -13,13 +13,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class IiifManifestSummaryRepositoryImplMongo implements IiifManifestSummaryRepositoryCustom {
 
-  @Autowired
-  IiifManifestSummaryRepository repo;
+  @Autowired IiifManifestSummaryRepository repo;
 
   @PostConstruct
   public void ensureTextIndex() {
     // make sure the index is set up properly (not yet possible via Spring Data Annotations)
-    // mongoOperations.getCollection("iiif-manifest-summaries").ensureIndex(new BasicDBObject("description", "text"));
+    // mongoOperations.getCollection("iiif-manifest-summaries").ensureIndex(new
+    // BasicDBObject("description", "text"));
   }
 
   @Override
@@ -28,7 +28,8 @@ public class IiifManifestSummaryRepositoryImplMongo implements IiifManifestSumma
     textCriteria.matchingAny(text);
     // TextCriteria textCriteria = TextCriteria.forDefaultLanguage().matchingAny(text);
     // Query query = TextQuery.queryText(textCriteria).sortByScore();
-    // DBCursor find = mongoOperations.getCollection("iiif-manifest-summaries").find(query.getQueryObject());
+    // DBCursor find =
+    // mongoOperations.getCollection("iiif-manifest-summaries").find(query.getQueryObject());
     return repo.findBy(textCriteria, page);
 
     // List<IiifManifestSummary> find = mongoTemplate.find(query, IiifManifestSummary.class);

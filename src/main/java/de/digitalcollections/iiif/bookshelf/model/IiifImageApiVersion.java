@@ -1,10 +1,9 @@
 package de.digitalcollections.iiif.bookshelf.model;
 
-/**
- * TODO move to Image API library (model api)
- */
+/** TODO move to Image API library (model api) */
 public enum IiifImageApiVersion {
-  V1_1, V2;
+  V1_1,
+  V2;
 
   public static IiifImageApiVersion getVersion(String context) {
     if (context == null) {

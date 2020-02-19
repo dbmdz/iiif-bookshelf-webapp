@@ -18,8 +18,7 @@ public class SharingConfig {
       @Value("${custom.sharing.previewImage.url:#{null}}") String previewImageUrl,
       @Value("${custom.sharing.previewImage.width:#{null}}") String previewImageWidth,
       @Value("${custom.sharing.previewImage.height:#{null}}") String previewImageHeight,
-      @Value("${custom.sharing.twitter.siteHandle:#{null}}") String twitterSiteHandle
-  ) {
+      @Value("${custom.sharing.twitter.siteHandle:#{null}}") String twitterSiteHandle) {
     this.previewImageUrl = previewImageUrl;
     if (previewImageHeight != null) {
       this.previewImageHeight = Integer.parseInt(previewImageHeight);
@@ -46,5 +45,4 @@ public class SharingConfig {
   public String getTwitterSiteHandle() {
     return twitterSiteHandle;
   }
-
 }

@@ -9,7 +9,8 @@ public interface IiifManifestSummarySearchRepository<T> {
 
   public Iterable<T> findBy(String text, int start, int rows);
 
-  public Page<IiifManifestSummary> findBy(String text, Pageable pageable) throws SearchSyntaxException;
+  public Page<IiifManifestSummary> findBy(String text, Pageable pageable)
+      throws SearchSyntaxException;
 
   public Iterable<T> findBy(String text);
 

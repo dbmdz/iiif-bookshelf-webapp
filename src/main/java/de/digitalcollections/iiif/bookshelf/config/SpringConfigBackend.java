@@ -25,14 +25,14 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@ComponentScan(basePackages = {
-  "de.digitalcollections.iiif.bookshelf.backend.api.repository",
-  "de.digitalcollections.iiif.bookshelf.backend.impl.repository"
-})
-@EnableAutoConfiguration(exclude = {
-  SolrAutoConfiguration.class
-})
-@EnableMongoRepositories(basePackages = {"de.digitalcollections.iiif.bookshelf.backend.api.repository"})
+@ComponentScan(
+    basePackages = {
+      "de.digitalcollections.iiif.bookshelf.backend.api.repository",
+      "de.digitalcollections.iiif.bookshelf.backend.impl.repository"
+    })
+@EnableAutoConfiguration(exclude = {SolrAutoConfiguration.class})
+@EnableMongoRepositories(
+    basePackages = {"de.digitalcollections.iiif.bookshelf.backend.api.repository"})
 @EnableMongoAuditing
 public class SpringConfigBackend {
 
@@ -79,7 +79,13 @@ public class SpringConfigBackend {
     try {
       SolrPing ping = new SolrPing();
       SolrPingResponse response = ping.process(client, collection);
-      LOGGER.info("State of solr ping request to " + solrServerAddress + "/" + collection + ": " + response.getStatus());
+      LOGGER.info(
+          "State of solr ping request to "
+              + solrServerAddress
+              + "/"
+              + collection
+              + ": "
+              + response.getStatus());
     } catch (IOException | SolrServerException e) {
       LOGGER.error("Cannot connect to " + solrServerAddress + ": " + e, e);
     }

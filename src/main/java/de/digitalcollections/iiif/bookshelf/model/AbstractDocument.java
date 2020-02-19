@@ -5,8 +5,7 @@ import org.springframework.data.annotation.Id;
 
 public class AbstractDocument {
 
-  @Id
-  private BigInteger documentId;
+  @Id private BigInteger documentId;
 
   public void setId(BigInteger id) {
     this.documentId = id;
