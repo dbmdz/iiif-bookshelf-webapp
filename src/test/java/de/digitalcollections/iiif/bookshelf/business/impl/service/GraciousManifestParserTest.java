@@ -76,8 +76,7 @@ public class GraciousManifestParserTest {
     result = iiifManifestSummary.getThumbnail();
     assertThat(result).isNotNull();
 
-    expResult =
-        "https://dlcs.io/thumbs/wellcome/1/1a1fcf18-8965-4f72-9324-45c3f6b4b469/full/654,/0/default.jpg";
+    expResult = "https://dlcs.io/thumbs/wellcome/5/b19792827_0001.jp2/full/654,/0/default.jpg";
     url = result.getUrl();
     assertThat(url).isEqualTo(expResult);
 
