@@ -79,7 +79,7 @@
     <version.mongeez>0.9.6</version.mongeez>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.5.Final</version.prettytime>
-    <version.solrj>8.0.0</version.solrj>
+    <version.solrj>8.6.0</version.solrj>
     <version.spotbugs>4.0.6</version.spotbugs>
     <version.webjar-bootstrap>3.4.1</version.webjar-bootstrap>
     <version.webjar-fontawesome>4.7.0</version.webjar-fontawesome>
