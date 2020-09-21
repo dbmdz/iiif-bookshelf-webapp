@@ -22,18 +22,9 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+      - name: Start docker setup
+        run: docker-compose up -d
       - name: Build with Maven
         run: mvn -B verify
       - name: Report Coverage
         uses: codecov/codecov-action@v1
-    services:
-      database:
-        image: mongo:3
-        ports:
-          - "20202:27017"
-      search:
-        build:
-          context: .
-          dockerfile: Dockerfile-solr
-        ports:
-          - "21212:8983"
