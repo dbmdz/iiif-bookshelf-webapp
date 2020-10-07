@@ -1,8 +1,6 @@
 # IIIF Bookshelf Webapp
 
 [![Javadocs](https://javadoc.io/badge/de.digitalcollections/iiif-bookshelf-webapp.svg)](https://javadoc.io/doc/de.digitalcollections/iiif-bookshelf-webapp)
-[![Build Status](https://img.shields.io/travis/dbmdz/iiif-bookshelf-webapp/master.svg)](https://travis-ci.org/dbmdz/iiif-bookshelf-webapp)
-[![Codecov](https://img.shields.io/codecov/c/github/dbmdz/iiif-bookshelf-webapp/master.svg)](https://codecov.io/gh/dbmdz/iiif-bookshelf-webapp)
 [![License](https://img.shields.io/github/license/dbmdz/iiif-bookshelf-webapp.svg)](LICENSE)
 [![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-bookshelf-webapp.svg)](https://github.com/dbmdz/iiif-bookshelf-webapp/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/de.digitalcollections/iiif-bookshelf-webapp.svg)](https://search.maven.org/search?q=a:iiif-bookshelf-webapp)
