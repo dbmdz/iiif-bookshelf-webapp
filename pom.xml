@@ -75,7 +75,7 @@
     <version.dc-commons-springmvc>4.1.2</version.dc-commons-springmvc>
     <version.iiif-apis>0.3.8</version.iiif-apis>
     <version.json-simple>1.1.1</version.json-simple>
-    <version.logstash-logback-encoder>6.4</version.logstash-logback-encoder>
+    <version.logstash-logback-encoder>6.5</version.logstash-logback-encoder>
     <version.mongeez>0.9.6</version.mongeez>
     <version.persistence-api>1.0.2</version.persistence-api>
     <version.prettytime>4.0.6.Final</version.prettytime>
