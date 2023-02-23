@@ -11,7 +11,6 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-/** @author ralf */
 public interface IiifManifestSummaryService {
 
   public IiifManifestSummary add(IiifManifestSummary manifest);
