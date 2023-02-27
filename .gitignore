@@ -2,3 +2,7 @@
 *.iml
 /nbproject/
 /.idea/
+**/.classpath
+**/.project
+**/.settings
+/nb-configuration.xml
